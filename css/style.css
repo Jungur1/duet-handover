@@ -238,6 +238,16 @@ a:hover {
   color: #fff;
   border-color: #D97706;
 }
+.btn-admin-active {
+  background: #0F172A;
+  color: #38BDF8;
+  border-color: #38BDF8;
+}
+
+/* Visitor vs Admin Mode */
+body:not(.admin-mode) .admin-only {
+  display: none !important;
+}
 
 /* Edit Banner */
 .edit-mode-banner {

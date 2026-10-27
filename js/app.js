@@ -68,6 +68,7 @@
   let checkStore = {};
   let state = {
     currentTab: "overview",
+    adminMode: false,
     editMode: false,
     calSubView: "calendar", // 'calendar' | 'monthly' | 'gallery'
     selectedMonth: "2026-03",
@@ -338,7 +339,7 @@
           <div class="drive-card-top">
             <span class="drive-icon">${dl.icon}</span>
             <span class="drive-status ${hasUrl ? "linked" : "pending"}">
-              ${hasUrl ? "✅ 링크 연결됨" : "⚙️ 링크 입력 가능"}
+              ${hasUrl ? "✅ 링크 연결됨" : state.adminMode ? "⚙️ 링크 입력 가능" : "⏳ 링크 준비 중"}
             </span>
           </div>
           <div class="drive-title">${esc(dl.title)}</div>
@@ -347,9 +348,11 @@
             ${
               hasUrl
                 ? `<a href="${esc(dl.url)}" target="_blank" rel="noopener" class="btn btn-crimson" style="flex:1;justify-content:center;text-decoration:none;">🔗 바로 열기</a>`
-                : `<button class="btn btn-crimson" data-open-drive-modal="${esc(dl.id)}" style="flex:1;justify-content:center;">🔗 링크 등록하기</button>`
+                : state.adminMode
+                ? `<button class="btn btn-crimson admin-only" data-open-drive-modal="${esc(dl.id)}" style="flex:1;justify-content:center;">🔗 링크 등록하기</button>`
+                : `<button class="btn" disabled style="flex:1;justify-content:center;opacity:0.6;cursor:not-allowed;">⏳ 드라이브 링크 준비 중</button>`
             }
-            <button class="btn" data-open-drive-modal="${esc(dl.id)}" title="링크 수정">✏️</button>
+            <button class="btn admin-only" data-open-drive-modal="${esc(dl.id)}" title="링크 수정">✏️</button>
           </div>
         </div>
       `;
@@ -416,10 +419,10 @@
             <span class="section-tag">GOOGLE DRIVE & ARCHIVE HUB</span>
             <h2 class="section-title">🔗 구글폼 모음 드라이브 & 전체 인수인계 자료실 링크</h2>
             <p class="section-subtitle">
-              구글폼 사본(수요조사·신청폼·투표폼·만족도조사) 드라이브와 원본 자료실 드라이브 링크입니다. 우측 상단 <strong>[🔗 드라이브 링크 설정]</strong> 버튼으로 언제든 주소를 변경할 수 있습니다.
+              구글폼 사본(수요조사·신청폼·투표폼·만족도조사) 드라이브와 원본 자료실 드라이브 아카이브 링크입니다.
             </p>
           </div>
-          <button class="btn" id="overviewEditDriveBtn">⚙️ 링크 일괄 설정</button>
+          <button class="btn admin-only" id="overviewEditDriveBtn">⚙️ 링크 일괄 설정</button>
         </div>
         <div class="drive-hub-grid" style="margin-bottom:0;">
           ${driveCardsHtml}
@@ -439,7 +442,7 @@
         <div class="callout callout-thought" style="margin-top:0;">
           <div class="callout-header">
             <span>💛 18대 학생회장 원준혁의 인사말 & 인수인계 사이트 제작 배경</span>
-            <span style="font-size:12px;opacity:0.8;">(편집 모드에서 직접 수정 가능)</span>
+            <span class="admin-only" style="font-size:12px;opacity:0.8;">(편집 모드에서 직접 수정 가능)</span>
           </div>
           <div class="callout-body" data-editable="true" data-edit-key="overview_greeting">${esc(greetingBody)}</div>
         </div>
@@ -554,7 +557,7 @@
                 <span style="font-size:12.5px;font-weight:700;color:var(--text-muted);min-width:65px;">🏷️ 분류 필터:</span>
                 <div class="month-tabs">${catTabsHtml}</div>
               </div>
-              <button class="btn" id="addCustomEventBtn" title="새로운 행사나 공지글을 캘린더에 추가합니다">➕ 새 행사/공지 추가</button>
+              <button class="btn admin-only" id="addCustomEventBtn" title="새로운 행사나 공지글을 캘린더에 추가합니다">➕ 새 행사/공지 추가</button>
             </div>
           </div>
         `
@@ -754,7 +757,7 @@
       <div class="callout callout-thought" style="margin-top:12px;">
         <div class="callout-header">
           <span>💡 18대 당시 내 생각 & 고려사항 (Behind-the-Scenes)</span>
-          <span style="font-size:11px;opacity:0.8;">✏️ 편집 가능</span>
+          <span class="admin-only" style="font-size:11px;opacity:0.8;">✏️ 편집 가능</span>
         </div>
         <div class="callout-body" data-event-edit-field="thought" data-event-id="${esc(ev.id)}">${esc(ev.thought || "")}</div>
       </div>
@@ -1191,9 +1194,60 @@
   }
 
   // =========================================================================
-  // 4. INLINE EDIT MODE & EXPORT DATA.JS
+  // 4. ADMIN MODE vs VISITOR MODE & INLINE EDIT MODE
   // =========================================================================
+  const ADMIN_PASSWORDS = ["duet18", "3561", "01035163561"];
+
+  function handleAdminModeBtnClick() {
+    if (state.adminMode) {
+      // Lock back to Visitor Mode
+      state.adminMode = false;
+      state.editMode = false;
+      document.body.classList.remove("admin-mode", "edit-mode");
+      const editBtn = document.getElementById("editModeToggleBtn");
+      if (editBtn) {
+        editBtn.classList.remove("btn-edit-active");
+        editBtn.innerHTML = "✏️ 코멘트/공지 편집";
+      }
+      updateAdminBtnUI();
+      renderMainContent();
+      showToast("🔒 방문자 모드로 잠겼습니다. (모든 수정 기능 비활성화)");
+    } else {
+      const modal = document.getElementById("adminLoginModal");
+      const inp = document.getElementById("adminPasswordInput");
+      if (!modal || !inp) return;
+      inp.value = "";
+      modal.classList.add("open");
+      setTimeout(() => inp.focus(), 50);
+    }
+  }
+
+  function confirmAdminLogin() {
+    const inp = document.getElementById("adminPasswordInput");
+    if (!inp) return;
+    const val = inp.value.trim().toLowerCase();
+    if (!ADMIN_PASSWORDS.includes(val)) {
+      alert("비밀번호가 일치하지 않습니다.");
+      inp.focus();
+      return;
+    }
+    state.adminMode = true;
+    document.body.classList.add("admin-mode");
+    document.getElementById("adminLoginModal")?.classList.remove("open");
+    updateAdminBtnUI();
+    renderMainContent();
+    showToast("🔓 관리자 모드가 켜졌습니다! 이제 상단에서 링크 설정 및 코멘트/공지 편집이 가능합니다.");
+  }
+
+  function updateAdminBtnUI() {
+    const btn = document.getElementById("adminModeBtn");
+    if (!btn) return;
+    btn.classList.toggle("btn-admin-active", state.adminMode);
+    btn.innerHTML = state.adminMode ? "🔓 관리자 모드 (잠금 전환)" : "🔒 방문자 모드";
+  }
+
   function toggleEditMode() {
+    if (!state.adminMode) return;
     state.editMode = !state.editMode;
     document.body.classList.toggle("edit-mode", state.editMode);
     const btn = document.getElementById("editModeToggleBtn");
@@ -1223,13 +1277,15 @@
   }
 
   function applyEditModeAttributes() {
+    const canEdit = Boolean(state.adminMode && state.editMode);
     // 1. Standard data-edit-key elements
     document.querySelectorAll("[data-editable='true'][data-edit-key]").forEach((el) => {
-      if (state.editMode) {
+      if (canEdit) {
         el.setAttribute("contenteditable", "true");
         if (!el.dataset.boundEdit) {
           el.dataset.boundEdit = "1";
           el.addEventListener("blur", () => {
+            if (!state.adminMode || !state.editMode) return;
             const key = el.getAttribute("data-edit-key");
             if (el.tagName === "UL" || el.tagName === "OL") {
               customStore.textEdits[key] = el.innerHTML;
@@ -1247,12 +1303,13 @@
 
     // 2. Calendar event editable fields (title, date, noticeText, thought)
     document.querySelectorAll("[data-event-edit-field]").forEach((el) => {
-      if (state.editMode) {
+      if (canEdit) {
         el.setAttribute("data-editable", "true");
         el.setAttribute("contenteditable", "true");
         if (!el.dataset.boundEvEdit) {
           el.dataset.boundEvEdit = "1";
           el.addEventListener("blur", () => {
+            if (!state.adminMode || !state.editMode) return;
             const evId = el.getAttribute("data-event-id");
             const field = el.getAttribute("data-event-edit-field");
             const val = el.innerText.trim();
@@ -1271,6 +1328,7 @@
   }
 
   function exportUpdatedDataJs() {
+    if (!state.adminMode) return;
     const exportObj = JSON.parse(JSON.stringify(appData));
     exportObj.customEdits = customStore;
     const jsContent = "window.DUET_DEFAULT_DATA = " + JSON.stringify(exportObj, null, 2) + ";\n";
@@ -1287,6 +1345,7 @@
   }
 
   function resetAllCustomEdits() {
+    if (!state.adminMode) return;
     if (!confirm("브라우저에 임시 저장된 편집 내용을 초기 상태로 되돌리시겠습니까?")) return;
     localStorage.removeItem(STORAGE_KEY);
     customStore = { driveLinks: {}, textEdits: {}, eventEdits: {}, customEvents: [] };
@@ -1320,6 +1379,7 @@
   // 6. MODALS: DRIVE LINKS, ADD EVENT, GLOBAL SEARCH, LIGHTBOX
   // =========================================================================
   function openDriveModal(focusId) {
+    if (!state.adminMode) return;
     const modal = document.getElementById("driveModal");
     const body = document.getElementById("driveModalFormBody");
     if (!modal || !body) return;
@@ -1359,6 +1419,7 @@
   }
 
   function openAddEventModal() {
+    if (!state.adminMode) return;
     const modal = document.getElementById("addEventModal");
     if (!modal) return;
     document.getElementById("newEvMonth").value = state.selectedMonth;
@@ -1548,6 +1609,14 @@
 
     // Header actions
     document.getElementById("themeToggleBtn")?.addEventListener("click", toggleTheme);
+    document.getElementById("adminModeBtn")?.addEventListener("click", handleAdminModeBtnClick);
+    document.getElementById("confirmAdminLoginBtn")?.addEventListener("click", confirmAdminLogin);
+    document.getElementById("adminPasswordInput")?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        confirmAdminLogin();
+      }
+    });
     document.getElementById("editModeToggleBtn")?.addEventListener("click", toggleEditMode);
     document.getElementById("openDriveConfigBtn")?.addEventListener("click", () => openDriveModal());
     document.getElementById("openSearchBtn")?.addEventListener("click", openSearchModal);

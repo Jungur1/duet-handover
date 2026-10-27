@@ -26,14 +26,17 @@
         🔍 <span>사업·회칙·공지글 통합 검색...</span>
         <kbd>Ctrl K</kbd>
       </button>
-      <button class="btn" id="openDriveConfigBtn" title="구글폼 모음 드라이브 및 전체 자료실 링크 설정">
+      <button class="btn admin-only" id="openDriveConfigBtn" title="구글폼 모음 드라이브 및 전체 자료실 링크 설정">
         🔗 드라이브 링크 설정
       </button>
-      <button class="btn" id="editModeToggleBtn" title="당시 내 생각·고려사항·공지글을 웹에서 직접 수정합니다">
+      <button class="btn admin-only" id="editModeToggleBtn" title="당시 내 생각·고려사항·공지글을 웹에서 직접 수정합니다">
         ✏️ 코멘트/공지 편집
       </button>
-      <button class="btn btn-crimson" id="exportDataJsBtn" title="웹에서 수정한 링크와 코멘트를 data.js 파일로 저장합니다">
+      <button class="btn btn-crimson admin-only" id="exportDataJsBtn" title="웹에서 수정한 링크와 코멘트를 data.js 파일로 저장합니다">
         💾 수정본 data.js 저장
+      </button>
+      <button class="btn" id="adminModeBtn" title="방문자 모드 / 관리자 모드 전환">
+        🔒 방문자 모드
       </button>
       <button class="btn" id="themeToggleBtn" title="다크 모드 / 라이트 모드 전환">
         🌙 다크
@@ -176,6 +179,27 @@
         <button class="btn btn-crimson" data-close-modal="lightboxModal">✕ 닫기 (ESC)</button>
       </div>
       <img src="" alt="확대 이미지" class="lightbox-img" id="lightboxImg">
+    </div>
+  </div>
+
+  <!-- 5. Admin Mode Login Modal -->
+  <div class="modal-backdrop" id="adminLoginModal">
+    <div class="modal-card" style="max-width:420px;">
+      <div class="modal-header">
+        <div class="modal-title">🔐 관리자 모드 전환</div>
+        <button class="btn" data-close-modal="adminLoginModal">✕ 닫기</button>
+      </div>
+      <p class="body-text" style="font-size:13px;">
+        방문자 모드에서는 모든 문서·캘린더·공지글 열람만 가능하며 수정이 잠겨 있습니다. 링크 설정이나 코멘트/공지글 수정을 위해 관리자 비밀번호를 입력해 주세요.
+      </p>
+      <div class="form-group">
+        <label>관리자 비밀번호</label>
+        <input type="password" id="adminPasswordInput" placeholder="비밀번호를 입력하세요">
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;">
+        <button class="btn" data-close-modal="adminLoginModal">취소</button>
+        <button class="btn btn-crimson" id="confirmAdminLoginBtn">🔓 관리자 모드 켜기</button>
+      </div>
     </div>
   </div>
 
