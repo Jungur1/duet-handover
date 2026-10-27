@@ -243,7 +243,7 @@
         const isActive = state.currentTab === item.id;
         html += `
           <li>
-            <div class="nav-item ${isActive ? "active" : ""}" data-nav-tab="${item.id}">
+            <div class="nav-item ${isActive ? "active" : ""}" data-nav-tab="${item.id}" role="button" tabindex="0"${isActive ? ' aria-current="page"' : ""}>
               <span>${item.icon}</span>
               <span>${esc(item.label)}</span>
               ${item.badge ? `<span class="nav-badge">${esc(item.badge)}</span>` : ""}
@@ -261,6 +261,7 @@
       el.addEventListener("click", () => {
         const tab = el.getAttribute("data-nav-tab");
         switchTab(tab);
+        navContainer.querySelector(`[data-nav-tab="${tab}"]`)?.focus({ preventScroll: true });
         document.getElementById("sidebar")?.classList.remove("open");
       });
     });
@@ -309,16 +310,16 @@
     if (!Array.isArray(sections) || sections.length === 0) {
       if (tabId === "calendar") {
         return `${toggleBtnHtml}<ul class="sub-nav-list ${collapsedClass}">
-          <li class="sub-nav-item" data-cal-mode="calendar">📅 월별 캘린더 & 공지글 뷰</li>
-          <li class="sub-nav-item" data-cal-mode="monthly">📊 월간보고 슬라이드 (1~8월 · 7호)</li>
-          <li class="sub-nav-item" data-cal-mode="gallery">🖼️ 홍보물·카드뉴스 전체 갤러리</li>
+          <li class="sub-nav-item" data-cal-mode="calendar" role="button" tabindex="0">📅 월별 캘린더 & 공지글 뷰</li>
+          <li class="sub-nav-item" data-cal-mode="monthly" role="button" tabindex="0">📊 월간보고 슬라이드 (1~8월 · 7호)</li>
+          <li class="sub-nav-item" data-cal-mode="gallery" role="button" tabindex="0">🖼️ 홍보물·카드뉴스 전체 갤러리</li>
         </ul>`;
       }
       return "";
     }
     let subHtml = `${toggleBtnHtml}<ul class="sub-nav-list ${collapsedClass}">`;
     sections.forEach((sec) => {
-      subHtml += `<li class="sub-nav-item" data-scroll-to="${esc(sec.id)}">${esc(sec.title)}</li>`;
+      subHtml += `<li class="sub-nav-item" data-scroll-to="${esc(sec.id)}" role="button" tabindex="0">${esc(sec.title)}</li>`;
     });
     subHtml += `</ul>`;
     return subHtml;
@@ -659,7 +660,7 @@
           const catClass = CATEGORY_META[ev.category]?.className || "cat-pres";
           const isSel = activeEv && activeEv.id === ev.id ? "selected" : "";
           const hasImgIcon = ev.images && ev.images.length > 0 ? "🖼️ " : "";
-          return `<div class="cal-event-pill ${catClass} ${isSel}" data-select-event="${esc(ev.id)}" title="${esc(ev.title)}">${hasImgIcon}${esc(ev.title)}</div>`;
+          return `<div class="cal-event-pill ${catClass} ${isSel}" data-select-event="${esc(ev.id)}" title="${esc(ev.title)}" role="button" tabindex="0">${hasImgIcon}${esc(ev.title)}</div>`;
         })
         .join("");
       const extra = dayEvents.length - MAX_PILLS_PER_DAY;
@@ -689,7 +690,7 @@
             const isSel = activeEv && activeEv.id === ev.id;
             const imgCount = ev.images ? ev.images.length : 0;
             return `
-              <div class="timeline-item ${isSel ? "selected" : ""}" data-select-event="${esc(ev.id)}">
+              <div class="timeline-item ${isSel ? "selected" : ""}" data-select-event="${esc(ev.id)}" role="button" tabindex="0">
                 <span class="timeline-dot ${catMeta.className}"></span>
                 <div class="timeline-main">
                   <div class="timeline-title">${imgCount > 0 ? `🖼️ ` : ""}${esc(ev.title)}</div>
@@ -909,9 +910,9 @@
 
         <div class="media-carousel">
           <div class="carousel-stage">
-            <button class="carousel-nav-btn prev" data-rep-prev="${esc(rep.id)}">❮</button>
+            <button class="carousel-nav-btn prev" data-rep-prev="${esc(rep.id)}" title="이전 슬라이드" aria-label="이전 슬라이드">❮</button>
             <img src="${esc(imgs[safeIdx])}" alt="${esc(rep.title)}" data-zoom-report="${esc(rep.id)}" data-zoom-idx="${safeIdx}">
-            <button class="carousel-nav-btn next" data-rep-next="${esc(rep.id)}">❯</button>
+            <button class="carousel-nav-btn next" data-rep-next="${esc(rep.id)}" title="다음 슬라이드" aria-label="다음 슬라이드">❯</button>
           </div>
           <div class="carousel-thumbs">
             ${imgs
@@ -958,7 +959,7 @@
       .map((ev) => {
         const catMeta = CATEGORY_META[ev.category] || CATEGORY_META.pres;
         return `
-          <div class="promo-card" data-gallery-open-ev="${esc(ev.id)}">
+          <div class="promo-card" data-gallery-open-ev="${esc(ev.id)}" role="button" tabindex="0">
             <div class="promo-card-thumb">
               <img src="${esc(ev.images[0])}" alt="${esc(ev.title)}" loading="lazy">
               <span class="promo-card-count">🖼️ ${ev.images.length}장</span>
@@ -1305,7 +1306,7 @@
                 .map((ev) => {
                   const catMeta = CATEGORY_META[ev.category] || CATEGORY_META.pres;
                   return `
-                    <div class="promo-card" data-dept-open-ev="${esc(ev.id)}">
+                    <div class="promo-card" data-dept-open-ev="${esc(ev.id)}" role="button" tabindex="0">
                       <div class="promo-card-thumb">
                         <img src="${esc(ev.images[0])}" alt="${esc(ev.title)}" loading="lazy">
                         <span class="promo-card-count">🖼️ ${ev.images.length}장</span>
@@ -1926,7 +1927,7 @@
     container.innerHTML = limited
       .map(
         (r, i) => `
-        <div class="search-result-item" data-search-idx="${i}">
+        <div class="search-result-item" data-search-idx="${i}" role="button" tabindex="0">
           <div style="font-size:11.5px;font-weight:700;color:var(--crimson);margin-bottom:2px;">${esc(r.badge)}</div>
           <div style="font-size:14.5px;font-weight:700;color:var(--text);">${esc(r.title)}</div>
           <div style="font-size:12.5px;color:var(--text-muted);margin-top:2px;">${esc(r.snippet)}</div>
@@ -2101,6 +2102,13 @@
 
     // Keyboard shortcuts (Ctrl+K / Esc / Arrow keys in Lightbox)
     window.addEventListener("keydown", (e) => {
+      // Enter / Space activates div-based clickable items (role="button")
+      const roleBtn = e.target && e.target.closest ? e.target.closest('[role="button"][tabindex]') : null;
+      if (roleBtn && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        roleBtn.click();
+        return;
+      }
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         openSearchModal();
