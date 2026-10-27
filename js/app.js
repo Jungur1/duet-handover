@@ -261,13 +261,27 @@
         document.getElementById("sidebar")?.classList.remove("open");
       });
     });
+
+    // Bind sub-nav fold/unfold toggle
+    navContainer.querySelectorAll("[data-toggle-subnav]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.subNavCollapsed = !state.subNavCollapsed;
+        renderSidebar();
+      });
+    });
   }
 
   function renderSubNav(tabId) {
     const sections = window.DUET_SECTIONS[tabId];
+    const collapsedClass = state.subNavCollapsed ? "collapsed" : "";
+    const toggleBtnHtml = `<button class="sub-nav-toggle-btn" data-toggle-subnav="1">
+      ${state.subNavCollapsed ? "▸ 세부 목차 펼치기" : "▾ 세부 목차 접기"}
+    </button>`;
+
     if (!Array.isArray(sections) || sections.length === 0) {
       if (tabId === "calendar") {
-        return `<ul class="sub-nav-list">
+        return `${toggleBtnHtml}<ul class="sub-nav-list ${collapsedClass}">
           <li class="sub-nav-item" data-cal-mode="calendar">📅 월별 캘린더 & 공지글 뷰</li>
           <li class="sub-nav-item" data-cal-mode="monthly">📊 월간보고 슬라이드 (1~8월)</li>
           <li class="sub-nav-item" data-cal-mode="gallery">🖼️ 홍보물·카드뉴스 전체 갤러리</li>
@@ -275,7 +289,7 @@
       }
       return "";
     }
-    let subHtml = `<ul class="sub-nav-list">`;
+    let subHtml = `${toggleBtnHtml}<ul class="sub-nav-list ${collapsedClass}">`;
     sections.forEach((sec) => {
       subHtml += `<li class="sub-nav-item" data-scroll-to="${esc(sec.id)}">${esc(sec.title)}</li>`;
     });
@@ -1624,9 +1638,25 @@
     document.getElementById("bannerExportBtn")?.addEventListener("click", exportUpdatedDataJs);
     document.getElementById("bannerResetBtn")?.addEventListener("click", resetAllCustomEdits);
 
-    // Mobile sidebar toggle
-    document.getElementById("mobileMenuBtn")?.addEventListener("click", () => {
-      document.getElementById("sidebar")?.classList.toggle("open");
+    // Sidebar collapse / reopen toggles (laptop & mobile)
+    function toggleSidebar() {
+      if (window.innerWidth <= 820) {
+        document.getElementById("sidebar")?.classList.toggle("open");
+      } else {
+        document.body.classList.toggle("sidebar-collapsed");
+      }
+    }
+    document.getElementById("mobileMenuBtn")?.addEventListener("click", toggleSidebar);
+    document.getElementById("sidebarCollapseBtn")?.addEventListener("click", () => {
+      if (window.innerWidth <= 820) {
+        document.getElementById("sidebar")?.classList.remove("open");
+      } else {
+        document.body.classList.add("sidebar-collapsed");
+      }
+    });
+    document.getElementById("sidebarReopenFab")?.addEventListener("click", () => {
+      document.body.classList.remove("sidebar-collapsed");
+      document.getElementById("sidebar")?.classList.add("open");
     });
 
     // Modal close buttons
