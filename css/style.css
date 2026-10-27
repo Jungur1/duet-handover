@@ -149,7 +149,7 @@ a:hover {
 }
 
 .brand-badge {
-  background: linear-gradient(135deg, #8B0029, #B91C47);
+  background: #8B0029;
   color: #fff;
   font-weight: 800;
   font-size: 13px;
@@ -269,7 +269,7 @@ body:not(.admin-mode) .admin-only {
 /* Edit Banner */
 .edit-mode-banner {
   display: none;
-  background: linear-gradient(90deg, #FEF3C7, #FDE68A);
+  background: #FEF3C7;
   color: #78350F;
   padding: 10px 20px;
   font-size: 13.5px;
@@ -478,25 +478,11 @@ body.sidebar-collapsed .main-area {
 
 /* Hero Banner */
 .hero-card {
-  background: linear-gradient(135deg, #6E001F 0%, #8B0029 55%, #1E293B 100%);
+  background: #8B0029;
   color: #fff;
   padding: 32px 34px;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   margin-bottom: 26px;
-  box-shadow: var(--shadow-md);
-  position: relative;
-  overflow: hidden;
-}
-.hero-card::after {
-  content: "DUET 18th";
-  position: absolute;
-  right: 24px;
-  bottom: -14px;
-  font-size: 76px;
-  font-weight: 900;
-  color: rgba(255, 255, 255, 0.06);
-  pointer-events: none;
-  letter-spacing: -2px;
 }
 .hero-eyebrow {
   display: inline-flex;
@@ -562,13 +548,11 @@ body.sidebar-collapsed .main-area {
   flex-direction: column;
   gap: 8px;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+  transition: border-color 0.15s;
   position: relative;
 }
 .drive-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--crimson);
-  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
 }
 .drive-card-top {
   display: flex;
@@ -690,7 +674,7 @@ ul.doc-list li strong, ol.doc-list li strong {
   border-radius: var(--radius-sm);
   padding: 16px 18px;
   margin: 14px 0;
-  border-left: 4px solid;
+  border: 1px solid;
 }
 .callout-header {
   display: flex;
@@ -708,22 +692,22 @@ ul.doc-list li strong, ol.doc-list li strong {
 
 .callout-thought {
   background: var(--thought-bg);
-  border-left-color: var(--thought-border);
+  border-color: var(--thought-border);
   color: var(--thought-text);
 }
 .callout-notice {
   background: var(--notice-bg);
-  border-left-color: var(--notice-border);
+  border-color: var(--notice-border);
   color: var(--notice-text);
 }
 .callout-warn {
   background: var(--warn-bg);
-  border-left-color: var(--warn-border);
+  border-color: var(--warn-border);
   color: var(--warn-text);
 }
 .callout-tip {
   background: var(--tip-bg);
-  border-left-color: var(--tip-border);
+  border-color: var(--tip-border);
   color: var(--tip-text);
 }
 
@@ -1025,11 +1009,9 @@ table.doc-table tr:hover td {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
-  transition: transform 0.1s;
-  border-left: 3px solid transparent;
 }
 .cal-event-pill:hover {
-  transform: translateY(-1px);
+  text-decoration: underline;
 }
 .cal-event-pill.selected {
   outline: 2px solid var(--crimson);
@@ -1306,14 +1288,12 @@ table.doc-table tr:hover td {
   border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition: border-color 0.15s;
   display: flex;
   flex-direction: column;
 }
 .promo-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--crimson);
+  border-color: var(--border-strong);
 }
 .promo-card-thumb {
   height: 220px;

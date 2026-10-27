@@ -1333,7 +1333,7 @@
     }
 
     return `
-      <div class="doc-section" style="background:linear-gradient(135deg, var(--surface) 0%, var(--surface-alt) 100%);border-left:5px solid var(--crimson);">
+      <div class="doc-section">
         <span class="section-tag">${esc(headerMeta.badge)}</span>
         <h1 style="font-size:24px;font-weight:800;color:var(--text);margin-bottom:6px;">${esc(headerMeta.title)}</h1>
         <p style="font-size:14px;color:var(--text-secondary);margin-bottom:14px;">${esc(headerMeta.desc)}</p>
@@ -1728,7 +1728,7 @@
     const statusEl = document.getElementById("notionSyncStatus");
     if (statusEl) {
       statusEl.innerHTML = `
-        <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-left:4px solid #16a34a;border-radius:8px;line-height:1.55;">
+        <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-radius:8px;line-height:1.55;">
           ✅ <strong>현재 노션 DB 전체 일정 ${syncedCount}건(2025.11 ~ 2027.01, 상세 본문 29건 포함)이 <code>js/data.js</code>에 100% 반영되어 있습니다.</strong><br>
           <span style="font-size:12px;color:var(--text-muted);">• 로컬 PC에서 노션에 새 일정을 추가한 뒤 즉시 반영하려면 프로젝트 폴더의 <code>sync_notion.bat</code>을 실행하세요.</span>
         </div>
@@ -1876,7 +1876,7 @@
       const syncedCount = appData.calendarEvents.filter((e) => e.notionPageId || String(e.id).startsWith("notion_")).length;
       if (statusEl) {
         statusEl.innerHTML = `
-          <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-left:4px solid #16a34a;border-radius:8px;line-height:1.6;">
+          <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-radius:8px;line-height:1.6;">
             ✅ <strong>노션 DB 전체 일정 ${syncedCount}건 동기화 확인 완료!</strong><br>
             • 입력하신 노션 토큰과 DB ID(<code>${esc(rawDb)}</code>)가 이 브라우저에 안전하게 저장되었습니다.<br>
             • 현재 노션 데이터베이스의 <strong>전체 ${syncedCount}건(2025.11 ~ 2027.01, 상세 회의록·공지 본문 29건 포함)</strong>이 이미 <code>js/data.js</code>에 모두 병합되어 있습니다.<br>
