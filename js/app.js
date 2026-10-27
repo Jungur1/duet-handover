@@ -756,7 +756,7 @@
         </div>
 
         <!-- 2. Event Detail Panel (Right column on wide screens, directly below calendar on laptop/mobile) -->
-        <div class="event-detail-panel" id="eventDetailPanel">
+        <div class="event-detail-panel" id="eventDetailPanel" tabindex="-1">
           ${activeEv ? buildEventDetailHtml(activeEv) : `<p class="body-text">행사를 선택해주세요.</p>`}
         </div>
 
@@ -1076,9 +1076,12 @@
     // Select event pill or list item
     document.querySelectorAll("[data-select-event]").forEach((el) => {
       el.addEventListener("click", () => {
-        state.selectedEventId = el.getAttribute("data-select-event");
+        const evId = el.getAttribute("data-select-event");
+        state.selectedEventId = evId;
         state.eventImgIdx = 0;
         renderMainContent();
+        // Keep keyboard focus on the same item after the re-render
+        document.querySelector(`.${el.classList[0]}[data-select-event="${evId}"]`)?.focus({ preventScroll: true });
         if (window.innerWidth <= 1520) {
           setTimeout(() => {
             const detailEl = document.getElementById("eventDetailPanel");
@@ -1174,6 +1177,7 @@
           state.selectedEventId = ev.id;
           state.eventImgIdx = 0;
           renderMainContent();
+          document.getElementById("eventDetailPanel")?.focus({ preventScroll: true });
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
       });
@@ -1366,6 +1370,7 @@
           state.selectedEventId = ev.id;
           state.eventImgIdx = 0;
           switchTab("calendar");
+          document.getElementById("eventDetailPanel")?.focus({ preventScroll: true });
         }
       });
     });
