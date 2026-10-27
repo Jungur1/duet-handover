@@ -1608,10 +1608,7 @@ table.doc-table tr:hover td {
     min-width: auto;
     padding: 5px 8px;
   }
-  .search-trigger span, .search-trigger svg {
-  flex-shrink: 0;
-}
-.search-trigger kbd {
+  .search-trigger span, .search-trigger kbd {
     display: none;
   }
   .header-actions .btn {
