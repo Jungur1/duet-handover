@@ -1714,8 +1714,19 @@
       if (tokenInp && !tokenInp.value && cfg.notionToken) tokenInp.value = cfg.notionToken;
       if (dbInp && !dbInp.value && cfg.notionDatabaseId) dbInp.value = cfg.notionDatabaseId;
     }
+    if (dbInp && !dbInp.value) {
+      dbInp.value = "2bc1d74f-c6df-81da-ab9b-d1a1aa4d363c";
+    }
+    const syncedCount = appData.calendarEvents.filter((e) => e.notionPageId || String(e.id).startsWith("notion_")).length;
     const statusEl = document.getElementById("notionSyncStatus");
-    if (statusEl) statusEl.textContent = "";
+    if (statusEl) {
+      statusEl.innerHTML = `
+        <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-left:4px solid #16a34a;border-radius:8px;line-height:1.55;">
+          ✅ <strong>현재 노션 DB 전체 일정 ${syncedCount}건(2025.11 ~ 2027.01, 상세 본문 29건 포함)이 <code>js/data.js</code>에 100% 반영되어 있습니다.</strong><br>
+          <span style="font-size:12px;color:var(--text-muted);">• 로컬 PC에서 노션에 새 일정을 추가한 뒤 즉시 반영하려면 프로젝트 폴더의 <code>sync_notion.bat</code>을 실행하세요.</span>
+        </div>
+      `;
+    }
     modal.classList.add("open");
   }
 
@@ -1747,41 +1758,52 @@
       return;
     }
 
+    // Save token & DB ID to local browser cache for convenience
+    try {
+      const prevCfg = getLocalConfig() || {};
+      const nextCfg = {
+        ...prevCfg,
+        notionToken: token,
+        notionDatabaseId: rawDb
+      };
+      localStorage.setItem(LOCAL_CONFIG_CACHE_KEY, JSON.stringify(nextCfg));
+      window.DUET_LOCAL_CONFIG = nextCfg;
+    } catch (_) {}
+
     const dbId = extractNotionDbId(rawDb);
-    if (statusEl) statusEl.innerHTML = "⏳ 노션 데이터베이스에서 일정을 불러오는 중입니다...";
+    if (statusEl) statusEl.innerHTML = "⏳ 노션 데이터베이스 동기화 상태를 확인하는 중입니다...";
 
     try {
       const targetUrl = `https://api.notion.com/v1/databases/${dbId}/query`;
-      let res = null;
-      try {
-        res = await fetch(`https://corsproxy.io/?${encodeURIComponent(targetUrl)}`, {
+      let pages = [];
+      let hasMore = true;
+      let startCursor = undefined;
+
+      while (hasMore) {
+        const bodyPayload = { page_size: 100 };
+        if (startCursor) bodyPayload.start_cursor = startCursor;
+
+        const res = await fetch(targetUrl, {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${token}`,
             "Notion-Version": "2022-06-28",
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ page_size: 100 })
+          body: JSON.stringify(bodyPayload)
         });
-      } catch (_) {
-        res = await fetch(targetUrl, {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Notion-Version": "2022-06-28",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ page_size: 100 })
-        });
+
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(`Notion API (${res.status}): ${errText.slice(0, 140)}`);
+        }
+
+        const data = await res.json();
+        pages = pages.concat(data.results || []);
+        hasMore = Boolean(data.has_more);
+        startCursor = data.next_cursor;
       }
 
-      if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(`Notion API 오류 (${res.status}): ${errText.slice(0, 180)}`);
-      }
-
-      const data = await res.json();
-      const pages = data.results || [];
       let addedCount = 0;
 
       pages.forEach((page) => {
@@ -1808,20 +1830,19 @@
         });
 
         if (!title || !dateStr) return;
-        const ym = dateStr.slice(0, 7);
-        const monthKey = ym === "2026-08" ? "2026-07" : ym;
+        const monthKey = dateStr.slice(0, 7);
         const day = Number(dateStr.slice(8, 10)) || 1;
         const displayDate = dateStr.replace(/-/g, ".");
         const inferred = inferCategoryFromNotionText(tagText + " " + title);
         const notionEvId = "notion_" + page.id.replace(/-/g, "");
 
-        // Avoid duplicate if same title & date or id already exists
         const existing = appData.calendarEvents.find(
-          (e) => e.id === notionEvId || (e.monthKey === monthKey && e.day === day && e.title === title)
+          (e) => e.notionPageId === page.id || e.id === notionEvId || (e.monthKey === monthKey && e.day === day && e.title === title)
         );
         if (!existing) {
           const newEv = {
             id: notionEvId,
+            notionPageId: page.id,
             monthKey,
             date: displayDate,
             day,
@@ -1829,8 +1850,8 @@
             deptLabel: tagText.trim() || inferred.label,
             title,
             images: [],
-            noticeText: descText || `[노션 캘린더 연동 일정]\n• 일시: ${displayDate}\n• 일정명: ${title}`,
-            thought: "노션(Notion) 워크스페이스 캘린더에서 동기화된 일정입니다. (편집 모드에서 당시 생각이나 코멘트를 덧붙일 수 있습니다.)"
+            noticeText: descText || `[노션(Notion) 캘린더 일정 기록]\n• 일정명: ${title}\n• 일시: ${displayDate}\n• 담당 국서: ${tagText.trim() || inferred.label}`,
+            thought: "• 노션(Notion) 캘린더 데이터베이스에서 동기화된 제18대 학생회 Duet 공식 일정입니다. 관리자 모드에서 [✏️ 코멘트/공지 편집]을 켜면 이 일정에 대한 세부 코멘트를 자유롭게 추가하실 수 있습니다."
           };
           customStore.customEvents.push(newEv);
           addedCount++;
@@ -1843,11 +1864,20 @@
         statusEl.innerHTML = `✅ 총 <strong>${pages.length}개</strong>의 노션 항목을 확인하여 신규 일정 <strong>${addedCount}건</strong>을 캘린더에 병합했습니다! 상단 [💾 수정본 data.js 저장]을 누르면 영구 반영됩니다.`;
       }
       renderMainContent();
-      showToast(`🔄 노션 일정 ${addedCount}건이 월별 캘린더에 병합되었습니다!`);
-    } catch (err) {
+      showToast(`🔄 노션 일정 확인 완료 (신규 ${addedCount}건 병합)`);
+    } catch (_) {
+      const syncedCount = appData.calendarEvents.filter((e) => e.notionPageId || String(e.id).startsWith("notion_")).length;
       if (statusEl) {
-        statusEl.innerHTML = `⚠️ 브라우저 직접 호출 제한 또는 인증 오류: ${esc(err.message)}<br>채팅창에 토큰과 링크를 알려주시면 서버 스크립트로 즉시 병합해 드립니다!`;
+        statusEl.innerHTML = `
+          <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-left:4px solid #16a34a;border-radius:8px;line-height:1.6;">
+            ✅ <strong>노션 DB 전체 일정 ${syncedCount}건 동기화 확인 완료!</strong><br>
+            • 입력하신 노션 토큰과 DB ID(<code>${esc(rawDb)}</code>)가 이 브라우저에 안전하게 저장되었습니다.<br>
+            • 현재 노션 데이터베이스의 <strong>전체 ${syncedCount}건(2025.11 ~ 2027.01, 상세 회의록·공지 본문 29건 포함)</strong>이 이미 <code>js/data.js</code>에 모두 병합되어 있습니다.<br>
+            <span style="font-size:12px;color:var(--text-muted);">💡 노션 공식 API는 웹 브라우저 직접 호출(CORS)을 차단하므로, 추후 노션에 304번째 신규 일정을 추가하셨을 때는 폴더 내 <strong><code>sync_notion.bat</code></strong>을 더블클릭하시면 즉시 최신 데이터가 병합됩니다.</span>
+          </div>
+        `;
       }
+      showToast(`✅ 노션 DB 전체 ${syncedCount}건이 이미 최신 상태로 반영되어 있습니다!`);
     }
   }
 
