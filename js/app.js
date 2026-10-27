@@ -6,6 +6,7 @@
   const THEME_STORAGE_KEY = "duet_handover_theme";
 
   const MONTHS_LIST = [
+    { key: "2025-11", label: "25년 11월", year: 2025, month: 11 },
     { key: "2025-12", label: "25년 12월", year: 2025, month: 12 },
     { key: "2026-01", label: "26년 1월", year: 2026, month: 1 },
     { key: "2026-02", label: "26년 2월", year: 2026, month: 2 },
@@ -13,9 +14,13 @@
     { key: "2026-04", label: "26년 4월", year: 2026, month: 4 },
     { key: "2026-05", label: "26년 5월", year: 2026, month: 5 },
     { key: "2026-06", label: "26년 6월", year: 2026, month: 6 },
-    { key: "2026-07", label: "26년 7·8월", year: 2026, month: 7 },
+    { key: "2026-07", label: "26년 7월", year: 2026, month: 7 },
+    { key: "2026-08", label: "26년 8월", year: 2026, month: 8 },
     { key: "2026-09", label: "26년 9월", year: 2026, month: 9 },
-    { key: "2026-10", label: "26년 10월", year: 2026, month: 10 }
+    { key: "2026-10", label: "26년 10월", year: 2026, month: 10 },
+    { key: "2026-11", label: "26년 11월", year: 2026, month: 11 },
+    { key: "2026-12", label: "26년 12월", year: 2026, month: 12 },
+    { key: "2027-01", label: "27년 1월", year: 2027, month: 1 }
   ];
 
   const CATEGORY_META = {
@@ -32,7 +37,7 @@
       group: "포털 홈 & 아카이브",
       items: [
         { id: "overview", icon: "🏠", label: "인수인계 홈 & 드라이브", badge: "필독" },
-        { id: "calendar", icon: "📅", label: "월별 캘린더 · 홍보물 · 월간보고", badge: "102장" }
+        { id: "calendar", icon: "📅", label: "월별 캘린더 · 홍보물 · 월간보고", badge: "303건" }
       ]
     },
     {
@@ -73,7 +78,7 @@
     calSubView: "calendar", // 'calendar' | 'monthly' | 'gallery'
     selectedMonth: "2026-03",
     selectedCat: "all",
-    selectedEventId: "e_2603_recruit",
+    selectedEventId: "notion_3171d74fc6df80a7980ddf6cfd1da19c",
     eventImgIdx: 0,
     monthlySlideIdx: {},
     lightboxImages: [],
@@ -410,9 +415,9 @@
           <div class="stat-sub">신입생 대표 임기 회칙개정 만장일치 가결 →</div>
         </div>
         <div class="stat-card" style="cursor:pointer;" data-jump-tab="calendar">
-          <div class="stat-num">102장 / 28건</div>
-          <div class="stat-label">월별 홍보물·카드뉴스·월간보고·공지글</div>
-          <div class="stat-sub">캘린더에서 이미지+실제 공지글 바로 보기 →</div>
+          <div class="stat-num">102장 / 303건</div>
+          <div class="stat-label">노션 캘린더 303건 · 홍보물 · 월간보고 · 공지글</div>
+          <div class="stat-sub">캘린더에서 노션 일정+카드뉴스+공지글 바로 보기 →</div>
         </div>
         <div class="stat-card" style="cursor:pointer;" data-jump-tab="planning">
           <div class="stat-num">기획국 6대 사업</div>
@@ -589,10 +594,10 @@
       (ev) => ev.monthKey === monthObj.key && (state.selectedCat === "all" || ev.category === state.selectedCat)
     );
 
-    // Ensure a valid selected event
+    // Ensure a valid selected event (prefer an event with images when switching months)
     let activeEv = appData.calendarEvents.find((ev) => ev.id === state.selectedEventId);
     if (!activeEv || (activeEv.monthKey !== monthObj.key && monthEvents.length > 0)) {
-      activeEv = monthEvents[0] || appData.calendarEvents[0];
+      activeEv = monthEvents.find((ev) => ev.images && ev.images.length > 0) || monthEvents[0] || appData.calendarEvents[0];
       if (activeEv) {
         state.selectedEventId = activeEv.id;
         state.eventImgIdx = 0;
@@ -657,7 +662,9 @@
       "2026-03": "m03",
       "2026-04": "m04",
       "2026-05": "m05",
-      "2026-07": "m0708"
+      "2026-06": "m06",
+      "2026-07": "m0708",
+      "2026-08": "m0708"
     };
     const reportId = monthReportMap[monthObj.key];
     const reportObj = reportId ? appData.monthlyReports.find((r) => r.id === reportId) : null;
@@ -832,7 +839,14 @@
   }
 
   function buildPromoGalleryHtml() {
-    const eventsWithImages = appData.calendarEvents.filter((ev) => ev.images && ev.images.length > 0);
+    const seenFirstImg = new Set();
+    const eventsWithImages = appData.calendarEvents.filter((ev) => {
+      if (!ev.images || ev.images.length === 0) return false;
+      const key = ev.images.join("|");
+      if (seenFirstImg.has(key)) return false;
+      seenFirstImg.add(key);
+      return true;
+    });
     const cardsHtml = eventsWithImages
       .map((ev) => {
         const catMeta = CATEGORY_META[ev.category] || CATEGORY_META.pres;
