@@ -279,6 +279,16 @@
       });
     });
 
+    // Bind calendar sub-mode clicks (rebound on every sidebar render)
+    navContainer.querySelectorAll("[data-cal-mode]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.calSubView = el.getAttribute("data-cal-mode");
+        renderMainContent();
+        document.getElementById("sidebar")?.classList.remove("open");
+      });
+    });
+
     // Bind sub-nav fold/unfold toggle
     navContainer.querySelectorAll("[data-toggle-subnav]").forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -322,15 +332,6 @@
     renderSidebar();
     renderMainContent();
     window.scrollTo({ top: 0, behavior: "smooth" });
-
-    // Bind calendar sub-mode clicks in sidebar if on calendar tab
-    document.querySelectorAll("[data-cal-mode]").forEach((el) => {
-      el.addEventListener("click", (e) => {
-        e.stopPropagation();
-        state.calSubView = el.getAttribute("data-cal-mode");
-        renderMainContent();
-      });
-    });
   }
 
   // Main Content Router
