@@ -1210,7 +1210,11 @@
   // =========================================================================
   // 4. ADMIN MODE vs VISITOR MODE & INLINE EDIT MODE
   // =========================================================================
-  const ADMIN_PASSWORDS = ["duet18", "3561", "01035163561"];
+  // Secrets (adminPassword, notionToken, notionDatabaseId) are loaded ONLY from
+  // git-ignored js/config.local.js (window.DUET_LOCAL_CONFIG) and never uploaded to GitHub.
+  function getLocalConfig() {
+    return window.DUET_LOCAL_CONFIG || null;
+  }
 
   function handleAdminModeBtnClick() {
     if (state.adminMode) {
@@ -1227,6 +1231,11 @@
       renderMainContent();
       showToast("🔒 방문자 모드로 잠겼습니다. (모든 수정 기능 비활성화)");
     } else {
+      const cfg = getLocalConfig();
+      if (!cfg || !cfg.adminPassword) {
+        showToast("🔒 공개 배포본(.github.io)은 방문자 전용(읽기 전용)입니다. 수정은 로컬 관리자 PC에서만 가능합니다.");
+        return;
+      }
       const modal = document.getElementById("adminLoginModal");
       const inp = document.getElementById("adminPasswordInput");
       if (!modal || !inp) return;
@@ -1237,10 +1246,16 @@
   }
 
   function confirmAdminLogin() {
+    const cfg = getLocalConfig();
+    if (!cfg || !cfg.adminPassword) {
+      alert("로컬 관리자 설정 파일(js/config.local.js)이 없어 관리자 모드를 사용할 수 없습니다.");
+      return;
+    }
     const inp = document.getElementById("adminPasswordInput");
     if (!inp) return;
-    const val = inp.value.trim().toLowerCase();
-    if (!ADMIN_PASSWORDS.includes(val)) {
+    const val = inp.value.trim();
+    const allowed = Array.isArray(cfg.adminPassword) ? cfg.adminPassword : [String(cfg.adminPassword)];
+    if (!allowed.includes(val)) {
       alert("비밀번호가 일치하지 않습니다.");
       inp.focus();
       return;
@@ -1250,7 +1265,7 @@
     document.getElementById("adminLoginModal")?.classList.remove("open");
     updateAdminBtnUI();
     renderMainContent();
-    showToast("🔓 관리자 모드가 켜졌습니다! 이제 상단에서 링크 설정 및 코멘트/공지 편집이 가능합니다.");
+    showToast("🔓 관리자 모드가 켜졌습니다! 이제 상단에서 노션 동기화, 링크 설정 및 코멘트 편집이 가능합니다.");
   }
 
   function updateAdminBtnUI() {
@@ -1494,6 +1509,13 @@
     if (!state.adminMode) return;
     const modal = document.getElementById("notionSyncModal");
     if (!modal) return;
+    const cfg = getLocalConfig();
+    const tokenInp = document.getElementById("notionTokenInput");
+    const dbInp = document.getElementById("notionDbIdInput");
+    if (cfg) {
+      if (tokenInp && !tokenInp.value && cfg.notionToken) tokenInp.value = cfg.notionToken;
+      if (dbInp && !dbInp.value && cfg.notionDatabaseId) dbInp.value = cfg.notionDatabaseId;
+    }
     const statusEl = document.getElementById("notionSyncStatus");
     if (statusEl) statusEl.textContent = "";
     modal.classList.add("open");
