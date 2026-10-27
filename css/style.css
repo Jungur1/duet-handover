@@ -335,32 +335,12 @@ body.sidebar-collapsed .sidebar {
   color: var(--crimson);
 }
 
-/* Floating button when sidebar is collapsed */
-.sidebar-reopen-fab {
-  position: fixed;
-  top: calc(var(--header-h) + 16px);
-  left: 16px;
-  z-index: 85;
-  background: var(--crimson);
-  color: #fff;
-  border: none;
-  border-radius: 99px;
-  padding: 8px 14px;
-  font-size: 12.5px;
-  font-weight: 700;
-  box-shadow: var(--shadow-md);
-  cursor: pointer;
-  display: none;
-  align-items: center;
-  gap: 6px;
-  transition: transform 0.15s, background 0.15s;
-}
-.sidebar-reopen-fab:hover {
-  background: var(--crimson-light);
-  transform: translateX(2px);
-}
-body.sidebar-collapsed .sidebar-reopen-fab {
-  display: inline-flex;
+/* Sidebar collapsed state indicator for top mobile-menu-btn */
+body.sidebar-collapsed .mobile-menu-btn {
+  border-color: var(--crimson);
+  color: var(--crimson);
+  background: var(--surface);
+  box-shadow: 0 0 0 2px rgba(162, 26, 47, 0.15);
 }
 
 .nav-group-label {
@@ -487,7 +467,7 @@ body.sidebar-collapsed .main-area {
   margin-right: auto;
   width: 100%;
   max-width: 1440px;
-  padding-left: 56px;
+  padding: 28px 36px 80px;
 }
 
 /* Hero Banner */
