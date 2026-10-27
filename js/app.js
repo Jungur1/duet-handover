@@ -1489,6 +1489,148 @@
     showToast("✅ 새 행사가 캘린더에 추가되었습니다!");
   }
 
+  // Notion API Calendar Sync
+  function openNotionSyncModal() {
+    if (!state.adminMode) return;
+    const modal = document.getElementById("notionSyncModal");
+    if (!modal) return;
+    const statusEl = document.getElementById("notionSyncStatus");
+    if (statusEl) statusEl.textContent = "";
+    modal.classList.add("open");
+  }
+
+  function extractNotionDbId(rawInput) {
+    const clean = (rawInput || "").trim();
+    const match = clean.match(/([a-fA-F0-9]{32})/);
+    if (match) return match[1].toLowerCase();
+    const dashed = clean.replace(/-/g, "").match(/([a-fA-F0-9]{32})/);
+    return dashed ? dashed[1].toLowerCase() : clean;
+  }
+
+  function inferCategoryFromNotionText(text) {
+    const t = (text || "").toLowerCase();
+    if (t.includes("기획") || t.includes("스터디") || t.includes("친해져도") || t.includes("mt") || t.includes("고연전")) return { cat: "plan", label: "기획국" };
+    if (t.includes("복지") || t.includes("생활") || t.includes("간식") || t.includes("반실") || t.includes("대여")) return { cat: "welf", label: "복지국" };
+    if (t.includes("홍보") || t.includes("월간보고") || t.includes("피드백") || t.includes("카드뉴스")) return { cat: "pr", label: "홍보국" };
+    if (t.includes("반운위") || t.includes("확운위") || t.includes("총회") || t.includes("선거") || t.includes("의결")) return { cat: "gov", label: "의결기구" };
+    return { cat: "pres", label: "학생회장단" };
+  }
+
+  async function runNotionSync() {
+    if (!state.adminMode) return;
+    const token = document.getElementById("notionTokenInput")?.value.trim();
+    const rawDb = document.getElementById("notionDbIdInput")?.value.trim();
+    const statusEl = document.getElementById("notionSyncStatus");
+
+    if (!token || !rawDb) {
+      alert("노션 API 토큰과 캘린더 데이터베이스 링크(또는 ID)를 모두 입력해주세요.");
+      return;
+    }
+
+    const dbId = extractNotionDbId(rawDb);
+    if (statusEl) statusEl.innerHTML = "⏳ 노션 데이터베이스에서 일정을 불러오는 중입니다...";
+
+    try {
+      const targetUrl = `https://api.notion.com/v1/databases/${dbId}/query`;
+      let res = null;
+      try {
+        res = await fetch(`https://corsproxy.io/?${encodeURIComponent(targetUrl)}`, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Notion-Version": "2022-06-28",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ page_size: 100 })
+        });
+      } catch (_) {
+        res = await fetch(targetUrl, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Notion-Version": "2022-06-28",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ page_size: 100 })
+        });
+      }
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`Notion API 오류 (${res.status}): ${errText.slice(0, 180)}`);
+      }
+
+      const data = await res.json();
+      const pages = data.results || [];
+      let addedCount = 0;
+
+      pages.forEach((page) => {
+        const props = page.properties || {};
+        let title = "";
+        let dateStr = "";
+        let tagText = "";
+        let descText = "";
+
+        Object.keys(props).forEach((key) => {
+          const p = props[key];
+          if (p.type === "title" && Array.isArray(p.title)) {
+            title = p.title.map((x) => x.plain_text).join("").trim();
+          } else if (p.type === "date" && p.date && p.date.start) {
+            dateStr = p.date.start.slice(0, 10);
+          } else if (p.type === "select" && p.select) {
+            tagText += " " + p.select.name;
+          } else if (p.type === "multi_select" && Array.isArray(p.multi_select)) {
+            tagText += " " + p.multi_select.map((x) => x.name).join(" ");
+          } else if (p.type === "rich_text" && Array.isArray(p.rich_text)) {
+            const rt = p.rich_text.map((x) => x.plain_text).join("").trim();
+            if (rt) descText += (descText ? "\n" : "") + rt;
+          }
+        });
+
+        if (!title || !dateStr) return;
+        const ym = dateStr.slice(0, 7);
+        const monthKey = ym === "2026-08" ? "2026-07" : ym;
+        const day = Number(dateStr.slice(8, 10)) || 1;
+        const displayDate = dateStr.replace(/-/g, ".");
+        const inferred = inferCategoryFromNotionText(tagText + " " + title);
+        const notionEvId = "notion_" + page.id.replace(/-/g, "");
+
+        // Avoid duplicate if same title & date or id already exists
+        const existing = appData.calendarEvents.find(
+          (e) => e.id === notionEvId || (e.monthKey === monthKey && e.day === day && e.title === title)
+        );
+        if (!existing) {
+          const newEv = {
+            id: notionEvId,
+            monthKey,
+            date: displayDate,
+            day,
+            category: inferred.cat,
+            deptLabel: tagText.trim() || inferred.label,
+            title,
+            images: [],
+            noticeText: descText || `[노션 캘린더 연동 일정]\n• 일시: ${displayDate}\n• 일정명: ${title}`,
+            thought: "노션(Notion) 워크스페이스 캘린더에서 동기화된 일정입니다. (편집 모드에서 당시 생각이나 코멘트를 덧붙일 수 있습니다.)"
+          };
+          customStore.customEvents.push(newEv);
+          addedCount++;
+        }
+      });
+
+      applyCustomToAppData();
+      saveCustomStore();
+      if (statusEl) {
+        statusEl.innerHTML = `✅ 총 <strong>${pages.length}개</strong>의 노션 항목을 확인하여 신규 일정 <strong>${addedCount}건</strong>을 캘린더에 병합했습니다! 상단 [💾 수정본 data.js 저장]을 누르면 영구 반영됩니다.`;
+      }
+      renderMainContent();
+      showToast(`🔄 노션 일정 ${addedCount}건이 월별 캘린더에 병합되었습니다!`);
+    } catch (err) {
+      if (statusEl) {
+        statusEl.innerHTML = `⚠️ 브라우저 직접 호출 제한 또는 인증 오류: ${esc(err.message)}<br>채팅창에 토큰과 링크를 알려주시면 서버 스크립트로 즉시 병합해 드립니다!`;
+      }
+    }
+  }
+
   // Global Search
   function openSearchModal() {
     const modal = document.getElementById("searchModal");
@@ -1632,6 +1774,8 @@
       }
     });
     document.getElementById("editModeToggleBtn")?.addEventListener("click", toggleEditMode);
+    document.getElementById("openNotionSyncBtn")?.addEventListener("click", openNotionSyncModal);
+    document.getElementById("runNotionSyncBtn")?.addEventListener("click", runNotionSync);
     document.getElementById("openDriveConfigBtn")?.addEventListener("click", () => openDriveModal());
     document.getElementById("openSearchBtn")?.addEventListener("click", openSearchModal);
     document.getElementById("exportDataJsBtn")?.addEventListener("click", exportUpdatedDataJs);
