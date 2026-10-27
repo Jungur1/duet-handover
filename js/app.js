@@ -189,6 +189,18 @@
       .replace(/"/g, "&quot;");
   }
 
+  function stripStatus(label) {
+    if (!label) return "";
+    return String(label).replace(/\s*\((완료|진행 중|시작 전)\)\s*$/, "").trim();
+  }
+
+  function statusClass(status) {
+    if (!status) return "";
+    if (status === "완료") return "done";
+    if (status === "진행 중") return "doing";
+    return "todo";
+  }
+
   // Theme management
   function initTheme() {
     const saved = localStorage.getItem(THEME_STORAGE_KEY);
@@ -288,7 +300,7 @@
       if (tabId === "calendar") {
         return `${toggleBtnHtml}<ul class="sub-nav-list ${collapsedClass}">
           <li class="sub-nav-item" data-cal-mode="calendar">📅 월별 캘린더 & 공지글 뷰</li>
-          <li class="sub-nav-item" data-cal-mode="monthly">📊 월간보고 슬라이드 (1~8월)</li>
+          <li class="sub-nav-item" data-cal-mode="monthly">📊 월간보고 슬라이드 (1~8월 · 7호)</li>
           <li class="sub-nav-item" data-cal-mode="gallery">🖼️ 홍보물·카드뉴스 전체 갤러리</li>
         </ul>`;
       }
@@ -523,12 +535,28 @@
   // 2. INTERACTIVE CALENDAR & MONTHLY REPORT PORTAL
   // =========================================================================
   function buildCalendarPortalHtml() {
-    const monthTabsHtml = MONTHS_LIST.map((m) => {
-      const count = appData.calendarEvents.filter((e) => e.monthKey === m.key && (state.selectedCat === "all" || e.category === state.selectedCat)).length;
-      return `<button class="month-tab ${state.selectedMonth === m.key ? "active" : ""}" data-month-key="${m.key}">
-        ${esc(m.label)} <span style="opacity:0.75;font-size:11px;">(${count})</span>
-      </button>`;
-    }).join("");
+    // Month tabs grouped by year (2025 / 2026 / 2027)
+    const years = [...new Set(MONTHS_LIST.map((m) => m.year))];
+    const monthTabsHtml = years
+      .map((y) => {
+        const tabs = MONTHS_LIST.filter((m) => m.year === y)
+          .map((m) => {
+            const count = appData.calendarEvents.filter(
+              (e) => e.monthKey === m.key && (state.selectedCat === "all" || e.category === state.selectedCat)
+            ).length;
+            const cls = [
+              "month-tab",
+              state.selectedMonth === m.key ? "active" : "",
+              count === 0 ? "is-empty" : ""
+            ].join(" ");
+            return `<button class="${cls}" data-month-key="${m.key}" title="${esc(m.label)} · ${count}건">
+              ${m.month}월 <span class="month-tab-count">${count}</span>
+            </button>`;
+          })
+          .join("");
+        return `<div class="month-year-group"><span class="month-year-label">${y}</span><div class="month-tabs">${tabs}</div></div>`;
+      })
+      .join("");
 
     const catTabsHtml = Object.keys(CATEGORY_META).map((catKey) => {
       const meta = CATEGORY_META[catKey];
@@ -550,7 +578,7 @@
       <div class="doc-section" style="padding:20px 24px;margin-bottom:18px;">
         <div class="section-header" style="margin-bottom:14px;padding-bottom:12px;">
           <div>
-            <span class="section-tag">INTERACTIVE ARCHIVE · 2025.12 ~ 2026.10</span>
+            <span class="section-tag">INTERACTIVE ARCHIVE · 2025.11 ~ 2027.01 · 노션 일정 ${appData.calendarEvents.length}건</span>
             <h2 class="section-title">📅 월별 캘린더 · 홍보물 카드뉴스 · 실제 공지글 · 월간보고 아카이브</h2>
             <p class="section-subtitle">
               달력의 각 행사를 클릭하면 우측 패널에서 <strong>당시 제작한 홍보물/카드뉴스 원본 이미지</strong>와 <strong>카카오톡 공지방에 실제로 올린 공지글 전문(복사 가능)</strong>, 그리고 <strong>당시 18대의 생각/고려사항</strong>을 함께 확인할 수 있습니다.
@@ -558,7 +586,7 @@
           </div>
           <div class="view-mode-tabs">
             <button class="btn ${state.calSubView === "calendar" ? "btn-crimson" : ""}" data-subview="calendar">📅 월별 캘린더 & 공지글</button>
-            <button class="btn ${state.calSubView === "monthly" ? "btn-crimson" : ""}" data-subview="monthly">📊 월간보고 슬라이드(6호)</button>
+            <button class="btn ${state.calSubView === "monthly" ? "btn-crimson" : ""}" data-subview="monthly">📊 월간보고 슬라이드(${appData.monthlyReports.length}호)</button>
             <button class="btn ${state.calSubView === "gallery" ? "btn-crimson" : ""}" data-subview="gallery">🖼️ 홍보물 갤러리(전체)</button>
           </div>
         </div>
@@ -567,13 +595,13 @@
           state.calSubView === "calendar"
             ? `
           <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-              <span style="font-size:12.5px;font-weight:700;color:var(--text-muted);min-width:65px;">📆 월 선택:</span>
-              <div class="month-tabs">${monthTabsHtml}</div>
+            <div class="filter-row">
+              <span class="filter-label">📆 월 선택:</span>
+              <div class="month-year-row">${monthTabsHtml}</div>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
-              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                <span style="font-size:12.5px;font-weight:700;color:var(--text-muted);min-width:65px;">🏷️ 분류 필터:</span>
+              <div class="filter-row">
+                <span class="filter-label">🏷️ 분류 필터:</span>
                 <div class="month-tabs">${catTabsHtml}</div>
               </div>
               <button class="btn admin-only" id="addCustomEventBtn" title="새로운 행사나 공지글을 캘린더에 추가합니다">➕ 새 행사/공지 추가</button>
@@ -613,43 +641,72 @@
       cellsHtml += `<div class="cal-day-cell empty"></div>`;
     }
 
+    const MAX_PILLS_PER_DAY = 3;
+    const weekdayNames = ["일", "월", "화", "수", "목", "금", "토"];
     for (let d = 1; d <= daysInMonth; d++) {
       const dayEvents = monthEvents.filter((ev) => Number(ev.day) === d);
-      const hasEvClass = dayEvents.length > 0 ? "has-events" : "";
+      const dow = (firstDay + d - 1) % 7;
+      const cellClasses = [
+        "cal-day-cell",
+        dayEvents.length > 0 ? "has-events" : "",
+        state.selectedDay === d ? "is-day-selected" : "",
+        dow === 0 ? "is-sun" : dow === 6 ? "is-sat" : ""
+      ].join(" ");
       const pillsHtml = dayEvents
+        .slice(0, MAX_PILLS_PER_DAY)
         .map((ev) => {
           const catClass = CATEGORY_META[ev.category]?.className || "cat-pres";
           const isSel = activeEv && activeEv.id === ev.id ? "selected" : "";
           const hasImgIcon = ev.images && ev.images.length > 0 ? "🖼️ " : "";
-          return `<div class="cal-event-pill ${catClass} ${isSel}" data-select-event="${esc(ev.id)}" title="${esc(ev.title)}">
-            ${hasImgIcon}${esc(ev.title)}
-          </div>`;
+          return `<div class="cal-event-pill ${catClass} ${isSel}" data-select-event="${esc(ev.id)}" title="${esc(ev.title)}">${hasImgIcon}${esc(ev.title)}</div>`;
         })
         .join("");
+      const extra = dayEvents.length - MAX_PILLS_PER_DAY;
+      const moreHtml = extra > 0 ? `<button class="cal-more-btn" data-day-filter="${d}" title="${d}일 일정 ${dayEvents.length}건 모두 보기">+${extra}건 더보기</button>` : "";
 
       cellsHtml += `
-        <div class="cal-day-cell ${hasEvClass}">
-          <div class="cal-day-num">${d}일</div>
+        <div class="${cellClasses}">
+          <div class="cal-day-num" ${dayEvents.length > 0 ? `data-day-filter="${d}" title="${d}일 일정만 보기"` : ""}>${d}</div>
           ${pillsHtml}
+          ${moreHtml}
         </div>
       `;
     }
 
-    // If month is 2026-07 (7·8월 통합), also show August events in a mini list below calendar
-    const listHtml = monthEvents
-      .map((ev) => {
-        const catMeta = CATEGORY_META[ev.category] || CATEGORY_META.pres;
-        const isSel = activeEv && activeEv.id === ev.id;
+    // Timeline list grouped by day (also used as the mobile list view)
+    const timelineEvents = state.selectedDay
+      ? monthEvents.filter((ev) => Number(ev.day) === state.selectedDay)
+      : monthEvents;
+    const dayKeys = [...new Set(timelineEvents.map((ev) => Number(ev.day)))].sort((a, b) => a - b);
+    const listHtml = dayKeys
+      .map((d) => {
+        const dow = weekdayNames[(firstDay + d - 1) % 7];
+        const itemsHtml = timelineEvents
+          .filter((ev) => Number(ev.day) === d)
+          .map((ev) => {
+            const catMeta = CATEGORY_META[ev.category] || CATEGORY_META.pres;
+            const isSel = activeEv && activeEv.id === ev.id;
+            const imgCount = ev.images ? ev.images.length : 0;
+            return `
+              <div class="timeline-item ${isSel ? "selected" : ""}" data-select-event="${esc(ev.id)}">
+                <span class="timeline-dot ${catMeta.className}"></span>
+                <div class="timeline-main">
+                  <div class="timeline-title">${imgCount > 0 ? `🖼️ ` : ""}${esc(ev.title)}</div>
+                  <div class="timeline-meta">
+                    <span>${esc(stripStatus(ev.deptLabel) || catMeta.label)}</span>
+                    ${ev.date && ev.date.includes("~") ? `<span>· ${esc(ev.date)}</span>` : ""}
+                    ${imgCount > 0 ? `<span>· 이미지 ${imgCount}장</span>` : ""}
+                  </div>
+                </div>
+                ${ev.status ? `<span class="status-badge ${statusClass(ev.status)}">${esc(ev.status)}</span>` : ""}
+              </div>
+            `;
+          })
+          .join("");
         return `
-          <div class="search-result-item" data-select-event="${esc(ev.id)}" style="margin-bottom:6px;border-color:${isSel ? "var(--crimson)" : "var(--border)"};background:${isSel ? "var(--crimson-soft)" : "var(--surface)"};">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-              <span class="cal-event-pill ${catMeta.className}" style="cursor:pointer;">${esc(ev.deptLabel || catMeta.label)}</span>
-              <span style="font-size:12px;color:var(--text-muted);font-weight:600;">${esc(ev.date)}</span>
-            </div>
-            <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:4px;">
-              ${ev.images && ev.images.length > 0 ? `🖼️ (${ev.images.length}장) ` : "📝 "}
-              ${esc(ev.title)}
-            </div>
+          <div class="timeline-day">
+            <div class="timeline-day-label">${monthObj.month}/${d} <span>(${dow})</span></div>
+            <div class="timeline-day-items">${itemsHtml}</div>
           </div>
         `;
       })
@@ -671,41 +728,51 @@
 
     return `
       <div class="calendar-workspace">
-        <!-- Left: Calendar Grid + Month Event List -->
-        <div>
-          <div class="calendar-grid-card">
-            <div class="cal-month-header">
-              <div>
-                <div class="cal-month-title">🗓️ ${esc(monthObj.label)} D반 학생회 Duet 일정표</div>
-                <div style="font-size:12.5px;color:var(--text-muted);margin-top:2px;">
-                  달력 내 일정을 클릭하면 우측에서 홍보물 카드뉴스와 실제 공지글, 18대 코멘트를 볼 수 있습니다.
-                </div>
-              </div>
-              <div style="display:flex;gap:6px;">
-                <button class="btn" id="prevMonthBtn">◀ 이전달</button>
-                <button class="btn" id="nextMonthBtn">다음달 ▶</button>
+        <!-- 1. Calendar Grid Card -->
+        <div class="calendar-grid-card">
+          <div class="cal-month-header">
+            <div>
+              <div class="cal-month-title">🗓️ ${esc(monthObj.label)} D반 학생회 Duet 일정표</div>
+              <div class="cal-month-hint">
+                일정을 누르면 홍보물·실제 공지글·18대 코멘트를 볼 수 있습니다. 날짜 숫자나 <strong>+N건</strong>을 누르면 그날 일정만 모아 봅니다.
               </div>
             </div>
+            <div class="cal-month-nav">
+              <button class="btn" id="prevMonthBtn" title="이전 달">◀</button>
+              <button class="btn" id="nextMonthBtn" title="다음 달">▶</button>
+            </div>
+          </div>
 
+          <div class="cal-grid-wrap">
             <div class="cal-weekdays">
               <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
             </div>
             <div class="cal-days-grid">
               ${cellsHtml}
             </div>
+          </div>
+        </div>
 
-            <h3 class="sub-heading" style="margin-top:22px;font-size:15px;">📋 ${esc(monthObj.label)} 전체 행사·회의 타임라인 (${monthEvents.length}건)</h3>
-            <div>
-              ${listHtml || `<p class="body-text">해당 필터에 맞는 행사가 없습니다.</p>`}
+        <!-- 2. Event Detail Panel (Right column on wide screens, directly below calendar on laptop/mobile) -->
+        <div class="event-detail-panel" id="eventDetailPanel">
+          ${activeEv ? buildEventDetailHtml(activeEv) : `<p class="body-text">행사를 선택해주세요.</p>`}
+        </div>
+
+        <!-- 3. Full Month Timeline + Monthly Report -->
+        <div class="calendar-below-stack">
+          <div class="calendar-grid-card">
+            <div class="timeline-header" id="calTimeline" style="margin-top:0;padding-top:0;border-top:none;">
+              <h3 class="sub-heading" style="margin:0;font-size:15px;">
+                📋 ${state.selectedDay ? `${monthObj.month}월 ${state.selectedDay}일 일정` : `${esc(monthObj.label)} 전체 일정 타임라인`} (${timelineEvents.length}건)
+              </h3>
+              ${state.selectedDay ? `<button class="btn" id="clearDayFilterBtn">✕ 이번 달 전체 보기</button>` : ""}
+            </div>
+            <div class="timeline-list">
+              ${listHtml || `<p class="body-text">해당 필터에 맞는 일정이 없습니다.</p>`}
             </div>
           </div>
 
           ${reportObj ? buildSingleMonthlyReportCardHtml(reportObj) : ""}
-        </div>
-
-        <!-- Right: Sticky Event Detail Panel -->
-        <div class="event-detail-panel" id="eventDetailPanel">
-          ${activeEv ? buildEventDetailHtml(activeEv) : `<p class="body-text">행사를 선택해주세요.</p>`}
         </div>
       </div>
     `;
@@ -753,11 +820,64 @@
       `;
     }
 
+    const rawNotice = String(ev.noticeText || "").trim();
+    const isAutoNotionRecord = rawNotice.startsWith("[노션(Notion) 캘린더 일정 기록]");
+    const rawThought = String(ev.thought || "").trim();
+    const isBoilerplateThought =
+      rawThought.includes("노션(Notion) 캘린더 데이터베이스에서 동기화된 제18대 학생회 Duet 공식 일정입니다") ||
+      rawThought.includes("노션(Notion) 워크스페이스 캘린더에서 동기화된 일정입니다");
+
+    const cleanDept = stripStatus(ev.deptLabel) || catMeta.label;
+    let noticeSectionHtml = "";
+    if (isAutoNotionRecord && !state.editMode) {
+      const urlMatch = rawNotice.match(/🔗\s*관련 문서 링크:\s*(\S+)/);
+      const extUrl = urlMatch ? urlMatch[1] : "";
+      noticeSectionHtml = `
+        <div class="notion-meta-card">
+          <div class="notion-meta-row"><span>📌 일정명</span><strong>${esc(ev.title)}</strong></div>
+          <div class="notion-meta-row"><span>🗓️ 일시</span><strong>${esc(ev.date)}</strong></div>
+          <div class="notion-meta-row"><span>🏷️ 담당 국서</span><strong>${esc(cleanDept)}</strong></div>
+          ${ev.status ? `<div class="notion-meta-row"><span>✅ 진행 상태</span><strong>${esc(ev.status)}</strong></div>` : ""}
+          ${extUrl ? `<div class="notion-meta-row"><span>🔗 첨부 링크</span><a href="${esc(extUrl)}" target="_blank" rel="noopener">문서 바로 열기 ↗</a></div>` : ""}
+        </div>
+        <div class="callout callout-notice admin-only" style="margin-top:12px;">
+          <div class="callout-header">
+            <span>📢 공지글 / 회의 메모 원문 (편집 모드에서 수정 가능)</span>
+            <button class="btn" id="copyNoticeBtn" style="padding:3px 10px;font-size:11.5px;">📋 복사</button>
+          </div>
+          <div class="callout-body" id="activeEventNoticeText" data-event-edit-field="noticeText" data-event-id="${esc(ev.id)}">${esc(rawNotice)}</div>
+        </div>
+      `;
+    } else {
+      noticeSectionHtml = `
+        <div class="callout callout-notice" style="margin-top:14px;">
+          <div class="callout-header">
+            <span>📢 당시 실제 공지글 / 안건 요약</span>
+            <button class="btn" id="copyNoticeBtn" style="padding:3px 10px;font-size:11.5px;">📋 공지글 복사</button>
+          </div>
+          <div class="callout-body" id="activeEventNoticeText" data-event-edit-field="noticeText" data-event-id="${esc(ev.id)}">${esc(rawNotice)}</div>
+        </div>
+      `;
+    }
+
+    const thoughtSectionHtml = `
+      <div class="callout callout-thought ${isBoilerplateThought ? "admin-only" : ""}" style="margin-top:12px;">
+        <div class="callout-header">
+          <span>💡 18대 당시 내 생각 & 고려사항 (Behind-the-Scenes)</span>
+          <span class="admin-only" style="font-size:11px;opacity:0.8;">✏️ 편집 가능</span>
+        </div>
+        <div class="callout-body" data-event-edit-field="thought" data-event-id="${esc(ev.id)}">${esc(rawThought)}</div>
+      </div>
+    `;
+
     return `
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;">
-        <span class="cal-event-pill ${catMeta.className}" style="font-size:12px;padding:4px 10px;">
-          ${esc(ev.deptLabel || catMeta.label)}
-        </span>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+          <span class="cal-event-pill ${catMeta.className}" style="font-size:12px;padding:4px 10px;">
+            ${esc(cleanDept)}
+          </span>
+          ${ev.status ? `<span class="status-badge ${statusClass(ev.status)}">${esc(ev.status)}</span>` : ""}
+        </div>
         <span style="font-size:12.5px;font-weight:700;color:var(--text-muted);" data-event-edit-field="date" data-event-id="${esc(ev.id)}">${esc(ev.date)}</span>
       </div>
 
@@ -765,23 +885,9 @@
 
       ${carouselHtml}
 
-      <!-- Notice Text Box -->
-      <div class="callout callout-notice" style="margin-top:14px;">
-        <div class="callout-header">
-          <span>📢 당시 실제 공지글 / 안건 요약</span>
-          <button class="btn" id="copyNoticeBtn" style="padding:3px 10px;font-size:11.5px;">📋 공지글 복사</button>
-        </div>
-        <div class="callout-body" id="activeEventNoticeText" data-event-edit-field="noticeText" data-event-id="${esc(ev.id)}">${esc(ev.noticeText || "")}</div>
-      </div>
+      ${noticeSectionHtml}
 
-      <!-- 18th Thought Box -->
-      <div class="callout callout-thought" style="margin-top:12px;">
-        <div class="callout-header">
-          <span>💡 18대 당시 내 생각 & 고려사항 (Behind-the-Scenes)</span>
-          <span class="admin-only" style="font-size:11px;opacity:0.8;">✏️ 편집 가능</span>
-        </div>
-        <div class="callout-body" data-event-edit-field="thought" data-event-id="${esc(ev.id)}">${esc(ev.thought || "")}</div>
-      </div>
+      ${thoughtSectionHtml}
     `;
   }
 
@@ -900,6 +1006,7 @@
     document.querySelectorAll("[data-month-key]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.selectedMonth = btn.getAttribute("data-month-key");
+        state.selectedDay = null;
         state.eventImgIdx = 0;
         renderMainContent();
       });
@@ -909,6 +1016,7 @@
     document.querySelectorAll("[data-cat-key]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.selectedCat = btn.getAttribute("data-cat-key");
+        state.selectedDay = null;
         state.eventImgIdx = 0;
         renderMainContent();
       });
@@ -919,6 +1027,7 @@
       const idx = MONTHS_LIST.findIndex((m) => m.key === state.selectedMonth);
       if (idx > 0) {
         state.selectedMonth = MONTHS_LIST[idx - 1].key;
+        state.selectedDay = null;
         state.eventImgIdx = 0;
         renderMainContent();
       }
@@ -927,9 +1036,39 @@
       const idx = MONTHS_LIST.findIndex((m) => m.key === state.selectedMonth);
       if (idx >= 0 && idx < MONTHS_LIST.length - 1) {
         state.selectedMonth = MONTHS_LIST[idx + 1].key;
+        state.selectedDay = null;
         state.eventImgIdx = 0;
         renderMainContent();
       }
+    });
+
+    // Day filter buttons (+N건 더보기 / 날짜 숫자 클릭)
+    document.querySelectorAll("[data-day-filter]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const d = Number(el.getAttribute("data-day-filter"));
+        state.selectedDay = state.selectedDay === d ? null : d;
+        const monthEvents = appData.calendarEvents.filter(
+          (ev) => ev.monthKey === state.selectedMonth && (state.selectedCat === "all" || ev.category === state.selectedCat) && Number(ev.day) === d
+        );
+        if (monthEvents.length > 0) {
+          state.selectedEventId = monthEvents[0].id;
+          state.eventImgIdx = 0;
+        }
+        renderMainContent();
+        setTimeout(() => {
+          const tl = document.getElementById("calTimeline");
+          if (tl) {
+            const y = tl.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+        }, 40);
+      });
+    });
+
+    document.getElementById("clearDayFilterBtn")?.addEventListener("click", () => {
+      state.selectedDay = null;
+      renderMainContent();
     });
 
     // Select event pill or list item
@@ -938,6 +1077,15 @@
         state.selectedEventId = el.getAttribute("data-select-event");
         state.eventImgIdx = 0;
         renderMainContent();
+        if (window.innerWidth <= 1520) {
+          setTimeout(() => {
+            const detailEl = document.getElementById("eventDetailPanel");
+            if (detailEl) {
+              const y = detailEl.getBoundingClientRect().top + window.scrollY - 76;
+              window.scrollTo({ top: y, behavior: "smooth" });
+            }
+          }, 40);
+        }
       });
     });
 
@@ -1320,7 +1468,9 @@
     const btn = document.getElementById("adminModeBtn");
     if (!btn) return;
     btn.classList.toggle("btn-admin-active", state.adminMode);
-    btn.innerHTML = state.adminMode ? "🔓 관리자 모드 (잠금 전환)" : "🔒 방문자 모드";
+    btn.innerHTML = state.adminMode
+      ? `🔓 관리자 모드<span class="hide-mobile"> · 잠그기</span>`
+      : `<span class="hide-mobile">👀 방문자 모드 · </span>🔑 관리자 로그인`;
   }
 
   function toggleEditMode() {
