@@ -2073,12 +2073,23 @@
     document.getElementById("bannerResetBtn")?.addEventListener("click", resetAllCustomEdits);
 
     // Sidebar collapse / reopen toggles (laptop & mobile)
+    function updateSidebarAccessibility() {
+      const menuBtn = document.getElementById("mobileMenuBtn");
+      if (!menuBtn) return;
+      const isOpen =
+        window.innerWidth <= 820
+          ? document.getElementById("sidebar")?.classList.contains("open")
+          : !document.body.classList.contains("sidebar-collapsed");
+      menuBtn.setAttribute("aria-expanded", String(Boolean(isOpen)));
+    }
+
     function toggleSidebar() {
       if (window.innerWidth <= 820) {
         document.getElementById("sidebar")?.classList.toggle("open");
       } else {
         document.body.classList.toggle("sidebar-collapsed");
       }
+      updateSidebarAccessibility();
     }
     document.getElementById("mobileMenuBtn")?.addEventListener("click", toggleSidebar);
     document.getElementById("sidebarCollapseBtn")?.addEventListener("click", () => {
@@ -2087,10 +2098,7 @@
       } else {
         document.body.classList.add("sidebar-collapsed");
       }
-    });
-    document.getElementById("sidebarReopenFab")?.addEventListener("click", () => {
-      document.body.classList.remove("sidebar-collapsed");
-      document.getElementById("sidebar")?.classList.add("open");
+      updateSidebarAccessibility();
     });
 
     // Modal close buttons
