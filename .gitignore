@@ -29,3 +29,4 @@
 *.ps1
 .env*
 js/config.local.js
+KakaoTalk*.txt
