@@ -1984,6 +1984,14 @@
     renderSidebar();
     renderMainContent();
 
+    // Follow hash changes (brand link, back/forward, pasted #tab links)
+    window.addEventListener("hashchange", () => {
+      const nextTab = window.location.hash.replace("#", "").trim();
+      if (NAV_ITEMS.some((g) => g.items.some((it) => it.id === nextTab)) && nextTab !== state.currentTab) {
+        switchTab(nextTab, true);
+      }
+    });
+
     // Header actions
     document.getElementById("themeToggleBtn")?.addEventListener("click", toggleTheme);
     document.getElementById("adminModeBtn")?.addEventListener("click", handleAdminModeBtnClick);
