@@ -1,4 +1,4 @@
-﻿window.DUET_SECTIONS = {
+window.DUET_SECTIONS = {
   overview: {
     greeting: {
       title: "제19대 및 미래의 D반 학생회장단·국장단 여러분께",
@@ -300,6 +300,56 @@
           <li><strong>행정실 지원 신규 가구 구매(7~10월)</strong>: 하반기에는 행정실 예산 지원을 받아 반실 소파 등 노후 가구 교체 품목과 가격대를 조율해 신청할 수 있으니 복지국장과 함께 행정실 지원 일정을 꼭 챙기세요!</li>
         </ol>
       `
+    },
+    {
+      id: "pres_security",
+      tag: "Part 5 · 학생회장단 대외비 관리",
+      title: "5. 전체 학생회 자료실 & 구글폼 드라이브 보안 및 열람 권한 관리 수칙",
+      subtitle: "개인정보 보호법 준수 및 학생회 운영상 대외비 자료의 분리 보관 원칙",
+      contentHtml: `
+        <h3 class="sub-heading">🔒 5-1. 드라이브 2원화 분리 운영의 당위성</h3>
+        <p class="body-text">
+          학생회 업무를 진행하다 보면 학우들의 <strong>주민등록번호 앞자리, 계좌번호, 전화번호, 상세 설문 응답</strong> 등 민감한 개인정보를 취급하게 되며, 동시에 <strong>집행위원 선발 면접 평가표, 선거 투표 원본 로그, 감사 소명 자료</strong> 등 보안 유지가 필수적인 대외비 문서가 생성됩니다.
+          이에 따라 제18대 Duet은 인수인계 자료 저장소를 <strong>'학생회장단 전용 대외비 저장소'</strong>와 <strong>'국서별 실무 저장소'</strong>로 명확히 분리하여 운영합니다.
+        </p>
+        <div class="table-wrap">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>구분</th>
+                <th>보관 자료 항목</th>
+                <th>열람 권한</th>
+                <th>보안 조치 및 주의사항</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>👑 학생회장단<br>대외비 아카이브</strong><br>(전체 자료실 &<br>구글폼 모음)</td>
+                <td>• 집행부 선발(리크루팅) 지원서 및 면접 평가표<br>• 회장단·신대·고대 선거 원본 투표 데이터 및 소명 자료<br>• 학생회비 입출금 주통장 거래내역 및 감사위원회 증빙 원본<br>• 반운위·확운위·총회 음성/영상 녹화 원본</td>
+                <td><strong>18대/19대 학생회장단만 열람 가능</strong><br>(국장단 및 일반 부원 열람 차단)</td>
+                <td>• 구글 드라이브 권한을 '특정 사용자(학생회장단 계정)'로만 제한<br>• 웹사이트에서도 <code>duet_pres</code>, <code>next_pres</code> 인증 시에만 링크가 노출되도록 RBAC 제어 적용</td>
+              </tr>
+              <tr>
+                <td><strong>📁 국서별 실무<br>운영 드라이브</strong><br>(기획·복지·홍보)</td>
+                <td>• 각 국서 주관 사업 기획서, 타임테이블, 현장 운영 매뉴얼<br>• 카드뉴스·월간보고 디자인 소스(Figma, Canva) 및 템플릿<br>• 반실 비품 재고 명부, 공용 물품 대여 관리 서식 등</td>
+                <td><strong>학생회장단 및 전 국장단 열람 가능</strong><br>(18대/19대 국장 상호 공유)</td>
+                <td>• 국서 간 협업(예: 기획국 행사 홍보를 위해 홍보국이 기획서 열람)을 위해 국장단 전체에 공유하되, 개인정보 시트는 반드시 마스킹 후 업로드</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sub-heading">🔑 5-2. 직위별 웹 포털 접근 권한 및 비밀번호 관리 수칙</h3>
+        <ul class="doc-list">
+          <li><strong>직위별 4단계 열람 권한</strong>:
+            <br>• <code>18대 학생회장단(duet_pres)</code>: 총론, 회장단, 3대 국서, 템플릿, 캘린더 전체 열람 및 수정(관리자 모드) 권한 보유 + 전체 드라이브 열람.
+            <br>• <code>18대 국장단(duet_head)</code>: 기획·복지·홍보 국서 인수인계 + 캘린더 공지 읽기 + 국서별 실무 드라이브 열람 (회장단 전용 문서 및 대외비 드라이브는 접근 차단).
+            <br>• <code>19대 학생회장단(next_pres)</code>: 18대 인수인계 전 항목 열람 가능 (읽기 전용 모드) + 전체 대외비 드라이브 열람.
+            <br>• <code>19대 국장단(next_head)</code>: 기획·복지·홍보 국서 인수인계 + 국서별 실무 드라이브 열람 (총론, 캘린더, 회장단 문서, 대외비 드라이브 접근 차단).
+          </li>
+          <li><strong>비밀번호 보안 수칙</strong>: 비밀번호는 GitHub 코드상에 평문으로 커밋되지 않으며, 로컬 <code>js/config.local.js</code> 및 솔트 기반 SHA-256 해시로 보호됩니다. 비밀번호 변경 시 제공되는 <code>update_passwords.bat</code>를 실행하여 안전하게 갱신하십시오.</li>
+        </ul>
+      `
     }
   ],
 
@@ -310,6 +360,18 @@
       title: "1. 기획국(Planning)의 역할과 제18대 핵심 변화",
       subtitle: "전반기 김채은 국장 · 하반기 장여백 국장 체제에서 완성한 기획국 사업 가이드",
       contentHtml: `
+        <div class="callout callout-drive-banner" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(99, 102, 241, 0.08)); border-left: 4px solid #3b82f6; padding: 14px 18px; margin-bottom: 20px; border-radius: 8px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+            <div>
+              <strong style="color:#1d4ed8; font-size:1.02rem;">🎯 기획국 전용 실무 구글 드라이브</strong>
+              <p style="margin:4px 0 0 0; color:#4b5563; font-size:0.88rem;">새터·OT, 멘토멘티, 체육대회, 간식행사, 종강총회 등 기획국 주관 사업의 기획안·타임테이블·역할분담표 원본이 보관되어 있습니다.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+              📂 기획국 드라이브 바로가기 ↗
+            </a>
+          </div>
+        </div>
+
         <p class="body-text">
           기획국은 D반 학우들의 학업 독려와 선후배·동기 간 친목 도모, 그리고 연세대 교류반과의 합동 교류 행사를 기획·총괄하는 부서입니다. 제17대 인수인계의 기본 틀을 계승하면서도, 제18대 <Duet>에서는 <strong>실제 참여율과 학우 체감 만족도를 높이기 위해 아래와 같은 굵직한 개편</strong>을 단행했습니다.
         </p>
@@ -444,6 +506,18 @@
       title: "1. 복지국(Welfare) 전면 개편 및 설립 취지",
       subtitle: "반실 관리 부서를 넘어 D반 학우들의 실질적 복지를 책임지는 핵심 국서로의 도약",
       contentHtml: `
+        <div class="callout callout-drive-banner" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.08)); border-left: 4px solid #10b981; padding: 14px 18px; margin-bottom: 20px; border-radius: 8px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+            <div>
+              <strong style="color:#047857; font-size:1.02rem;">🌿 복지국 전용 실무 구글 드라이브</strong>
+              <p style="margin:4px 0 0 0; color:#4b5563; font-size:0.88rem;">반실 관리, 비품 재고, 과방 사물함 배정표, 간식행사 물품 수령·배부 명부 및 복지 사업 실무 서식이 보관되어 있습니다.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background:#10b981; border-color:#059669; padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+              📂 복지국 드라이브 바로가기 ↗
+            </a>
+          </div>
+        </div>
+
         <p class="body-text">
           제17대 학생회에서는 부서 명칭이 '생활국'이었으나, 제18대 <Duet>에서는 <strong>2026년 1월 17일 제1차 회의</strong>를 통해 부서 명칭을 <strong>'복지국'</strong>으로 전격 변경했습니다 (1/20 제18-4차 반운위 사전인준 → 1/29 제18-1차 임시확운위 및 5/23 상반기 확운위 사후인준 확정).
         </p>
@@ -608,6 +682,18 @@
       title: "1. 홍보국(Public Relations)의 역할과 제18대 핵심 변화",
       subtitle: "이윤주 홍보국장 체제에서 확립한 브랜드 통일성, 월간보고 아카이빙, 피드백 총괄 시스템",
       contentHtml: `
+        <div class="callout callout-drive-banner" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(217, 70, 239, 0.08)); border-left: 4px solid #ec4899; padding: 14px 18px; margin-bottom: 20px; border-radius: 8px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+            <div>
+              <strong style="color:#be185d; font-size:1.02rem;">📢 홍보소통국 전용 실무 구글 드라이브</strong>
+              <p style="margin:4px 0 0 0; color:#4b5563; font-size:0.88rem;">카드뉴스 원본(Figma/Canva), 월간보고 디자인 소스, 인스타그램 피드 템플릿, 릴스 영상 클립 소스가 보관되어 있습니다.</p>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background:#ec4899; border-color:#db2777; padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+              📂 홍보국 드라이브 바로가기 ↗
+            </a>
+          </div>
+        </div>
+
         <p class="body-text">
           홍보국은 학생회장단, 기획국, 복지국이 기획한 모든 사업과 의결기구 공고문을 시각적으로 디자인하여 D반 학우들에게 전달하고, 공식 인스타그램(<code>@kusis_d</code>)을 운영하는 학생회의 얼굴입니다. 제18대 <Duet>에서는 기존 홍보물 제작 업무에 더해 다음 <strong>3가지 핵심 시스템</strong>을 새롭게 구축했습니다.
         </p>

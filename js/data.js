@@ -1,4 +1,4 @@
-﻿window.DUET_DEFAULT_DATA = {
+window.DUET_DEFAULT_DATA = {
     "meta":  {
                  "title":  "고려대학교 자유전공학부 D반 제18대 학생회 Duet 인수인계 포털",
                  "term":  "2025.11.30 ~ 2026.11 (제18대 Duet)",
@@ -12,39 +12,84 @@
                                  }
              },
     "driveLinks":  [
-                       {
-                           "id":  "googleForms",
-                           "icon":  "📋",
-                           "title":  "제18대 구글폼 모음 드라이브",
-                           "desc":  "간식행사 사전 수요조사·선착순 신청폼, 친해져도 Dㅐ? 신청폼, 신대·고대 선거 투표폼, 리크루팅 지원서, 만족도 조사 구글폼 사본 아카이브",
-                           "url":  "https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing",
-                           "placeholder":  "구글폼 모음 드라이브 공유 링크를 입력하세요 (우측 상단 \u0027링크 설정\u0027 버튼)"
-                       },
-                       {
-                           "id":  "fullArchive",
-                           "icon":  "🗂️",
-                           "title":  "제18대 Duet 전체 자료실 드라이브",
-                           "desc":  "집행위원회·의결기구(반운위/확운위/학생총회 속기록·녹화본)·예결산안·공구·반실 기구 교체·회칙 개정 원본 파일 전체 보관함",
-                           "url":  "https://drive.google.com/drive/folders/1dVID6Wpjr1SBMLi9YLT8YweFGgUIOjdw?usp=sharing",
-                           "placeholder":  "전체 인수인계 드라이브 링크를 입력하세요"
-                       },
-                       {
-                           "id":  "naverCafe",
-                           "icon":  "🏛️",
-                           "title":  "고려대 자유전공학부 네이버 카페",
-                           "desc":  "학부운영위원회·자전대회·D반 학생회 역대 공고문 및 회의 속기록 업로드 게시판 (회의 전후 필독 아카이브)",
-                           "url":  "https://cafe.naver.com/kusis",
-                           "placeholder":  "자전 네이버 카페 링크"
-                       },
-                       {
-                           "id":  "instagram",
-                           "icon":  "📸",
-                           "title":  "자유전공학부 D반 공식 인스타그램",
-                           "desc":  "@kusis_d — 제18대 Duet 월간보고, 각 사업 카드뉴스, 공고문, 집행부 소개 및 릴스 게시물 아카이브",
-                           "url":  "https://www.instagram.com/kusis_d/",
-                           "placeholder":  "인스타그램 프로필 링크"
-                       }
-                   ],
+    {
+        "id": "fullArchive",
+        "icon": "🗂️",
+        "badge": "대외비",
+        "category": "executive",
+        "title": "제18대 Duet 전체 자료실 드라이브",
+        "desc": "집행위원회·의결기구(반운위/확운위/학생총회 속기록·녹화본)·예결산안·공구·반실 기구 교체·회칙 개정 원본 파일 전체 보관함 (학생회장단 전용 대외비)",
+        "url": "https://drive.google.com/drive/folders/1dVID6Wpjr1SBMLi9YLT8YweFGgUIOjdw?usp=sharing",
+        "placeholder": "전체 인수인계 드라이브 링크를 입력하세요",
+        "roles": ["duet_pres", "next_pres"]
+    },
+    {
+        "id": "googleForms",
+        "icon": "📋",
+        "badge": "대외비",
+        "category": "executive",
+        "title": "제18대 구글폼 모음 드라이브",
+        "desc": "간식행사 사전 수요조사·선착순 신청폼, 친해져도 Dㅐ? 신청폼, 신대·고대 선거 투표폼, 리크루팅 지원서, 만족도 조사 구글폼 사본 아카이브 (개인정보 포함 대외비)",
+        "url": "https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing",
+        "placeholder": "구글폼 모음 드라이브 공유 링크를 입력하세요",
+        "roles": ["duet_pres", "next_pres"]
+    },
+    {
+        "id": "planningDrive",
+        "icon": "🎯",
+        "badge": "국서실무",
+        "category": "department",
+        "title": "기획국 실무 구글 드라이브",
+        "desc": "새터·OT, 멘토멘티, 체육대회, 간식행사, 종강총회 등 기획국 주관 행사 기획서·타임테이블·역할분담표 실무 아카이브",
+        "url": "https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing",
+        "placeholder": "기획국 드라이브 공유 링크를 입력하세요",
+        "roles": ["duet_pres", "duet_head", "next_pres", "next_head"]
+    },
+    {
+        "id": "welfareDrive",
+        "icon": "🌿",
+        "badge": "국서실무",
+        "category": "department",
+        "title": "복지국 실무 구글 드라이브",
+        "desc": "반실 관리, 상비약 및 비품 재고, 과방 사물함 배정, 간식행사 물품 수령·배부 명부 및 복지 사업 실무 아카이브",
+        "url": "https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing",
+        "placeholder": "복지국 드라이브 공유 링크를 입력하세요",
+        "roles": ["duet_pres", "duet_head", "next_pres", "next_head"]
+    },
+    {
+        "id": "prDrive",
+        "icon": "📢",
+        "badge": "국서실무",
+        "category": "department",
+        "title": "홍보소통국 실무 구글 드라이브",
+        "desc": "카드뉴스 원본(Figma/Canva), 월간보고 디자인 소스, 인스타그램 피드 템플릿, 릴스 영상 클립 실무 아카이브",
+        "url": "https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing",
+        "placeholder": "홍보소통국 드라이브 공유 링크를 입력하세요",
+        "roles": ["duet_pres", "duet_head", "next_pres", "next_head"]
+    },
+    {
+        "id": "naverCafe",
+        "icon": "🏛️",
+        "badge": "공식커뮤니티",
+        "category": "community",
+        "title": "고려대 자유전공학부 네이버 카페",
+        "desc": "학부운영위원회·자전대회·D반 학생회 역대 공고문 및 회의 속기록 업로드 게시판 (회의 전후 필독 아카이브)",
+        "url": "https://cafe.naver.com/kusis",
+        "placeholder": "자전 네이버 카페 링크",
+        "roles": ["duet_pres", "duet_head", "next_pres", "next_head"]
+    },
+    {
+        "id": "instagram",
+        "icon": "📸",
+        "badge": "공식SNS",
+        "category": "community",
+        "title": "자유전공학부 D반 공식 인스타그램",
+        "desc": "@kusis_d — 제18대 Duet 월간보고, 각 사업 카드뉴스, 공고문, 집행부 소개 및 릴스 게시물 아카이브",
+        "url": "https://www.instagram.com/kusis_d/",
+        "placeholder": "인스타그램 프로필 링크",
+        "roles": ["duet_pres", "duet_head", "next_pres", "next_head"]
+    }
+],
     "monthlyReports":  [
                            {
                                "id":  "m01",

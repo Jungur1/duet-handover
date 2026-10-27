@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   "use strict";
 
   const STORAGE_KEY = "duet_handover_custom_v1";
@@ -43,7 +43,7 @@
     {
       group: "학생회장단 인수인계",
       items: [
-        { id: "presidency", icon: "👑", label: "학생회장단 인수인계서", badge: "Part 1~4" }
+        { id: "presidency", icon: "👑", label: "학생회장단 인수인계서", badge: "Part 1~5" }
       ]
     },
     {
@@ -62,6 +62,157 @@
     }
   ];
 
+  // =========================================================================
+  // RBAC CONFIGURATION & PASSWORD HASHES (SALTED SHA-256)
+  // =========================================================================
+  const RBAC_SALT = "duet_rbac_salt_2026_";
+  const SESSION_ROLE_KEY = "duet_handover_role_session";
+
+  const ROLE_CONFIG = {
+    duet_pres: {
+      id: "duet_pres",
+      icon: "👑",
+      name: "18대 학생회장단",
+      badgeClass: "duet_pres",
+      badgeText: "제18대 학생회장단 (관리자)",
+      hashes: [
+        "9d9999c3c2532bd42a5d89eeec6c2182ef8ea2a575b474934388237e3afba2d3", // 3561
+        "ad06082b3595f076cd4dc4ee782e7e85727d73553b9669ae429183b14926cccc"  // duet18pres!
+      ],
+      allowedTabs: ["overview", "calendar", "presidency", "planning", "welfare", "pr", "templates"],
+      defaultTab: "overview",
+      canEdit: true,
+      canSyncNotion: true,
+      canExport: true
+    },
+    duet_head: {
+      id: "duet_head",
+      icon: "🎖️",
+      name: "18대 국장단",
+      badgeClass: "duet_head",
+      badgeText: "제18대 국장단",
+      hashes: [
+        "940f6894aa7ef92319d571e21b3f63ae90fe6cbed6de188c7ea2f406de418ade"  // duet18head!
+      ],
+      allowedTabs: ["overview", "calendar", "planning", "welfare", "pr", "templates"],
+      defaultTab: "planning",
+      canEdit: false,
+      canSyncNotion: false,
+      canExport: false
+    },
+    next_pres: {
+      id: "next_pres",
+      icon: "🐯",
+      name: "19대 학생회장단",
+      badgeClass: "next_pres",
+      badgeText: "제19대 학생회장단",
+      hashes: [
+        "fd8b9c4274500cf858c3cbb5f37421eed08bcbb5ec0ec0de58103a14627a6909"  // duet19pres!
+      ],
+      allowedTabs: ["overview", "calendar", "presidency", "planning", "welfare", "pr", "templates"],
+      defaultTab: "overview",
+      canEdit: false,
+      canSyncNotion: false,
+      canExport: false
+    },
+    next_head: {
+      id: "next_head",
+      icon: "🌿",
+      name: "19대 국장단",
+      badgeClass: "next_head",
+      badgeText: "제19대 국장단",
+      hashes: [
+        "d225aaddc31e49a24aeb1788e8f18908d6ae487456e7da0fbe42bddca590ab5c"  // duet19head!
+      ],
+      allowedTabs: ["planning", "welfare", "pr", "templates"],
+      defaultTab: "planning",
+      canEdit: false,
+      canSyncNotion: false,
+      canExport: false
+    }
+  };
+
+  // Pure JS SHA-256 Implementation (sync fallback for any environment)
+  function sha256Sync(ascii) {
+    function rightRotate(value, amount) {
+      return (value >>> amount) | (value << (32 - amount));
+    }
+    const mathPow = Math.pow;
+    const maxWord = mathPow(2, 32);
+    let i, j;
+    const result = [];
+    const words = [];
+    const asciiBitLength = ascii.length * 8;
+    const hash = [];
+    const k = [];
+    let primeCounter = 0;
+    const isComposite = {};
+    for (let candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (i = candidate * candidate; i < 312; i += candidate) isComposite[i] = true;
+        if (primeCounter < 8) hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+        k[primeCounter] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+        primeCounter++;
+      }
+    }
+    ascii += "\x80";
+    while ((ascii.length % 64) - 56) ascii += "\x00";
+    for (i = 0; i < ascii.length; i++) {
+      j = ascii.charCodeAt(i);
+      words[i >> 2] |= j << ((3 - (i % 4)) * 8);
+    }
+    words[words.length] = (asciiBitLength / maxWord) | 0;
+    words[words.length] = asciiBitLength | 0;
+    for (j = 0; j < words.length; ) {
+      const w = words.slice(j, (j += 16));
+      const oldHash = hash.slice(0);
+      for (i = 0; i < 64; i++) {
+        const w15 = w[i - 15], w2 = w[i - 2];
+        const s0 = rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3);
+        const s1 = rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10);
+        const ch = (hash[4] & hash[5]) ^ (~hash[4] & hash[6]);
+        const maj = (hash[0] & hash[1]) ^ (hash[0] & hash[2]) ^ (hash[1] & hash[2]);
+        const temp1 =
+          (hash[7] +
+            (rightRotate(hash[4], 6) ^ rightRotate(hash[4], 11) ^ rightRotate(hash[4], 25)) +
+            ch +
+            k[i] +
+            (w[i] = i < 16 ? w[i] : (w[i - 16] + s0 + w[i - 7] + s1) | 0)) |
+          0;
+        const temp2 = ((rightRotate(hash[0], 2) ^ rightRotate(hash[0], 13) ^ rightRotate(hash[0], 22)) + maj) | 0;
+        hash[7] = hash[6];
+        hash[6] = hash[5];
+        hash[5] = hash[4];
+        hash[4] = (hash[3] + temp1) | 0;
+        hash[3] = hash[2];
+        hash[2] = hash[1];
+        hash[1] = hash[0];
+        hash[0] = (temp1 + temp2) | 0;
+      }
+      for (i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
+    }
+    for (i = 0; i < 8; i++) {
+      for (j = 3; j >= 0; j--) {
+        const b = (hash[i] >> (j * 8)) & 255;
+        result.push((b < 16 ? "0" : "") + b.toString(16));
+      }
+    }
+    return result.join("");
+  }
+
+  async function computeSha256Hex(str) {
+    if (window.crypto && window.crypto.subtle) {
+      try {
+        const buf = new TextEncoder().encode(str);
+        const hashBuf = await window.crypto.subtle.digest("SHA-256", buf);
+        return Array.from(new Uint8Array(hashBuf))
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+      } catch (_) {}
+    }
+    return sha256Sync(str);
+  }
+
   // State
   let appData = null;
   let customStore = {
@@ -72,6 +223,7 @@
   };
   let checkStore = {};
   let state = {
+    currentRole: null, // 'duet_pres' | 'duet_head' | 'next_pres' | 'next_head'
     currentTab: "overview",
     adminMode: false,
     editMode: false,
@@ -234,12 +386,19 @@
     const navContainer = document.getElementById("sidebarNav");
     if (!navContainer) return;
 
+    const currentRole = state.currentRole;
+    const roleCfg = currentRole && ROLE_CONFIG[currentRole] ? ROLE_CONFIG[currentRole] : null;
+    const allowedTabs = roleCfg ? roleCfg.allowedTabs : [];
+
     let html = "";
     NAV_ITEMS.forEach((group) => {
+      const visibleItems = group.items.filter((item) => allowedTabs.includes(item.id));
+      if (visibleItems.length === 0) return;
+
       html += `<div>
         <div class="nav-group-label">${esc(group.group)}</div>
         <ul class="nav-list">`;
-      group.items.forEach((item) => {
+      visibleItems.forEach((item) => {
         const isActive = state.currentTab === item.id;
         html += `
           <li>
@@ -315,6 +474,15 @@
   }
 
   function switchTab(tabId, skipHash) {
+    const currentRole = state.currentRole;
+    const roleCfg = currentRole && ROLE_CONFIG[currentRole] ? ROLE_CONFIG[currentRole] : null;
+    const allowedTabs = roleCfg ? roleCfg.allowedTabs : [];
+
+    if (roleCfg && !allowedTabs.includes(tabId)) {
+      showToast(`⚠️ [${roleCfg.name}] 직위는 해당 문서를 열람할 수 있는 권한이 없습니다.`);
+      tabId = roleCfg.defaultTab;
+    }
+
     state.currentTab = tabId;
     if (!skipHash) {
       history.replaceState(null, "", `#${tabId}`);
@@ -363,8 +531,17 @@
     const greetingBody = customStore.textEdits["overview_greeting"] || ov.greeting.body;
 
     let driveCardsHtml = "";
-    appData.driveLinks.forEach((dl) => {
+    const currentRole = state.currentRole;
+    const allowedDrives = appData.driveLinks.filter((dl) => {
+      if (!dl.roles || !Array.isArray(dl.roles)) return true;
+      return currentRole && dl.roles.includes(currentRole);
+    });
+
+    allowedDrives.forEach((dl) => {
       const hasUrl = Boolean(dl.url && dl.url.trim());
+      const badgeHtml = dl.badge
+        ? `<span class="drive-card-badge ${esc(dl.badge)}">${esc(dl.badge)}</span>`
+        : "";
       driveCardsHtml += `
         <div class="drive-card">
           <div class="drive-card-top">
@@ -373,7 +550,7 @@
               ${hasUrl ? "✅ 링크 연결됨" : state.adminMode ? "⚙️ 링크 입력 가능" : "⏳ 링크 준비 중"}
             </span>
           </div>
-          <div class="drive-title">${esc(dl.title)}</div>
+          <div class="drive-title">${esc(dl.title)} ${badgeHtml}</div>
           <div class="drive-desc">${esc(dl.desc)}</div>
           <div class="drive-actions">
             ${
@@ -1370,15 +1547,9 @@
   }
 
   // =========================================================================
-  // 4. ADMIN MODE vs VISITOR MODE & INLINE EDIT MODE
+  // 4. RBAC AUTHENTICATION & ACCESS CONTROL
   // =========================================================================
-  // Plaintext secrets (adminPassword, notionToken, notionDatabaseId) live in
-  // git-ignored js/config.local.js (or cached in localStorage on the Admin's PC).
-  // For GitHub Pages (.github.io) where config.local.js is not served, we verify
-  // the password via a one-way salted SHA-256 hash so the plaintext password is NEVER in GitHub.
   const LOCAL_CONFIG_CACHE_KEY = "duet_local_config_cache_v1";
-  const ADMIN_PW_SALT = "duet18_salt_";
-  const ADMIN_PW_SHA256 = "1ddcb8a66e5494497ab9a47868e25b500b10d3ab4ecce1e318aea507454528d0";
 
   function getLocalConfig() {
     if (window.DUET_LOCAL_CONFIG) {
@@ -1394,83 +1565,175 @@
     return null;
   }
 
-  async function computeSha256Hex(str) {
-    if (window.crypto && window.crypto.subtle) {
-      const buf = new TextEncoder().encode(str);
-      const hashBuf = await window.crypto.subtle.digest("SHA-256", buf);
-      return Array.from(new Uint8Array(hashBuf))
-        .map((b) => b.toString(16).padStart(2, "0"))
-        .join("");
+  let selectedGateRole = "duet_pres";
+
+  function openAuthGateModal(allowClose = false) {
+    const modal = document.getElementById("authGateModal");
+    const pwdInput = document.getElementById("authPasswordInput");
+    const errEl = document.getElementById("authGateError");
+    if (!modal) return;
+
+    if (errEl) {
+      errEl.style.display = "none";
+      errEl.textContent = "";
     }
-    return "";
+    if (pwdInput) {
+      pwdInput.value = "";
+    }
+
+    // Set selected role in modal UI
+    const targetRole = state.currentRole || "duet_pres";
+    selectGateRole(targetRole);
+
+    modal.classList.add("open");
+    modal.dataset.allowClose = allowClose ? "1" : "0";
+    setTimeout(() => {
+      if (pwdInput) pwdInput.focus();
+    }, 100);
   }
 
-  function handleAdminModeBtnClick() {
-    if (state.adminMode) {
-      // Lock back to Visitor Mode
-      state.adminMode = false;
-      state.editMode = false;
-      document.body.classList.remove("admin-mode", "edit-mode");
-      const editBtn = document.getElementById("editModeToggleBtn");
-      if (editBtn) {
-        editBtn.classList.remove("btn-edit-active");
-        editBtn.innerHTML = "✏️ 코멘트/공지 편집";
+  function closeAuthGateModal() {
+    const modal = document.getElementById("authGateModal");
+    if (!modal) return;
+    modal.classList.remove("open");
+  }
+
+  function selectGateRole(roleId) {
+    if (!ROLE_CONFIG[roleId]) return;
+    selectedGateRole = roleId;
+
+    const cards = document.querySelectorAll(".role-card");
+    cards.forEach((card) => {
+      const isSelected = card.getAttribute("data-role") === roleId;
+      card.classList.toggle("selected", isSelected);
+    });
+
+    const label = document.getElementById("authPasswordLabel");
+    if (label) {
+      const cfg = ROLE_CONFIG[roleId];
+      label.textContent = `${cfg.icon} ${cfg.name} 접속 비밀번호`;
+    }
+
+    const errEl = document.getElementById("authGateError");
+    if (errEl) {
+      errEl.style.display = "none";
+      errEl.textContent = "";
+    }
+
+    const pwdInput = document.getElementById("authPasswordInput");
+    if (pwdInput) {
+      pwdInput.focus();
+    }
+  }
+
+  async function checkRolePassword(roleId, inputPassword) {
+    if (!roleId || !inputPassword || !ROLE_CONFIG[roleId]) return false;
+    const cleanPwd = String(inputPassword).trim();
+    if (!cleanPwd) return false;
+
+    // 1. Check local config if present (e.g. from js/config.local.js)
+    const localCfg = getLocalConfig();
+    if (localCfg) {
+      if (localCfg.rolePasswords && localCfg.rolePasswords[roleId]) {
+        if (cleanPwd === String(localCfg.rolePasswords[roleId]).trim()) return true;
       }
-      updateAdminBtnUI();
-      renderMainContent();
-      showToast("🔒 방문자 모드로 잠겼습니다. (모든 수정 기능 비활성화)");
-    } else {
-      const modal = document.getElementById("adminLoginModal");
-      const inp = document.getElementById("adminPasswordInput");
-      if (!modal || !inp) return;
-      inp.value = "";
-      modal.classList.add("open");
-      setTimeout(() => inp.focus(), 50);
+      if (roleId === "duet_pres" && localCfg.adminPassword) {
+        if (cleanPwd === String(localCfg.adminPassword).trim()) return true;
+      }
     }
+
+    // 2. Check salted SHA-256 hash
+    const inputHash = await computeSha256Hex(RBAC_SALT + cleanPwd);
+    const validHashes = ROLE_CONFIG[roleId].hashes || [];
+    return validHashes.includes(inputHash);
   }
 
-  async function confirmAdminLogin() {
-    const inp = document.getElementById("adminPasswordInput");
-    if (!inp) return;
-    const val = inp.value.trim();
+  async function submitAuthGate() {
+    const pwdInput = document.getElementById("authPasswordInput");
+    const errEl = document.getElementById("authGateError");
+    if (!pwdInput) return;
+
+    const val = pwdInput.value.trim();
     if (!val) {
-      alert("비밀번호를 입력해주세요.");
-      inp.focus();
+      if (errEl) {
+        errEl.textContent = "비밀번호를 입력해주세요.";
+        errEl.style.display = "block";
+      }
+      pwdInput.focus();
       return;
     }
 
-    const cfg = getLocalConfig();
-    let isValid = false;
-    if (cfg && cfg.adminPassword) {
-      const allowed = Array.isArray(cfg.adminPassword) ? cfg.adminPassword : [String(cfg.adminPassword)];
-      if (allowed.includes(val)) isValid = true;
-    }
-    if (!isValid) {
-      const digest = await computeSha256Hex(ADMIN_PW_SALT + val);
-      if (digest === ADMIN_PW_SHA256) isValid = true;
-    }
+    const roleId = selectedGateRole || "duet_pres";
+    const isValid = await checkRolePassword(roleId, val);
 
     if (!isValid) {
-      alert("비밀번호가 일치하지 않습니다.");
-      inp.focus();
+      if (errEl) {
+        errEl.textContent = "⚠️ 비밀번호가 일치하지 않습니다. 다시 확인해주세요.";
+        errEl.style.display = "block";
+      }
+      pwdInput.focus();
       return;
     }
 
-    state.adminMode = true;
-    document.body.classList.add("admin-mode");
-    document.getElementById("adminLoginModal")?.classList.remove("open");
-    updateAdminBtnUI();
-    renderMainContent();
-    showToast("🔓 관리자 모드가 켜졌습니다! 이제 상단에서 노션 동기화, 링크 설정 및 코멘트 편집이 가능합니다.");
+    // Success: save role to session
+    try {
+      sessionStorage.setItem(SESSION_ROLE_KEY, roleId);
+    } catch (_) {}
+
+    applyAuthenticatedRole(roleId);
+    closeAuthGateModal();
+
+    const cfg = ROLE_CONFIG[roleId];
+    showToast(`✅ [${cfg.name}] 권한으로 입장하셨습니다. 환영합니다!`);
   }
 
-  function updateAdminBtnUI() {
-    const btn = document.getElementById("adminModeBtn");
-    if (!btn) return;
-    btn.classList.toggle("btn-admin-active", state.adminMode);
-    btn.innerHTML = state.adminMode
-      ? `🔓 관리자 모드<span class="hide-mobile"> · 잠그기</span>`
-      : `<span class="hide-mobile">👀 방문자 모드 · </span>🔑 관리자 로그인`;
+  function applyAuthenticatedRole(roleId) {
+    if (!ROLE_CONFIG[roleId]) roleId = "duet_pres";
+    const cfg = ROLE_CONFIG[roleId];
+
+    state.currentRole = roleId;
+    state.adminMode = Boolean(cfg.canEdit);
+    document.body.classList.toggle("admin-mode", state.adminMode);
+
+    if (!state.adminMode) {
+      state.editMode = false;
+      document.body.classList.remove("edit-mode");
+    }
+
+    updateRoleBadgeUI();
+
+    // Route check: ensure current tab is allowed
+    if (!cfg.allowedTabs.includes(state.currentTab)) {
+      state.currentTab = cfg.defaultTab;
+    }
+
+    renderSidebar();
+    renderMainContent();
+  }
+
+  function updateRoleBadgeUI() {
+    const badgeEl = document.getElementById("roleStatusBadge");
+    const iconEl = document.getElementById("roleIcon");
+    const nameEl = document.getElementById("roleName");
+    if (!badgeEl) return;
+
+    const currentRole = state.currentRole;
+    const cfg = currentRole && ROLE_CONFIG[currentRole] ? ROLE_CONFIG[currentRole] : null;
+
+    badgeEl.className = "role-status-badge";
+    if (cfg) {
+      badgeEl.classList.add(cfg.badgeClass);
+      if (iconEl) iconEl.textContent = cfg.icon;
+      if (nameEl) nameEl.textContent = cfg.badgeText;
+      badgeEl.title = `현재 직위: ${cfg.name} (클릭하여 직위 변경)`;
+    } else {
+      if (iconEl) iconEl.textContent = "🔒";
+      if (nameEl) nameEl.textContent = "직위 미선택";
+    }
+  }
+
+  function changeRole() {
+    openAuthGateModal(true);
   }
 
   function toggleEditMode() {
@@ -1898,29 +2161,34 @@
     const q = query.trim().toLowerCase();
 
     const results = [];
+    const roleCfg = state.currentRole && ROLE_CONFIG[state.currentRole] ? ROLE_CONFIG[state.currentRole] : null;
+    const allowedTabs = roleCfg ? roleCfg.allowedTabs : [];
 
-    // Search calendar events
-    appData.calendarEvents.forEach((ev) => {
-      const hay = `${ev.title} ${ev.date} ${ev.deptLabel} ${ev.noticeText} ${ev.thought}`.toLowerCase();
-      if (!q || hay.includes(q)) {
-        results.push({
-          type: "calendar",
-          badge: `📅 ${ev.date} · ${ev.deptLabel}`,
-          title: ev.title,
-          snippet: (ev.thought || ev.noticeText || "").slice(0, 110) + "...",
-          action: () => {
-            state.calSubView = "calendar";
-            state.selectedMonth = ev.monthKey;
-            state.selectedCat = "all";
-            state.selectedEventId = ev.id;
-            switchTab("calendar");
-          }
-        });
-      }
-    });
+    // Search calendar events (only if role allows calendar)
+    if (allowedTabs.includes("calendar")) {
+      appData.calendarEvents.forEach((ev) => {
+        const hay = `${ev.title} ${ev.date} ${ev.deptLabel} ${ev.noticeText} ${ev.thought}`.toLowerCase();
+        if (!q || hay.includes(q)) {
+          results.push({
+            type: "calendar",
+            badge: `📅 ${ev.date} · ${ev.deptLabel}`,
+            title: ev.title,
+            snippet: (ev.thought || ev.noticeText || "").slice(0, 110) + "...",
+            action: () => {
+              state.calSubView = "calendar";
+              state.selectedMonth = ev.monthKey;
+              state.selectedCat = "all";
+              state.selectedEventId = ev.id;
+              switchTab("calendar");
+            }
+          });
+        }
+      });
+    }
 
-    // Search doc sections
+    // Search doc sections (only allowed tabs)
     ["presidency", "planning", "welfare", "pr", "templates"].forEach((tabKey) => {
+      if (!allowedTabs.includes(tabKey)) return;
       const secs = window.DUET_SECTIONS[tabKey] || [];
       secs.forEach((sec) => {
         const plain = sec.contentHtml.replace(/<[^>]+>/g, " ");
@@ -2010,19 +2278,52 @@
       state.currentTab = hash;
     }
 
-    renderSidebar();
-    renderMainContent();
+    // RBAC Session Authentication Check
+    let sessionRole = null;
+    try {
+      sessionRole = sessionStorage.getItem(SESSION_ROLE_KEY);
+    } catch (_) {}
+
+    if (sessionRole && ROLE_CONFIG[sessionRole]) {
+      applyAuthenticatedRole(sessionRole);
+    } else {
+      // First visit: show gate modal before entering
+      openAuthGateModal(false);
+      renderSidebar();
+      renderMainContent();
+    }
+
+    // Role Gatekeeper events
+    document.querySelectorAll(".role-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        const role = card.getAttribute("data-role");
+        selectGateRole(role);
+      });
+    });
+
+    document.getElementById("submitAuthGateBtn")?.addEventListener("click", submitAuthGate);
+    document.getElementById("authGateForm")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      submitAuthGate();
+    });
+    document.getElementById("authPasswordInput")?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        submitAuthGate();
+      }
+    });
+
+    document.getElementById("toggleGatePwdBtn")?.addEventListener("click", () => {
+      const inp = document.getElementById("authPasswordInput");
+      if (!inp) return;
+      inp.type = inp.type === "password" ? "text" : "password";
+    });
+
+    document.getElementById("roleChangeBtn")?.addEventListener("click", changeRole);
+    document.getElementById("roleStatusBadge")?.addEventListener("click", changeRole);
 
     // Header actions
     document.getElementById("themeToggleBtn")?.addEventListener("click", toggleTheme);
-    document.getElementById("adminModeBtn")?.addEventListener("click", handleAdminModeBtnClick);
-    document.getElementById("confirmAdminLoginBtn")?.addEventListener("click", confirmAdminLogin);
-    document.getElementById("adminPasswordInput")?.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        confirmAdminLogin();
-      }
-    });
     document.getElementById("localConfigFileInput")?.addEventListener("change", (e) => {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
@@ -2040,13 +2341,7 @@
           };
           localStorage.setItem(LOCAL_CONFIG_CACHE_KEY, JSON.stringify(parsedCfg));
           window.DUET_LOCAL_CONFIG = parsedCfg;
-          if (parsedCfg.adminPassword) {
-            const inp = document.getElementById("adminPasswordInput");
-            if (inp) inp.value = parsedCfg.adminPassword;
-            confirmAdminLogin();
-          } else {
-            showToast("✅ config.local.js 설정이 이 브라우저에 등록되었습니다.");
-          }
+          showToast("✅ config.local.js 설정이 이 브라우저에 등록되었습니다.");
         } catch (_) {
           alert("config.local.js 파일을 읽는 중 오류가 발생했습니다.");
         }
@@ -2102,7 +2397,12 @@
     // Close modal on backdrop click
     document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
       backdrop.addEventListener("click", (e) => {
-        if (e.target === backdrop) backdrop.classList.remove("open");
+        if (e.target === backdrop) {
+          if (backdrop.id === "authGateModal" && backdrop.dataset.allowClose !== "1") {
+            return; // Must authenticate before closing gatekeeper!
+          }
+          backdrop.classList.remove("open");
+        }
       });
     });
 
@@ -2134,7 +2434,10 @@
         e.preventDefault();
         openSearchModal();
       } else if (e.key === "Escape") {
-        document.querySelectorAll(".modal-backdrop.open").forEach((m) => m.classList.remove("open"));
+        document.querySelectorAll(".modal-backdrop.open").forEach((m) => {
+          if (m.id === "authGateModal" && m.dataset.allowClose !== "1") return;
+          m.classList.remove("open");
+        });
       } else if (document.getElementById("lightboxModal")?.classList.contains("open")) {
         if (e.key === "ArrowLeft") {
           state.lightboxIdx--;

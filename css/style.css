@@ -1636,3 +1636,295 @@ table.doc-table tr:hover td {
     gap: 8px;
   }
 }
+
+
+/* ============================================================
+   RBAC Gatekeeper & Role Control Styles
+   ============================================================ */
+.role-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+.role-status-badge .role-icon {
+  font-size: 14px;
+}
+.role-status-badge.duet_pres {
+  background: var(--crimson-soft);
+  border-color: var(--crimson-light);
+  color: var(--crimson);
+}
+.role-status-badge.duet_head {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #2563eb;
+}
+.role-status-badge.next_pres {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #d97706;
+}
+.role-status-badge.next_head {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #059669;
+}
+
+/* Fullscreen Auth Gate Modal */
+.modal-backdrop.auth-gate-backdrop {
+  z-index: 10000;
+  background: rgba(15, 23, 42, 0.78);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  overflow-y: auto;
+}
+.auth-gate-card {
+  max-width: 680px;
+  width: 100%;
+  margin: auto;
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 32px 28px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border);
+  animation: authGatePop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes authGatePop {
+  0% { transform: scale(0.94); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.auth-gate-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+.auth-gate-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--crimson-soft);
+  color: var(--crimson);
+  font-size: 12.5px;
+  font-weight: 700;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+}
+.auth-gate-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.auth-gate-subtitle {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* 4-Role Grid */
+.role-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.role-card {
+  position: relative;
+  background: var(--surface-alt);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.role-card:hover {
+  border-color: var(--crimson-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.role-card.selected {
+  border-color: var(--crimson);
+  background: var(--crimson-soft);
+  box-shadow: 0 0 0 3px rgba(155, 17, 30, 0.16);
+}
+.role-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.role-card-icon {
+  font-size: 24px;
+}
+.role-card-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.role-card-badge.duet {
+  background: rgba(155, 17, 30, 0.12);
+  color: var(--crimson);
+}
+.role-card-badge.next {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+.role-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.role-card-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* Password Form */
+.auth-gate-form {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 18px 16px;
+  margin-bottom: 16px;
+}
+.password-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.password-input-wrap input {
+  width: 100%;
+  padding-right: 44px;
+}
+.btn-toggle-pwd {
+  position: absolute;
+  right: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  font-size: 16px;
+  color: var(--text-muted);
+  border-radius: 6px;
+}
+.btn-toggle-pwd:hover {
+  background: var(--border);
+}
+
+.auth-gate-error {
+  padding: 10px 14px;
+  background: #fee2e2;
+  border: 1px solid #f87171;
+  color: #991b1b;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  animation: shake 0.3s ease;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.auth-submit-btn {
+  width: 100%;
+  padding: 13px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.auth-gate-notice {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.6;
+  border-top: 1px dashed var(--border);
+  padding-top: 14px;
+}
+
+/* Drive Card Badges */
+.drive-card-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.drive-card-badge.대외비 {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #f87171;
+}
+.drive-card-badge.국서실무 {
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #93c5fd;
+}
+.drive-card-badge.공식커뮤니티,
+.drive-card-badge.공식SNS {
+  background: #f3e8ff;
+  color: #6b21a8;
+  border: 1px solid #d8b4fe;
+}
+
+/* Access Denied Placeholder */
+.access-denied-box {
+  padding: 48px 24px;
+  text-align: center;
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: 16px;
+  margin: 20px 0;
+}
+.access-denied-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+.access-denied-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.access-denied-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto 18px;
+  line-height: 1.6;
+}
+
+/* Mobile Responsiveness for Gate */
+@media (max-width: 640px) {
+  .auth-gate-card {
+    padding: 24px 18px;
+  }
+  .role-selector-grid {
+    grid-template-columns: 1fr;
+  }
+  .auth-gate-title {
+    font-size: 19px;
+  }
+}
