@@ -521,6 +521,29 @@
     applySavedTextEdits();
     applyEditModeAttributes();
     applySavedCheckboxes();
+    syncDynamicDriveLinks(main);
+  }
+
+  function syncDynamicDriveLinks(container) {
+    const root = container || document;
+    if (!appData || !Array.isArray(appData.driveLinks)) return;
+    const elements = root.querySelectorAll("[data-dynamic-drive]");
+    elements.forEach((el) => {
+      const driveId = el.getAttribute("data-dynamic-drive");
+      const dl = appData.driveLinks.find((d) => d.id === driveId);
+      const url = dl && dl.url ? dl.url.trim() : "";
+      if (url) {
+        el.setAttribute("href", url);
+        el.removeAttribute("title");
+        el.style.pointerEvents = "";
+        el.style.opacity = "";
+      } else {
+        el.setAttribute("href", "#");
+        el.setAttribute("title", "드라이브 링크가 아직 설정되지 않았습니다.");
+        el.style.pointerEvents = "none";
+        el.style.opacity = "0.6";
+      }
+    });
   }
 
   // =========================================================================
@@ -1520,6 +1543,12 @@
   }
 
   function bindDocSectionEvents() {
+    document.querySelectorAll("[data-open-drive-modal]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        openDriveModal(btn.getAttribute("data-open-drive-modal"));
+      });
+    });
+
     document.querySelectorAll("[data-doc-jump]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const id = btn.getAttribute("data-doc-jump");
@@ -1904,6 +1933,7 @@
     });
     applyCustomToAppData();
     saveCustomStore();
+    syncDynamicDriveLinks(document);
     document.getElementById("driveModal")?.classList.remove("open");
     renderMainContent();
     showToast("드라이브 링크가 저장되었습니다! 영구 반영하려면 상단 [수정본 data.js 저장]을 눌러주세요.");
@@ -2358,6 +2388,14 @@
     document.getElementById("exportDataJsBtn")?.addEventListener("click", exportUpdatedDataJs);
     document.getElementById("bannerExportBtn")?.addEventListener("click", exportUpdatedDataJs);
     document.getElementById("bannerResetBtn")?.addEventListener("click", resetAllCustomEdits);
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-open-drive-modal]");
+      if (btn) {
+        const driveId = btn.getAttribute("data-open-drive-modal");
+        openDriveModal(driveId);
+      }
+    });
 
     // Sidebar collapse / reopen toggles (laptop & mobile)
     function updateSidebarAccessibility() {

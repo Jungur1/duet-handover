@@ -366,9 +366,12 @@ window.DUET_SECTIONS = {
               <strong style="color:#1d4ed8; font-size:1.02rem;">기획국 전용 실무 구글 드라이브</strong>
               <p style="margin:4px 0 0 0; color:#4b5563; font-size:0.88rem;">새터·OT, 멘토멘티, 체육대회, 간식행사, 종강총회 등 기획국 주관 사업의 기획안·타임테이블·역할분담표 원본이 보관되어 있습니다.</p>
             </div>
-            <a href="https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
-              기획국 드라이브 바로가기 ↗
-            </a>
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <a href="https://drive.google.com/drive/folders/1HE1Jy1p6vPWuZy9f8kdR_BMs9k1fCjNB?usp=sharing" data-dynamic-drive="planningDrive" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+                기획국 드라이브 바로가기 ↗
+              </a>
+              <button type="button" class="btn admin-only" data-open-drive-modal="planningDrive" style="padding:6px 10px; font-size:0.8rem; background:rgba(255,255,255,0.9); border:1px solid #3b82f6; color:#1d4ed8; border-radius:6px;" title="기획국 드라이브 링크 수정">링크 수정</button>
+            </div>
           </div>
         </div>
 
@@ -512,9 +515,12 @@ window.DUET_SECTIONS = {
               <strong style="color:#047857; font-size:1.02rem;">복지국 전용 실무 구글 드라이브</strong>
               <p style="margin:4px 0 0 0; color:#4b5563; font-size:0.88rem;">반실 관리, 비품 재고, 과방 사물함 배정표, 간식행사 물품 수령·배부 명부 및 복지 사업 실무 서식이 보관되어 있습니다.</p>
             </div>
-            <a href="https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background:#10b981; border-color:#059669; padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
-              복지국 드라이브 바로가기 ↗
-            </a>
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <a href="https://drive.google.com/drive/folders/1fNE8Tlg3v9Xt9IR3LBBFvhAZRFUFtvPy?usp=drive_link" data-dynamic-drive="welfareDrive" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background:#10b981; border-color:#059669; padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+                복지국 드라이브 바로가기 ↗
+              </a>
+              <button type="button" class="btn admin-only" data-open-drive-modal="welfareDrive" style="padding:6px 10px; font-size:0.8rem; background:rgba(255,255,255,0.9); border:1px solid #10b981; color:#047857; border-radius:6px;" title="복지국 드라이브 링크 수정">링크 수정</button>
+            </div>
           </div>
         </div>
 
@@ -688,9 +694,12 @@ window.DUET_SECTIONS = {
               <strong style="color:#be185d; font-size:1.02rem;">홍보국 전용 실무 구글 드라이브</strong>
               <p style="margin:4px 0 0 0; color:#4b5563; font-size:0.88rem;">카드뉴스 원본(Figma/Canva), 월간보고 디자인 소스, 인스타그램 피드 템플릿, 릴스 영상 클립 소스가 보관되어 있습니다.</p>
             </div>
-            <a href="https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background:#ec4899; border-color:#db2777; padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
-              홍보국 드라이브 바로가기 ↗
-            </a>
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <a href="https://drive.google.com/drive/folders/1Dyxe_H1RBV8Lu6Efd4A7Wjlsq_RalkBR?usp=drive_link" data-dynamic-drive="prDrive" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background:#ec4899; border-color:#db2777; padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+                홍보국 드라이브 바로가기 ↗
+              </a>
+              <button type="button" class="btn admin-only" data-open-drive-modal="prDrive" style="padding:6px 10px; font-size:0.8rem; background:rgba(255,255,255,0.9); border:1px solid #ec4899; color:#be185d; border-radius:6px;" title="홍보국 드라이브 링크 수정">링크 수정</button>
+            </div>
           </div>
         </div>
 
