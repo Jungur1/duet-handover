@@ -6,7 +6,7 @@
   <title>고려대학교 자유전공학부 D반 제18대 학생회 Duet 인수인계 포털</title>
   <meta name="description" content="고려대학교 자유전공학부 D반 제18대 학생회 Duet(학생회장 원준혁, 부학생회장 우상준)이 차기 제19대 학생회장단 및 국장단(기획국·복지국·홍보국)을 위해 제작한 통합 인수인계 아카이브 포털">
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/style.css?v=6">
   <style>
     body:not(.admin-mode) .admin-only { display: none !important; }
   </style>
@@ -214,6 +214,12 @@
         <label>관리자 비밀번호</label>
         <input type="password" id="adminPasswordInput" placeholder="비밀번호를 입력하세요">
       </div>
+      <div style="margin-top:10px;padding:10px 12px;border-radius:8px;background:var(--surface-alt);border:1px solid var(--border);font-size:12px;color:var(--text-secondary);">
+        💡 <strong>내 PC 설정 파일 연동 (선택):</strong> 로컬의 <code>js/config.local.js</code> 파일을 한 번 선택하면 이 브라우저에만 기억되어(GitHub 미업로드) 노션 API 키·비밀번호가 자동 연동됩니다.
+        <div style="margin-top:6px;">
+          <input type="file" id="localConfigFileInput" accept=".js,.json" style="font-size:11.5px;max-width:100%;">
+        </div>
+      </div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;">
         <button class="btn" data-close-modal="adminLoginModal">취소</button>
         <button class="btn btn-crimson" id="confirmAdminLoginBtn">🔓 관리자 모드 켜기</button>
@@ -252,8 +258,8 @@
 
   <!-- Scripts (config.local.js is git-ignored and only exists on Admin PC) -->
   <script src="js/config.local.js"></script>
-  <script src="js/data.js?v=5"></script>
-  <script src="js/sections_data.js?v=5"></script>
-  <script src="js/app.js?v=5"></script>
+  <script src="js/data.js?v=6"></script>
+  <script src="js/sections_data.js?v=6"></script>
+  <script src="js/app.js?v=6"></script>
 </body>
 </html>

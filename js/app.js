@@ -1224,10 +1224,37 @@
   // =========================================================================
   // 4. ADMIN MODE vs VISITOR MODE & INLINE EDIT MODE
   // =========================================================================
-  // Secrets (adminPassword, notionToken, notionDatabaseId) are loaded ONLY from
-  // git-ignored js/config.local.js (window.DUET_LOCAL_CONFIG) and never uploaded to GitHub.
+  // Plaintext secrets (adminPassword, notionToken, notionDatabaseId) live in
+  // git-ignored js/config.local.js (or cached in localStorage on the Admin's PC).
+  // For GitHub Pages (.github.io) where config.local.js is not served, we verify
+  // the password via a one-way salted SHA-256 hash so the plaintext password is NEVER in GitHub.
+  const LOCAL_CONFIG_CACHE_KEY = "duet_local_config_cache_v1";
+  const ADMIN_PW_SALT = "duet18_salt_";
+  const ADMIN_PW_SHA256 = "1ddcb8a66e5494497ab9a47868e25b500b10d3ab4ecce1e318aea507454528d0";
+
   function getLocalConfig() {
-    return window.DUET_LOCAL_CONFIG || null;
+    if (window.DUET_LOCAL_CONFIG) {
+      try {
+        localStorage.setItem(LOCAL_CONFIG_CACHE_KEY, JSON.stringify(window.DUET_LOCAL_CONFIG));
+      } catch (_) {}
+      return window.DUET_LOCAL_CONFIG;
+    }
+    try {
+      const cached = localStorage.getItem(LOCAL_CONFIG_CACHE_KEY);
+      if (cached) return JSON.parse(cached);
+    } catch (_) {}
+    return null;
+  }
+
+  async function computeSha256Hex(str) {
+    if (window.crypto && window.crypto.subtle) {
+      const buf = new TextEncoder().encode(str);
+      const hashBuf = await window.crypto.subtle.digest("SHA-256", buf);
+      return Array.from(new Uint8Array(hashBuf))
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+    }
+    return "";
   }
 
   function handleAdminModeBtnClick() {
@@ -1245,11 +1272,6 @@
       renderMainContent();
       showToast("🔒 방문자 모드로 잠겼습니다. (모든 수정 기능 비활성화)");
     } else {
-      const cfg = getLocalConfig();
-      if (!cfg || !cfg.adminPassword) {
-        showToast("🔒 공개 배포본(.github.io)은 방문자 전용(읽기 전용)입니다. 수정은 로컬 관리자 PC에서만 가능합니다.");
-        return;
-      }
       const modal = document.getElementById("adminLoginModal");
       const inp = document.getElementById("adminPasswordInput");
       if (!modal || !inp) return;
@@ -1259,21 +1281,33 @@
     }
   }
 
-  function confirmAdminLogin() {
-    const cfg = getLocalConfig();
-    if (!cfg || !cfg.adminPassword) {
-      alert("로컬 관리자 설정 파일(js/config.local.js)이 없어 관리자 모드를 사용할 수 없습니다.");
-      return;
-    }
+  async function confirmAdminLogin() {
     const inp = document.getElementById("adminPasswordInput");
     if (!inp) return;
     const val = inp.value.trim();
-    const allowed = Array.isArray(cfg.adminPassword) ? cfg.adminPassword : [String(cfg.adminPassword)];
-    if (!allowed.includes(val)) {
+    if (!val) {
+      alert("비밀번호를 입력해주세요.");
+      inp.focus();
+      return;
+    }
+
+    const cfg = getLocalConfig();
+    let isValid = false;
+    if (cfg && cfg.adminPassword) {
+      const allowed = Array.isArray(cfg.adminPassword) ? cfg.adminPassword : [String(cfg.adminPassword)];
+      if (allowed.includes(val)) isValid = true;
+    }
+    if (!isValid) {
+      const digest = await computeSha256Hex(ADMIN_PW_SALT + val);
+      if (digest === ADMIN_PW_SHA256) isValid = true;
+    }
+
+    if (!isValid) {
       alert("비밀번호가 일치하지 않습니다.");
       inp.focus();
       return;
     }
+
     state.adminMode = true;
     document.body.classList.add("admin-mode");
     document.getElementById("adminLoginModal")?.classList.remove("open");
@@ -1808,6 +1842,36 @@
         e.preventDefault();
         confirmAdminLogin();
       }
+    });
+    document.getElementById("localConfigFileInput")?.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const text = String(reader.result || "");
+          const pwMatch = text.match(/adminPassword\s*:\s*["']([^"']+)["']/);
+          const tkMatch = text.match(/notionToken\s*:\s*["']([^"']+)["']/);
+          const dbMatch = text.match(/notionDatabaseId\s*:\s*["']([^"']+)["']/);
+          const parsedCfg = {
+            adminPassword: pwMatch ? pwMatch[1] : "",
+            notionToken: tkMatch ? tkMatch[1] : "",
+            notionDatabaseId: dbMatch ? dbMatch[1] : ""
+          };
+          localStorage.setItem(LOCAL_CONFIG_CACHE_KEY, JSON.stringify(parsedCfg));
+          window.DUET_LOCAL_CONFIG = parsedCfg;
+          if (parsedCfg.adminPassword) {
+            const inp = document.getElementById("adminPasswordInput");
+            if (inp) inp.value = parsedCfg.adminPassword;
+            confirmAdminLogin();
+          } else {
+            showToast("✅ config.local.js 설정이 이 브라우저에 등록되었습니다.");
+          }
+        } catch (_) {
+          alert("config.local.js 파일을 읽는 중 오류가 발생했습니다.");
+        }
+      };
+      reader.readAsText(file, "utf-8");
     });
     document.getElementById("editModeToggleBtn")?.addEventListener("click", toggleEditMode);
     document.getElementById("openNotionSyncBtn")?.addEventListener("click", openNotionSyncModal);
