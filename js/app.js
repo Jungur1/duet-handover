@@ -90,7 +90,8 @@
       badgeClass: "duet_head",
       badgeText: "제18대 국장단",
       hashes: [
-        "940f6894aa7ef92319d571e21b3f63ae90fe6cbed6de188c7ea2f406de418ade"  // duet18head!
+        
+        "8a8aa4f40a44262535e651aefab73ae5311d9e293924f6a0616705654c0bc10d","940f6894aa7ef92319d571e21b3f63ae90fe6cbed6de188c7ea2f406de418ade"  // duet18head!
       ],
       allowedTabs: ["overview", "calendar", "planning", "welfare", "pr", "templates"],
       defaultTab: "planning",
@@ -105,7 +106,8 @@
       badgeClass: "next_pres",
       badgeText: "제19대 학생회장단",
       hashes: [
-        "fd8b9c4274500cf858c3cbb5f37421eed08bcbb5ec0ec0de58103a14627a6909"  // duet19pres!
+        
+        "b4ece8a5f8db5f67faf8eff714eae4216d4c13bc43a4206bc7b76e722a1f07c1","fd8b9c4274500cf858c3cbb5f37421eed08bcbb5ec0ec0de58103a14627a6909"  // duet19pres!
       ],
       allowedTabs: ["overview", "calendar", "presidency", "planning", "welfare", "pr", "templates"],
       defaultTab: "overview",
@@ -120,7 +122,8 @@
       badgeClass: "next_head",
       badgeText: "제19대 국장단",
       hashes: [
-        "d225aaddc31e49a24aeb1788e8f18908d6ae487456e7da0fbe42bddca590ab5c"  // duet19head!
+        
+        "983c38840e183dfcd4a5509b068f1b573539866357c752894663d6c672bc695a","d225aaddc31e49a24aeb1788e8f18908d6ae487456e7da0fbe42bddca590ab5c"  // duet19head!
       ],
       allowedTabs: ["planning", "welfare", "pr", "templates"],
       defaultTab: "planning",
