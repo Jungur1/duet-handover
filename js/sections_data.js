@@ -685,7 +685,7 @@ window.DUET_SECTIONS = {
         <div class="callout callout-drive-banner" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(217, 70, 239, 0.08)); border-left: 4px solid #ec4899; padding: 14px 18px; margin-bottom: 20px; border-radius: 8px;">
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
             <div>
-              <strong style="color:#be185d; font-size:1.02rem;">홍보소통국 전용 실무 구글 드라이브</strong>
+              <strong style="color:#be185d; font-size:1.02rem;">홍보국 전용 실무 구글 드라이브</strong>
               <p style="margin:4px 0 0 0; color:#4b5563; font-size:0.88rem;">카드뉴스 원본(Figma/Canva), 월간보고 디자인 소스, 인스타그램 피드 템플릿, 릴스 영상 클립 소스가 보관되어 있습니다.</p>
             </div>
             <a href="https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background:#ec4899; border-color:#db2777; padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">

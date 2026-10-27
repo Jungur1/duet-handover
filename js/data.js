@@ -77,10 +77,10 @@ window.DUET_DEFAULT_DATA = {
       "icon": "",
       "badge": "국서실무",
       "category": "department",
-      "title": "홍보소통국 실무 구글 드라이브",
+      "title": "홍보국 실무 구글 드라이브",
       "desc": "카드뉴스 원본(Figma/Canva), 월간보고 디자인 소스, 인스타그램 피드 템플릿, 릴스 영상 클립 실무 아카이브",
       "url": "https://drive.google.com/drive/folders/1Dyxe_H1RBV8Lu6Efd4A7Wjlsq_RalkBR?usp=drive_link",
-      "placeholder": "홍보소통국 드라이브 공유 링크를 입력하세요",
+      "placeholder": "홍보국 드라이브 공유 링크를 입력하세요",
       "roles": [
         "duet_pres",
         "duet_head",
