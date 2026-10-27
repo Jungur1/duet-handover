@@ -1683,6 +1683,15 @@ table.doc-table tr:hover td {
   color-scheme: dark;
 }
 
+/* Korean text breaks between words, not mid-syllable (names, titles, chips).
+   Long unbroken strings such as URLs still wrap instead of overflowing. */
+.main-area,
+.sidebar,
+.modal-card {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
 /* Small crimson text on the soft crimson wash is too faint in dark mode */
 [data-theme="dark"] .nav-item.active,
 [data-theme="dark"] .section-tag,
