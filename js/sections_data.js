@@ -135,7 +135,7 @@ window.DUET_SECTIONS = {
       id: "pres_elec_hr",
       tag: "Part 2 · 선거관리 및 인사·조직",
       title: "2. 신입생·고학번 대표 선거 관리(소명 자료) 및 집행위원회 인사 총괄",
-      subtitle: "자전대회 대의원 지위 심사 완벽 통과 노하우와 리크루팅·추가모집·사퇴 처리 실무",
+      subtitle: "자전대회 대의원 지위 심사 대비 방법과 리크루팅·추가모집·사퇴 처리 실무",
       contentHtml: `
         <h3 class="sub-heading">2-1. 신입생 대표 · 고학번 대표 선거 및 '대의원 지위 심사 소명' (필독!)</h3>
         <p class="body-text">
@@ -231,7 +231,7 @@ window.DUET_SECTIONS = {
       id: "pres_projects",
       tag: "Part 4 · 학생회장단 주관 사업",
       title: "4. 뻔라인 매칭 · 합응 추첨 · 연세대 교류반(일일호프) · 공구 · 반실 가구 교체",
-      subtitle: "학생회장단이 직접 총괄하는 6대 대내외 핵심 사업의 A to Z 실무 가이드",
+      subtitle: "학생회장단이 직접 총괄하는 6대 대내외 사업의 실무 가이드",
       contentHtml: `
         <h3 class="sub-heading">4-1. 새터 반별 분류 & 뻔라인(뻔선-뻔후) 매칭 시스템</h3>
         <ul class="doc-list">
@@ -307,7 +307,7 @@ window.DUET_SECTIONS = {
     {
       id: "plan_overview",
       tag: "기획국 총론",
-      title: "1. 기획국(Planning)의 역할과 제18대 핵심 변화",
+      title: "1. 기획국(Planning)의 역할과 제18대 변화",
       subtitle: "전반기 김채은 국장 · 하반기 장여백 국장 체제에서 완성한 기획국 사업 가이드",
       contentHtml: `
         <p class="body-text">
@@ -355,7 +355,7 @@ window.DUET_SECTIONS = {
     },
     {
       id: "plan_swd",
-      tag: "기획국 핵심 사업 1",
+      tag: "기획국 사업 1",
       title: "2. 스터디윗D (Study with D — 매 시험기간 10일간)",
       subtitle: "열품타(열정품은타이머) 그룹 운영부터 '달성제+추첨제' 하이브리드 시상까지",
       contentHtml: `
@@ -392,7 +392,7 @@ window.DUET_SECTIONS = {
     },
     {
       id: "plan_friendly",
-      tag: "기획국 핵심 사업 2",
+      tag: "기획국 사업 2",
       title: "3. 선후배 친목 장기 프로젝트 '친해져도 Dㅐ?' (2월 말 ~ 6월 초)",
       subtitle: "25학번 재학생 2명 + 26학번 신입생 2명(4인 1조) 매칭 및 미션 채점 운영법",
       contentHtml: `
@@ -408,7 +408,7 @@ window.DUET_SECTIONS = {
     },
     {
       id: "plan_mt_exchange",
-      tag: "기획국 핵심 사업 3·4",
+      tag: "기획국 사업 3·4",
       title: "4. D반 총MT (5월 초) & 2학기 교류반 합동 사업 (미니고연전·릴스 고연전)",
       subtitle: "대성리 뜨락펜션 예약부터 레크리에이션, 2학기 연세대 교류전 기획까지",
       contentHtml: `
@@ -442,7 +442,7 @@ window.DUET_SECTIONS = {
       id: "welf_overview",
       tag: "복지국 총론",
       title: "1. 왜 '생활국'에서 '복지국(Welfare)'으로 개편했는가?",
-      subtitle: "반실 관리 부서를 넘어 D반 학우들의 실질적 복지를 책임지는 핵심 국서로의 도약",
+      subtitle: "반실 관리에 더해 D반 학우 복지 사업을 맡는 국서로 개편",
       contentHtml: `
         <p class="body-text">
           제17대 학생회에서는 부서 명칭이 '생활국'이었으나, 제18대 <Duet>에서는 <strong>2026년 1월 17일 제1차 회의</strong>를 통해 부서 명칭을 <strong>'복지국'</strong>으로 전격 변경했습니다 (1/20 제18-4차 반운위 사전인준 → 1/29 제18-1차 임시확운위 및 5/23 상반기 확운위 사후인준 확정).
@@ -459,7 +459,7 @@ window.DUET_SECTIONS = {
     },
     {
       id: "welf_room_rental",
-      tag: "복지국 핵심 사업 1·2",
+      tag: "복지국 사업 1·2",
       title: "2. 반실 전면 리뉴얼(가구 재배치·비품 교체) 및 우산·보조배터리 대여 사업",
       subtitle: "예산 173,280원으로 완성한 법학관 구관 104호 D반 반실 공간 혁신과 대여 시스템",
       contentHtml: `
@@ -510,7 +510,7 @@ window.DUET_SECTIONS = {
     },
     {
       id: "welf_clean",
-      tag: "복지국 핵심 사업 3",
+      tag: "복지국 사업 3",
       title: "3. 반실 정기 점검·청소 (2주 간격 순번제) & 냉장고 4주 폐기 원칙",
       subtitle: "혼자 30분이면 충분한 격주 로테이션 시스템과 체크리스트",
       contentHtml: `
@@ -536,9 +536,9 @@ window.DUET_SECTIONS = {
     },
     {
       id: "welf_snack",
-      tag: "복지국 핵심 사업 4",
+      tag: "복지국 사업 4",
       title: "4. 시험기간 간식행사 ('사전 수요조사 → 신청·배부 → 피드백' 3단계)",
-      subtitle: "학우 선호도를 반영한 메뉴 선정부터 선결제·구글폼 선착순 신청·대면 배부까지의 완벽 매뉴얼",
+      subtitle: "학우 선호도를 반영한 메뉴 선정부터 선결제·구글폼 선착순 신청·대면 배부까지의 운영 매뉴얼",
       contentHtml: `
         <h3 class="sub-heading">4-1. 제18대 간식행사 6단계 표준 프로세스</h3>
         <ol class="doc-list">
@@ -605,7 +605,7 @@ window.DUET_SECTIONS = {
     {
       id: "pr_overview",
       tag: "홍보국 총론",
-      title: "1. 홍보국(Public Relations)의 역할과 제18대 핵심 변화",
+      title: "1. 홍보국(Public Relations)의 역할과 제18대 변화",
       subtitle: "이윤주 홍보국장 체제에서 확립한 브랜드 통일성, 월간보고 아카이빙, 피드백 총괄 시스템",
       contentHtml: `
         <p class="body-text">
@@ -620,7 +620,7 @@ window.DUET_SECTIONS = {
     },
     {
       id: "pr_workflow",
-      tag: "홍보국 핵심 실무 1·2",
+      tag: "홍보국 실무 1·2",
       title: "2. 월간보고 · 카드뉴스 제작 프로세스 및 국원 업무 분배 노하우",
       subtitle: "누락 없는 월간보고 작성 팁과 국원 피로도를 줄이는 공정한 분배 원칙",
       contentHtml: `
@@ -643,8 +643,8 @@ window.DUET_SECTIONS = {
     },
     {
       id: "pr_feedback",
-      tag: "홍보국 핵심 실무 3",
-      title: "3. 학생회 사업 피드백(만족도 조사) 총괄 및 시행착오 완벽 정리",
+      tag: "홍보국 실무 3",
+      title: "3. 학생회 사업 피드백(만족도 조사) 총괄 및 시행착오 정리",
       subtitle: "응답 1건의 절망에서 '객관식 1분 컷 + 반실 QR 상시 부착' 모델에 이르기까지",
       contentHtml: `
         <h3 class="sub-heading">3-1. 피드백 사업을 둘러싼 제18대의 고민과 진화 과정</h3>
@@ -665,7 +665,7 @@ window.DUET_SECTIONS = {
     {
       id: "tmpl_notices",
       tag: "공고문 · 양식 템플릿",
-      title: "1. 주요 회의 소집·결과 공고 및 인사·불용신고 표준 양식 (원클릭 복사)",
+      title: "1. 주요 회의 소집·결과 공고 및 인사·불용신고 표준 양식 (복사 가능)",
       subtitle: "제18대에서 실제로 사용한 적법 공고문 텍스트와 회칙 근거 조항 모음",
       contentHtml: `
         <p class="body-text">
@@ -718,7 +718,7 @@ window.DUET_SECTIONS = {
       id: "tmpl_meetings_log",
       tag: "제18대 회의록 총람",
       title: "2. 제18대 Duet 의결기구(반운위 1~12차·확운위·총회) & 집행위 회의 전수 요약표",
-      subtitle: "1년간 열린 모든 공식 회의의 일시, 안건, 표결 결과 및 핵심 맥락 아카이브",
+      subtitle: "1년간 열린 모든 공식 회의의 일시, 안건, 표결 결과 및 논의 배경 기록",
       contentHtml: `
         <h3 class="sub-heading">2-1. 반 운영위원회 (제18-1차 ~ 제18-12차) 전수 요약</h3>
         <div class="table-wrap">

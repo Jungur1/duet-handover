@@ -409,7 +409,7 @@
         <div class="hero-eyebrow">고려대학교 자유전공학부 D반 · 제18대 학생회 인수인계 포털</div>
         <h1 class="hero-title">제18대 학생회 &lt;Duet&gt; 학생회장단 · 국장단 통합 인수인계서</h1>
         <p class="hero-desc">
-          제17대 인수인계서의 기본 업무 매뉴얼을 넘어, <strong>제18대 임기(2025.11.30 ~ 2026.11) 동안 왜 사업을 개편했는지, 당시 학생회장단과 국장단이 어떤 고민과 시행착오를 거쳤는지, 실제 공지글과 홍보물·월간보고는 어떻게 발행되었는지</strong> 모든 맥락을 담은 차기 학생회장단·국장단 전용 웹 포털입니다.
+          제17대 인수인계서의 기본 업무 매뉴얼에 제18대 임기(2025.11.30 ~ 2026.11)의 운영 기록을 더한 차기 학생회장단·국장단용 인수인계 자료입니다. 사업을 개편한 이유, 학생회장단과 국장단이 겪은 고민과 시행착오, 실제 공지글과 홍보물·월간보고의 발행 기록을 정리했습니다.
         </p>
         <div class="hero-meta-row">
           <span class="hero-chip">학생회장: ${esc(meta.president)}</span>
@@ -448,8 +448,7 @@
       <div class="doc-section">
         <div class="section-header">
           <div>
-            <span class="section-tag">GOOGLE DRIVE & ARCHIVE HUB</span>
-            <h2 class="section-title">구글폼 모음 드라이브 & 전체 인수인계 자료실 링크</h2>
+                        <h2 class="section-title">구글폼 모음 드라이브 & 전체 인수인계 자료실 링크</h2>
             <p class="section-subtitle">
               구글폼 사본(수요조사·신청폼·투표폼·만족도조사) 드라이브와 원본 자료실 드라이브 아카이브 링크입니다.
             </p>
@@ -465,8 +464,7 @@
       <div class="doc-section">
         <div class="section-header">
           <div>
-            <span class="section-tag">MESSAGE FROM 18TH DUET</span>
-            <h2 class="section-title">${esc(ov.greeting.title)}</h2>
+                        <h2 class="section-title">${esc(ov.greeting.title)}</h2>
             <p class="section-subtitle">${esc(ov.greeting.author)}</p>
           </div>
           <button class="btn btn-crimson" data-jump-tab="calendar">월별 캘린더 & 홍보물 보러가기 →</button>
@@ -504,8 +502,8 @@
       <div class="doc-section">
         <div class="section-header">
           <div>
-            <span class="section-tag">17대(도약) → 18대(Duet) 핵심 변화 요약</span>
-            <h2 class="section-title">제18대 Duet에서 새롭게 개편·신설된 핵심 사항 한눈에 보기</h2>
+            <span class="section-tag">17대(도약) → 18대(Duet) 변화 요약</span>
+            <h2 class="section-title">제18대 Duet에서 개편·신설한 사항</h2>
             <p class="section-subtitle">전대(17대) 인수인계서와 비교했을 때 18대에서 왜, 어떻게 달라졌는지 국서별로 요약했습니다.</p>
           </div>
         </div>
@@ -579,7 +577,7 @@
       <div class="doc-section" style="padding:20px 24px;margin-bottom:18px;">
         <div class="section-header" style="margin-bottom:14px;padding-bottom:12px;">
           <div>
-            <span class="section-tag">INTERACTIVE ARCHIVE · 2025.11 ~ 2027.01 · 노션 일정 ${appData.calendarEvents.length}건</span>
+            <span class="section-tag">2025.11 ~ 2027.01 · 노션 일정 ${appData.calendarEvents.length}건</span>
             <h2 class="section-title">월별 캘린더 · 홍보물 카드뉴스 · 실제 공지글 · 월간보고 아카이브</h2>
             <p class="section-subtitle">
               달력의 각 행사를 클릭하면 우측 패널에서 <strong>당시 제작한 홍보물/카드뉴스 원본 이미지</strong>와 <strong>카카오톡 공지방에 실제로 올린 공지글 전문(복사 가능)</strong>, 그리고 <strong>당시 18대의 생각/고려사항</strong>을 함께 확인할 수 있습니다.
@@ -1230,31 +1228,31 @@
     const sections = window.DUET_SECTIONS[tabId] || [];
     const headerMeta = {
       presidency: {
-        badge: "PRESIDENCY & GOVERNANCE HANDOVER",
+        badge: "학생회장단 · 의결기구",
         title: "학생회장단 인수인계서 (원준혁 · 우상준)",
         desc: "의결기구(반운위·확운위·학생총회) 진행 매뉴얼, 회칙 개정 실무, 선거 소명 자료, 예결산 3대 장부, 과잠·돕바 공구, 연세대 교류반·일일호프 총괄 및 월별 체크리스트",
         catFilter: ["pres", "gov"]
       },
       planning: {
-        badge: "PLANNING DEPARTMENT HANDOVER",
+        badge: "기획국",
         title: "기획국 인수인계서 (김채은 · 장여백 / 김동준 · 문아림)",
         desc: "스터디윗D 하이브리드 개편, 친해져도 Dㅐ? 2+2 매칭 개편, 대성리 총MT 사전답사·예산·레크, 일일호프 이벤트, 합동응원전 및 릴스 고연전 실무 매뉴얼",
         catFilter: ["plan"]
       },
       welfare: {
-        badge: "WELFARE DEPARTMENT HANDOVER",
+        badge: "복지국",
         title: "복지국(구 생활국) 인수인계서 (김동운 / 안희서 · 김찬우 · 방죠세핀 · 정유나)",
         desc: "'생활국→복지국' 명칭 개편 배경, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여 사업, 간식행사 사전 수요조사 3단계 체계",
         catFilter: ["welf"]
       },
       pr: {
-        badge: "PUBLIC RELATIONS DEPARTMENT HANDOVER",
+        badge: "홍보국",
         title: "홍보국 인수인계서 (이윤주 / 박준원 · 김선희)",
         desc: "음악 플레이어 컨셉 월간보고 정례화, 미리캔버스 구독 지원, 반실 QR 피드백 개편 및 익명성 vs 학생회비 납부 확인 딜레마 실전 교훈",
         catFilter: ["pr"]
       },
       templates: {
-        badge: "TEMPLATES & FULL MEETING LOGS",
+        badge: "부록",
         title: "표준 양식 모음 · 제18대 반운위 전회차(1~12차) 요약 · 사이트 배포 가이드",
         desc: "차기 학생회장단과 국장단이 바로 복사해 쓸 수 있는 표준 공고문·안건지·기획안 양식과 제18대 반운위 12회 전회차 요약표입니다.",
         catFilter: []
@@ -1298,8 +1296,7 @@
           <section class="doc-section">
             <div class="section-header">
               <div>
-                <span class="section-tag">RELATED PROMOS & NOTICES</span>
-                <h2 class="section-title">이 부서의 실제 홍보물 · 카드뉴스 · 공지글 바로 보기 (${relEvents.length}건)</h2>
+                                <h2 class="section-title">이 부서의 실제 홍보물 · 카드뉴스 · 공지글 바로 보기 (${relEvents.length}건)</h2>
                 <p class="section-subtitle">클릭하면 월별 캘린더의 해당 행사 상세 화면(전체 카드뉴스 슬라이드 + 실제 공지글 전문)으로 연결됩니다.</p>
               </div>
             </div>
@@ -1727,7 +1724,7 @@
     if (statusEl) {
       statusEl.innerHTML = `
         <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-radius:8px;line-height:1.55;">
-          <strong>현재 노션 DB 전체 일정 ${syncedCount}건(2025.11 ~ 2027.01, 상세 본문 29건 포함)이 <code>js/data.js</code>에 100% 반영되어 있습니다.</strong><br>
+          <strong>현재 노션 DB 전체 일정 ${syncedCount}건(2025.11 ~ 2027.01, 상세 본문 29건 포함)이 <code>js/data.js</code>에 모두 반영되어 있습니다.</strong><br>
           <span style="font-size:12px;color:var(--text-muted);">• 로컬 PC에서 노션에 새 일정을 추가한 뒤 즉시 반영하려면 프로젝트 폴더의 <code>sync_notion.bat</code>을 실행하세요.</span>
         </div>
       `;
