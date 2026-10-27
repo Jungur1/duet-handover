@@ -245,7 +245,6 @@
           <li>
             <div class="nav-item ${isActive ? "active" : ""}" data-nav-tab="${item.id}" role="button" tabindex="0"${isActive ? ' aria-current="page"' : ""}>
               <span>${esc(item.label)}</span>
-              ${item.badge ? `<span class="nav-badge">${esc(item.badge)}</span>` : ""}
             </div>
             ${isActive ? renderSubNav(item.id) : ""}
           </li>`;
@@ -369,7 +368,7 @@
       driveCardsHtml += `
         <div class="drive-card">
           <div class="drive-card-top">
-            <span class="drive-icon">${dl.icon}</span>
+            <span></span>
             <span class="drive-status ${hasUrl ? "linked" : "pending"}">
               ${hasUrl ? "링크 연결됨" : state.adminMode ? "링크 입력 가능" : "링크 준비 중"}
             </span>
@@ -480,19 +479,19 @@
         <h3 class="sub-heading" style="margin-top:24px;">차기 학생회장단 · 국장단을 위한 사이트 활용 팁</h3>
         <div class="stats-grid" style="margin-bottom:0;">
           <div class="stat-card" style="cursor:pointer;" data-jump-tab="presidency">
-            <div style="font-size:18px;font-weight:800;color:var(--crimson);margin-bottom:4px;">학생회장단 인수인계서</div>
+            <div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;">학생회장단 인수인계서</div>
             <p style="font-size:13px;color:var(--text-secondary);">반운위/확운위/학생총회 진행 스크립트, 선거 소명 자료, 예결산 3대 장부, 과잠·돕바 공구, 연세대 교류반·일일호프 총괄 노하우</p>
           </div>
           <div class="stat-card" style="cursor:pointer;" data-jump-tab="planning">
-            <div style="font-size:18px;font-weight:800;color:#2563EB;margin-bottom:4px;">기획국 인수인계서</div>
+            <div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;">기획국 인수인계서</div>
             <p style="font-size:13px;color:var(--text-secondary);">스터디윗D 달성+추첨 하이브리드 개편, 친해져도 Dㅐ? 2+2 매칭, 대성리 총MT 답사·예산, 합동응원전·릴스 고연전 실무</p>
           </div>
           <div class="stat-card" style="cursor:pointer;" data-jump-tab="welfare">
-            <div style="font-size:18px;font-weight:800;color:#059669;margin-bottom:4px;">복지국(생활국) 인수인계서</div>
+            <div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;">복지국(생활국) 인수인계서</div>
             <p style="font-size:13px;color:var(--text-secondary);">생활국→복지국 명칭 개편, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여, 간식 사전 수요조사</p>
           </div>
           <div class="stat-card" style="cursor:pointer;" data-jump-tab="pr">
-            <div style="font-size:18px;font-weight:800;color:#9333EA;margin-bottom:4px;">홍보국 인수인계서</div>
+            <div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;">홍보국 인수인계서</div>
             <p style="font-size:13px;color:var(--text-secondary);">음악 플레이어 컨셉 월간보고 정례화, 미리캔버스 구독 지원, 반실 QR 피드백 개편과 익명성 vs 회비 딜레마 교훈</p>
           </div>
         </div>

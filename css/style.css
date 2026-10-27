@@ -346,7 +346,6 @@ body.sidebar-collapsed .mobile-menu-btn {
   border-color: var(--crimson);
   color: var(--crimson);
   background: var(--surface);
-  box-shadow: 0 0 0 2px rgba(162, 26, 47, 0.15);
 }
 
 .nav-group-label {
@@ -485,15 +484,10 @@ body.sidebar-collapsed .main-area {
   margin-bottom: 26px;
 }
 .hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.16);
-  padding: 4px 12px;
-  border-radius: 99px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 10px;
 }
 .hero-title {
   font-size: 28px;
@@ -613,14 +607,11 @@ body.sidebar-collapsed .main-area {
   margin-bottom: 18px;
 }
 .section-tag {
-  display: inline-block;
-  font-size: 11.5px;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 6px;
-  background: var(--crimson-soft);
-  color: var(--crimson);
-  margin-bottom: 6px;
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 4px;
 }
 .section-title {
   font-size: 20px;
@@ -739,9 +730,9 @@ body.edit-mode [data-editable="true"]:focus {
   box-shadow: var(--shadow-sm);
 }
 .stat-num {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--crimson);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
 }
 .stat-label {
   font-size: 13px;
@@ -1654,7 +1645,6 @@ table.doc-table tr:hover td {
 
 /* Small crimson text on the soft crimson wash is too faint in dark mode */
 [data-theme="dark"] .nav-item.active,
-[data-theme="dark"] .section-tag,
 [data-theme="dark"] .month-year-label {
   color: var(--crimson-light);
 }
