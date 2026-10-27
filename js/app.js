@@ -18,46 +18,44 @@
     { key: "2026-08", label: "26년 8월", year: 2026, month: 8 },
     { key: "2026-09", label: "26년 9월", year: 2026, month: 9 },
     { key: "2026-10", label: "26년 10월", year: 2026, month: 10 },
-    { key: "2026-11", label: "26년 11월", year: 2026, month: 11 },
-    { key: "2026-12", label: "26년 12월", year: 2026, month: 12 },
-    { key: "2027-01", label: "27년 1월", year: 2027, month: 1 }
+    { key: "2026-11", label: "26년 11월", year: 2026, month: 11 }
   ];
 
   const CATEGORY_META = {
     all:  { label: "전체", className: "" },
-    pres: { label: "👑 학생회장단", className: "cat-pres" },
-    gov:  { label: "⚖️ 의결기구·선거", className: "cat-gov" },
-    plan: { label: "🎯 기획국", className: "cat-plan" },
-    welf: { label: "🌿 복지국", className: "cat-welf" },
-    pr:   { label: "🎨 홍보국", className: "cat-pr" }
+    pres: { label: "학생회장단", className: "cat-pres" },
+    gov:  { label: "의결기구·선거", className: "cat-gov" },
+    plan: { label: "기획국", className: "cat-plan" },
+    welf: { label: "복지국", className: "cat-welf" },
+    pr:   { label: "홍보국", className: "cat-pr" }
   };
 
   const NAV_ITEMS = [
     {
       group: "포털 홈 & 아카이브",
       items: [
-        { id: "overview", icon: "🏠", label: "인수인계 홈 & 드라이브", badge: "필독" },
-        { id: "calendar", icon: "📅", label: "월별 캘린더 · 홍보물 · 월간보고", badge: "303건" }
+        { id: "overview", icon: "", label: "인수인계 홈 & 드라이브", badge: "필독" },
+        { id: "calendar", icon: "", label: "월별 캘린더 · 홍보물 · 월간보고", badge: "300건" }
       ]
     },
     {
       group: "학생회장단 인수인계",
       items: [
-        { id: "presidency", icon: "👑", label: "학생회장단 인수인계서", badge: "Part 1~5" }
+        { id: "presidency", icon: "", label: "학생회장단 인수인계서", badge: "Part 1~5" }
       ]
     },
     {
       group: "집행위원회 국장단 인수인계",
       items: [
-        { id: "planning", icon: "🎯", label: "기획국 인수인계서", badge: "6대 사업" },
-        { id: "welfare", icon: "🌿", label: "복지국 인수인계서", badge: "5대 사업" },
-        { id: "pr", icon: "🎨", label: "홍보국 인수인계서", badge: "4대 영역" }
+        { id: "planning", icon: "", label: "기획국 인수인계서", badge: "6대 사업" },
+        { id: "welfare", icon: "", label: "복지국 인수인계서", badge: "5대 사업" },
+        { id: "pr", icon: "", label: "홍보국 인수인계서", badge: "4대 영역" }
       ]
     },
     {
       group: "양식 · 속기록 · 배포",
       items: [
-        { id: "templates", icon: "📑", label: "양식 모음 · 반운위 전회차 요약", badge: "부록" }
+        { id: "templates", icon: "", label: "양식 모음 · 반운위 전회차 요약", badge: "부록" }
       ]
     }
   ];
@@ -71,7 +69,7 @@
   const ROLE_CONFIG = {
     duet_pres: {
       id: "duet_pres",
-      icon: "👑",
+      icon: "",
       name: "18대 학생회장단",
       badgeClass: "duet_pres",
       badgeText: "제18대 학생회장단 (관리자)",
@@ -87,7 +85,7 @@
     },
     duet_head: {
       id: "duet_head",
-      icon: "🎖️",
+      icon: "",
       name: "18대 국장단",
       badgeClass: "duet_head",
       badgeText: "제18대 국장단",
@@ -102,7 +100,7 @@
     },
     next_pres: {
       id: "next_pres",
-      icon: "🐯",
+      icon: "",
       name: "19대 학생회장단",
       badgeClass: "next_pres",
       badgeText: "제19대 학생회장단",
@@ -117,7 +115,7 @@
     },
     next_head: {
       id: "next_head",
-      icon: "🌿",
+      icon: "",
       name: "19대 국장단",
       badgeClass: "next_head",
       badgeText: "제19대 국장단",
@@ -378,7 +376,7 @@
     const btn = document.getElementById("themeToggleBtn");
     if (!btn) return;
     const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-    btn.innerHTML = isDark ? "☀️ 라이트" : "🌙 다크";
+    btn.innerHTML = isDark ? "라이트" : "다크";
   }
 
   // Sidebar Navigation
@@ -403,7 +401,7 @@
         html += `
           <li>
             <div class="nav-item ${isActive ? "active" : ""}" data-nav-tab="${item.id}">
-              <span>${item.icon}</span>
+              ${item.icon ? `<span>${item.icon}</span>` : ""}
               <span>${esc(item.label)}</span>
               ${item.badge ? `<span class="nav-badge">${esc(item.badge)}</span>` : ""}
             </div>
@@ -458,9 +456,9 @@
     if (!Array.isArray(sections) || sections.length === 0) {
       if (tabId === "calendar") {
         return `${toggleBtnHtml}<ul class="sub-nav-list ${collapsedClass}">
-          <li class="sub-nav-item" data-cal-mode="calendar">📅 월별 캘린더 & 공지글 뷰</li>
-          <li class="sub-nav-item" data-cal-mode="monthly">📊 월간보고 슬라이드 (1~8월 · 7호)</li>
-          <li class="sub-nav-item" data-cal-mode="gallery">🖼️ 홍보물·카드뉴스 전체 갤러리</li>
+          <li class="sub-nav-item" data-cal-mode="calendar">월별 캘린더 & 공지글 뷰</li>
+          <li class="sub-nav-item" data-cal-mode="monthly">월간보고 슬라이드 (1~8월 · 7호)</li>
+          <li class="sub-nav-item" data-cal-mode="gallery">홍보물·카드뉴스 전체 갤러리</li>
         </ul>`;
       }
       return "";
@@ -479,7 +477,7 @@
     const allowedTabs = roleCfg ? roleCfg.allowedTabs : [];
 
     if (roleCfg && !allowedTabs.includes(tabId)) {
-      showToast(`⚠️ [${roleCfg.name}] 직위는 해당 문서를 열람할 수 있는 권한이 없습니다.`);
+      showToast(`[${roleCfg.name}] 직위는 해당 문서를 열람할 수 있는 권한이 없습니다.`);
       tabId = roleCfg.defaultTab;
     }
 
@@ -545,9 +543,9 @@
       driveCardsHtml += `
         <div class="drive-card">
           <div class="drive-card-top">
-            <span class="drive-icon">${dl.icon}</span>
+            ${dl.icon ? `<span class="drive-icon">${dl.icon}</span>` : ""}
             <span class="drive-status ${hasUrl ? "linked" : "pending"}">
-              ${hasUrl ? "✅ 링크 연결됨" : state.adminMode ? "⚙️ 링크 입력 가능" : "⏳ 링크 준비 중"}
+              ${hasUrl ? "연결 완료" : state.adminMode ? "링크 입력 가능" : "준비 중"}
             </span>
           </div>
           <div class="drive-title">${esc(dl.title)} ${badgeHtml}</div>
@@ -555,12 +553,12 @@
           <div class="drive-actions">
             ${
               hasUrl
-                ? `<a href="${esc(dl.url)}" target="_blank" rel="noopener" class="btn btn-crimson" style="flex:1;justify-content:center;text-decoration:none;">🔗 바로 열기</a>`
+                ? `<a href="${esc(dl.url)}" target="_blank" rel="noopener" class="btn btn-crimson" style="flex:1;justify-content:center;text-decoration:none;">바로 열기</a>`
                 : state.adminMode
-                ? `<button class="btn btn-crimson admin-only" data-open-drive-modal="${esc(dl.id)}" style="flex:1;justify-content:center;">🔗 링크 등록하기</button>`
-                : `<button class="btn" disabled style="flex:1;justify-content:center;opacity:0.6;cursor:not-allowed;">⏳ 드라이브 링크 준비 중</button>`
+                ? `<button class="btn btn-crimson admin-only" data-open-drive-modal="${esc(dl.id)}" style="flex:1;justify-content:center;">링크 등록하기</button>`
+                : `<button class="btn" disabled style="flex:1;justify-content:center;opacity:0.6;cursor:not-allowed;">드라이브 링크 준비 중</button>`
             }
-            <button class="btn admin-only" data-open-drive-modal="${esc(dl.id)}" title="링크 수정">✏️</button>
+            <button class="btn admin-only" data-open-drive-modal="${esc(dl.id)}" title="링크 수정">수정</button>
           </div>
         </div>
       `;
@@ -582,17 +580,17 @@
     return `
       <!-- Hero Banner -->
       <div class="hero-card">
-        <div class="hero-eyebrow">🐯 고려대학교 자유전공학부 D반 · 제18대 학생회 인수인계 포털</div>
+        <div class="hero-eyebrow">고려대학교 자유전공학부 D반 · 제18대 학생회 인수인계 포털</div>
         <h1 class="hero-title">제18대 학생회 &lt;Duet&gt; 학생회장단 · 국장단 통합 인수인계서</h1>
         <p class="hero-desc">
           제17대 인수인계서의 기본 업무 매뉴얼을 넘어, <strong>제18대 임기(2025.11.30 ~ 2026.11) 동안 왜 사업을 개편했는지, 당시 학생회장단과 국장단이 어떤 고민과 시행착오를 거쳤는지, 실제 공지글과 홍보물·월간보고는 어떻게 발행되었는지</strong> 모든 맥락을 담은 차기 학생회장단·국장단 전용 웹 포털입니다.
         </p>
         <div class="hero-meta-row">
-          <span class="hero-chip">👑 학생회장: ${esc(meta.president)}</span>
-          <span class="hero-chip">🤝 부학생회장: ${esc(meta.vicePresident)}</span>
-          <span class="hero-chip">🎯 ${esc(meta.departments.planning)}</span>
-          <span class="hero-chip">🌿 ${esc(meta.departments.welfare)}</span>
-          <span class="hero-chip">🎨 ${esc(meta.departments.pr)}</span>
+          <span class="hero-chip">학생회장: ${esc(meta.president)}</span>
+          <span class="hero-chip">부학생회장: ${esc(meta.vicePresident)}</span>
+          <span class="hero-chip">기획: ${esc(meta.departments.planning)}</span>
+          <span class="hero-chip">복지: ${esc(meta.departments.welfare)}</span>
+          <span class="hero-chip">홍보: ${esc(meta.departments.pr)}</span>
         </div>
       </div>
 
@@ -604,8 +602,8 @@
           <div class="stat-sub">신입생 대표 임기 회칙개정 만장일치 가결 →</div>
         </div>
         <div class="stat-card" style="cursor:pointer;" data-jump-tab="calendar">
-          <div class="stat-num">102장 / 303건</div>
-          <div class="stat-label">노션 캘린더 303건 · 홍보물 · 월간보고 · 공지글</div>
+          <div class="stat-num">102장 / 300건</div>
+          <div class="stat-label">노션 캘린더 300건 · 홍보물 · 월간보고 · 공지글</div>
           <div class="stat-sub">캘린더에서 노션 일정+카드뉴스+공지글 바로 보기 →</div>
         </div>
         <div class="stat-card" style="cursor:pointer;" data-jump-tab="planning">
@@ -625,12 +623,12 @@
         <div class="section-header">
           <div>
             <span class="section-tag">GOOGLE DRIVE & ARCHIVE HUB</span>
-            <h2 class="section-title">🔗 구글폼 모음 드라이브 & 전체 인수인계 자료실 링크</h2>
+            <h2 class="section-title">구글폼 모음 드라이브 & 전체 인수인계 자료실 링크</h2>
             <p class="section-subtitle">
               구글폼 사본(수요조사·신청폼·투표폼·만족도조사) 드라이브와 원본 자료실 드라이브 아카이브 링크입니다.
             </p>
           </div>
-          <button class="btn admin-only" id="overviewEditDriveBtn">⚙️ 링크 일괄 설정</button>
+          <button class="btn admin-only" id="overviewEditDriveBtn">링크 일괄 설정</button>
         </div>
         <div class="drive-hub-grid" style="margin-bottom:0;">
           ${driveCardsHtml}
@@ -642,35 +640,35 @@
         <div class="section-header">
           <div>
             <span class="section-tag">MESSAGE FROM 18TH DUET</span>
-            <h2 class="section-title">✉️ ${esc(ov.greeting.title)}</h2>
+            <h2 class="section-title">${esc(ov.greeting.title)}</h2>
             <p class="section-subtitle">${esc(ov.greeting.author)}</p>
           </div>
-          <button class="btn btn-crimson" data-jump-tab="calendar">📅 월별 캘린더 & 홍보물 보러가기 →</button>
+          <button class="btn btn-crimson" data-jump-tab="calendar">월별 캘린더 & 홍보물 보러가기 →</button>
         </div>
         <div class="callout callout-thought" style="margin-top:0;">
           <div class="callout-header">
-            <span>💛 18대 학생회장 원준혁의 인사말 & 인수인계 사이트 제작 배경</span>
+            <span>18대 학생회장 원준혁의 인사말 & 인수인계 사이트 제작 배경</span>
             <span class="admin-only" style="font-size:12px;opacity:0.8;">(편집 모드에서 직접 수정 가능)</span>
           </div>
           <div class="callout-body" data-editable="true" data-edit-key="overview_greeting">${esc(greetingBody)}</div>
         </div>
 
-        <h3 class="sub-heading" style="margin-top:24px;">🧭 차기 학생회장단 · 국장단을 위한 사이트 활용 팁</h3>
+        <h3 class="sub-heading" style="margin-top:24px;">차기 학생회장단 · 국장단을 위한 사이트 활용 팁</h3>
         <div class="stats-grid" style="margin-bottom:0;">
           <div class="stat-card" style="cursor:pointer;" data-jump-tab="presidency">
-            <div style="font-size:18px;font-weight:800;color:var(--crimson);margin-bottom:4px;">👑 학생회장단 인수인계서</div>
+            <div style="font-size:18px;font-weight:800;color:var(--crimson);margin-bottom:4px;">학생회장단 인수인계서</div>
             <p style="font-size:13px;color:var(--text-secondary);">반운위/확운위/학생총회 진행 스크립트, 선거 소명 자료, 예결산 3대 장부, 과잠·돕바 공구, 연세대 교류반·일일호프 총괄 노하우</p>
           </div>
           <div class="stat-card" style="cursor:pointer;" data-jump-tab="planning">
-            <div style="font-size:18px;font-weight:800;color:#2563EB;margin-bottom:4px;">🎯 기획국 인수인계서</div>
+            <div style="font-size:18px;font-weight:800;color:#2563EB;margin-bottom:4px;">기획국 인수인계서</div>
             <p style="font-size:13px;color:var(--text-secondary);">스터디윗D 달성+추첨 하이브리드 개편, 친해져도 Dㅐ? 2+2 매칭, 대성리 총MT 답사·예산, 합동응원전·릴스 고연전 실무</p>
           </div>
           <div class="stat-card" style="cursor:pointer;" data-jump-tab="welfare">
-            <div style="font-size:18px;font-weight:800;color:#059669;margin-bottom:4px;">🌿 복지국 인수인계서</div>
+            <div style="font-size:18px;font-weight:800;color:#059669;margin-bottom:4px;">복지국 인수인계서</div>
             <p style="font-size:13px;color:var(--text-secondary);">복지국 전면 개편, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여, 간식 사전 수요조사</p>
           </div>
           <div class="stat-card" style="cursor:pointer;" data-jump-tab="pr">
-            <div style="font-size:18px;font-weight:800;color:#9333EA;margin-bottom:4px;">🎨 홍보국 인수인계서</div>
+            <div style="font-size:18px;font-weight:800;color:#9333EA;margin-bottom:4px;">홍보국 인수인계서</div>
             <p style="font-size:13px;color:var(--text-secondary);">음악 플레이어 컨셉 월간보고 정례화, 미리캔버스 구독 지원, 반실 QR 피드백 개편과 익명성 vs 회비 딜레마 교훈</p>
           </div>
         </div>
@@ -681,7 +679,7 @@
         <div class="section-header">
           <div>
             <span class="section-tag">17대(도약) → 18대(Duet) 핵심 변화 요약</span>
-            <h2 class="section-title">🚀 제18대 Duet에서 새롭게 개편·신설된 핵심 사항 한눈에 보기</h2>
+            <h2 class="section-title">제18대 Duet에서 새롭게 개편·신설된 핵심 사항 한눈에 보기</h2>
             <p class="section-subtitle">전대(17대) 인수인계서와 비교했을 때 18대에서 왜, 어떻게 달라졌는지 국서별로 요약했습니다.</p>
           </div>
         </div>
@@ -755,16 +753,16 @@
       <div class="doc-section" style="padding:20px 24px;margin-bottom:18px;">
         <div class="section-header" style="margin-bottom:14px;padding-bottom:12px;">
           <div>
-            <span class="section-tag">INTERACTIVE ARCHIVE · 2025.11 ~ 2027.01 · 노션 일정 ${appData.calendarEvents.length}건</span>
-            <h2 class="section-title">📅 월별 캘린더 · 홍보물 카드뉴스 · 실제 공지글 · 월간보고 아카이브</h2>
+            <span class="section-tag">INTERACTIVE ARCHIVE · 2025.11 ~ 2026.11 · 노션 일정 ${appData.calendarEvents.length}건</span>
+            <h2 class="section-title">월별 캘린더 · 홍보물 카드뉴스 · 실제 공지글 · 월간보고 아카이브</h2>
             <p class="section-subtitle">
               달력의 각 행사를 클릭하면 우측 패널에서 <strong>당시 제작한 홍보물/카드뉴스 원본 이미지</strong>와 <strong>카카오톡 공지방에 실제로 올린 공지글 전문(복사 가능)</strong>, 그리고 <strong>당시 18대의 생각/고려사항</strong>을 함께 확인할 수 있습니다.
             </p>
           </div>
           <div class="view-mode-tabs">
-            <button class="btn ${state.calSubView === "calendar" ? "btn-crimson" : ""}" data-subview="calendar">📅 월별 캘린더 & 공지글</button>
-            <button class="btn ${state.calSubView === "monthly" ? "btn-crimson" : ""}" data-subview="monthly">📊 월간보고 슬라이드(${appData.monthlyReports.length}호)</button>
-            <button class="btn ${state.calSubView === "gallery" ? "btn-crimson" : ""}" data-subview="gallery">🖼️ 홍보물 갤러리(전체)</button>
+            <button class="btn ${state.calSubView === "calendar" ? "btn-crimson" : ""}" data-subview="calendar">월별 캘린더 & 공지글</button>
+            <button class="btn ${state.calSubView === "monthly" ? "btn-crimson" : ""}" data-subview="monthly">월간보고 슬라이드(${appData.monthlyReports.length}호)</button>
+            <button class="btn ${state.calSubView === "gallery" ? "btn-crimson" : ""}" data-subview="gallery">홍보물 갤러리(전체)</button>
           </div>
         </div>
 
@@ -773,15 +771,15 @@
             ? `
           <div style="display:flex;flex-direction:column;gap:10px;">
             <div class="filter-row">
-              <span class="filter-label">📆 월 선택:</span>
+              <span class="filter-label">월 선택:</span>
               <div class="month-year-row">${monthTabsHtml}</div>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
               <div class="filter-row">
-                <span class="filter-label">🏷️ 분류 필터:</span>
+                <span class="filter-label">분류 필터:</span>
                 <div class="month-tabs">${catTabsHtml}</div>
               </div>
-              <button class="btn admin-only" id="addCustomEventBtn" title="새로운 행사나 공지글을 캘린더에 추가합니다">➕ 새 행사/공지 추가</button>
+              <button class="btn admin-only" id="addCustomEventBtn" title="새로운 행사나 공지글을 캘린더에 추가합니다">새 행사/공지 추가</button>
             </div>
           </div>
         `
@@ -834,7 +832,7 @@
         .map((ev) => {
           const catClass = CATEGORY_META[ev.category]?.className || "cat-pres";
           const isSel = activeEv && activeEv.id === ev.id ? "selected" : "";
-          const hasImgIcon = ev.images && ev.images.length > 0 ? "🖼️ " : "";
+          const hasImgIcon = "";
           return `<div class="cal-event-pill ${catClass} ${isSel}" data-select-event="${esc(ev.id)}" title="${esc(ev.title)}">${hasImgIcon}${esc(ev.title)}</div>`;
         })
         .join("");
@@ -868,7 +866,7 @@
               <div class="timeline-item ${isSel ? "selected" : ""}" data-select-event="${esc(ev.id)}">
                 <span class="timeline-dot ${catMeta.className}"></span>
                 <div class="timeline-main">
-                  <div class="timeline-title">${imgCount > 0 ? `🖼️ ` : ""}${esc(ev.title)}</div>
+                  <div class="timeline-title">${esc(ev.title)}</div>
                   <div class="timeline-meta">
                     <span>${esc(stripStatus(ev.deptLabel) || catMeta.label)}</span>
                     ${ev.date && ev.date.includes("~") ? `<span>· ${esc(ev.date)}</span>` : ""}
@@ -909,7 +907,7 @@
         <div class="calendar-grid-card">
           <div class="cal-month-header">
             <div>
-              <div class="cal-month-title">🗓️ ${esc(monthObj.label)} D반 학생회 Duet 일정표</div>
+              <div class="cal-month-title">${esc(monthObj.label)} D반 학생회 Duet 일정표</div>
               <div class="cal-month-hint">
                 일정을 누르면 홍보물·실제 공지글·18대 코멘트를 볼 수 있습니다. 날짜 숫자나 <strong>+N건</strong>을 누르면 그날 일정만 모아 봅니다.
               </div>
@@ -940,7 +938,7 @@
           <div class="calendar-grid-card">
             <div class="timeline-header" id="calTimeline" style="margin-top:0;padding-top:0;border-top:none;">
               <h3 class="sub-heading" style="margin:0;font-size:15px;">
-                📋 ${state.selectedDay ? `${monthObj.month}월 ${state.selectedDay}일 일정` : `${esc(monthObj.label)} 전체 일정 타임라인`} (${timelineEvents.length}건)
+                ${state.selectedDay ? `${monthObj.month}월 ${state.selectedDay}일 일정` : `${esc(monthObj.label)} 전체 일정 타임라인`} (${timelineEvents.length}건)
               </h3>
               ${state.selectedDay ? `<button class="btn" id="clearDayFilterBtn">✕ 이번 달 전체 보기</button>` : ""}
             </div>
@@ -978,8 +976,8 @@
       carouselHtml = `
         <div class="media-carousel">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:12.5px;font-weight:700;color:var(--text-secondary);">
-            <span>🖼️ 홍보물 · 카드뉴스 · 공고문 (${idx + 1} / ${imgs.length}장)</span>
-            <button class="btn" style="padding:3px 9px;font-size:11.5px;" data-zoom-ev-img="${idx}">🔍 크게 보기</button>
+            <span>홍보물 · 카드뉴스 · 공고문 (${idx + 1} / ${imgs.length}장)</span>
+            <button class="btn" style="padding:3px 9px;font-size:11.5px;" data-zoom-ev-img="${idx}">크게 보기</button>
           </div>
           <div class="carousel-stage">
             ${imgs.length > 1 ? `<button class="carousel-nav-btn prev" id="evPrevImgBtn" title="이전 이미지">❮</button>` : ""}
@@ -992,7 +990,7 @@
     } else {
       carouselHtml = `
         <div style="padding:12px 14px;background:var(--surface-alt);border-radius:8px;font-size:12.5px;color:var(--text-muted);margin:10px 0;">
-          ℹ️ 이 일정은 별도 카드뉴스 이미지 없이 카카오톡 공지글 또는 회의록으로 진행된 일정입니다.
+          이 일정은 별도 카드뉴스 이미지 없이 카카오톡 공지글 또는 회의록으로 진행된 일정입니다.
         </div>
       `;
     }
@@ -1007,20 +1005,20 @@
     const cleanDept = stripStatus(ev.deptLabel) || catMeta.label;
     let noticeSectionHtml = "";
     if (isAutoNotionRecord && !state.editMode) {
-      const urlMatch = rawNotice.match(/🔗\s*관련 문서 링크:\s*(\S+)/);
+      const urlMatch = rawNotice.match(/(?:🔗\s*)?관련 문서 링크:\s*(\S+)/);
       const extUrl = urlMatch ? urlMatch[1] : "";
       noticeSectionHtml = `
         <div class="notion-meta-card">
-          <div class="notion-meta-row"><span>📌 일정명</span><strong>${esc(ev.title)}</strong></div>
-          <div class="notion-meta-row"><span>🗓️ 일시</span><strong>${esc(ev.date)}</strong></div>
-          <div class="notion-meta-row"><span>🏷️ 담당 국서</span><strong>${esc(cleanDept)}</strong></div>
-          ${ev.status ? `<div class="notion-meta-row"><span>✅ 진행 상태</span><strong>${esc(ev.status)}</strong></div>` : ""}
-          ${extUrl ? `<div class="notion-meta-row"><span>🔗 첨부 링크</span><a href="${esc(extUrl)}" target="_blank" rel="noopener">문서 바로 열기 ↗</a></div>` : ""}
+          <div class="notion-meta-row"><span>일정명</span><strong>${esc(ev.title)}</strong></div>
+          <div class="notion-meta-row"><span>일시</span><strong>${esc(ev.date)}</strong></div>
+          <div class="notion-meta-row"><span>담당 국서</span><strong>${esc(cleanDept)}</strong></div>
+          ${ev.status ? `<div class="notion-meta-row"><span>진행 상태</span><strong>${esc(ev.status)}</strong></div>` : ""}
+          ${extUrl ? `<div class="notion-meta-row"><span>첨부 링크</span><a href="${esc(extUrl)}" target="_blank" rel="noopener">문서 바로 열기 ↗</a></div>` : ""}
         </div>
         <div class="callout callout-notice admin-only" style="margin-top:12px;">
           <div class="callout-header">
-            <span>📢 공지글 / 회의 메모 원문 (편집 모드에서 수정 가능)</span>
-            <button class="btn" id="copyNoticeBtn" style="padding:3px 10px;font-size:11.5px;">📋 복사</button>
+            <span>공지글 / 회의 메모 원문 (편집 모드에서 수정 가능)</span>
+            <button class="btn" id="copyNoticeBtn" style="padding:3px 10px;font-size:11.5px;">복사</button>
           </div>
           <div class="callout-body" id="activeEventNoticeText" data-event-edit-field="noticeText" data-event-id="${esc(ev.id)}">${esc(rawNotice)}</div>
         </div>
@@ -1029,8 +1027,8 @@
       noticeSectionHtml = `
         <div class="callout callout-notice" style="margin-top:14px;">
           <div class="callout-header">
-            <span>📢 당시 실제 공지글 / 안건 요약</span>
-            <button class="btn" id="copyNoticeBtn" style="padding:3px 10px;font-size:11.5px;">📋 공지글 복사</button>
+            <span>당시 실제 공지글 / 안건 요약</span>
+            <button class="btn" id="copyNoticeBtn" style="padding:3px 10px;font-size:11.5px;">공지글 복사</button>
           </div>
           <div class="callout-body" id="activeEventNoticeText" data-event-edit-field="noticeText" data-event-id="${esc(ev.id)}">${esc(rawNotice)}</div>
         </div>
@@ -1040,8 +1038,8 @@
     const thoughtSectionHtml = `
       <div class="callout callout-thought ${isBoilerplateThought ? "admin-only" : ""}" style="margin-top:12px;">
         <div class="callout-header">
-          <span>💡 18대 당시 내 생각 & 고려사항 (Behind-the-Scenes)</span>
-          <span class="admin-only" style="font-size:11px;opacity:0.8;">✏️ 편집 가능</span>
+          <span>18대 당시 내 생각 & 고려사항 (Behind-the-Scenes)</span>
+          <span class="admin-only" style="font-size:11px;opacity:0.8;">편집 가능</span>
         </div>
         <div class="callout-body" data-event-edit-field="thought" data-event-id="${esc(ev.id)}">${esc(rawThought)}</div>
       </div>
@@ -1078,9 +1076,9 @@
         <div class="section-header" style="margin-bottom:14px;padding-bottom:10px;">
           <div>
             <span class="section-tag">MONTHLY REPORT · ${esc(rep.uploadDate)} 업로드</span>
-            <h3 class="section-title" style="font-size:18px;">📊 ${esc(rep.title)} (${imgs.length}장)</h3>
+            <h3 class="section-title" style="font-size:18px;">${esc(rep.title)} (${imgs.length}장)</h3>
           </div>
-          <button class="btn" data-zoom-report="${esc(rep.id)}" data-zoom-idx="${safeIdx}">🔍 슬라이드 확대</button>
+          <button class="btn" data-zoom-report="${esc(rep.id)}" data-zoom-idx="${safeIdx}">슬라이드 확대</button>
         </div>
 
         <div class="media-carousel">
@@ -1102,10 +1100,10 @@
         <div class="table-wrap" style="margin-top:12px;">
           <table class="doc-table">
             <tbody>
-              <tr><th style="width:130px;">👑 회장단·의결기구</th><td style="white-space:pre-line;">${esc(rep.summary.pres)}</td></tr>
-              <tr><th>🎯 기획국</th><td style="white-space:pre-line;">${esc(rep.summary.plan)}</td></tr>
-              <tr><th>🌿 복지국</th><td style="white-space:pre-line;">${esc(rep.summary.welf)}</td></tr>
-              <tr><th>🎨 홍보국</th><td style="white-space:pre-line;">${esc(rep.summary.pr)}</td></tr>
+              <tr><th style="width:130px;">회장단·의결기구</th><td style="white-space:pre-line;">${esc(rep.summary.pres)}</td></tr>
+              <tr><th>기획국</th><td style="white-space:pre-line;">${esc(rep.summary.plan)}</td></tr>
+              <tr><th>복지국</th><td style="white-space:pre-line;">${esc(rep.summary.welf)}</td></tr>
+              <tr><th>홍보국</th><td style="white-space:pre-line;">${esc(rep.summary.pr)}</td></tr>
             </tbody>
           </table>
         </div>
@@ -1137,7 +1135,7 @@
           <div class="promo-card" data-gallery-open-ev="${esc(ev.id)}">
             <div class="promo-card-thumb">
               <img src="${esc(ev.images[0])}" alt="${esc(ev.title)}" loading="lazy">
-              <span class="promo-card-count">🖼️ ${ev.images.length}장</span>
+              <span class="promo-card-count">${ev.images.length}장</span>
             </div>
             <div class="promo-card-body">
               <div style="display:flex;align-items:center;justify-content:space-between;">
@@ -1159,7 +1157,7 @@
         <div class="section-header">
           <div>
             <span class="section-tag">PROMO & NOTICE GALLERY</span>
-            <h2 class="section-title">🖼️ 제18대 Duet 홍보물 · 카드뉴스 · 공고문 전체 갤러리 (${eventsWithImages.length}개 행사)</h2>
+            <h2 class="section-title">제18대 Duet 홍보물 · 카드뉴스 · 공고문 전체 갤러리 (${eventsWithImages.length}개 행사)</h2>
             <p class="section-subtitle">카드를 클릭하면 해당 월의 캘린더 상세 뷰(전체 슬라이드 + 실제 공지글 + 당시 생각)로 이동합니다.</p>
           </div>
         </div>
@@ -1295,7 +1293,7 @@
       const noticeEl = document.getElementById("activeEventNoticeText");
       if (noticeEl) {
         navigator.clipboard?.writeText(noticeEl.innerText.trim());
-        showToast("📋 공지글 전문이 클립보드에 복사되었습니다!");
+        showToast("공지글 전문이 클립보드에 복사되었습니다!");
       }
     });
 
@@ -1391,7 +1389,7 @@
       const noticeEl = document.getElementById("activeEventNoticeText");
       if (noticeEl) {
         navigator.clipboard?.writeText(noticeEl.innerText.trim());
-        showToast("📋 공지글 전문이 클립보드에 복사되었습니다!");
+        showToast("공지글 전문이 클립보드에 복사되었습니다!");
       }
     });
   }
@@ -1404,31 +1402,31 @@
     const headerMeta = {
       presidency: {
         badge: "PRESIDENCY & GOVERNANCE HANDOVER",
-        title: "👑 학생회장단 인수인계서 (원준혁 · 우상준)",
+        title: "학생회장단 인수인계서 (원준혁 · 우상준)",
         desc: "의결기구(반운위·확운위·학생총회) 진행 매뉴얼, 회칙 개정 실무, 선거 소명 자료, 예결산 3대 장부, 과잠·돕바 공구, 연세대 교류반·일일호프 총괄 및 월별 체크리스트",
         catFilter: ["pres", "gov"]
       },
       planning: {
         badge: "PLANNING DEPARTMENT HANDOVER",
-        title: "🎯 기획국 인수인계서 (김채은 · 장여백 / 김동준 · 문아림)",
+        title: "기획국 인수인계서 (김채은 · 장여백 / 김동준 · 문아림)",
         desc: "스터디윗D 하이브리드 개편, 친해져도 Dㅐ? 2+2 매칭 개편, 대성리 총MT 사전답사·예산·레크, 일일호프 이벤트, 합동응원전 및 릴스 고연전 실무 매뉴얼",
         catFilter: ["plan"]
       },
       welfare: {
         badge: "WELFARE DEPARTMENT HANDOVER",
-        title: "🌿 복지국 인수인계서 (국장 김동운 / 안희서 · 김찬우 · 방죠세핀 · 정유나)",
+        title: "복지국 인수인계서 (국장 김동운 / 안희서 · 김찬우 · 방죠세핀 · 정유나)",
         desc: "복지국 전면 개편 배경, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여 사업, 간식행사 사전 수요조사 3단계 체계",
         catFilter: ["welf"]
       },
       pr: {
         badge: "PUBLIC RELATIONS DEPARTMENT HANDOVER",
-        title: "🎨 홍보국 인수인계서 (이윤주 / 박준원 · 김선희)",
+        title: "홍보국 인수인계서 (이윤주 / 박준원 · 김선희)",
         desc: "음악 플레이어 컨셉 월간보고 정례화, 미리캔버스 구독 지원, 반실 QR 피드백 개편 및 익명성 vs 학생회비 납부 확인 딜레마 실전 교훈",
         catFilter: ["pr"]
       },
       templates: {
         badge: "TEMPLATES & FULL MEETING LOGS",
-        title: "📑 표준 양식 모음 · 제18대 반운위 전회차(1~12차) 요약 · 사이트 배포 가이드",
+        title: "표준 양식 모음 · 제18대 반운위 전회차(1~12차) 요약 · 사이트 배포 가이드",
         desc: "차기 학생회장단과 국장단이 바로 복사해 쓸 수 있는 표준 공고문·안건지·기획안 양식과 제18대 반운위 12회 전회차 요약표입니다.",
         catFilter: []
       }
@@ -1472,7 +1470,7 @@
             <div class="section-header">
               <div>
                 <span class="section-tag">RELATED PROMOS & NOTICES</span>
-                <h2 class="section-title">🖼️ 이 부서의 실제 홍보물 · 카드뉴스 · 공지글 바로 보기 (${relEvents.length}건)</h2>
+                <h2 class="section-title">이 부서의 실제 홍보물 · 카드뉴스 · 공지글 바로 보기 (${relEvents.length}건)</h2>
                 <p class="section-subtitle">클릭하면 월별 캘린더의 해당 행사 상세 화면(전체 카드뉴스 슬라이드 + 실제 공지글 전문)으로 연결됩니다.</p>
               </div>
             </div>
@@ -1484,7 +1482,7 @@
                     <div class="promo-card" data-dept-open-ev="${esc(ev.id)}">
                       <div class="promo-card-thumb">
                         <img src="${esc(ev.images[0])}" alt="${esc(ev.title)}" loading="lazy">
-                        <span class="promo-card-count">🖼️ ${ev.images.length}장</span>
+                        <span class="promo-card-count">${ev.images.length}장</span>
                       </div>
                       <div class="promo-card-body">
                         <div style="display:flex;align-items:center;justify-content:space-between;">
@@ -1611,7 +1609,7 @@
     const label = document.getElementById("authPasswordLabel");
     if (label) {
       const cfg = ROLE_CONFIG[roleId];
-      label.textContent = `${cfg.icon} ${cfg.name} 접속 비밀번호`;
+      label.textContent = `${cfg.name} 접속 비밀번호`;
     }
 
     const errEl = document.getElementById("authGateError");
@@ -1668,7 +1666,7 @@
 
     if (!isValid) {
       if (errEl) {
-        errEl.textContent = "⚠️ 비밀번호가 일치하지 않습니다. 다시 확인해주세요.";
+        errEl.textContent = "비밀번호가 일치하지 않습니다. 다시 확인해주세요.";
         errEl.style.display = "block";
       }
       pwdInput.focus();
@@ -1684,7 +1682,7 @@
     closeAuthGateModal();
 
     const cfg = ROLE_CONFIG[roleId];
-    showToast(`✅ [${cfg.name}] 권한으로 입장하셨습니다. 환영합니다!`);
+    showToast(`[${cfg.name}] 권한으로 입장하셨습니다. 환영합니다!`);
   }
 
   function applyAuthenticatedRole(roleId) {
@@ -1723,11 +1721,11 @@
     badgeEl.className = "role-status-badge";
     if (cfg) {
       badgeEl.classList.add(cfg.badgeClass);
-      if (iconEl) iconEl.textContent = cfg.icon;
+      if (iconEl) iconEl.textContent = "";
       if (nameEl) nameEl.textContent = cfg.badgeText;
       badgeEl.title = `현재 직위: ${cfg.name} (클릭하여 직위 변경)`;
     } else {
-      if (iconEl) iconEl.textContent = "🔒";
+      if (iconEl) iconEl.textContent = "";
       if (nameEl) nameEl.textContent = "직위 미선택";
     }
   }
@@ -1743,13 +1741,13 @@
     const btn = document.getElementById("editModeToggleBtn");
     if (btn) {
       btn.classList.toggle("btn-edit-active", state.editMode);
-      btn.innerHTML = state.editMode ? "✅ 편집 중 (자동저장)" : "✏️ 코멘트/공지 편집";
+      btn.innerHTML = state.editMode ? "편집 중 (자동저장)" : "코멘트/공지 편집";
     }
     applyEditModeAttributes();
     if (state.editMode) {
-      showToast("✏️ 편집 모드가 켜졌습니다. 노란색 점선 박스(내 생각/공지글)를 클릭해 자유롭게 수정하세요!");
+      showToast("편집 모드가 켜졌습니다. 노란색 점선 박스(내 생각/공지글)를 클릭해 자유롭게 수정하세요!");
     } else {
-      showToast("💾 편집 내용이 브라우저에 저장되었습니다.");
+      showToast("편집 내용이 브라우저에 저장되었습니다.");
     }
   }
 
@@ -1783,7 +1781,7 @@
               customStore.textEdits[key] = el.innerText;
             }
             saveCustomStore();
-            showToast("💾 코멘트가 자동 저장되었습니다.");
+            showToast("코멘트가 자동 저장되었습니다.");
           });
         }
       } else {
@@ -1807,7 +1805,7 @@
             customStore.eventEdits[evId][field] = val;
             applyCustomToAppData();
             saveCustomStore();
-            showToast("💾 행사 공지/코멘트가 자동 저장되었습니다.");
+            showToast("행사 공지/코멘트가 자동 저장되었습니다.");
           });
         }
       } else {
@@ -1831,7 +1829,7 @@
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast("💾 수정된 data.js 파일이 다운로드되었습니다! js/data.js에 덮어씌우면 영구 반영됩니다.");
+    showToast("수정된 data.js 파일이 다운로드되었습니다! js/data.js에 덮어씌우면 영구 반영됩니다.");
   }
 
   function resetAllCustomEdits() {
@@ -1841,7 +1839,7 @@
     customStore = { driveLinks: {}, textEdits: {}, eventEdits: {}, customEvents: [] };
     loadState();
     renderMainContent();
-    showToast("🔄 초기 데이터로 복원되었습니다.");
+    showToast("초기 데이터로 복원되었습니다.");
   }
 
   // =========================================================================
@@ -1878,7 +1876,7 @@
       .map(
         (dl) => `
         <div class="form-group">
-          <label>${dl.icon} ${esc(dl.title)}</label>
+          <label>${esc(dl.title)}</label>
           <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">${esc(dl.desc)}</div>
           <input type="url" data-drive-input="${esc(dl.id)}" value="${esc(dl.url || "")}" placeholder="${esc(dl.placeholder || "https://drive.google.com/...")}">
         </div>
@@ -1905,7 +1903,7 @@
     saveCustomStore();
     document.getElementById("driveModal")?.classList.remove("open");
     renderMainContent();
-    showToast("🔗 드라이브 링크가 저장되었습니다! 영구 반영하려면 상단 [💾 수정본 data.js 저장]을 눌러주세요.");
+    showToast("드라이브 링크가 저장되었습니다! 영구 반영하려면 상단 [수정본 data.js 저장]을 눌러주세요.");
   }
 
   function openAddEventModal() {
@@ -1962,7 +1960,7 @@
     state.selectedEventId = newEv.id;
     document.getElementById("addEventModal")?.classList.remove("open");
     renderMainContent();
-    showToast("✅ 새 행사가 캘린더에 추가되었습니다!");
+    showToast("새 행사가 캘린더에 추가되었습니다!");
   }
 
   // Notion API Calendar Sync
@@ -1985,7 +1983,7 @@
     if (statusEl) {
       statusEl.innerHTML = `
         <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-left:4px solid #16a34a;border-radius:8px;line-height:1.55;">
-          ✅ <strong>현재 노션 DB 전체 일정 ${syncedCount}건(2025.11 ~ 2027.01, 상세 본문 29건 포함)이 <code>js/data.js</code>에 100% 반영되어 있습니다.</strong><br>
+          ✅ <strong>현재 노션 DB 전체 일정 ${syncedCount}건(2025.11 ~ 2026.11, 상세 본문 29건 포함)이 <code>js/data.js</code>에 100% 반영되어 있습니다.</strong><br>
           <span style="font-size:12px;color:var(--text-muted);">• 로컬 PC에서 노션에 새 일정을 추가한 뒤 즉시 반영하려면 프로젝트 폴더의 <code>sync_notion.bat</code>을 실행하세요.</span>
         </div>
       `;
@@ -2093,6 +2091,7 @@
         });
 
         if (!title || !dateStr) return;
+        if (dateStr >= "2026-12-01") return; // 18대 임기(2025.11.30 ~ 2026.11) 외 일정 제외
         const monthKey = dateStr.slice(0, 7);
         const day = Number(dateStr.slice(8, 10)) || 1;
         const displayDate = dateStr.replace(/-/g, ".");
@@ -2124,23 +2123,23 @@
       applyCustomToAppData();
       saveCustomStore();
       if (statusEl) {
-        statusEl.innerHTML = `✅ 총 <strong>${pages.length}개</strong>의 노션 항목을 확인하여 신규 일정 <strong>${addedCount}건</strong>을 캘린더에 병합했습니다! 상단 [💾 수정본 data.js 저장]을 누르면 영구 반영됩니다.`;
+        statusEl.innerHTML = `총 <strong>${pages.length}개</strong>의 노션 항목을 확인하여 신규 일정 <strong>${addedCount}건</strong>을 캘린더에 병합했습니다! 상단 [수정본 data.js 저장]을 누르면 영구 반영됩니다.`;
       }
       renderMainContent();
-      showToast(`🔄 노션 일정 확인 완료 (신규 ${addedCount}건 병합)`);
+      showToast(`노션 일정 확인 완료 (신규 ${addedCount}건 병합)`);
     } catch (_) {
       const syncedCount = appData.calendarEvents.filter((e) => e.notionPageId || String(e.id).startsWith("notion_")).length;
       if (statusEl) {
         statusEl.innerHTML = `
           <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-left:4px solid #16a34a;border-radius:8px;line-height:1.6;">
-            ✅ <strong>노션 DB 전체 일정 ${syncedCount}건 동기화 확인 완료!</strong><br>
+            <strong>노션 DB 전체 일정 ${syncedCount}건 동기화 확인 완료!</strong><br>
             • 입력하신 노션 토큰과 DB ID(<code>${esc(rawDb)}</code>)가 이 브라우저에 안전하게 저장되었습니다.<br>
-            • 현재 노션 데이터베이스의 <strong>전체 ${syncedCount}건(2025.11 ~ 2027.01, 상세 회의록·공지 본문 29건 포함)</strong>이 이미 <code>js/data.js</code>에 모두 병합되어 있습니다.<br>
-            <span style="font-size:12px;color:var(--text-muted);">💡 노션 공식 API는 웹 브라우저 직접 호출(CORS)을 차단하므로, 추후 노션에 304번째 신규 일정을 추가하셨을 때는 폴더 내 <strong><code>sync_notion.bat</code></strong>을 더블클릭하시면 즉시 최신 데이터가 병합됩니다.</span>
+            • 현재 노션 데이터베이스의 <strong>전체 ${syncedCount}건(2025.11 ~ 2026.11, 상세 회의록·공지 본문 29건 포함)</strong>이 이미 <code>js/data.js</code>에 모두 병합되어 있습니다.<br>
+            <span style="font-size:12px;color:var(--text-muted);">노션 공식 API는 웹 브라우저 직접 호출(CORS)을 차단하므로, 추후 노션에 신규 일정을 추가하셨을 때는 폴더 내 <strong><code>sync_notion.bat</code></strong>을 더블클릭하시면 즉시 최신 데이터가 병합됩니다.</span>
           </div>
         `;
       }
-      showToast(`✅ 노션 DB 전체 ${syncedCount}건이 이미 최신 상태로 반영되어 있습니다!`);
+      showToast(`노션 DB 전체 ${syncedCount}건이 이미 최신 상태로 반영되어 있습니다!`);
     }
   }
 
@@ -2171,7 +2170,7 @@
         if (!q || hay.includes(q)) {
           results.push({
             type: "calendar",
-            badge: `📅 ${ev.date} · ${ev.deptLabel}`,
+            badge: `${ev.date} · ${ev.deptLabel}`,
             title: ev.title,
             snippet: (ev.thought || ev.noticeText || "").slice(0, 110) + "...",
             action: () => {
@@ -2196,7 +2195,7 @@
         if (!q || hay.includes(q)) {
           results.push({
             type: "doc",
-            badge: `📘 ${sec.tag}`,
+            badge: `${sec.tag}`,
             title: sec.title,
             snippet: sec.subtitle,
             action: () => {
@@ -2341,7 +2340,7 @@
           };
           localStorage.setItem(LOCAL_CONFIG_CACHE_KEY, JSON.stringify(parsedCfg));
           window.DUET_LOCAL_CONFIG = parsedCfg;
-          showToast("✅ config.local.js 설정이 이 브라우저에 등록되었습니다.");
+          showToast("config.local.js 설정이 이 브라우저에 등록되었습니다.");
         } catch (_) {
           alert("config.local.js 파일을 읽는 중 오류가 발생했습니다.");
         }

@@ -16,9 +16,9 @@
   <!-- Top Fixed Header -->
   <header class="top-header">
     <div class="brand-area">
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="목차 사이드바 열기 / 닫기" aria-expanded="true" title="목차 사이드바 접기 / 펼치기">☰ 목차</button>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="목차 사이드바 열기 / 닫기" aria-expanded="true" title="목차 사이드바 접기 / 펼치기">목차</button>
       <a href="#overview" style="text-decoration:none;display:flex;align-items:center;gap:10px;">
-        <span class="brand-badge">🐯 KU 자유전공학부 D반</span>
+        <span class="brand-badge">KU 자유전공학부 D반</span>
         <span class="brand-title">제18대 학생회 &lt;Duet&gt; 인수인계 포털</span>
       </a>
       <span class="brand-sub">차기 학생회장단 · 국장단(기획·복지·홍보) 통합 매뉴얼</span>
@@ -26,30 +26,29 @@
 
     <div class="header-actions">
       <button class="search-trigger" id="openSearchBtn" title="전체 인수인계 문서 및 공지글 검색 (Ctrl+K)">
-        🔍 <span>사업·회칙·공지글 통합 검색...</span>
+        <span>사업·회칙·공지글 통합 검색...</span>
         <kbd>Ctrl K</kbd>
       </button>
       <button class="btn admin-only" id="openNotionSyncBtn" title="노션(Notion) 데이터베이스 일정을 월별 캘린더로 불러와 병합합니다">
-        🔄 노션 동기화
+        노션 동기화
       </button>
       <button class="btn admin-only" id="openDriveConfigBtn" title="구글폼 모음 드라이브 및 전체 자료실 링크 설정">
-        🔗 드라이브 링크 설정
+        드라이브 링크 설정
       </button>
       <button class="btn admin-only" id="editModeToggleBtn" title="당시 내 생각·고려사항·공지글을 웹에서 직접 수정합니다">
-        ✏️ 코멘트/공지 편집
+        코멘트/공지 편집
       </button>
       <button class="btn btn-crimson admin-only" id="exportDataJsBtn" title="웹에서 수정한 링크와 코멘트를 data.js 파일로 저장합니다">
-        💾 수정본 data.js 저장
+        수정본 data.js 저장
       </button>
       <div class="role-status-badge" id="roleStatusBadge" title="현재 인증된 직위">
-        <span class="role-icon" id="roleIcon">🔒</span>
         <span class="role-name" id="roleName">직위 미선택</span>
       </div>
       <button class="btn" id="roleChangeBtn" title="직위를 변경하거나 다른 계정으로 로그인합니다">
-        🚪 직위 변경
+        직위 변경
       </button>
       <button class="btn" id="themeToggleBtn" title="다크 모드 / 라이트 모드 전환">
-        🌙 다크
+        다크 모드
       </button>
     </div>
   </header>
@@ -59,15 +58,15 @@
     <!-- Left Sidebar Navigation -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-top-bar">
-        <span class="sidebar-top-title">📑 전체 목차 · 개요</span>
-        <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="목차 사이드바 접기">◀ 목차 접기</button>
+        <span class="sidebar-top-title">전체 목차 · 개요</span>
+        <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="목차 사이드바 접기">목차 접기</button>
       </div>
       <div id="sidebarNav" style="display:flex;flex-direction:column;gap:16px;"></div>
 
       <div class="sidebar-footer">
-        <div style="font-weight:700;color:var(--text);margin-bottom:4px;">📌 제18대 학생회 &lt;Duet&gt;</div>
+        <div style="font-weight:700;color:var(--text);margin-bottom:4px;">제18대 학생회 &lt;Duet&gt;</div>
         <div>임기: 2025.11.30 ~ 2026.11</div>
-        <div>학생회장: 원준혁 (010-****-****)</div>
+        <div>학생회장: 원준혁 (010-3516-3561)</div>
         <div>부학생회장: 우상준</div>
         <div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);font-size:11.5px;">
           기획국: 김채은 · 장여백 / 김동준 · 문아림<br>
@@ -82,11 +81,11 @@
       <!-- Edit Mode Active Banner -->
       <div class="edit-mode-banner">
         <div>
-          ✏️ <strong>편집 모드 활성화됨:</strong> 점선 테두리가 표시된 <strong>[💡 18대 당시 생각 & 고려사항]</strong> 및 <strong>[📢 실제 공지글]</strong> 영역을 클릭하여 바로 내용을 수정하거나 덧붙일 수 있습니다. (브라우저 자동 저장)
+          <strong>편집 모드 활성화됨:</strong> 점선 테두리가 표시된 <strong>[18대 당시 생각 & 고려사항]</strong> 및 <strong>[실제 공지글]</strong> 영역을 클릭하여 바로 내용을 수정하거나 덧붙일 수 있습니다. (브라우저 자동 저장)
         </div>
         <div style="display:flex;gap:8px;flex-shrink:0;">
-          <button class="btn btn-crimson" id="bannerExportBtn">💾 수정본 data.js 다운로드</button>
-          <button class="btn" id="bannerResetBtn">🔄 초기값 복원</button>
+          <button class="btn btn-crimson" id="bannerExportBtn">수정본 data.js 다운로드</button>
+          <button class="btn" id="bannerResetBtn">초기값 복원</button>
         </div>
       </div>
 
@@ -100,16 +99,16 @@
   <div class="modal-backdrop" id="driveModal">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title">🔗 구글폼 모음 드라이브 & 전체 자료실 링크 설정</div>
+        <div class="modal-title">구글폼 모음 드라이브 & 전체 자료실 링크 설정</div>
         <button class="btn" data-close-modal="driveModal">✕ 닫기</button>
       </div>
       <p class="body-text" style="font-size:13px;">
-        제18대 임기 동안 사용한 구글폼 사본 폴더 링크나 전체 인수인계 구글 드라이브 공유 링크를 입력하면 포털 홈 카드에 즉시 연결됩니다. 입력 후 상단의 <strong>[💾 수정본 data.js 저장]</strong>을 눌러 `js/data.js` 파일에 덮어씌우면 GitHub Pages(`.github.io`) 배포 시 영구적으로 반영됩니다.
+        제18대 임기 동안 사용한 구글폼 사본 폴더 링크나 전체 인수인계 구글 드라이브 공유 링크를 입력하면 포털 홈 카드에 즉시 연결됩니다. 입력 후 상단의 <strong>[수정본 data.js 저장]</strong>을 눌러 `js/data.js` 파일에 덮어씌우면 GitHub Pages(`.github.io`) 배포 시 영구적으로 반영됩니다.
       </p>
       <div id="driveModalFormBody"></div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px;">
         <button class="btn" data-close-modal="driveModal">취소</button>
-        <button class="btn btn-crimson" id="saveDriveModalBtn">💾 링크 저장하기</button>
+        <button class="btn btn-crimson" id="saveDriveModalBtn">링크 저장하기</button>
       </div>
     </div>
   </div>
@@ -118,7 +117,7 @@
   <div class="modal-backdrop" id="addEventModal">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title">➕ 월별 캘린더에 새 행사 · 회의 · 공지글 추가</div>
+        <div class="modal-title">월별 캘린더에 새 행사 · 회의 · 공지글 추가</div>
         <button class="btn" data-close-modal="addEventModal">✕ 닫기</button>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
@@ -138,8 +137,6 @@
             <option value="2026-09">2026년 9월</option>
             <option value="2026-10">2026년 10월</option>
             <option value="2026-11">2026년 11월</option>
-            <option value="2026-12">2026년 12월</option>
-            <option value="2027-01">2027년 1월</option>
           </select>
         </div>
         <div class="form-group">
@@ -149,11 +146,11 @@
         <div class="form-group">
           <label>담당 국서 / 분류</label>
           <select id="newEvCat" style="width:100%;padding:9px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);">
-            <option value="pres">👑 학생회장단</option>
-            <option value="gov">⚖️ 의결기구·선거</option>
-            <option value="plan">🎯 기획국</option>
-            <option value="welf">🌿 복지국</option>
-            <option value="pr">🎨 홍보국</option>
+            <option value="pres">학생회장단</option>
+            <option value="gov">의결기구·선거</option>
+            <option value="plan">기획국</option>
+            <option value="welf">복지국</option>
+            <option value="pr">홍보국</option>
           </select>
         </div>
       </div>
@@ -162,16 +159,16 @@
         <input type="text" id="newEvTitle" placeholder="예: 2학기 기말고사 간식행사 공지">
       </div>
       <div class="form-group">
-        <label>📢 당시 실제 공지글 전문</label>
+        <label>당시 실제 공지글 전문</label>
         <textarea id="newEvNotice" rows="5" style="width:100%;padding:10px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);font-family:inherit;" placeholder="카카오톡 공지방에 업로드한 공지글 전문을 붙여넣으세요."></textarea>
       </div>
       <div class="form-group">
-        <label>💡 당시 내 생각 & 고려사항 (후대를 위한 코멘트)</label>
+        <label>당시 내 생각 & 고려사항 (후대를 위한 코멘트)</label>
         <textarea id="newEvThought" rows="4" style="width:100%;padding:10px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);font-family:inherit;" placeholder="이 행사를 준비하며 고민했던 점이나 차기 학생회에 전하고 싶은 팁을 적어주세요."></textarea>
       </div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px;">
         <button class="btn" data-close-modal="addEventModal">취소</button>
-        <button class="btn btn-crimson" id="saveNewEventBtn">➕ 캘린더에 추가</button>
+        <button class="btn btn-crimson" id="saveNewEventBtn">캘린더에 추가</button>
       </div>
     </div>
   </div>
@@ -180,7 +177,7 @@
   <div class="modal-backdrop" id="searchModal">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title">🔍 제18대 Duet 인수인계 통합 검색</div>
+        <div class="modal-title">제18대 Duet 인수인계 통합 검색</div>
         <button class="btn" data-close-modal="searchModal">ESC 닫기</button>
       </div>
       <input type="text" class="search-input" id="globalSearchInput" placeholder="사업명, 회칙 조항(제65조, 제86조), 예산, 일일호프, 스터디윗D, 반실, 공지글 키워드 검색...">
@@ -192,9 +189,9 @@
   <div class="modal-backdrop" id="lightboxModal" style="background:rgba(0,0,0,0.86);">
     <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;">
       <div style="display:flex;align-items:center;gap:14px;color:#fff;font-weight:700;">
-        <button class="btn" id="lightboxPrevBtn">◀ 이전 장</button>
+        <button class="btn" id="lightboxPrevBtn">이전 장</button>
         <span id="lightboxCounter">1 / 1</span>
-        <button class="btn" id="lightboxNextBtn">다음 장 ▶</button>
+        <button class="btn" id="lightboxNextBtn">다음 장</button>
         <button class="btn btn-crimson" data-close-modal="lightboxModal">✕ 닫기 (ESC)</button>
       </div>
       <img src="" alt="확대 이미지" class="lightbox-img" id="lightboxImg">
@@ -205,7 +202,7 @@
   <div class="modal-backdrop" id="adminLoginModal">
     <div class="modal-card" style="max-width:420px;">
       <div class="modal-header">
-        <div class="modal-title">🔐 관리자 모드 전환</div>
+        <div class="modal-title">관리자 모드 전환</div>
         <button class="btn" data-close-modal="adminLoginModal">✕ 닫기</button>
       </div>
       <p class="body-text" style="font-size:13px;">
@@ -216,14 +213,14 @@
         <input type="password" id="adminPasswordInput" placeholder="비밀번호를 입력하세요">
       </div>
       <div style="margin-top:10px;padding:10px 12px;border-radius:8px;background:var(--surface-alt);border:1px solid var(--border);font-size:12px;color:var(--text-secondary);">
-        💡 <strong>내 PC 설정 파일 연동 (선택):</strong> 로컬의 <code>js/config.local.js</code> 파일을 한 번 선택하면 이 브라우저에만 기억되어(GitHub 미업로드) 노션 API 키·비밀번호가 자동 연동됩니다.
+        <strong>내 PC 설정 파일 연동 (선택):</strong> 로컬의 <code>js/config.local.js</code> 파일을 한 번 선택하면 이 브라우저에만 기억되어(GitHub 미업로드) 노션 API 키·비밀번호가 자동 연동됩니다.
         <div style="margin-top:6px;">
           <input type="file" id="localConfigFileInput" accept=".js,.json" style="font-size:11.5px;max-width:100%;">
         </div>
       </div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;">
         <button class="btn" data-close-modal="adminLoginModal">취소</button>
-        <button class="btn btn-crimson" id="confirmAdminLoginBtn">🔓 관리자 모드 켜기</button>
+        <button class="btn btn-crimson" id="confirmAdminLoginBtn">관리자 모드 켜기</button>
       </div>
     </div>
   </div>
@@ -232,24 +229,24 @@
   <div class="modal-backdrop" id="notionSyncModal">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title">🔄 노션(Notion) 월별 캘린더 연동 · 동기화</div>
+        <div class="modal-title">노션(Notion) 월별 캘린더 연동 · 동기화</div>
         <button class="btn" data-close-modal="notionSyncModal">✕ 닫기</button>
       </div>
       <p class="body-text" style="font-size:13px;">
-        노션 API 통합 토큰(Integration Token)과 캘린더 데이터베이스 링크(또는 ID)를 입력하면, 노션의 모든 일정을 불러와 <strong>기존 홍보물 이미지·공지글·18대 코멘트와 자동으로 병합</strong>합니다. 병합 후 상단 <strong>[💾 수정본 data.js 저장]</strong>을 누르면 방문자에게도 영구 반영됩니다.
+        노션 API 통합 토큰(Integration Token)과 캘린더 데이터베이스 링크(또는 ID)를 입력하면, 노션의 모든 일정을 불러와 <strong>기존 홍보물 이미지·공지글·18대 코멘트와 자동으로 병합</strong>합니다. 병합 후 상단 <strong>[수정본 data.js 저장]</strong>을 누르면 방문자에게도 영구 반영됩니다.
       </p>
       <div class="form-group">
-        <label>🔑 노션 API 토큰 (Internal Integration Secret)</label>
+        <label>노션 API 토큰 (Internal Integration Secret)</label>
         <input type="password" id="notionTokenInput" placeholder="ntn_... 또는 secret_...">
       </div>
       <div class="form-group">
-        <label>📅 노션 캘린더 데이터베이스 링크 또는 32자리 ID</label>
+        <label>노션 캘린더 데이터베이스 링크 또는 32자리 ID</label>
         <input type="text" id="notionDbIdInput" placeholder="https://www.notion.so/... 또는 32자리 데이터베이스 ID">
       </div>
       <div id="notionSyncStatus" style="font-size:13px;color:var(--text-secondary);margin:10px 0;"></div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;">
         <button class="btn" data-close-modal="notionSyncModal">닫기</button>
-        <button class="btn btn-crimson" id="runNotionSyncBtn">🔄 노션 데이터 불러오기 & 병합</button>
+        <button class="btn btn-crimson" id="runNotionSyncBtn">노션 데이터 불러오기 & 병합</button>
       </div>
     </div>
   </div>
@@ -258,7 +255,7 @@
   <div class="modal-backdrop auth-gate-backdrop" id="authGateModal">
     <div class="modal-card auth-gate-card">
       <div class="auth-gate-header">
-        <div class="auth-gate-badge">🐯 고려대학교 자유전공학부 D반 제18대 학생회 &lt;Duet&gt;</div>
+        <div class="auth-gate-badge">고려대학교 자유전공학부 D반 제18대 학생회 &lt;Duet&gt;</div>
         <h2 class="auth-gate-title">인수인계 포털 열람 권한 확인</h2>
         <p class="auth-gate-subtitle">보안 및 개인정보 보호를 위해 본인의 <strong>직위</strong>를 선택하고 부여받은 <strong>접속 비밀번호</strong>를 입력해 주세요.</p>
       </div>
@@ -267,7 +264,6 @@
       <div class="role-selector-grid" id="roleSelectorGrid">
         <div class="role-card selected" data-role="duet_pres">
           <div class="role-card-header">
-            <span class="role-card-icon">👑</span>
             <span class="role-card-badge duet">제18대 Duet</span>
           </div>
           <div class="role-card-title">18대 학생회장단</div>
@@ -276,7 +272,6 @@
 
         <div class="role-card" data-role="duet_head">
           <div class="role-card-header">
-            <span class="role-card-icon">🎖️</span>
             <span class="role-card-badge duet">제18대 Duet</span>
           </div>
           <div class="role-card-title">18대 국장단</div>
@@ -285,7 +280,6 @@
 
         <div class="role-card" data-role="next_pres">
           <div class="role-card-header">
-            <span class="role-card-icon">🐯</span>
             <span class="role-card-badge next">제19대 학생회</span>
           </div>
           <div class="role-card-title">19대 학생회장단</div>
@@ -294,7 +288,6 @@
 
         <div class="role-card" data-role="next_head">
           <div class="role-card-header">
-            <span class="role-card-icon">🌿</span>
             <span class="role-card-badge next">제19대 학생회</span>
           </div>
           <div class="role-card-title">19대 국장단</div>
@@ -305,22 +298,22 @@
       <!-- Password Input Form -->
       <form class="auth-gate-form" id="authGateForm" onsubmit="return false;">
         <div class="form-group">
-          <label for="authPasswordInput" id="authPasswordLabel">👑 18대 학생회장단 접속 비밀번호</label>
+          <label for="authPasswordInput" id="authPasswordLabel">선택한 직위의 접속 비밀번호</label>
           <div class="password-input-wrap">
             <input type="password" id="authPasswordInput" placeholder="비밀번호를 입력하세요" autocomplete="current-password" required>
-            <button type="button" class="btn-toggle-pwd" id="toggleGatePwdBtn" title="비밀번호 표시/숨김">👁️</button>
+            <button type="button" class="btn-toggle-pwd" id="toggleGatePwdBtn" title="비밀번호 표시/숨김">보기</button>
           </div>
         </div>
         <div id="authGateError" class="auth-gate-error" style="display:none;"></div>
         <div class="auth-gate-actions">
           <button type="submit" class="btn btn-crimson auth-submit-btn" id="submitAuthGateBtn">
-            🚀 인수인계 포털 입장하기
+            인수인계 포털 입장하기
           </button>
         </div>
       </form>
 
       <div class="auth-gate-notice">
-        🔒 비밀번호 분실 및 권한 문의: 제18대 학생회장 원준혁 (010-****-****)<br>
+        비밀번호 분실 및 권한 문의: 제18대 학생회장 원준혁 (010-3516-3561)<br>
         * 본 사이트의 모든 인수인계 문서 및 자료는 D반 학생회 내부 자산으로서 무단 유출을 엄금합니다.
       </div>
     </div>
@@ -331,8 +324,8 @@
 
   <!-- Scripts (config.local.js is git-ignored and only exists on Admin PC) -->
   <script src="js/config.local.js"></script>
-  <script src="js/data.js?v=11"></script>
-  <script src="js/sections_data.js?v=11"></script>
-  <script src="js/app.js?v=11"></script>
+  <script src="js/data.js?v=12"></script>
+  <script src="js/sections_data.js?v=12"></script>
+  <script src="js/app.js?v=12"></script>
 </body>
 </html>

@@ -10,12 +10,12 @@ window.DUET_SECTIONS = {
 
 그래서 이번 제18대 <Duet> 인수인계는 단순한 한글/워드 문서 파일을 넘어, 차기 학생회장단과 국장단(기획국·복지국·홍보국)이 언제 어디서든 웹페이지(.io)로 접속해 ① 사업별 구체적인 절차, ② 당시 내 생각과 운영위원회·국장단회의에서의 실제 고려사항, ③ 월별 캘린더 형식의 홍보물·월간보고·실제 공지글, ④ 구글폼 및 전체 드라이브 아카이브 링크를 한눈에 볼 수 있도록 구축했습니다.
 
-기억을 복기하고 모든 회의 속기록과 자료를 대조하며 작성하였으나, 혹시라도 임기 중 궁금한 점이나 막히는 부분이 생긴다면 언제든 편하게 연락 주시길 바랍니다. (원준혁: 010-****-****)`
+기억을 복기하고 모든 회의 속기록과 자료를 대조하며 작성하였으나, 혹시라도 임기 중 궁금한 점이나 막히는 부분이 생긴다면 언제든 편하게 연락 주시길 바랍니다. (원준혁: 010-3516-3561)`
     },
 
     keyChanges: [
       {
-        dept: "👑 학생회장단 · 의결기구",
+        dept: "학생회장단 · 의결기구",
         title: "신입생 대표 임기 회칙 개정 & 선거 소명 체계화 & 학생회비 지출 원칙 확립",
         items: [
           "회칙 제65조 제2항 및 부칙 제2조(경과조치) 신설: 해가 바뀐 뒤 2학년이 신입생 대표 직을 유지하는 모순을 해결하기 위해 임기를 '당선 공고 48시간 후 ~ 당해 2학기 종강일'로 명확화 (현직 대표 임기 소급 단축 방지 경과조치 포함)",
@@ -24,7 +24,7 @@ window.DUET_SECTIONS = {
         ]
       },
       {
-        dept: "🎯 기획국 (Planning)",
+        dept: "기획국 (Planning)",
         title: "스터디윗D '달성+추첨 혼합제' & 친해져도 Dㅐ? '2+2 매칭' 개편",
         items: [
           "스터디윗D 하이브리드 개편: 100% 전원 달성제로만 운영할 경우 인당 상품이 2,500원으로 급감하는 문제를 해결하기 위해 '기준 달성자 전원 소정의 상품 + 소수 인원 고액 Best 경품(CGV·배민·투썸) 추첨' 혼합제 도입 및 자율 공부(자격증·어학) 인정",
@@ -33,7 +33,7 @@ window.DUET_SECTIONS = {
         ]
       },
       {
-        dept: "🌿 복지국",
+        dept: "복지국",
         title: "복지국 전면 개편 & 반실 리뉴얼 & 우산·보조배터리 대여 & 간식 사전 수요조사",
         items: [
           "복지국 전면 개편: 반실 청소에만 국한되지 않고 학생 복지 전반을 아우르도록 제18-4차 반운위 사전인준 및 확운위 사후인준으로 공식 개편",
@@ -43,7 +43,7 @@ window.DUET_SECTIONS = {
         ]
       },
       {
-        dept: "🎨 홍보국 (Public Relations)",
+        dept: "홍보국 (Public Relations)",
         title: "음악 플레이어 컨셉 월간보고 정례화 & 피드백 총괄 일원화 & 미리캔버스 구독 지원",
         items: [
           "Duet 음악 플레이어 컨셉 월간보고 매월 발행: 반운영위원회·기획국·복지국·홍보국의 모든 회의와 행사를 월별로 투명하게 아카이빙 (방학 중 7~8월은 통합호로 탄력 발행)",
@@ -61,7 +61,7 @@ window.DUET_SECTIONS = {
       title: "1. 의결기구(반운위·확운위·학생총회) 및 학부 회의체 운영 매뉴얼",
       subtitle: "D반 의결기구의 의장으로서 지켜야 할 절차적 무결성과 제18대 실제 운영 노하우",
       contentHtml: `
-        <h3 class="sub-heading">📌 1-1. 표준 회의 진행 절차 (의장 스크립트 요약)</h3>
+        <h3 class="sub-heading">1-1. 표준 회의 진행 절차 (의장 스크립트 요약)</h3>
         <p class="body-text">
           학생회장은 반 운영위원회, 확대운영위원회, 학생총회의 <strong>의장</strong>으로서 중립적인 태도를 유지하며 회칙에 정해진 절차를 철저히 준수해야 합니다. 절차가 지켜지지 않은 의결은 무효가 될 수 있으므로 아래 순서를 반드시 숙지하세요.
         </p>
@@ -75,7 +75,7 @@ window.DUET_SECTIONS = {
         </ol>
 
         <div class="callout callout-thought">
-          <div class="callout-header">💡 18대 학생회장단(원준혁·우상준)의 당시 생각 & 실전 교훈</div>
+          <div class="callout-header">18대 학생회장단(원준혁·우상준)의 당시 생각 & 실전 교훈</div>
           <div class="callout-body" data-editable="true" data-edit-key="pres_gov_thought_1">1. 당사자 안건 '의결권 없음' 처리의 중요성:
 확대운영위원회에서 '집행위원회 사업계획 인준', '예결산안 승인', '집행위원 사후 인준'을 표결할 때 학생회장단(2인)과 인준 대상 집행위원 본인은 자기 관련성이 높으므로 반드시 '의결권 없음'으로 표기해야 합니다. (예: 2025 하반기 확운위에서 출석 16명 중 집행위원 인준 표결 시 회장단 2명+출석 집행위원 4명 총 6명을 '의결권 없음' 처리하고 찬성 9표로 가결)
 
@@ -83,7 +83,7 @@ window.DUET_SECTIONS = {
 1/29 제18-1차 확운위 임시회의에서 회칙 개정안을 심의할 때, 회칙 제98조 제2항상 '축조심사와 찬반토론이 포함되어야 한다(축조심사는 의결로 생략 가능)'고 되어 있는데 처음에 축조심사 생략만 의결하고 찬반토론을 거치지 않은 채 표결을 진행했습니다. 회의 말미에 부학생회장(우상준)과 임태빈 학우가 이를 짚어주었고, 즉시 기존 표결을 폐기한 뒤 정식으로 찬반토론을 거쳐 재표결(13:0 만장일치)함으로써 절차적 하자를 완벽히 치유했습니다. 실수를 발견하면 덮고 넘어가지 말고 그 자리에서 원표결 폐기 후 재표결하는 것이 가장 안전합니다!</div>
         </div>
 
-        <h3 class="sub-heading">📌 1-2. D반 3대 의결기구 비교 및 핵심 체크포인트</h3>
+        <h3 class="sub-heading">1-2. D반 3대 의결기구 비교 및 핵심 체크포인트</h3>
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
@@ -117,7 +117,7 @@ window.DUET_SECTIONS = {
           </table>
         </div>
 
-        <h3 class="sub-heading">📌 1-3. 학부운영위원회(학운위) · 자전대회 · 전학대회 참여 가이드</h3>
+        <h3 class="sub-heading">1-3. 학부운영위원회(학운위) · 자전대회 · 전학대회 참여 가이드</h3>
         <ul class="doc-list">
           <li><strong>학부운영위원회 (매주 대면, 방학 중 격주 온라인)</strong>: 자유전공학부 학생회장단 + A·B·C·D반 학생회장단 총 6인으로 구성됩니다. 예결산 사전심의, 산하기구 배분금(납부자 1인당 4만 원), 특별기구(자음·자몽에이드·소인위) 배분금, 새준위/회칙개정위 설치 등을 다룹니다. 매주 D반 보고안건(예: 반운위·확운위 결과, 간식행사·스윗D 일정 등)을 정리해 보고하세요.</li>
           <li><strong>자유전공학부 학생대표자회의 (자전대회)</strong>: 학부 회장단, 각 반 대표자(뻔대·부뻔대·신대·고대), 자치기구 대표자가 모이는 장시간 회의입니다. 예결산 최종 심의, 대의원 지위 심사, 선수과목·등록금 등 학부 중대 사안을 다룹니다. 정기회의 2/3, 임시회의 1/2 이상 출석 기준을 챙기세요.</li>
@@ -125,7 +125,7 @@ window.DUET_SECTIONS = {
         </ul>
 
         <div class="callout callout-thought">
-          <div class="callout-header">💡 학운위에서 D반 학생회장으로서 목소리를 냈던 실제 사례</div>
+          <div class="callout-header">학운위에서 D반 학생회장으로서 목소리를 냈던 실제 사례</div>
           <div class="callout-body" data-editable="true" data-edit-key="pres_gov_thought_2">학운위에 참석할 때는 단순히 자리만 지키는 것이 아니라, 학우들의 학생회비가 합리적이고 정당한 절차로 쓰이는지 꼼꼼히 검증하는 소신이 필요합니다.
 실제로 제17-35차 학운위 등에서 저는 ① 특별기구(자음·자몽에이드)가 배분금 증액·동결을 요청할 때 구체적인 세목과 책정 근거, 전년도 적자 사업의 구조 개선 방안이 있는지를 날카롭게 질의해 가이드라인 수립을 요구했고, ② 학부 특별위원회가 설문 경품용 학생회비 사용 동의안을 학운위에 올렸을 때 "학운위원 대다수가 해당 특별위원회 위원으로 속해 있는 상황에서 학운위가 자체 의결하는 것은 절차적 정당성에 우려가 있다"고 문제를 제기해 의장 직권 폐기를 이끌어냈습니다. 차기 회장단께서도 D반과 학부 학우들의 이익을 최우선으로 두고 당당히 의견을 개진하시길 바랍니다!</div>
         </div>
@@ -137,13 +137,13 @@ window.DUET_SECTIONS = {
       title: "2. 신입생·고학번 대표 선거 관리(소명 자료) 및 집행위원회 인사 총괄",
       subtitle: "자전대회 대의원 지위 심사 완벽 통과 노하우와 리크루팅·추가모집·사퇴 처리 실무",
       contentHtml: `
-        <h3 class="sub-heading">🗳️ 2-1. 신입생 대표 · 고학번 대표 선거 및 '대의원 지위 심사 소명' (필독!)</h3>
+        <h3 class="sub-heading">2-1. 신입생 대표 · 고학번 대표 선거 및 '대의원 지위 심사 소명' (필독!)</h3>
         <p class="body-text">
           매년 3월 중순~하순에 D반 선거관리위원회(위원장: 반학생회장) 명의로 신입생 대표와 고학번 대표 선거를 진행합니다. 제18대에서는 <strong>3/23 선거 공고 → 3/24 00:00 ~ 3/26 18:00 구글폼 투표(학생증 인증) → 3/26 개표 및 당선 공고 → 3/29 00:00(당선 공고 48시간 후) 전임 대표 임기 만료 공고</strong> 순으로 진행했습니다.
         </p>
 
         <div class="callout callout-warn">
-          <div class="callout-header">⚠️ [초중요] 자전대회 '대의원 지위 심사 — 선거 소명 자료' 대비법</div>
+          <div class="callout-header">[중요] 자전대회 '대의원 지위 심사 — 선거 소명 자료' 대비법</div>
           <div class="callout-body" data-editable="true" data-edit-key="pres_elec_warn_1">2026년 1학기 선거에서 신입생 대표(채현찬)는 총 17표(찬성 16, 기권 1), 고학번 대표(김민정)는 총 15표(찬성 15)가 나왔습니다. 이후 자전대회에서 대의원 지위 심사를 할 때 학부 차원에서 "고학번 15표, 신입생 17표가 최소 투표율(25%)을 넘긴 적법한 선거인지, 총원을 몇 명으로 잡았는지 소명하라"는 요청이 들어왔습니다.
 
 이때 우리를 구해준 핵심 조항이 바로 D반 학생회칙 제86조 제6항과 제87조 제6항입니다!
@@ -155,7 +155,7 @@ window.DUET_SECTIONS = {
 2) 개표 직후 구글폼의 '응답 수 및 원형 차트 화면(신대 투표 결과.png, 고대 투표 결과.png)'을 반드시 캡처해 보관할 것! (자전대회 소명 서류에 ① 선거 공고문, ② 결과 공고문, ③ 구글폼 결과 캡처본, ④ 회칙 제86·87조 발췌본을 묶어 제출하면 완벽히 통과됩니다.)</div>
         </div>
 
-        <h3 class="sub-heading">👥 2-2. 집행위원 리크루팅 · 추가모집 · 스카우팅 · 사퇴 처리 노하우</h3>
+        <h3 class="sub-heading">2-2. 집행위원 리크루팅 · 추가모집 · 스카우팅 · 사퇴 처리 노하우</h3>
         <ul class="doc-list">
           <li><strong>12월 25학번 리크루팅 & 국장단 구성</strong>: 당선 직후 12월 하반기 확운위 일정을 맞추기 위해 연임 국장(기획 김채은, 홍보 이윤주)을 1차 반운위(12/2)에서 먼저 사전 인준하고, 24시간 긴급 모집(7명 지원 중 4명 선발: 복지국장 김동운, 국원 장여백·안희서·박준원)을 거쳐 2차 반운위(12/4)에서 사전 인준했습니다.</li>
           <li><strong>3월 정기 리크루팅 면접 팁 (2순위 지망자 영상 공유)</strong>: 1·2지망 국서를 모두 적게 한 뒤, 지원자가 두 번 대면 면접을 보러 오게 하면 부담이 크므로 <strong>1순위 국서 면접 시 영상을 촬영해 2순위 국장에게 공유</strong>하여 평가했습니다.</li>
@@ -171,7 +171,7 @@ window.DUET_SECTIONS = {
       title: "3. 재정 · 예결산 편성 구조 및 학생회비 집행 원칙",
       subtitle: "주통장 이관부터 2025-4·2026-1분기 결산 및 2026-2·3분기 예산안 실전 데이터",
       contentHtml: `
-        <h3 class="sub-heading">💰 3-1. 주통장 이관 및 수입 재원 구조</h3>
+        <h3 class="sub-heading">3-1. 주통장 이관 및 수입 재원 구조</h3>
         <p class="body-text">
           임기 시작 직후(12/1~12/2) 전대 학생회장 계좌에서 제18대 부학생회장(우상준, 하나은행) 계좌로 이월금 전액(<strong>1,273,110원</strong>)을 이체받아 주통장을 이관했습니다. 이때 장부상 구 통장에서 <code>지-211 주통장 교체 이전금(1,273,110원)</code>이 출금되고 신 통장에 <code>수-211 주통장 교체 이전금(1,273,110원)</code>이 입금되는 것으로 기입해야 거래내역서 합계가 정확히 맞습니다.
         </p>
@@ -179,7 +179,7 @@ window.DUET_SECTIONS = {
           <li><strong>주요 수입원 3가지</strong>: ① <strong>전분기 이월금</strong>, ② <strong>학부 학생회비 지원금(배분금)</strong> — 자유전공학부 학생회칙 제186조 제2항에 따라 <strong>D반 소속 학생회비 납부자 1인당 40,000원</strong>을 학부 재정사무국으로부터 수령(25-4분기 추가배분 4명분 160,000원, 26-2분기 21명분 840,000원), ③ <strong>교류반 합동 일일호프 수익금</strong>(약 800,000원, 전체 상반기 예산의 약 32%).</li>
         </ul>
 
-        <h3 class="sub-heading">📊 3-2. 제18대 실제 결산 및 예산안 핵심 요약표</h3>
+        <h3 class="sub-heading">3-2. 제18대 실제 결산 및 예산안 핵심 요약표</h3>
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
@@ -218,7 +218,7 @@ window.DUET_SECTIONS = {
         </div>
 
         <div class="callout callout-thought">
-          <div class="callout-header">💡 제18대가 확립한 '학생회비 사용 정당성' 2대 원칙 (후대 필독!)</div>
+          <div class="callout-header">제18대가 확립한 '학생회비 사용 정당성' 2대 원칙 (후대 필독!)</div>
           <div class="callout-body" data-editable="true" data-edit-key="pres_finance_thought_1">원칙 1. "학생회비 납부 여부를 확인할 수 없는 익명 대상에게는 학생회비로 상품을 지급하지 않는다."
 - 제18-7차 반운위에서 홍보국 피드백 참여율을 높이려 '응답자 중 추첨 커피 기프티콘 지급' 예산안을 올렸으나, 부학생회장(우상준)이 "익명(전화번호만 수집)으로 받으면 그 사람이 학생회비를 냈는지 확인할 수 없어 회비 사용의 정당성이 없다"고 지적했습니다. 실명을 받으면 솔직한 피드백이라는 취지가 무너지므로, 제18-8차 반운위에서 예산안을 정식 철회하고 반실 내 QR코드 상시 부착 방식으로 해결했습니다.
 
@@ -233,7 +233,7 @@ window.DUET_SECTIONS = {
       title: "4. 뻔라인 매칭 · 합응 추첨 · 연세대 교류반(일일호프) · 공구 · 반실 가구 교체",
       subtitle: "학생회장단이 직접 총괄하는 6대 대내외 핵심 사업의 A to Z 실무 가이드",
       contentHtml: `
-        <h3 class="sub-heading">🤝 4-1. 새터 반별 분류 & 뻔라인(뻔선-뻔후) 매칭 시스템</h3>
+        <h3 class="sub-heading">4-1. 새터 반별 분류 & 뻔라인(뻔선-뻔후) 매칭 시스템</h3>
         <ul class="doc-list">
           <li><strong>새터 반별 분류(2월 중순)</strong>: 학부로부터 전체 신입생 명단을 받으면 엑셀 <code>VLOOKUP</code> 시트(<code>새터 반별 분류.xlsx</code>)를 활용해 A·B·C·D반 신입생을 분류합니다.</li>
           <li><strong>뻔라인 매칭 2단계 프로세스 ('친뻔' 우선 + 맞춤형 '입양' 매칭)</strong>:
@@ -244,13 +244,13 @@ window.DUET_SECTIONS = {
           </li>
         </ul>
 
-        <h3 class="sub-heading">🦁 4-2. 응원 OT & 합동응원전(합응) 인원 추첨 방식</h3>
+        <h3 class="sub-heading">4-2. 응원 OT & 합동응원전(합응) 인원 추첨 방식</h3>
         <ul class="doc-list">
           <li><strong>공정한 티켓·뒤풀이 배정 공식</strong>: 한정된 인원(본행사 39명, 1차 뒤풀이 38명, 2차 뒤풀이 23명)을 뽑을 때 <strong>'사전 가수요 조사 참여자(25명) 100% 우선 확정 + 추가 신청자 대상 엑셀 난수(<code>=RAND()</code>) 추첨'</strong>을 적용했습니다.</li>
           <li><strong>투명성 확보 팁</strong>: 엑셀에서 난수를 생성해 값 복사 후 내림차순 정렬한 시트 화면을 캡처하되, 개인정보 보호를 위해 <strong>이름 가운데 글자 마스킹(예: <code>김*정(095)</code>) + 학번 뒤 3자리 + 소수점 6~9자리 난수값</strong>을 그대로 공지방에 공개하면 공정성 논란을 원천 차단할 수 있습니다.</li>
         </ul>
 
-        <h3 class="sub-heading">🍻 4-3. 연세대학교 교류반 '에버나인(경제9반)' 교류 & 합동 일일호프</h3>
+        <h3 class="sub-heading">4-3. 연세대학교 교류반 '에버나인(경제9반)' 교류 & 합동 일일호프</h3>
         <ul class="doc-list">
           <li><strong>교류 파트너</strong>: 연세대학교 상경대학 경제학부 9반 <strong>'에버나인(Evernine)'</strong></li>
           <li><strong>연간 교류 타임라인</strong>:
@@ -262,7 +262,7 @@ window.DUET_SECTIONS = {
           </li>
         </ul>
 
-        <h3 class="sub-heading">🧥 4-4. 단체복 공동구매 (돕바 1·2차 & 크림슨 과잠 '크잠')</h3>
+        <h3 class="sub-heading">4-4. 단체복 공동구매 (돕바 1·2차 & 크림슨 과잠 '크잠')</h3>
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
@@ -290,7 +290,7 @@ window.DUET_SECTIONS = {
           </table>
         </div>
 
-        <h3 class="sub-heading">🏢 4-5. 반실 노후 가구·기구 행정실 폐기(불용 신고) 및 교체 지원</h3>
+        <h3 class="sub-heading">4-5. 반실 노후 가구·기구 행정실 폐기(불용 신고) 및 교체 지원</h3>
         <p class="body-text">
           반실(법학관 구관 104호)에 있는 대형 물품이나 노후 가구(크리스마스 트리, 고장 난 전기난로, 부서진 사무용 의자 등)는 비품번호가 없더라도 임의로 버리면 안 되며, <strong>자유전공학부 행정팀(담당 직원분, 02-3290-1416)</strong>을 통해 정식 불용 절차를 밟아야 합니다.
         </p>
@@ -307,7 +307,7 @@ window.DUET_SECTIONS = {
       title: "5. 전체 학생회 자료실 & 구글폼 드라이브 보안 및 열람 권한 관리 수칙",
       subtitle: "개인정보 보호법 준수 및 학생회 운영상 대외비 자료의 분리 보관 원칙",
       contentHtml: `
-        <h3 class="sub-heading">🔒 5-1. 드라이브 2원화 분리 운영의 당위성</h3>
+        <h3 class="sub-heading">5-1. 드라이브 2원화 분리 운영의 당위성</h3>
         <p class="body-text">
           학생회 업무를 진행하다 보면 학우들의 <strong>주민등록번호 앞자리, 계좌번호, 전화번호, 상세 설문 응답</strong> 등 민감한 개인정보를 취급하게 되며, 동시에 <strong>집행위원 선발 면접 평가표, 선거 투표 원본 로그, 감사 소명 자료</strong> 등 보안 유지가 필수적인 대외비 문서가 생성됩니다.
           이에 따라 제18대 Duet은 인수인계 자료 저장소를 <strong>'학생회장단 전용 대외비 저장소'</strong>와 <strong>'국서별 실무 저장소'</strong>로 명확히 분리하여 운영합니다.
@@ -324,13 +324,13 @@ window.DUET_SECTIONS = {
             </thead>
             <tbody>
               <tr>
-                <td><strong>👑 학생회장단<br>대외비 아카이브</strong><br>(전체 자료실 &<br>구글폼 모음)</td>
+                <td><strong>학생회장단<br>대외비 아카이브</strong><br>(전체 자료실 &<br>구글폼 모음)</td>
                 <td>• 집행부 선발(리크루팅) 지원서 및 면접 평가표<br>• 회장단·신대·고대 선거 원본 투표 데이터 및 소명 자료<br>• 학생회비 입출금 주통장 거래내역 및 감사위원회 증빙 원본<br>• 반운위·확운위·총회 음성/영상 녹화 원본</td>
                 <td><strong>18대/19대 학생회장단만 열람 가능</strong><br>(국장단 및 일반 부원 열람 차단)</td>
                 <td>• 구글 드라이브 권한을 '특정 사용자(학생회장단 계정)'로만 제한<br>• 웹사이트에서도 <code>duet_pres</code>, <code>next_pres</code> 인증 시에만 링크가 노출되도록 RBAC 제어 적용</td>
               </tr>
               <tr>
-                <td><strong>📁 국서별 실무<br>운영 드라이브</strong><br>(기획·복지·홍보)</td>
+                <td><strong>국서별 실무<br>운영 드라이브</strong><br>(기획·복지·홍보)</td>
                 <td>• 각 국서 주관 사업 기획서, 타임테이블, 현장 운영 매뉴얼<br>• 카드뉴스·월간보고 디자인 소스(Figma, Canva) 및 템플릿<br>• 반실 비품 재고 명부, 공용 물품 대여 관리 서식 등</td>
                 <td><strong>학생회장단 및 전 국장단 열람 가능</strong><br>(18대/19대 국장 상호 공유)</td>
                 <td>• 국서 간 협업(예: 기획국 행사 홍보를 위해 홍보국이 기획서 열람)을 위해 국장단 전체에 공유하되, 개인정보 시트는 반드시 마스킹 후 업로드</td>
@@ -339,7 +339,7 @@ window.DUET_SECTIONS = {
           </table>
         </div>
 
-        <h3 class="sub-heading">🔑 5-2. 직위별 웹 포털 접근 권한 및 비밀번호 관리 수칙</h3>
+        <h3 class="sub-heading">5-2. 직위별 웹 포털 접근 권한 및 비밀번호 관리 수칙</h3>
         <ul class="doc-list">
           <li><strong>직위별 4단계 열람 권한</strong>:
             <br>• <code>18대 학생회장단(duet_pres)</code>: 총론, 회장단, 3대 국서, 템플릿, 캘린더 전체 열람 및 수정(관리자 모드) 권한 보유 + 전체 드라이브 열람.
@@ -363,11 +363,11 @@ window.DUET_SECTIONS = {
         <div class="callout callout-drive-banner" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(99, 102, 241, 0.08)); border-left: 4px solid #3b82f6; padding: 14px 18px; margin-bottom: 20px; border-radius: 8px;">
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
             <div>
-              <strong style="color:#1d4ed8; font-size:1.02rem;">🎯 기획국 전용 실무 구글 드라이브</strong>
+              <strong style="color:#1d4ed8; font-size:1.02rem;">기획국 전용 실무 구글 드라이브</strong>
               <p style="margin:4px 0 0 0; color:#4b5563; font-size:0.88rem;">새터·OT, 멘토멘티, 체육대회, 간식행사, 종강총회 등 기획국 주관 사업의 기획안·타임테이블·역할분담표 원본이 보관되어 있습니다.</p>
             </div>
             <a href="https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
-              📂 기획국 드라이브 바로가기 ↗
+              기획국 드라이브 바로가기 ↗
             </a>
           </div>
         </div>
@@ -421,7 +421,7 @@ window.DUET_SECTIONS = {
       title: "2. 스터디윗D (Study with D — 매 시험기간 10일간)",
       subtitle: "열품타(열정품은타이머) 그룹 운영부터 '달성제+추첨제' 하이브리드 시상까지",
       contentHtml: `
-        <h3 class="sub-heading">🔥 2-1. 사업 개요 및 진행 절차</h3>
+        <h3 class="sub-heading">2-1. 사업 개요 및 진행 절차</h3>
         <ol class="doc-list">
           <li><strong>열품타 그룹 점검 및 기획안 작성</strong>: 시험 시작 약 1주일 전부터 시험 주간 중간 요일(보통 수요일이나 화요일)까지 <strong>총 10일간</strong>으로 기간을 설정합니다. (시험이 일찍 끝나는 학우와 늦게 끝나는 학우의 형평성을 위해 시험 주간 수요일경 종료하는 것이 가장 이상적입니다.)</li>
           <li><strong>닉네임 및 인정 규칙 고지</strong>:
@@ -434,7 +434,7 @@ window.DUET_SECTIONS = {
         </ol>
 
         <div class="callout callout-thought">
-          <div class="callout-header">💡 왜 '100% 전원 달성제'에서 '달성제 + Best 추첨 혼합제'로 바꾸었는가?</div>
+          <div class="callout-header">왜 '100% 전원 달성제'에서 '달성제 + Best 추첨 혼합제'로 바꾸었는가?</div>
           <div class="callout-body" data-editable="true" data-edit-key="plan_swd_thought_1">처음에는 제18대 회장단 공약에 따라 스터디윗D를 '추첨제'에서 '기준 달성자 전원 지급(달성제)'으로 바꾸려 했습니다.
 그런데 회당 예산이 50,000원으로 정해진 상황에서 참여 달성자가 15~20명으로 늘어나자, 1인당 돌아가는 상품 금액이 2,500원 수준으로 급감했습니다. 기존에 열심히 참여해 1만 원권 배민 상품권이나 영화 티켓을 기대하던 학우들 입장에서는 오히려 혜택이 줄어든 것처럼 느껴져 부정적인 반응이 나왔습니다.
 
@@ -444,7 +444,7 @@ window.DUET_SECTIONS = {
 참여자 전원의 성취감도 챙기고 고액 경품의 설렘도 유지할 수 있는 최적의 방식이니 제19대에서도 이 혼합제를 유지하시는 것을 강력 추천합니다.</div>
         </div>
 
-        <h3 class="sub-heading">🎁 2-2. 제18대 회차별 경품 및 예산 레퍼런스</h3>
+        <h3 class="sub-heading">2-2. 제18대 회차별 경품 및 예산 레퍼런스</h3>
         <ul class="doc-list">
           <li><strong>25-2 기말고사 (2025.12.07~12.16 / 45,000원)</strong>: 쿠팡 기프트카드 1만원권(1명), 배달의민족 1만원권(2명), 메가커피 5천원권(3명)</li>
           <li><strong>26-1 중간고사 (2026.04.13~04.22 / 50,000원)</strong>: 혼합제 최초 도입 (5/4 추첨 및 지급 완료)</li>
@@ -458,7 +458,7 @@ window.DUET_SECTIONS = {
       title: "3. 선후배 친목 장기 프로젝트 '친해져도 Dㅐ?' (2월 말 ~ 6월 초)",
       subtitle: "25학번 재학생 2명 + 26학번 신입생 2명(4인 1조) 매칭 및 미션 채점 운영법",
       contentHtml: `
-        <h3 class="sub-heading">🤝 3-1. 제18대 개편 포인트 및 진행 타임라인</h3>
+        <h3 class="sub-heading">3-1. 제18대 개편 포인트 및 진행 타임라인</h3>
         <ul class="doc-list">
           <li><strong>조 편성 공식 개편 (5~6인조 → 4인 1조 '2+2 매칭')</strong>: 17대에서는 재학생:신입생 비율을 1:2(예: 선배 2 + 후배 3~4명)로 묶었는데, 인원이 많다 보니 한 번 모이려고 해도 시간표 맞추기가 너무 어렵고 선배가 한 명만 나오는 날에는 선배 1명이 새내기 여러 명을 감당하기 부담스럽다는 피드백이 있었습니다. 그래서 1/3 기획국 1차 회의에서 <strong>재학생 2명 + 신입생 2명(총 4인 1조)</strong>으로 슬림화하여 모임 성사율을 대폭 높였습니다.</li>
           <li><strong>모집 시기 조기화 (새터 직후 2/23 공지)</strong>: 개강하고 한참 뒤에 조를 짜면 이미 학기 초 분위기가 굳어진 뒤라 효과가 반감됩니다. 2/8에 기획안을 마감하고 새터 직후인 <strong>2/23(월)~2/24(화)에 바로 신청</strong>을 받아 <strong>3/10(화)에 조 편성 공지 및 단톡방 개설</strong>을 완료했습니다.</li>
@@ -474,7 +474,7 @@ window.DUET_SECTIONS = {
       title: "4. D반 총MT (5월 초) & 2학기 교류반 합동 사업 (미니고연전·릴스 고연전)",
       subtitle: "대성리 뜨락펜션 예약부터 레크리에이션, 2학기 연세대 교류전 기획까지",
       contentHtml: `
-        <h3 class="sub-heading">🏕️ 4-1. 2026 D반 총MT 실전 데이터 및 준비 타임라인</h3>
+        <h3 class="sub-heading">4-1. 2026 D반 총MT 실전 데이터 및 준비 타임라인</h3>
         <ul class="doc-list">
           <li><strong>일시 및 장소</strong>: <code>2026.05.08.(금) ~ 05.09.(토)</code> (1박 2일) / <strong>대성리 뜨락펜션</strong> (경기도 남양주시 화도읍 모꼬지로17번길 37-34)</li>
           <li><strong>숙소 스펙 및 참가비</strong>: 60명 수용 규모 (큰방 1개, 작은방 2개, 남/여 화장실 각 1개, 15인용 바비큐 그릴 4개 구비) / 1인당 참가비 <strong>40,000원</strong></li>
@@ -487,7 +487,7 @@ window.DUET_SECTIONS = {
           </li>
         </ul>
 
-        <h3 class="sub-heading">🎮 4-2. 2학기 교류반 합동 사업: (가칭) 미니고연전 & 릴스 고연전</h3>
+        <h3 class="sub-heading">4-2. 2학기 교류반 합동 사업: (가칭) 미니고연전 & 릴스 고연전</h3>
         <p class="body-text">
           2학기에는 친해져도 Dㅐ?나 총MT가 없기 때문에 기획국이 연세대 교류반(에버나인)과 함께하는 합동 교류 사업을 주도하게 됩니다.
         </p>
@@ -509,11 +509,11 @@ window.DUET_SECTIONS = {
         <div class="callout callout-drive-banner" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.08)); border-left: 4px solid #10b981; padding: 14px 18px; margin-bottom: 20px; border-radius: 8px;">
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
             <div>
-              <strong style="color:#047857; font-size:1.02rem;">🌿 복지국 전용 실무 구글 드라이브</strong>
+              <strong style="color:#047857; font-size:1.02rem;">복지국 전용 실무 구글 드라이브</strong>
               <p style="margin:4px 0 0 0; color:#4b5563; font-size:0.88rem;">반실 관리, 비품 재고, 과방 사물함 배정표, 간식행사 물품 수령·배부 명부 및 복지 사업 실무 서식이 보관되어 있습니다.</p>
             </div>
             <a href="https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background:#10b981; border-color:#059669; padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
-              📂 복지국 드라이브 바로가기 ↗
+              복지국 드라이브 바로가기 ↗
             </a>
           </div>
         </div>
@@ -522,7 +522,7 @@ window.DUET_SECTIONS = {
           제17대 학생회에서는 부서 명칭이 '생활국'이었으나, 제18대 <Duet>에서는 <strong>2026년 1월 17일 제1차 회의</strong>를 통해 부서 명칭을 <strong>'복지국'</strong>으로 전격 변경했습니다 (1/20 제18-4차 반운위 사전인준 → 1/29 제18-1차 임시확운위 및 5/23 상반기 확운위 사후인준 확정).
         </p>
         <div class="callout callout-thought">
-          <div class="callout-header">💡 당시 부학생회장(우상준)과 복지국장(김동운)이 명칭 변경을 추진한 이유</div>
+          <div class="callout-header">당시 부학생회장(우상준)과 복지국장(김동운)이 명칭 변경을 추진한 이유</div>
           <div class="callout-body" data-editable="true" data-edit-key="welf_overview_thought_1">1. '생활국'이라는 명칭의 한계:
 어감상 기숙사 사감이나 반실 청소·정리만 전담하는 부서처럼 느껴져, 우리가 새롭게 추진하려는 '우산·보조배터리 공용 물품 대여 사업', '수요조사 기반 간식행사', '학우 휴식·추억 공간 조성' 등 학우 복지와 직결된 업무 전체를 포괄하지 못했습니다.
 2. 신입생 리크루팅 매력도 제고:
@@ -537,14 +537,14 @@ window.DUET_SECTIONS = {
       title: "2. 반실 전면 리뉴얼(가구 재배치·비품 교체) 및 우산·보조배터리 대여 사업",
       subtitle: "예산 173,280원으로 완성한 법학관 구관 104호 D반 반실 공간 혁신과 대여 시스템",
       contentHtml: `
-        <h3 class="sub-heading">🛋️ 2-1. 반실 자치공간 가구 재배치 및 신규 공간 신설 (2/9 시행)</h3>
+        <h3 class="sub-heading">2-1. 반실 자치공간 가구 재배치 및 신규 공간 신설 (2/9 시행)</h3>
         <ul class="doc-list">
           <li><strong>가구 재배치(동선 혁신)</strong>: 자유전공학부 4개 반실 중 가장 넓은 D반 반실의 장점을 살리고 기존에 화이트보드 아래를 가로막던 책상 배치를 해결하기 위해, <strong>어수선하게 중앙을 차지하던 책상과 의자를 창문 쪽으로 밀착 이동시키고, 문 앞쪽 공간에 소파를 마주 보게 배치</strong>하여 '소파 휴식 공간'과 '창가 학습/취식 공간'을 명확히 분리했습니다.</li>
           <li><strong>추억 공간 (인생네컷 벽면)</strong>: 반실 벽면에 노란색 마스킹테이프로 구역을 나누어 학우들이 함께 찍은 인생네컷 사진을 자유롭게 붙일 수 있는 아늑한 포토월을 조성했습니다.</li>
           <li><strong>홍보게시판 (소화전 위 자석 화이트보드)</strong>: 소화전 상단에 <code>60×90cm 접착형 자석칠판 화이트보드(22,900원)</code>와 마그네트를 설치하여, 학생회 공지뿐만 아니라 D반 학우들의 밴드 공연, 동아리, 소모임을 자유롭게 홍보할 수 있게 했습니다 (부착 전 학생회장 또는 복지국장 문의 원칙).</li>
         </ul>
 
-        <h3 class="sub-heading">🔌 2-2. 반실 공용 비품 전면 교체 내역 (쿠팡 163,280원 + 다이소 10,000원)</h3>
+        <h3 class="sub-heading">2-2. 반실 공용 비품 전면 교체 내역 (쿠팡 163,280원 + 다이소 10,000원)</h3>
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
@@ -574,10 +574,10 @@ window.DUET_SECTIONS = {
           </table>
         </div>
 
-        <h3 class="sub-heading">☂️ 2-3. 우산 · 보조배터리 대여 사업 운영 프로세스 및 개선 팁</h3>
+        <h3 class="sub-heading">2-3. 우산 · 보조배터리 대여 사업 운영 프로세스 및 개선 팁</h3>
         <ul class="doc-list">
           <li><strong>기획 배경</strong>: 학부 학생회실보다 구법학관 1층 D반 반실의 지리적 접근성이 훨씬 뛰어나므로 반실 내에 대여 물품을 구비하면 학우 체감 복지가 극대화될 것으로 판단했습니다.</li>
-          <li><strong>무보증금 + 문자 확인제</strong>: 학생회비로 구매한 물품에 보증금을 받는 것은 부적절하다고 보아 보증금 없이 운영하되, <strong>① 반실 내 대여 명단 수기 작성 + ② 복지국장(010-****-****)에게 문자 전송 후 대여 (주말 제외 이틀 뒤까지 반납 필수)</strong> 규칙을 세웠습니다.</li>
+          <li><strong>무보증금 + 문자 확인제</strong>: 학생회비로 구매한 물품에 보증금을 받는 것은 부적절하다고 보아 보증금 없이 운영하되, <strong>① 반실 내 대여 명단 수기 작성 + ② 복지국장(김동운, 010-2015-3344)에게 문자 전송 후 대여 (주말 제외 이틀 뒤까지 반납 필수)</strong> 규칙을 세웠습니다.</li>
           <li><strong>시행착오와 개선 포인트</strong>: 개강 초 학우들이 명부만 적고 복지국장에게 문자 연락하는 것을 누락하는 경우가 종종 발생해(3/7 2차 국장단회의 피드백), 대여소 안내문의 '복지국장 문자 연락 필수' 문구 크기와 색상을 대폭 강조했습니다. 또한 제18-8차 반운위에서 고학번 대표(김민정)가 제안한 것처럼 비가 많이 오는 철을 대비해 <strong>튼튼한 장우산 수량을 추가 확충</strong>하는 것도 좋은 방향입니다.</li>
         </ul>
       `
@@ -588,7 +588,7 @@ window.DUET_SECTIONS = {
       title: "3. 반실 정기 점검·청소 (2주 간격 순번제) & 냉장고 4주 폐기 원칙",
       subtitle: "혼자 30분이면 충분한 격주 로테이션 시스템과 체크리스트",
       contentHtml: `
-        <h3 class="sub-heading">🧹 3-1. 2주 간격 정기 청소 순번제 운영</h3>
+        <h3 class="sub-heading">3-1. 2주 간격 정기 청소 순번제 운영</h3>
         <p class="body-text">
           방학마다 하는 대청소(제18대는 <strong>2/9 겨울 대청소, 8/26 여름 대청소</strong> 실시)만으로는 학기 중 반실의 쾌적함을 유지하기 어렵습니다. 따라서 학기 중에는 <strong>2주 간격으로 1인당 약 30분 소요되는 정기 점검 및 간단 청소</strong>를 로테이션으로 진행했습니다.
         </p>
@@ -598,7 +598,7 @@ window.DUET_SECTIONS = {
         </ul>
 
         <div class="checklist-box">
-          <div style="font-weight:700; margin-bottom:8px; color:var(--text);">✅ 격주 반실 정기 점검 & 청소 표준 체크리스트 (클릭하여 체크 가능)</div>
+          <div style="font-weight:700; margin-bottom:8px; color:var(--text);">격주 반실 정기 점검 & 청소 표준 체크리스트 (클릭하여 체크 가능)</div>
           <label class="check-item"><input type="checkbox" data-check-id="welf_c1"><span><strong>냉장고 점검</strong>: [이름 + 보관 날짜] 미기재 음식물 및 <strong>보관 날짜 기준 4주 이상 경과한 음식물 즉시 폐기</strong> (폐기 전 복지국 톡방 공유)</span></label>
           <label class="check-item"><input type="checkbox" data-check-id="welf_c2"><span><strong>개인 방치 물품 확인</strong>: 책상·소파 위 주인 모를 개인 물품 촬영 후 수다방에 기한 내 미수령 시 폐기 공지</span></label>
           <label class="check-item"><input type="checkbox" data-check-id="welf_c3"><span><strong>환기 및 청소기 작동</strong>: 창문 활짝 열고 무선 청소기로 바닥 먼지 제거 (<strong>청소기 사용 후 먼지통 반드시 비우기!</strong> 설명서는 반실 서랍 비치)</span></label>
@@ -614,7 +614,7 @@ window.DUET_SECTIONS = {
       title: "4. 시험기간 간식행사 ('사전 수요조사 → 신청·배부 → 피드백' 3단계)",
       subtitle: "학우 선호도를 반영한 메뉴 선정부터 선결제·구글폼 선착순 신청·대면 배부까지의 완벽 매뉴얼",
       contentHtml: `
-        <h3 class="sub-heading">🥪 4-1. 제18대 간식행사 6단계 표준 프로세스</h3>
+        <h3 class="sub-heading">4-1. 제18대 간식행사 6단계 표준 프로세스</h3>
         <ol class="doc-list">
           <li><strong>① 사전 메뉴 수요조사 (행사 약 10~14일 전, 3일간)</strong>:
             <br>• 제18대 공약에 따라 26-1 중간고사(4/3~4/5)와 기말고사(5/27~5/29) 모두 구글폼으로 학우들이 먹고 싶은 간식 메뉴 수요조사를 먼저 실시해 메뉴 3종을 선정했습니다.
@@ -642,7 +642,7 @@ window.DUET_SECTIONS = {
           </li>
         </ol>
 
-        <h3 class="sub-heading">🍽️ 4-2. 제18대 회차별 간식 메뉴 및 단가 레퍼런스</h3>
+        <h3 class="sub-heading">4-2. 제18대 회차별 간식 메뉴 및 단가 레퍼런스</h3>
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
@@ -685,11 +685,11 @@ window.DUET_SECTIONS = {
         <div class="callout callout-drive-banner" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(217, 70, 239, 0.08)); border-left: 4px solid #ec4899; padding: 14px 18px; margin-bottom: 20px; border-radius: 8px;">
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
             <div>
-              <strong style="color:#be185d; font-size:1.02rem;">📢 홍보소통국 전용 실무 구글 드라이브</strong>
+              <strong style="color:#be185d; font-size:1.02rem;">홍보소통국 전용 실무 구글 드라이브</strong>
               <p style="margin:4px 0 0 0; color:#4b5563; font-size:0.88rem;">카드뉴스 원본(Figma/Canva), 월간보고 디자인 소스, 인스타그램 피드 템플릿, 릴스 영상 클립 소스가 보관되어 있습니다.</p>
             </div>
             <a href="https://drive.google.com/drive/folders/1f28UMiGSBPcXvv-VkQqwTwWB2OZMLxQa?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background:#ec4899; border-color:#db2777; padding:6px 14px; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
-              📂 홍보국 드라이브 바로가기 ↗
+              홍보국 드라이브 바로가기 ↗
             </a>
           </div>
         </div>
@@ -710,7 +710,7 @@ window.DUET_SECTIONS = {
       title: "2. 월간보고 · 카드뉴스 제작 프로세스 및 국원 업무 분배 노하우",
       subtitle: "누락 없는 월간보고 작성 팁과 국원 피로도를 줄이는 공정한 분배 원칙",
       contentHtml: `
-        <h3 class="sub-heading">🎨 2-1. 국서 간 카드뉴스 요청 체계 및 국원 업무 분배</h3>
+        <h3 class="sub-heading">2-1. 국서 간 카드뉴스 요청 체계 및 국원 업무 분배</h3>
         <ul class="doc-list">
           <li><strong>업무 요청 채널</strong>: 기획국장·복지국장·학생회장단이 사업 기획안(일시, 장소, 대상, 핵심 문구, 신청 링크, 문의처 포함)을 작성해 <strong>국장단 카카오톡방 및 공유 구글 드라이브</strong>에 업로드하면 홍보국장이 확인 후 국원들에게 배정합니다.</li>
           <li><strong>공정한 분배(사다리타기 & 1바퀴 순환 원칙)</strong>: 카드뉴스 제작은 1명이 몰아서 하기엔 부담이 큽니다. 홍보국 톡방에서 ① 먼저 희망자의 선착순 지원을 받고, ② 지원자가 없을 경우 국장을 포함해 <strong>랜덤 사다리타기</strong>를 돌리되, <strong>한 바퀴가 돌 때까지 국장과 모든 국원이 최소 한 번씩은 고르게 제작물을 맡도록</strong> 순번을 관리했습니다.</li>
@@ -718,7 +718,7 @@ window.DUET_SECTIONS = {
         </ul>
 
         <div class="callout callout-thought">
-          <div class="callout-header">💡 월간보고 제작 시 '사업 누락 방지' 및 '탄력적 통합 발행' 팁</div>
+          <div class="callout-header">월간보고 제작 시 '사업 누락 방지' 및 '탄력적 통합 발행' 팁</div>
           <div class="callout-body" data-editable="true" data-edit-key="pr_workflow_thought_1">1. 상시 진행 사업과 홍보국 자체 업무도 빠짐없이 어필하기:
 3월 월간보고를 올린 뒤 4/1 제4차 국장단회의에서 복기해 보니, 기획국의 '친해져도 Dㅐ?'가 2월 월간보고에 '공지 완료'로 들어갔다는 이유로 3월 월간보고(실제 조 편성 및 미션 진행 중)에서 빠진 일이 있었습니다. 학우들은 월간보고를 통해 학생회가 얼마나 활발히 일하는지 체감하므로, '친해져도 Dㅐ? 상시 진행'이나 홍보국의 '월간보고 카드뉴스 자체 제작' 내역까지 매월 빠짐없이 기재하기로 원칙을 세웠습니다.
 
@@ -733,7 +733,7 @@ window.DUET_SECTIONS = {
       title: "3. 학생회 사업 피드백(만족도 조사) 총괄 및 시행착오 완벽 정리",
       subtitle: "응답 1건의 절망에서 '객관식 1분 컷 + 반실 QR 상시 부착' 모델에 이르기까지",
       contentHtml: `
-        <h3 class="sub-heading">📋 3-1. 피드백 사업을 둘러싼 제18대의 고민과 진화 과정</h3>
+        <h3 class="sub-heading">3-1. 피드백 사업을 둘러싼 제18대의 고민과 진화 과정</h3>
         <p class="body-text">
           제18대에서 홍보국이 새롭게 맡은 <strong>'사업 피드백(만족도 조사) 수합'</strong>은 가장 많은 시행착오와 깊은 논의를 거친 사업입니다. 차기 홍보국장단과 학생회장단이 똑같은 시행착오를 겪지 않도록 전 과정을 공유합니다.
         </p>
@@ -760,8 +760,8 @@ window.DUET_SECTIONS = {
 
         <div class="callout callout-notice">
           <div class="callout-header">
-            <span>📢 [양식 1] 반 운영위원회 / 확대운영위원회 / 학생총회 소집 및 결과 공고 표준문</span>
-            <button class="btn" onclick="copyTextById('tmpl_gov_text')">📋 복사</button>
+            <span>[양식 1] 반 운영위원회 / 확대운영위원회 / 학생총회 소집 및 결과 공고 표준문</span>
+            <button class="btn" onclick="copyTextById('tmpl_gov_text')">복사</button>
           </div>
           <div class="callout-body" id="tmpl_gov_text">[제19-X차 자유전공학부 D반 운영위원회(확대운영위원회/학생총회) 소집 공고]
 
@@ -783,8 +783,8 @@ window.DUET_SECTIONS = {
 
         <div class="callout callout-notice">
           <div class="callout-header">
-            <span>📢 [양식 2] 신입생 대표 · 고학번 대표 임기 만료 공고 & 집행위원 사퇴 공고 표준문</span>
-            <button class="btn" onclick="copyTextById('tmpl_hr_text')">📋 복사</button>
+            <span>[양식 2] 신입생 대표 · 고학번 대표 임기 만료 공고 & 집행위원 사퇴 공고 표준문</span>
+            <button class="btn" onclick="copyTextById('tmpl_hr_text')">복사</button>
           </div>
           <div class="callout-body" id="tmpl_hr_text">[신입생 대표 / 고학번 대표 임기 만료 공고]
 자유전공학부 D반 학생회칙 제65조 【임기·연임】에 의거하여, 202X년 O월 O일 OO:OO부로 자유전공학부 D반 신입생 대표(고학번 대표) OOO 학우의 임기가 만료되었음을 공고합니다.
@@ -806,7 +806,7 @@ window.DUET_SECTIONS = {
       title: "2. 제18대 Duet 의결기구(반운위 1~12차·확운위·총회) & 집행위 회의 전수 요약표",
       subtitle: "1년간 열린 모든 공식 회의의 일시, 안건, 표결 결과 및 핵심 맥락 아카이브",
       contentHtml: `
-        <h3 class="sub-heading">🏛️ 2-1. 반 운영위원회 (제18-1차 ~ 제18-12차) 전수 요약</h3>
+        <h3 class="sub-heading">2-1. 반 운영위원회 (제18-1차 ~ 제18-12차) 전수 요약</h3>
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
@@ -894,11 +894,11 @@ window.DUET_SECTIONS = {
           </table>
         </div>
 
-        <h3 class="sub-heading">🚀 2-2. GitHub Pages (<code>.github.io</code>) 3분 무료 배포 가이드</h3>
+        <h3 class="sub-heading">2-2. GitHub Pages (<code>.github.io</code>) 배포 가이드</h3>
         <div class="callout callout-tip">
-          <div class="callout-header">🌐 이 폴더를 그대로 <code>.github.io</code> 웹사이트로 배포하는 방법</div>
+          <div class="callout-header">이 폴더를 그대로 <code>.github.io</code> 웹사이트로 배포하는 방법</div>
           <div class="callout-body">1. 이미 폴더 루트에 개인정보 및 원본 문서 폴더(1. 집행위원회 ~ 99. D반 제17대 학생회, *.xlsx, *.hwp 등)가 GitHub에 올라가지 않도록 차단하는 <code>.gitignore</code> 파일이 설정되어 있습니다!
-2. 우측 상단 [🔗 드라이브 링크 설정] 또는 [✏️ 편집 모드]에서 구글폼 드라이브 링크와 코멘트를 수정하셨다면 [💾 수정본 data.js 저장]을 눌러 <code>js/data.js</code> 파일에 덮어씌워 주세요.
+2. 우측 상단 [드라이브 링크 설정] 또는 [편집 모드]에서 구글폼 드라이브 링크와 코멘트를 수정하셨다면 [수정본 data.js 저장]을 눌러 <code>js/data.js</code> 파일에 덮어씌워 주세요.
 3. GitHub에서 새 저장소(Repository)를 만듭니다 (예: <code>duet-handover</code> 또는 <code>계정명.github.io</code>).
 4. 현재 폴더에서 터미널(PowerShell)을 열고 아래 명령어를 실행합니다:
    <code>git init</code>
