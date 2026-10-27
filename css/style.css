@@ -785,12 +785,16 @@ table.doc-table th {
   padding: 10px 14px;
   border-bottom: 1px solid var(--border-strong);
   white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 table.doc-table td {
   padding: 10px 14px;
   border-bottom: 1px solid var(--border);
   color: var(--text-secondary);
   vertical-align: top;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 table.doc-table tr:last-child td {
   border-bottom: none;

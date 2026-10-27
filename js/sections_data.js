@@ -88,8 +88,8 @@ window.DUET_SECTIONS = {
           <table class="doc-table">
             <thead>
               <tr>
-                <th>구분</th>
-                <th>구성 및 의결권자</th>
+                <th style="width:160px; min-width:150px;">구분</th>
+                <th style="width:190px; min-width:180px;">구성 및 의결권자</th>
                 <th>개의 정족수 & 공고 기한</th>
                 <th>주요 상정 안건 및 제18대 운영 팁</th>
               </tr>
@@ -184,8 +184,8 @@ window.DUET_SECTIONS = {
           <table class="doc-table">
             <thead>
               <tr>
-                <th>회계 기간</th>
-                <th>구분</th>
+                <th style="width:180px; min-width:170px;">회계 기간</th>
+                <th style="width:75px; min-width:75px; text-align:center;">구분</th>
                 <th>주요 관·항·목 내역 및 금액</th>
                 <th>비고 및 심의 대비 포인트</th>
               </tr>
@@ -267,8 +267,8 @@ window.DUET_SECTIONS = {
           <table class="doc-table">
             <thead>
               <tr>
-                <th>구분</th>
-                <th>진행 시기 및 업체</th>
+                <th style="width:140px; min-width:130px; white-space:nowrap;">구분</th>
+                <th style="width:180px; min-width:170px;">진행 시기 및 업체</th>
                 <th>발주 방식 및 D반 수량</th>
                 <th>핵심 사양 및 주의사항 (후대 필독!)</th>
               </tr>
@@ -316,9 +316,9 @@ window.DUET_SECTIONS = {
           <table class="doc-table">
             <thead>
               <tr>
-                <th>구분</th>
+                <th style="width:180px; min-width:170px;">구분</th>
                 <th>보관 자료 항목</th>
-                <th>열람 권한</th>
+                <th style="width:170px; min-width:160px;">열람 권한</th>
                 <th>보안 조치 및 주의사항</th>
               </tr>
             </thead>
@@ -379,8 +379,8 @@ window.DUET_SECTIONS = {
           <table class="doc-table">
             <thead>
               <tr>
-                <th>사업명</th>
-                <th>제17대(도약) 기존 방식</th>
+                <th style="width:160px; min-width:150px; white-space:nowrap;">사업명</th>
+                <th style="width:38%;">제17대(도약) 기존 방식</th>
                 <th>제18대(Duet) 개편 및 신설 내역</th>
               </tr>
             </thead>
@@ -549,8 +549,8 @@ window.DUET_SECTIONS = {
           <table class="doc-table">
             <thead>
               <tr>
-                <th>분류</th>
-                <th>구매 품목 및 수량 (실결제가)</th>
+                <th style="width:160px; min-width:150px;">분류</th>
+                <th style="width:45%;">구매 품목 및 수량 (실결제가)</th>
                 <th>비치 방식 및 관리 노하우</th>
               </tr>
             </thead>
@@ -647,8 +647,8 @@ window.DUET_SECTIONS = {
           <table class="doc-table">
             <thead>
               <tr>
-                <th>회차 (배부일)</th>
-                <th>총 인원 및 지출액</th>
+                <th style="width:170px; min-width:160px; white-space:nowrap;">회차 (배부일)</th>
+                <th style="width:160px; min-width:150px; white-space:nowrap;">총 인원 및 지출액</th>
                 <th>메뉴 3종 구성 및 단가 상세</th>
               </tr>
             </thead>
@@ -806,108 +806,92 @@ window.DUET_SECTIONS = {
       title: "2. 제18대 Duet 의결기구(반운위 1~12차·확운위·총회) & 집행위 회의 전수 요약표",
       subtitle: "1년간 열린 모든 공식 회의의 일시, 안건, 표결 결과 및 핵심 맥락 아카이브",
       contentHtml: `
-        <h3 class="sub-heading">2-1. 반 운영위원회 (제18-1차 ~ 제18-12차) 전수 요약</h3>
+        <h3 class="sub-heading">반 운영위원회 (제18-1차 ~ 제18-12차) 전수 요약</h3>
         <div class="table-wrap">
           <table class="doc-table">
             <thead>
               <tr>
-                <th>차수</th>
-                <th>일시 및 장소</th>
+                <th style="width:85px; min-width:85px; text-align:center; white-space:nowrap;">차수</th>
+                <th style="width:165px; min-width:155px;">일시 및 장소</th>
                 <th>상정 안건 및 의결 결과</th>
                 <th>핵심 논의 및 배경 맥락</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>제18-1차</strong></td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-1차</strong></td>
                 <td>2025.12.02.(화) 22:35<br>온라인 ZOOM</td>
                 <td>• 25학번 집행위원(기획국장 김채은, 홍보국장 이윤주) 사전 인준 (4:0 가결)</td>
                 <td>• 4분기 기말 행사는 전대(17대) 방식 유지 합의<br>• 하반기 확운위를 기말 간식행사 배부 직후(12/11)로 잡아 정족수 확보 전략 수립</td>
               </tr>
               <tr>
-                <td><strong>제18-2차</strong></td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-2차</strong></td>
                 <td>2025.12.04.(목) 22:32<br>온라인 ZOOM</td>
                 <td>• 2·3분기 결산 및 1·4분기 예산안 검토 (4:0 가결)<br>• 집행위원 4인(복지국장 김동운, 국원 장여백·안희서·박준원) 사전 인준 (4:0 가결)<br>• 사업계획 기본방향 사전 인준 & 하반기 확운위(12/11) 소집 (4:0 가결)</td>
                 <td>• 전대 회장으로부터 주통장 잔액(1,273,110원) 인수 보고<br>• 반실 공용 비품 대여 사업(복지국) 및 사업 피드백 전담(홍보국) 신설 구상 공유</td>
               </tr>
               <tr>
-                <td><strong>제18-3차</strong></td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-3차</strong></td>
                 <td>2026.01.08.(목) 18:03<br>온라인 ZOOM</td>
                 <td>• 회칙 개정에 관한 건 — 신입생 대표 임기 관련 회칙 개정 추진 (3:0 가결)</td>
                 <td>• 해가 바뀐 후 2학년이 신입생 대표직을 유지하는 회칙 모순(제65조 vs 제4조) 제기<br>• 약 1시간 37분 정회 논의 끝에 조문 명확화를 위한 개정 추진 합의</td>
               </tr>
               <tr>
-                <td><strong>제18-4차</strong></td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-4차</strong></td>
                 <td>2026.01.20.(화) 19:06<br>Google Meet</td>
                 <td>• 국서 명칭 변경 사전 인준: <strong>생활국 → 복지국</strong> (4:0 가결)<br>• 회칙 개정안 발의(제65조 제2항 신설 및 부칙 경과조치) (찬성 3, 의결권없음 1 가결)<br>• 제18-1차 확운위 임시회의(1/29) 소집 요구 (4:0 가결)</td>
                 <td>• 신입생 대표 임기를 '당선 공고 48시간 후 ~ 당해 2학기 종강일'로 확정하되, 현직 대표(김도현) 임기 단축 방지를 위해 부칙 제2조(경과조치) 신설</td>
               </tr>
               <tr>
-                <td><strong>제18-5차</strong></td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-5차</strong></td>
                 <td>2026.03.13.(금) 17:02<br>온라인 ZOOM</td>
                 <td>• 26학번 신입 집행위원 3인(기획 김동준, 복지 채현찬, 홍보 김선희) 사전 인준 (4:0 가결)</td>
                 <td>• 새터, 뻔라인 매칭, 크잠 주문, 친해져도 Dㅐ? 조 매칭 완료 보고</td>
               </tr>
               <tr>
-                <td><strong>제18-6차</strong></td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-6차</strong></td>
                 <td>2026.03.23.(월) 22:08<br>온라인 ZOOM</td>
                 <td>• 집행위원 추가모집 선발 2인(기획 문아림[26], 복지 김찬우[25]) 사전 인준 (4:0 가결)</td>
                 <td>• 전임 민준기 고학번대표·김도현 신입생대표 임기 만료 전 마지막 회의<br>• 1학기 합응 추첨 완료 및 신대·고대 선거(3/24~26) 안내</td>
               </tr>
               <tr>
-                <td><strong>제18-7차</strong></td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-7차</strong></td>
                 <td>2026.05.01.(금) 18:06<br>D반 반실 (대면)</td>
                 <td>• 신임 김민정 고대·채현찬 신대 첫 출석<br>• 복지국 추천 충원 2인(방죠세핀[26], 정유나[26]) 사전 인준 (4:0 가결)<br>• 피드백 추첨 상품 예산 승인 건 → <strong>차기 회의로 연기</strong><br>• 인캐쳐 제휴 건 → 정회 후 논의 안건으로 전환</td>
                 <td>• 채현찬 학우의 신대 당선에 따른 복지국 26학번 공백을 메우기 위해 추천 충원<br>• 부학생회장(우상준): "익명 설문 시 학생회비 납부자 확인이 불가하여 회비 사용 정당성이 없다" 문제 제기</td>
               </tr>
               <tr>
-                <td><strong>제18-8차</strong></td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-8차</strong></td>
                 <td>2026.05.15.(금) 17:09<br>코웍스 회의실</td>
                 <td>• <strong>피드백 추첨 상품 예산 승인 안건 철회 건</strong> (4:0 가결)<br>• 25-4·26-1분기 결산 및 26-2·3분기 예산안 사전 검토 (4:0 가결)</td>
                 <td>• 익명성 보장을 위해 피드백 상품 예산을 쓰지 않고 반실 QR 상시 비치로 결정<br>• 고학번 대표(김민정)의 반실 대여 우산 수량·내구성 확충 건의 수용</td>
               </tr>
               <tr>
-                <td><strong>제18-9차</strong><br>(긴급)</td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-9차</strong><br>(긴급)</td>
                 <td>2026.05.21.(목) 22:43<br>Google Meet</td>
                 <td>• 긴급한 사항 심의·의결 성립 건 (가결)<br>• 신임 <strong>기획국장 장여백(25) 사전 인준 건</strong> (찬성 3, 기권 1 가결)</td>
                 <td>• 당일 00시 전임 기획국장 사퇴에 따라 상반기 확운위(5/23) 이틀 전 회칙 제15조에 의거 긴급 소집하여 국장 공백 즉시 해소</td>
               </tr>
               <tr>
-                <td><strong>제18-10차</strong></td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-10차</strong></td>
                 <td>2026.09.08.(화) 17:59<br>Google Meet</td>
                 <td>• '2026 대학생RUN' 외부 제휴 반대(거절) 건 (4:0 가결)</td>
                 <td>• 반 학생회 단위가 아닌 학부 학생회 단위에서 판단할 사안으로 보아 거절 의결</td>
               </tr>
               <tr>
-                <td><strong>제18-11차</strong><br>(새벽 긴급)</td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-11차</strong><br>(새벽 긴급)</td>
                 <td>2026.10.01.(목) 02:04<br>Google Meet</td>
                 <td>• 긴급한 사항 성립 건 (4:0 가결)<br>• 신규 사업 <strong>'릴스 고연전' 인준 및 예산(약 5만 원) 승인 건</strong> (4:0 가결)</td>
                 <td>• 타교생(연세대)에게 D반 학생회비가 지급되지 않도록 양교 개별 시상으로 분리하고, 연합팀은 학생회비 미투입 특별상으로 분리 의결</td>
               </tr>
               <tr>
-                <td><strong>제18-12차</strong></td>
+                <td style="white-space:nowrap; text-align:center;"><strong>제18-12차</strong></td>
                 <td>2026.10.27.(화) 23:00<br>Google Meet</td>
                 <td>• <strong>자유전공학부 선거관리위원회 위원 2인(김민정, 채현찬) 파견 건</strong></td>
                 <td>• 자유전공학부 선거시행세칙 제152조(후보 등록 마감일 10일 전까지 반 의결기구 의결로 2명 파견) 이행</td>
               </tr>
             </tbody>
           </table>
-        </div>
-
-        <h3 class="sub-heading">2-2. GitHub Pages (<code>.github.io</code>) 배포 가이드</h3>
-        <div class="callout callout-tip">
-          <div class="callout-header">이 폴더를 그대로 <code>.github.io</code> 웹사이트로 배포하는 방법</div>
-          <div class="callout-body">1. 이미 폴더 루트에 개인정보 및 원본 문서 폴더(1. 집행위원회 ~ 99. D반 제17대 학생회, *.xlsx, *.hwp 등)가 GitHub에 올라가지 않도록 차단하는 <code>.gitignore</code> 파일이 설정되어 있습니다!
-2. 우측 상단 [드라이브 링크 설정] 또는 [편집 모드]에서 구글폼 드라이브 링크와 코멘트를 수정하셨다면 [수정본 data.js 저장]을 눌러 <code>js/data.js</code> 파일에 덮어씌워 주세요.
-3. GitHub에서 새 저장소(Repository)를 만듭니다 (예: <code>duet-handover</code> 또는 <code>계정명.github.io</code>).
-4. 현재 폴더에서 터미널(PowerShell)을 열고 아래 명령어를 실행합니다:
-   <code>git init</code>
-   <code>git add index.html css js assets .gitignore</code>
-   <code>git commit -m "feat: D반 제18대 학생회 Duet 인수인계 사이트 배포"</code>
-   <code>git branch -M main</code>
-   <code>git remote add origin https://github.com/계정명/저장소명.git</code>
-   <code>git push -u origin main</code>
-5. GitHub 저장소의 [Settings] → [Pages] → Build and deployment에서 Branch를 <code>main</code> / <code>/(root)</code>로 선택하고 Save를 누르면 1분 뒤 <code>https://계정명.github.io/저장소명/</code> 주소로 사이트가 개설됩니다!</div>
         </div>
       `
     }
