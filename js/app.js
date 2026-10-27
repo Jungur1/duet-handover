@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   "use strict";
 
   const STORAGE_KEY = "duet_handover_custom_v1";
@@ -28,7 +28,7 @@
     pres: { label: "학생회장단", className: "cat-pres" },
     gov:  { label: "의결기구·선거", className: "cat-gov" },
     plan: { label: "기획국", className: "cat-plan" },
-    welf: { label: "복지국(생활국)", className: "cat-welf" },
+    welf: { label: "복지국", className: "cat-welf" },
     pr:   { label: "홍보국", className: "cat-pr" }
   };
 
@@ -50,7 +50,7 @@
       group: "집행위원회 국장단 인수인계",
       items: [
         { id: "planning", icon: "", label: "기획국 인수인계서", badge: "6대 사업" },
-        { id: "welfare", icon: "", label: "복지국(생활국) 인수인계서", badge: "5대 사업" },
+        { id: "welfare", icon: "", label: "복지국 인수인계서", badge: "5대 사업" },
         { id: "pr", icon: "", label: "홍보국 인수인계서", badge: "4대 영역" }
       ]
     },
@@ -438,7 +438,7 @@
         </div>
         <div class="stat-card" style="cursor:pointer;" data-jump-tab="welfare">
           <div class="stat-num">복지국 & 홍보국</div>
-          <div class="stat-label">생활국→복지국 개편 · 반실 리뉴얼 · 월간보고</div>
+          <div class="stat-label">복지국 전면 개편 · 반실 리뉴얼 · 월간보고</div>
           <div class="stat-sub">무보증금 대여사업 · 사전 수요조사 간식행사 →</div>
         </div>
       </div>
@@ -487,8 +487,8 @@
             <p style="font-size:13px;color:var(--text-secondary);">스터디윗D 달성+추첨 하이브리드 개편, 친해져도 Dㅐ? 2+2 매칭, 대성리 총MT 답사·예산, 합동응원전·릴스 고연전 실무</p>
           </div>
           <div class="stat-card" style="cursor:pointer;" data-jump-tab="welfare">
-            <div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;">복지국(생활국) 인수인계서</div>
-            <p style="font-size:13px;color:var(--text-secondary);">생활국→복지국 명칭 개편, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여, 간식 사전 수요조사</p>
+            <div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;">복지국 인수인계서</div>
+            <p style="font-size:13px;color:var(--text-secondary);">복지국 전면 개편, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여, 간식 사전 수요조사</p>
           </div>
           <div class="stat-card" style="cursor:pointer;" data-jump-tab="pr">
             <div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;">홍보국 인수인계서</div>
@@ -924,7 +924,7 @@
             <tbody>
               <tr><th style="width:130px;">회장단·의결기구</th><td style="white-space:pre-line;">${esc(rep.summary.pres)}</td></tr>
               <tr><th>기획국</th><td style="white-space:pre-line;">${esc(rep.summary.plan)}</td></tr>
-              <tr><th>복지국(생활국)</th><td style="white-space:pre-line;">${esc(rep.summary.welf)}</td></tr>
+              <tr><th>복지국</th><td style="white-space:pre-line;">${esc(rep.summary.welf)}</td></tr>
               <tr><th>홍보국</th><td style="white-space:pre-line;">${esc(rep.summary.pr)}</td></tr>
             </tbody>
           </table>
@@ -1240,8 +1240,8 @@
       },
       welfare: {
         badge: "복지국",
-        title: "복지국(구 생활국) 인수인계서 (김동운 / 안희서 · 김찬우 · 방죠세핀 · 정유나)",
-        desc: "'생활국→복지국' 명칭 개편 배경, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여 사업, 간식행사 사전 수요조사 3단계 체계",
+        title: "복지국 인수인계서 (국장 김동운 / 안희서 · 김찬우 · 방죠세핀 · 정유나)",
+        desc: "복지국 전면 개편 배경, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여 사업, 간식행사 사전 수요조사 3단계 체계",
         catFilter: ["welf"]
       },
       pr: {
