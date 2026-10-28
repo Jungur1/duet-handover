@@ -1030,7 +1030,14 @@
 
     const cleanDept = stripStatus(ev.deptLabel) || catMeta.label;
     let noticeSectionHtml = "";
-    if (isAutoNotionRecord && !state.editMode) {
+    if (!rawNotice && !state.editMode) {
+      noticeSectionHtml = `
+        <div class="callout" style="margin-top:14px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px;padding:14px 16px;color:#64748b;font-size:13px;line-height:1.6;">
+          <div style="font-weight:700;color:#334155;margin-bottom:4px;font-size:13.5px;">공지 안내</div>
+          이 일정은 카카오톡 전체 공지글 없이 진행된 내부 실무 · 준비 · 자치 회의 일정입니다.
+        </div>
+      `;
+    } else if (isAutoNotionRecord && !state.editMode) {
       const urlMatch = rawNotice.match(/(?:🔗\s*)?관련 문서 링크:\s*(\S+)/);
       const extUrl = urlMatch ? urlMatch[1] : "";
       noticeSectionHtml = `
@@ -1054,9 +1061,55 @@
         <div class="callout callout-notice" style="margin-top:14px;">
           <div class="callout-header">
             <span>당시 실제 공지글 / 안건 요약</span>
-            <button class="btn" id="copyNoticeBtn" style="padding:3px 10px;font-size:11.5px;">공지글 복사</button>
+            ${rawNotice ? `<button class="btn" id="copyNoticeBtn" style="padding:3px 10px;font-size:11.5px;">공지글 복사</button>` : ""}
           </div>
           <div class="callout-body" id="activeEventNoticeText" data-event-edit-field="noticeText" data-event-id="${esc(ev.id)}">${esc(rawNotice)}</div>
+        </div>
+      `;
+    }
+
+    // Dedicated Google Forms & Response Spreadsheets Slot
+    let formsSectionHtml = "";
+    const formsList = [];
+    if (Array.isArray(ev.forms) && ev.forms.length > 0) {
+      formsList.push(...ev.forms);
+    } else if (ev.formUrl || ev.responseUrl) {
+      formsList.push({
+        title: ev.formName || ev.title + " 설문/신청 폼",
+        formUrl: ev.formUrl,
+        responseUrl: ev.responseUrl
+      });
+    }
+
+    if (formsList.length > 0) {
+      const itemsHtml = formsList.map(item => {
+        const itemTitle = item.title || "신청 및 설문 폼";
+        const formBtn = item.formUrl
+          ? `<a href="${esc(item.formUrl)}" target="_blank" rel="noopener" class="btn" style="padding:5px 12px;font-size:12px;background:#2563eb;color:#ffffff;border-radius:6px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;">설문 / 신청 폼 ↗</a>`
+          : "";
+        const respBtn = item.responseUrl
+          ? `<a href="${esc(item.responseUrl)}" target="_blank" rel="noopener" class="btn" style="padding:5px 12px;font-size:12px;background:#059669;color:#ffffff;border-radius:6px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;">응답 결과 시트 ↗</a>`
+          : "";
+        return `
+          <div style="display:flex;align-items:center;justify-content:space-between;background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;gap:12px;flex-wrap:wrap;">
+            <div style="font-size:13px;font-weight:600;color:#1e293b;flex:1;min-width:180px;">${esc(itemTitle)}</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              ${formBtn}
+              ${respBtn}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      formsSectionHtml = `
+        <div class="callout callout-forms" style="margin-top:14px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:14px 16px;">
+          <div style="font-weight:700;font-size:13.5px;color:#1e293b;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+            <span>구글 폼 및 설문 응답 결과</span>
+            <span style="font-size:11.5px;font-weight:500;color:#64748b;">Google Drive 연동</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            ${itemsHtml}
+          </div>
         </div>
       `;
     }
@@ -1087,6 +1140,8 @@
       ${carouselHtml}
 
       ${noticeSectionHtml}
+
+      ${formsSectionHtml}
 
       ${thoughtSectionHtml}
     `;
