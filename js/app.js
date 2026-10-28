@@ -1085,7 +1085,7 @@
       const itemsHtml = formsList.map(item => {
         const itemTitle = item.title || "신청 및 설문 폼";
         const formBtn = item.formUrl
-          ? `<a href="${esc(item.formUrl)}" target="_blank" rel="noopener" class="btn" style="padding:5px 12px;font-size:12px;background:#2563eb;color:#ffffff;border-radius:6px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;">설문 / 신청 폼 ↗</a>`
+          ? `<a href="${esc(item.formUrl)}" target="_blank" rel="noopener" class="btn" style="padding:5px 12px;font-size:12px;background:#2563eb;color:#ffffff;border-radius:6px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;" title="구글 폼 설문 문항 및 응답 통계 관리(편집자 모드)">구글 폼 관리 / 편집 ↗</a>`
           : "";
         const respBtn = item.responseUrl
           ? `<a href="${esc(item.responseUrl)}" target="_blank" rel="noopener" class="btn" style="padding:5px 12px;font-size:12px;background:#059669;color:#ffffff;border-radius:6px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;">응답 결과 시트 ↗</a>`

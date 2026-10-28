@@ -370,7 +370,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "자유전공학부 D반 제18대 학생회 Duet 집행위원 지원서",
-          "formUrl": "https://docs.google.com/forms/d/1uoJbwwN0SsQ-NLZfWJKwNvpimkAWJehQKNi4S7dyObA/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1uoJbwwN0SsQ-NLZfWJKwNvpimkAWJehQKNi4S7dyObA/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1gsY2wG11c47nU01EjUOFUd0NAhe-z2WJpjObnTry4dA/edit"
         }
       ]
@@ -395,7 +395,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "자유전공학부 D반 제18대 학생회 Duet 집행위원 지원서",
-          "formUrl": "https://docs.google.com/forms/d/1uoJbwwN0SsQ-NLZfWJKwNvpimkAWJehQKNi4S7dyObA/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1uoJbwwN0SsQ-NLZfWJKwNvpimkAWJehQKNi4S7dyObA/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1gsY2wG11c47nU01EjUOFUd0NAhe-z2WJpjObnTry4dA/edit"
         }
       ]
@@ -531,7 +531,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "자유전공학부 D반 제18대 학생회 Duet 집행위원 지원서",
-          "formUrl": "https://docs.google.com/forms/d/1uoJbwwN0SsQ-NLZfWJKwNvpimkAWJehQKNi4S7dyObA/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1uoJbwwN0SsQ-NLZfWJKwNvpimkAWJehQKNi4S7dyObA/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1gsY2wG11c47nU01EjUOFUd0NAhe-z2WJpjObnTry4dA/edit"
         }
       ]
@@ -1369,11 +1369,8 @@ window.DUET_DEFAULT_DATA = {
       "status": "완료",
       "title": "연세대 에버나인 미팅",
       "summary": "연세대 경제9반(에버나인)과 교류반 TF 신설 및 4월 초 일일호프 합의 / 복지국 1차 회의에서 '복지국' 명칭 변경 결의",
-      "images": [
-        "assets/images/monthly/m01_2.jpg",
-        "assets/images/monthly/m01_5.jpg"
-      ],
-      "noticeText": "[1월 주요 집행위원회 회의 요약]\n• 1/3(토) 기획국 1차 회의: 스터디윗D 달성제 전환, 친해져도 Dㅐ? 2+2 매칭, 5월 총MT 일정 확정\n• 1/7(수) 연세대 교류반(에버나인) 회장단 미팅: 상설 교류반 TF(양교 회장단+기획국) 구성 및 일일호프 별도 스태프 TF 모집 합의\n• 1/17(토) 복지국 1차 회의: '생활국' 명칭을 '복지국'으로 변경 결의, 반실 가구 재배치 및 우산·보조배터리 무보증금 대여사업 기획",
+      "images": [],
+      "noticeText": "",
       "thought": "• 교류반 행사는 3월 개강 후에 만나면 일일호프 대관이나 기획이 늦어집니다. 1월 초에 미리 연세대 회장단과 만나 연간 일정(3/8 대면식, 3/20 합응, 4/3 일일호프)을 못 박아둔 것이 큰 도움이 되었습니다.\n• '생활국'이라는 이름은 반실 청소만 하는 부서처럼 느껴져 새내기 리크루팅 때 지원 유인이 떨어진다는 부학생회장(우상준)과 국장(김동운)의 의견에 적극 공감해 '복지국'으로 개편을 추진했습니다."
     },
     {
@@ -1534,10 +1531,7 @@ window.DUET_DEFAULT_DATA = {
       "status": "완료",
       "title": "복지국 1차 회의",
       "summary": "연세대 경제9반(에버나인)과 교류반 TF 신설 및 4월 초 일일호프 합의 / 복지국 1차 회의에서 '복지국' 명칭 변경 결의",
-      "images": [
-        "assets/images/monthly/m01_2.jpg",
-        "assets/images/monthly/m01_5.jpg"
-      ],
+      "images": [],
       "noticeText": "[노션 페이지 본문 / 메모]\n생활국 회의 필요한 내용)\n공용비품 상세 내용+예산 관련\n게시판(홍보 추억) 세부 사항+사용수칙+예산 필요하다면\n반실 사용수칙+냉장고 사용수칙 수정 추가 내용 등\n기존 비품 정리 // 추가할 가구 등\n\n[1월 주요 집행위원회 회의 요약]\n• 1/3(토) 기획국 1차 회의: 스터디윗D 달성제 전환, 친해져도 Dㅐ? 2+2 매칭, 5월 총MT 일정 확정\n• 1/7(수) 연세대 교류반(에버나인) 회장단 미팅: 상설 교류반 TF(양교 회장단+기획국) 구성 및 일일호프 별도 스태프 TF 모집 합의\n• 1/17(토) 복지국 1차 회의: '생활국' 명칭을 '복지국'으로 변경 결의, 반실 가구 재배치 및 우산·보조배터리 무보증금 대여사업 기획",
       "thought": "• 교류반 행사는 3월 개강 후에 만나면 일일호프 대관이나 기획이 늦어집니다. 1월 초에 미리 연세대 회장단과 만나 연간 일정(3/8 대면식, 3/20 합응, 4/3 일일호프)을 못 박아둔 것이 큰 도움이 되었습니다.\n• '생활국'이라는 이름은 반실 청소만 하는 부서처럼 느껴져 새내기 리크루팅 때 지원 유인이 떨어진다는 부학생회장(우상준)과 국장(김동운)의 의견에 적극 공감해 '복지국'으로 개편을 추진했습니다."
     },
@@ -1705,8 +1699,7 @@ window.DUET_DEFAULT_DATA = {
       "images": [
         "assets/images/gov/hwak_temp1_call.jpg",
         "assets/images/gov/hwak_temp1_res.jpg",
-        "assets/images/gov/bylaw_amend_call.jpg",
-        "assets/images/monthly/m01_1.jpg"
+        "assets/images/gov/bylaw_amend_call.jpg"
       ],
       "noticeText": "[📢 카카오톡 단체방 공식 공지]\n• 발신: 학생회장 원준혁 (2026.01.25 오후 1:54)\n----------------------------------------\n[제18-1차 D반 확대운영위원회 임시회의 소집 공고]\n\n안녕하세요, 학생회장입니다. 제18-1차 확대운영위원회 임시회의를 개의하고자 합니다.\n\n📍1월 29(목) 18시\n📍온라인 회의 (Google Meet)\n\n안건지를 함께 보내드리니 확인 부탁드립니다. 온라인 회의 링크는 추후 공지 예정입니다. 또한, 자유전공학부 네이버 카페와 D반 인스타그램 계정으로도 관련 사항 공지 될 예정이니 참고하시면 되겠습니다. D반 제18대 학생회의 국서 명칭 변경 인준과 회칙 개정안 심의, 학생총회 소집에 대해 논의 및 의결이 진행될 예정이니 큰 관심 부탁드리겠습니다.\n\n회칙 개정안 심의라는 중대한 사안을 다루는 자리인 만큼 시간 내셔서 회의 참여해주시면 감사하겠습니다.\n\n자유전공학부 D반 재학생 학우분이라면 모두 의결권이 있으며, 회의 소요 시간이 길지 않을테니 많은 참여 바랍니다!\n\n| 문의: 학생회장 원준혁\n\n========================================\n[📋 노션(Notion) 캘린더 일정 기록 & 회의 메모]\n[제18-1차 자유전공학부 D반 확대운영위원회 임시회의 결과 공고]\n• 일시: 2026.01.29.(목) 18:13 ~ 18:43 (Google Meet, 15명 출석)\n• 심의·의결 결과:\n  1. 국서 변경 인준에 관한 건 (생활국 → 복지국) — 만장일치 가결 (출석 15, 찬성 15)\n  2. 회칙 개정안 내용 심의에 관한 건 (제65조 제2항 신입생 대표 임기 규정 및 부칙 제2조 경과조치 신설) — 만장일치 가결 (출석 13, 찬성 13)\n  3. 학생총회 소집에 관한 건 (2026.02.04. 18:00) — 만장일치 가결 (출석 13, 찬성 13)",
       "thought": "• 회칙 제98조 제2항상 '회칙개정안 심의에는 축조심사와 찬반토론이 포함되어야 하며, 축조심사는 의결로 생략할 수 있다'고 되어 있습니다. 회의 중 축조심사 생략만 의결하고 찬반토론 없이 표결을 진행했다가, 산회 직전 부학생회장과 임태빈 학우가 이를 짚어주어 즉시 원표결을 폐기하고 찬반토론을 거친 뒤 재표결했습니다. 절차가 어긋난 의결은 무효가 될 수 있으니 회의 중이라도 실수를 발견하면 주저 없이 원표결 폐기 후 재표결하는 것이 정답입니다!"
@@ -2327,7 +2320,7 @@ window.DUET_DEFAULT_DATA = {
         "assets/images/promo/chinda_photo_5.jpg",
         "assets/images/promo/chinda_photo_6.jpg"
       ],
-      "noticeText": "[📢 카카오톡 단체방 공식 공지]\n• 발신: 학생회장 원준혁 (2026.02.23 오후 6:44)\n----------------------------------------\n<🎉2026 D반 개강파티 가수요조사🎉>\n\n안녕하세요! D반에 오신 여러분, 환영합니다! 이제 얼마 남지 않은 개강을 맞이하여 개강파티를 하려고 합니다. 대략적인 인원을 확인하고자 가수요조사를 실시합니다! 이번 개강파티는 전학번이 참여할 수 있도록 하였습니다.\n같은 반 학우분들을 만날 좋은 기회이기도 하니 많은 참여 부탁드립니다! 일시와 장소는 다음과 같습니다. 아래 구글폼을 통해 신청해주세요.\n\n📎일시 : 3월 3일 19시~22시\n📎장소 : 안암아줌마치킨\n📎구글폼: https://forms.gle/xWHPY7oFM7rGwu5K8\n📎기한: 2/25(목) 23:59까지\n\n*본 공지는 가수요조사로서 인원파악을 위한 용도로, 추후 실수요조사에 참여하셔야 참여가 확정이라는 점 안내해드립니다.\n\n문의: D반 학생회장 원준혁\n\n========================================\n[📋 노션(Notion) 캘린더 일정 기록 & 회의 메모]\n[25~26학번 D반 뻔선뻔후 매칭 및 친해져도 Dㅐ? 안내]\n• 뻔라인 매칭 원칙:\n  1. 25학번 대상 사전 설문조사 실시 (뻔후 희망 여부, 외국인 배정 선호도, 2명 이상 추가 입양 가능 여부 조사)\n  2. 학번 끝 3자리가 같은 25·26학번을 '친뻔'으로 우선 매칭\n  3. 친뻔선이 없거나(200번대 학번 등) 미응답인 경우, 다수 배정을 자원한 25학번 선배('입양명단')에게 '입양' 매칭 및 새터 참여 여부(O/X) 표기 배포\n• 2026 친해져도 Dㅐ?: 2/23(월) 공지 업로드, 25학번 2명 + 26학번 2명(4인 1조) 매칭 신청 개시",
+      "noticeText": "[25~26학번 D반 뻔선뻔후 매칭 및 친해져도 Dㅐ? 안내]\n• 뻔라인 매칭 원칙:\n  1. 25학번 대상 사전 설문조사 실시 (뻔후 희망 여부, 외국인 배정 선호도, 2명 이상 추가 입양 가능 여부 조사)\n  2. 학번 끝 3자리가 같은 25·26학번을 '친뻔'으로 우선 매칭\n  3. 친뻔선이 없거나(200번대 학번 등) 미응답인 경우, 다수 배정을 자원한 25학번 선배('입양명단')에게 '입양' 매칭 및 새터 참여 여부(O/X) 표기 배포\n• 2026 친해져도 Dㅐ?: 2/23(월) 공지 업로드, 25학번 2명 + 26학번 2명(4인 1조) 매칭 신청 개시\n\n| 문의: 학생회장단 및 기획국",
       "thought": "• 매년 뻔라인 매칭 때 연락 두절인 선배나 학번 끝자리가 안 맞는 신입생(특히 외국인·추가합격 학우)이 소외되는 문제가 있었습니다. 그래서 25학번에게 미리 '외국인 신입생 배정 가능 여부'와 '뻔후 2~3명 입양 가능 여부'를 설문으로 받아 매칭표를 짰고, 새터 참여 여부까지 표기해 주어 새터 현장에서 선배들이 자기 뻔후를 바로 챙길 수 있게 했습니다."
     },
     {
@@ -2368,7 +2361,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026 막강 D반 1학기 개강파티 가수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1o4Xl5VPm0ism_TWVRpnFDFg_zxg0R9EhYzkcLgdgsHM/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1o4Xl5VPm0ism_TWVRpnFDFg_zxg0R9EhYzkcLgdgsHM/edit",
           "responseUrl": null
         }
       ]
@@ -2393,7 +2386,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026 자유전공학부 D반 크잠 공구 신청폼",
-          "formUrl": "https://docs.google.com/forms/d/1Enbr2Z_U940VmpBH0in_Tt6f_-xpJNQM7EQJsLjckeo/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1Enbr2Z_U940VmpBH0in_Tt6f_-xpJNQM7EQJsLjckeo/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1omdeM6oA9SKRy4b2LUHmZSOKVK_g_T03/edit"
         }
       ]
@@ -2497,7 +2490,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 막강 D반 개강파티 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1RxviB-n2bT62VB63AoPVqLrNoANrQf-6byGKrPD1akM/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1RxviB-n2bT62VB63AoPVqLrNoANrQf-6byGKrPD1akM/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1xL8fZzBfQ7oI760SWvgZgp-DGOVoiVRyTZcb5R61vls/edit"
         }
       ]
@@ -2558,7 +2551,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026 자유전공학부 D반 크잠 공구 신청폼",
-          "formUrl": "https://docs.google.com/forms/d/1Enbr2Z_U940VmpBH0in_Tt6f_-xpJNQM7EQJsLjckeo/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1Enbr2Z_U940VmpBH0in_Tt6f_-xpJNQM7EQJsLjckeo/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1omdeM6oA9SKRy4b2LUHmZSOKVK_g_T03/edit"
         }
       ]
@@ -2583,13 +2576,7 @@ window.DUET_DEFAULT_DATA = {
         "assets/images/promo/room_guide_3.jpg",
         "assets/images/promo/room_guide_4.jpg",
         "assets/images/promo/room_guide_5.jpg",
-        "assets/images/promo/room_guide_6.jpg",
-        "assets/images/promo/room_rules_1.png",
-        "assets/images/promo/room_rules_2.png",
-        "assets/images/promo/room_rules_3.png",
-        "assets/images/promo/room_rules_4.png",
-        "assets/images/promo/room_rules_5.png",
-        "assets/images/promo/room_photo_wall.jpg"
+        "assets/images/promo/room_guide_6.jpg"
       ],
       "noticeText": "[새 단장한 D반 반실 한눈에 알아보기 & 이용수칙 안내]\n안녕하세요, 자유전공학부 D반 제18대 학생회 Duet 복지국입니다!\n2026년 1학기 개강을 맞아 법학관 구관 104호 D반 반실이 새롭게 단장했습니다✨\n\n🔌 1. 비치 물품 전면 교체\n• 핸드폰 충전기(아이폰 8핀, C타입) 및 노트북 충전기(65W 초고속) 구비 (전용 바구니 분리 보관)\n• 책상 근처 3m 멀티탭 3개 고정, 담요 2개, 물티슈, 대형 아크릴 거울 비치\n\n☂️ 2. 우산 & 보조배터리 대여 사업 신설\n• 비 오는 날 우산꽂이의 장우산(4개), 배터리 부족할 때 일체형 보조배터리(2개) 대여 가능!\n• 대여 방법: 반실 내 대여 명단 작성 + 복지국장(010-2015-3344)에게 문자 연락 후 대여 (주말 제외 이틀 뒤까지 반납 필수)\n\n📸 3. 즐길거리 & 추억 공간 & 홍보게시판\n• 다양한 보드게임 구비 / 벽면 마스킹테이프 '추억 공간'에 인생네컷 사진을 자유롭게 붙여주세요!\n• 소화전 위 화이트보드 홍보게시판에 밴드 공연, 동아리, 소모임을 홍보해 보세요 (부착 전 학생회장·복지국장 문의)\n\n❄️ 4. 냉장고 및 기본 이용수칙\n• 냉장고 음식 보관 시 [이름 + 보관 날짜] 필수 기재! (2주 간격 정기 청소 시 미기재 또는 4주 경과 음식물은 통보 없이 폐기됩니다)",
       "thought": "• 학우들이 학부 학생회실보다 구법학관 1층 D반 반실을 훨씬 자주 들른다는 점에 착안해 우산·보조배터리 대여 사업을 신설했습니다.\n• 보증금을 받을지 고민했으나 학생회비로 산 물품에 보증금을 또 걷는 건 맞지 않다고 판단해 '명부 수기 작성 + 복지국장 문자 연락'으로 운영했습니다. 초기에는 학우들이 문자 연락을 깜빡하는 경우가 있어 2차 국장단회의(3/7) 피드백을 거쳐 대여 안내문 글자 크기와 색상을 눈에 띄게 키웠습니다."
@@ -2609,18 +2596,11 @@ window.DUET_DEFAULT_DATA = {
       "title": "반실 수칙 공지",
       "summary": "개강 첫 주 반실 비품·대여사업(우산/보조배터리)·추억공간·홍보게시판·냉장고 4주 폐기 수칙 카드뉴스 11장 배포",
       "images": [
-        "assets/images/promo/room_guide_1.jpg",
-        "assets/images/promo/room_guide_2.jpg",
-        "assets/images/promo/room_guide_3.jpg",
-        "assets/images/promo/room_guide_4.jpg",
-        "assets/images/promo/room_guide_5.jpg",
-        "assets/images/promo/room_guide_6.jpg",
         "assets/images/promo/room_rules_1.png",
         "assets/images/promo/room_rules_2.png",
         "assets/images/promo/room_rules_3.png",
         "assets/images/promo/room_rules_4.png",
-        "assets/images/promo/room_rules_5.png",
-        "assets/images/promo/room_photo_wall.jpg"
+        "assets/images/promo/room_rules_5.png"
       ],
       "noticeText": "[D반 반실 이용수칙 안내]\n\n안녕하세요, Duet 복지국입니다.\n\nD반 반실 이용 시 지켜야 할 수칙에 관하여 안내드립니다.\n이용수칙의 자세한 내용은 사진을 참고 부탁드리며, 반실의 각 공간에 부착된 이용수칙을 통해서도 확인하실 수 있습니다.\n\n반실은 D반 학우 모두가 함께 사용하는 공간이므로, 모두에게 쾌적하고 편안한 반실이 될 수 있도록 이용수칙을 잘 지켜주시길 부탁드립니다.\n\n감사합니다.\n\nㅣ문의: 학생회장 원준혁, 복지국장 김동운\nㅣ제작: 홍보국장 이윤주",
       "thought": "• 학우들이 학부 학생회실보다 구법학관 1층 D반 반실을 훨씬 자주 들른다는 점에 착안해 우산·보조배터리 대여 사업을 신설했습니다.\n• 보증금을 받을지 고민했으나 학생회비로 산 물품에 보증금을 또 걷는 건 맞지 않다고 판단해 '명부 수기 작성 + 복지국장 문자 연락'으로 운영했습니다. 초기에는 학우들이 문자 연락을 깜빡하는 경우가 있어 2차 국장단회의(3/7) 피드백을 거쳐 대여 안내문 글자 크기와 색상을 눈에 띄게 키웠습니다."
@@ -2678,13 +2658,17 @@ window.DUET_DEFAULT_DATA = {
       "images": [
         "assets/images/promo/recruit_regular_1.jpg",
         "assets/images/promo/recruit_regular_2.jpg",
-        "assets/images/promo/recruit_regular_3.jpg",
-        "assets/images/promo/recruit_extra_1.jpg",
-        "assets/images/promo/recruit_extra_2.jpg",
-        "assets/images/promo/recruit_extra_3.jpg"
+        "assets/images/promo/recruit_regular_3.jpg"
       ],
       "noticeText": "[자유전공학부 D반 제18대 학생회 Duet 집행위원 모집 공고]\n안녕하세요, 자유전공학부 D반 제18대 학생회 Duet입니다!\nD반을 함께 이끌어갈 신입 집행위원을 모집합니다🎶\n\n📌 모집 국서:\n• 기획국: 스터디윗D, 친해져도 Dㅐ?, 총MT, 교류반 행사 등 친목·학업 행사 기획\n• 복지국: 반실 환경 조성 및 정기 청소, 우산·보조배터리 대여 사업, 시험기간 간식행사 운영\n• 홍보국: 인스타그램 계정(@kusis_d) 운영, 월간보고 및 사업 카드뉴스 제작, 피드백 수합\n\n📅 정기모집(26학번): 3/3(화)~3/6(금) 접수 → 3/9~11 면접 → 3/12 발표\n📅 추가모집(25·26학번 전체): 3/14(토)~3/19(목) 접수 → 3/22(일) 면접 및 발표\n🔗 지원 방법: 공지방 및 인스타 프로필 구글폼 작성 (문의: 학생회장 원준혁 010-3516-3561)",
-      "thought": "• 3월 초 26학번 정기 리크루팅에서 예상보다 지원자가 적어 정원 미달이 발생했습니다. 당황하지 않고 즉시 3/7 국장단회의에서 지원 자격을 '25학번·26학번 전체'로 넓힌 추가모집을 결정해 우수 인원을 충원했습니다.\n• 또한 1차 합격자였던 채현찬(26) 복지국원이 3월 말 신입생 대표로 당선되면서 복지국 내 26학번 국원이 0명이 되는 문제가 생겼는데, 차기 인수인계를 위해 26학번 국원이 꼭 필요하다고 판단하여 운영위원·국장단 추천(스카우팅) 및 반운위 인준(5/1)을 통해 26학번 복지국원 2명(방죠세핀, 정유나)을 추가 영입했습니다."
+      "thought": "• 3월 초 26학번 정기 리크루팅에서 예상보다 지원자가 적어 정원 미달이 발생했습니다. 당황하지 않고 즉시 3/7 국장단회의에서 지원 자격을 '25학번·26학번 전체'로 넓힌 추가모집을 결정해 우수 인원을 충원했습니다.\n• 또한 1차 합격자였던 채현찬(26) 복지국원이 3월 말 신입생 대표로 당선되면서 복지국 내 26학번 국원이 0명이 되는 문제가 생겼는데, 차기 인수인계를 위해 26학번 국원이 꼭 필요하다고 판단하여 운영위원·국장단 추천(스카우팅) 및 반운위 인준(5/1)을 통해 26학번 복지국원 2명(방죠세핀, 정유나)을 추가 영입했습니다.",
+      "forms": [
+        {
+          "title": "제18대 학생회 Duet 26학번 집행위원 지원서",
+          "formUrl": "https://docs.google.com/forms/d/1KlwYWFsh6iSyqKR94xI_FUL1Rt7JNyYjf_mEQWmEhLw/edit",
+          "responseUrl": null
+        }
+      ]
     },
     {
       "id": "notion_2d01d74fc6df8093aa25f19440953365",
@@ -2724,7 +2708,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 막강 D반 개강파티 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1RxviB-n2bT62VB63AoPVqLrNoANrQf-6byGKrPD1akM/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1RxviB-n2bT62VB63AoPVqLrNoANrQf-6byGKrPD1akM/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1xL8fZzBfQ7oI760SWvgZgp-DGOVoiVRyTZcb5R61vls/edit"
         }
       ]
@@ -2767,7 +2751,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 교류반 대면식 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1sBuzWmMefAQqDx5oVmoWH8Uc__QOZGzbA_Luk9uwS_w/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1sBuzWmMefAQqDx5oVmoWH8Uc__QOZGzbA_Luk9uwS_w/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/19WYpWP0866ENh7DRVoJPxBwfYt0Ob-FtUxjPKS8qOtU/edit"
         }
       ]
@@ -2864,7 +2848,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 교류반 대면식 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1sBuzWmMefAQqDx5oVmoWH8Uc__QOZGzbA_Luk9uwS_w/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1sBuzWmMefAQqDx5oVmoWH8Uc__QOZGzbA_Luk9uwS_w/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/19WYpWP0866ENh7DRVoJPxBwfYt0Ob-FtUxjPKS8qOtU/edit"
         }
       ]
@@ -2997,7 +2981,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 응원OT 및 뒷풀이 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/124VzoYh9qF-O7mhqOonfnd-sW8Jgqk6w3WXRHAv-JCg/viewform",
+          "formUrl": "https://docs.google.com/forms/d/124VzoYh9qF-O7mhqOonfnd-sW8Jgqk6w3WXRHAv-JCg/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1M8z1UDKgpE2Amu7MsNtSkhcvvPhlIZ_IhVFw_hhGs6E/edit"
         }
       ]
@@ -3071,16 +3055,16 @@ window.DUET_DEFAULT_DATA = {
       "title": "25&26 Duet 집행위원 추가 모집 신청",
       "summary": "1차 정기모집(김동준·채현찬·김선희 선발) 후 정원 보충을 위해 25·26학번 통합 추가모집(문아림·김찬우 선발) 및 복지국 추천 충원(방죠세핀·정유나)",
       "images": [
-        "assets/images/promo/recruiting_25_1.png",
-        "assets/images/promo/recruiting_25_2.png",
-        "assets/images/promo/recruiting_25_3.png"
+        "assets/images/promo/recruit_extra_1.jpg",
+        "assets/images/promo/recruit_extra_2.jpg",
+        "assets/images/promo/recruit_extra_3.jpg"
       ],
-      "noticeText": "[📢 카카오톡 단체방 공식 공지]\n• 발신: 학생회장 원준혁 (2026.03.14 오후 10:14)\n----------------------------------------\n[응원OT 및 뒤풀이 신청 리마인드]\n\n응원OT 신청 오늘까지입니다! 내일 추첨, 뒤풀이 인원 확정으로 추가 신청 불가하니 꼭 기한 내 신청부탁드립니다!\n\n========================================\n[📋 노션(Notion) 캘린더 일정 기록 & 회의 메모]\n[자유전공학부 D반 제18대 학생회 Duet 집행위원 모집 공고]\n안녕하세요, 자유전공학부 D반 제18대 학생회 Duet입니다!\nD반을 함께 이끌어갈 신입 집행위원을 모집합니다🎶\n\n📌 모집 국서:\n• 기획국: 스터디윗D, 친해져도 Dㅐ?, 총MT, 교류반 행사 등 친목·학업 행사 기획\n• 복지국: 반실 환경 조성 및 정기 청소, 우산·보조배터리 대여 사업, 시험기간 간식행사 운영\n• 홍보국: 인스타그램 계정(@kusis_d) 운영, 월간보고 및 사업 카드뉴스 제작, 피드백 수합\n\n📅 정기모집(26학번): 3/3(화)~3/6(금) 접수 → 3/9~11 면접 → 3/12 발표\n📅 추가모집(25·26학번 전체): 3/14(토)~3/19(목) 접수 → 3/22(일) 면접 및 발표\n🔗 지원 방법: 공지방 및 인스타 프로필 구글폼 작성 (문의: 학생회장 원준혁 010-3516-3561)",
+      "noticeText": "[자유전공학부 D반 제18대 학생회 Duet 집행위원 추가 모집 공고]\n안녕하세요, 자유전공학부 D반 제18대 학생회 Duet입니다!\nD반의 빛나는 한 해를 함께 만들어갈 열정 넘치는 25학번 및 26학번 집행위원을 추가 모집합니다.\n\n• 모집 분야: 기획국, 복지국, 홍보국\n• 모집 대상: 25학번 및 26학번 D반 학우\n• 접수 기간: 2026.03.14.(토) ~ 03.19.(목) 23:59\n• 지원 방법: 구글 폼 온라인 접수 (하단 지원서 작성)\n• 면접 일정: 2026.03.22.(일)\n\n학우 여러분의 많은 관심과 지원 바랍니다!\n| 문의: 학생회장 원준혁(010-3516-3561)",
       "thought": "• 3월 초 26학번 정기 리크루팅에서 예상보다 지원자가 적어 정원 미달이 발생했습니다. 당황하지 않고 즉시 3/7 국장단회의에서 지원 자격을 '25학번·26학번 전체'로 넓힌 추가모집을 결정해 우수 인원을 충원했습니다.\n• 또한 1차 합격자였던 채현찬(26) 복지국원이 3월 말 신입생 대표로 당선되면서 복지국 내 26학번 국원이 0명이 되는 문제가 생겼는데, 차기 인수인계를 위해 26학번 국원이 꼭 필요하다고 판단하여 운영위원·국장단 추천(스카우팅) 및 반운위 인준(5/1)을 통해 26학번 복지국원 2명(방죠세핀, 정유나)을 추가 영입했습니다.",
       "forms": [
         {
           "title": "자유전공학부 D반 제18대 학생회 Duet 집행위원 추가 모집",
-          "formUrl": "https://docs.google.com/forms/d/1KbVsdrHksjyPM4sszfRWQa6TxJiebDH1XjEIBB4l2C8/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1KbVsdrHksjyPM4sszfRWQa6TxJiebDH1XjEIBB4l2C8/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/19lSznkIR-zEDJ2rM6AWu4Ea3v16goQ02DlC300-grTI/edit"
         }
       ]
@@ -3159,7 +3143,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 응원OT 및 뒷풀이 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/124VzoYh9qF-O7mhqOonfnd-sW8Jgqk6w3WXRHAv-JCg/viewform",
+          "formUrl": "https://docs.google.com/forms/d/124VzoYh9qF-O7mhqOonfnd-sW8Jgqk6w3WXRHAv-JCg/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1M8z1UDKgpE2Amu7MsNtSkhcvvPhlIZ_IhVFw_hhGs6E/edit"
         }
       ]
@@ -3184,7 +3168,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 합동응원전 및 뒤풀이 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1P3s2pwLjYYOzoLP1xwUe_8S643xVCxmB29g3vOujJn0/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1P3s2pwLjYYOzoLP1xwUe_8S643xVCxmB29g3vOujJn0/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1DymPzrtu_XGeLH7XdVahXfa5bqkypfgAO0mpPLXnAQo/edit"
         }
       ]
@@ -3275,7 +3259,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 합동응원전 및 뒤풀이 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1P3s2pwLjYYOzoLP1xwUe_8S643xVCxmB29g3vOujJn0/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1P3s2pwLjYYOzoLP1xwUe_8S643xVCxmB29g3vOujJn0/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1DymPzrtu_XGeLH7XdVahXfa5bqkypfgAO0mpPLXnAQo/edit"
         }
       ]
@@ -3318,7 +3302,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 합동응원전 및 뒤풀이 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1P3s2pwLjYYOzoLP1xwUe_8S643xVCxmB29g3vOujJn0/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1P3s2pwLjYYOzoLP1xwUe_8S643xVCxmB29g3vOujJn0/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1DymPzrtu_XGeLH7XdVahXfa5bqkypfgAO0mpPLXnAQo/edit"
         }
       ]
@@ -3361,7 +3345,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 합동응원전 및 뒤풀이 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1P3s2pwLjYYOzoLP1xwUe_8S643xVCxmB29g3vOujJn0/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1P3s2pwLjYYOzoLP1xwUe_8S643xVCxmB29g3vOujJn0/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1DymPzrtu_XGeLH7XdVahXfa5bqkypfgAO0mpPLXnAQo/edit"
         }
       ]
@@ -3386,7 +3370,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "자유전공학부 D반 제18대 학생회 Duet 집행위원 추가 모집",
-          "formUrl": "https://docs.google.com/forms/d/1KbVsdrHksjyPM4sszfRWQa6TxJiebDH1XjEIBB4l2C8/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1KbVsdrHksjyPM4sszfRWQa6TxJiebDH1XjEIBB4l2C8/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/19lSznkIR-zEDJ2rM6AWu4Ea3v16goQ02DlC300-grTI/edit"
         }
       ]
@@ -3411,7 +3395,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "자유전공학부 D반 제18대 학생회 Duet 집행위원 추가 모집",
-          "formUrl": "https://docs.google.com/forms/d/1KbVsdrHksjyPM4sszfRWQa6TxJiebDH1XjEIBB4l2C8/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1KbVsdrHksjyPM4sszfRWQa6TxJiebDH1XjEIBB4l2C8/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/19lSznkIR-zEDJ2rM6AWu4Ea3v16goQ02DlC300-grTI/edit"
         }
       ]
@@ -3431,22 +3415,15 @@ window.DUET_DEFAULT_DATA = {
       "title": "신입생 대표, 고학번 대표 선거 공고",
       "summary": "신입생 대표 채현찬(투표율 56.67%)·고학번 대표 김민정(투표율 25.0%) 당선 및 대의원 지위 심사 소명 완료 / 반실 재실 시간표 기반 크잠 배부",
       "images": [
-        "assets/images/gov/elec_fresh_call.jpg",
-        "assets/images/gov/elec_fresh_res.jpg",
         "assets/images/gov/elec_senior_call.jpg",
-        "assets/images/gov/elec_senior_res.jpg",
-        "assets/images/gov/elec_fresh_chart.png",
-        "assets/images/gov/elec_senior_chart.png",
-        "assets/images/gov/term_expire_fresh.jpg",
-        "assets/images/promo/keujam_d_design.jpg",
-        "assets/images/promo/keujam_d_spec.jpg"
+        "assets/images/gov/elec_fresh_call.jpg"
       ],
-      "noticeText": "[2026학년도 상반기 자유전공학부 D반 신입생 대표 · 고학번 대표 선거 결과 공고]\n• 투표 일시: 2026.03.24.(화) 00:00 ~ 03.26.(목) 18:00 (구글폼 온라인 투표, 학생증 인증)\n• 개표 결과:\n  1. 신입생 대표 단일후보 채현찬(26): 총원 30명(회칙 제86조 제6항) 중 17명 투표(투표율 56.67% ≥ 25% 성립) → 찬성 16표(94.12%), 기권 1표로 당선\n  2. 고학번 대표 단일후보 김민정(24): 총원 60명(회칙 제87조 제6항) 중 15명 투표(투표율 25.00% ≥ 25% 성립) → 찬성 15표(100%)로 당선\n• 전임 대표(민준기·김도현) 임기 만료 공고일: 당선 공고 48시간 후인 2026.03.29.(일) 00:00부",
+      "noticeText": "[2026학년도 상반기 자유전공학부 D반 신입생 대표 · 고학번 대표 선거 소집 공고]\n자유전공학부 학생회 회칙 제7장에 의거하여, 2026학년도 상반기 D반 신입생 대표 및 고학번 대표 선거를 다음과 같이 공고합니다.\n\n• 선거 기간: 2026.03.24.(화) 00:00 ~ 03.26.(목) 18:00\n• 투표 방식: 구글 폼 온라인 전자투표 (학생증/재학증명 첨부)\n• 선거권자:\n  - 신입생 대표 선거: 2026학년도 입학 26학번 D반 재학생\n  - 고학번 대표 선거: 24학번 이상 D반 재학생\n• 후보자:\n  - 신입생 대표 단일후보: 채현찬(26)\n  - 고학번 대표 단일후보: 김민정(24)\n\n학우 여러분의 소중한 한 표를 행사해주시기 바랍니다.\n| 선거관리위원회 (학생회장단)",
       "thought": "• [초중요 인수인계] 자전대회에서 대의원 지위 심사를 할 때 '고학번 대표 15표, 신입생 대표 17표가 정족수(25%)를 넘긴 적법한 선거인지' 소명 자료를 요구받았습니다. D반 회칙 제86조 제6항(신입생 총원 30명 간주 → 최소 8표)과 제87조 제6항(고학번 총원 60명 간주 → 최소 15표!) 조문 덕분에 15표가 정확히 25.0%로 적법 성립함을 입증했습니다. 개표 직후 구글폼 원형 차트 화면을 반드시 캡처해 두세요!\n• 크잠 배부 시에는 분실 방지를 위해 '집행위원 부재 시 임의 수령 절대 금지' 원칙을 세우고 재실 시간표를 운영했는데, 일부 재실 시간 미준수 사례가 있어 4차 국장단회의에서 재실 관리 강화를 피드백했습니다.",
       "forms": [
         {
           "title": "2026 고려대학교 자유전공학부 D반 고학번 대표 선거",
-          "formUrl": "https://docs.google.com/forms/d/1d0yEovThFG0bch6j8N0XtMRGpzKr3PVh9s3xRE8NJ1M/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1d0yEovThFG0bch6j8N0XtMRGpzKr3PVh9s3xRE8NJ1M/edit",
           "responseUrl": null
         }
       ]
@@ -3530,11 +3507,11 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026 고려대학교 자유전공학부 D반 신입생 대표 선거",
-          "formUrl": "https://docs.google.com/forms/d/1j5YFWchZ1zyFNyxgy_HtryRbPV3kER57xibhW_aP224/viewform"
+          "formUrl": "https://docs.google.com/forms/d/1j5YFWchZ1zyFNyxgy_HtryRbPV3kER57xibhW_aP224/edit"
         },
         {
           "title": "2026 고려대학교 자유전공학부 D반 고학번 대표 선거",
-          "formUrl": "https://docs.google.com/forms/d/1d0yEovThFG0bch6j8N0XtMRGpzKr3PVh9s3xRE8NJ1M/viewform"
+          "formUrl": "https://docs.google.com/forms/d/1d0yEovThFG0bch6j8N0XtMRGpzKr3PVh9s3xRE8NJ1M/edit"
         }
       ]
     },
@@ -3553,22 +3530,15 @@ window.DUET_DEFAULT_DATA = {
       "title": "크잠 배부",
       "summary": "신입생 대표 채현찬(투표율 56.67%)·고학번 대표 김민정(투표율 25.0%) 당선 및 대의원 지위 심사 소명 완료 / 반실 재실 시간표 기반 크잠 배부",
       "images": [
-        "assets/images/gov/elec_fresh_call.jpg",
-        "assets/images/gov/elec_fresh_res.jpg",
-        "assets/images/gov/elec_senior_call.jpg",
-        "assets/images/gov/elec_senior_res.jpg",
-        "assets/images/gov/elec_fresh_chart.png",
-        "assets/images/gov/elec_senior_chart.png",
-        "assets/images/gov/term_expire_fresh.jpg",
         "assets/images/promo/keujam_d_design.jpg",
         "assets/images/promo/keujam_d_spec.jpg"
       ],
-      "noticeText": "[2026학년도 상반기 자유전공학부 D반 신입생 대표 · 고학번 대표 선거 결과 공고]\n• 투표 일시: 2026.03.24.(화) 00:00 ~ 03.26.(목) 18:00 (구글폼 온라인 투표, 학생증 인증)\n• 개표 결과:\n  1. 신입생 대표 단일후보 채현찬(26): 총원 30명(회칙 제86조 제6항) 중 17명 투표(투표율 56.67% ≥ 25% 성립) → 찬성 16표(94.12%), 기권 1표로 당선\n  2. 고학번 대표 단일후보 김민정(24): 총원 60명(회칙 제87조 제6항) 중 15명 투표(투표율 25.00% ≥ 25% 성립) → 찬성 15표(100%)로 당선\n• 전임 대표(민준기·김도현) 임기 만료 공고일: 당선 공고 48시간 후인 2026.03.29.(일) 00:00부",
+      "noticeText": "[2026학년도 1학기 자유전공학부 D반 크잠(과잠) 배부 안내]\n• 배부 일시: 2026.03.25.(수) ~ 03.31.(화)\n• 배부 장소: 구법학관 D반 반실\n• 수령 대상: 2026 자유전공학부 D반 크잠 공구 신청 및 입금 완료자\n• 안내 사항:\n  1. 신청 명단 및 입금 내역 대조 후 본인 대면 수령 원칙\n  2. 사이즈 및 불량 여부는 수령 즉시 현장에서 확인\n  3. 대리 수령 희망 시 신청자 본인의 사전 확인 연락 필수\n\n| 담당: D반 학생회장 원준혁, 부학생회장 우상준",
       "thought": "• [초중요 인수인계] 자전대회에서 대의원 지위 심사를 할 때 '고학번 대표 15표, 신입생 대표 17표가 정족수(25%)를 넘긴 적법한 선거인지' 소명 자료를 요구받았습니다. D반 회칙 제86조 제6항(신입생 총원 30명 간주 → 최소 8표)과 제87조 제6항(고학번 총원 60명 간주 → 최소 15표!) 조문 덕분에 15표가 정확히 25.0%로 적법 성립함을 입증했습니다. 개표 직후 구글폼 원형 차트 화면을 반드시 캡처해 두세요!\n• 크잠 배부 시에는 분실 방지를 위해 '집행위원 부재 시 임의 수령 절대 금지' 원칙을 세우고 재실 시간표를 운영했는데, 일부 재실 시간 미준수 사례가 있어 4차 국장단회의에서 재실 관리 강화를 피드백했습니다.",
       "forms": [
         {
           "title": "2026 자유전공학부 D반 크잠 공구 신청폼",
-          "formUrl": "https://docs.google.com/forms/d/1Enbr2Z_U940VmpBH0in_Tt6f_-xpJNQM7EQJsLjckeo/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1Enbr2Z_U940VmpBH0in_Tt6f_-xpJNQM7EQJsLjckeo/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1omdeM6oA9SKRy4b2LUHmZSOKVK_g_T03/edit"
         }
       ]
@@ -3588,17 +3558,17 @@ window.DUET_DEFAULT_DATA = {
       "title": "신입생 대표, 고학번 대표 선거 결과 공고",
       "summary": "신입생 대표 채현찬(투표율 56.67%)·고학번 대표 김민정(투표율 25.0%) 당선 및 대의원 지위 심사 소명 완료 / 반실 재실 시간표 기반 크잠 배부",
       "images": [
-        "assets/images/gov/elec_senior_res_1.png",
-        "assets/images/gov/elec_senior_res_2.png",
-        "assets/images/gov/elec_fresh_res_1.png",
-        "assets/images/gov/elec_fresh_res_2.png"
+        "assets/images/gov/elec_senior_res.jpg",
+        "assets/images/gov/elec_senior_chart.png",
+        "assets/images/gov/elec_fresh_res.jpg",
+        "assets/images/gov/elec_fresh_chart.png"
       ],
       "noticeText": "[2026학년도 상반기 자유전공학부 D반 신입생 대표 · 고학번 대표 선거 결과 공고]\n• 투표 일시: 2026.03.24.(화) 00:00 ~ 03.26.(목) 18:00 (구글폼 온라인 투표, 학생증 인증)\n• 개표 결과:\n  1. 신입생 대표 단일후보 채현찬(26): 총원 30명(회칙 제86조 제6항) 중 17명 투표(투표율 56.67% ≥ 25% 성립) → 찬성 16표(94.12%), 기권 1표로 당선\n  2. 고학번 대표 단일후보 김민정(24): 총원 60명(회칙 제87조 제6항) 중 15명 투표(투표율 25.00% ≥ 25% 성립) → 찬성 15표(100%)로 당선\n• 전임 대표(민준기·김도현) 임기 만료 공고일: 당선 공고 48시간 후인 2026.03.29.(일) 00:00부",
       "thought": "• [초중요 인수인계] 자전대회에서 대의원 지위 심사를 할 때 '고학번 대표 15표, 신입생 대표 17표가 정족수(25%)를 넘긴 적법한 선거인지' 소명 자료를 요구받았습니다. D반 회칙 제86조 제6항(신입생 총원 30명 간주 → 최소 8표)과 제87조 제6항(고학번 총원 60명 간주 → 최소 15표!) 조문 덕분에 15표가 정확히 25.0%로 적법 성립함을 입증했습니다. 개표 직후 구글폼 원형 차트 화면을 반드시 캡처해 두세요!\n• 크잠 배부 시에는 분실 방지를 위해 '집행위원 부재 시 임의 수령 절대 금지' 원칙을 세우고 재실 시간표를 운영했는데, 일부 재실 시간 미준수 사례가 있어 4차 국장단회의에서 재실 관리 강화를 피드백했습니다.",
       "forms": [
         {
           "title": "2026 고려대학교 자유전공학부 D반 고학번 대표 선거",
-          "formUrl": "https://docs.google.com/forms/d/1d0yEovThFG0bch6j8N0XtMRGpzKr3PVh9s3xRE8NJ1M/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1d0yEovThFG0bch6j8N0XtMRGpzKr3PVh9s3xRE8NJ1M/edit",
           "responseUrl": null
         }
       ]
@@ -3693,9 +3663,10 @@ window.DUET_DEFAULT_DATA = {
         "assets/images/gov/elec_senior_expired_1.png",
         "assets/images/gov/elec_senior_expired_2.png",
         "assets/images/gov/elec_fresh_expired_1.png",
-        "assets/images/gov/elec_fresh_expired_2.png"
+        "assets/images/gov/elec_fresh_expired_2.png",
+        "assets/images/gov/term_expire_fresh.jpg"
       ],
-      "noticeText": "[2026학년도 상반기 자유전공학부 D반 신입생 대표 · 고학번 대표 선거 결과 공고]\n• 투표 일시: 2026.03.24.(화) 00:00 ~ 03.26.(목) 18:00 (구글폼 온라인 투표, 학생증 인증)\n• 개표 결과:\n  1. 신입생 대표 단일후보 채현찬(26): 총원 30명(회칙 제86조 제6항) 중 17명 투표(투표율 56.67% ≥ 25% 성립) → 찬성 16표(94.12%), 기권 1표로 당선\n  2. 고학번 대표 단일후보 김민정(24): 총원 60명(회칙 제87조 제6항) 중 15명 투표(투표율 25.00% ≥ 25% 성립) → 찬성 15표(100%)로 당선\n• 전임 대표(민준기·김도현) 임기 만료 공고일: 당선 공고 48시간 후인 2026.03.29.(일) 00:00부",
+      "noticeText": "[2026학년도 상반기 자유전공학부 D반 신입생 대표 · 고학번 대표 임기 만료 공고]\n자유전공학부 학생회 회칙 제7장(임원 및 대표)에 의거하여, 2026학년도 상반기 신입생 대표 및 고학번 대표 선출이 완료됨에 따라 전임 대표단의 임기가 만료되었음을 공고합니다.\n\n• 임기 만료 대상:\n  - 전임 신입생 대표: 김도현\n  - 전임 고학번 대표: 민준기\n• 공고 일자: 2026.03.28.\n• 신임 대표단 취임:\n  - 신임 신입생 대표: 채현찬\n  - 신임 고학번 대표: 김민정\n\n그동안 D반 학우들을 위해 헌신해주신 대표단 학우분들께 감사드립니다.\n| 자유전공학부 D반 제18대 학생회 Duet 학생회장단",
       "thought": "• [초중요 인수인계] 자전대회에서 대의원 지위 심사를 할 때 '고학번 대표 15표, 신입생 대표 17표가 정족수(25%)를 넘긴 적법한 선거인지' 소명 자료를 요구받았습니다. D반 회칙 제86조 제6항(신입생 총원 30명 간주 → 최소 8표)과 제87조 제6항(고학번 총원 60명 간주 → 최소 15표!) 조문 덕분에 15표가 정확히 25.0%로 적법 성립함을 입증했습니다. 개표 직후 구글폼 원형 차트 화면을 반드시 캡처해 두세요!\n• 크잠 배부 시에는 분실 방지를 위해 '집행위원 부재 시 임의 수령 절대 금지' 원칙을 세우고 재실 시간표를 운영했는데, 일부 재실 시간 미준수 사례가 있어 4차 국장단회의에서 재실 관리 강화를 피드백했습니다."
     },
     {
@@ -3828,14 +3799,10 @@ window.DUET_DEFAULT_DATA = {
       "title": "중짜",
       "summary": "4/1 중앙광장 짜장면 데이(신입생·재학생 약도 트릭) / 4/3 신촌 바플라이 3호점 합동 일일호프 성료(수익금 약 80만 원 예산 반영)",
       "images": [
-        "assets/images/promo/ilhope_main_1.jpg",
-        "assets/images/promo/ilhope_main_2.png",
         "assets/images/promo/jungjja_freshman.png",
-        "assets/images/promo/jungjja_senior.png",
-        "assets/images/monthly/m04_1.png",
-        "assets/images/monthly/m04_2.png"
+        "assets/images/promo/jungjja_senior.png"
       ],
-      "noticeText": "[📢 카카오톡 단체방 공식 공지]\n• 발신: 학생회장 원준혁 (2026.04.01 오전 8:27)\n----------------------------------------\n[중짜 자리 및 진행 안내]\n\n안녕하세요, 학생회장입니다. \n금일 중짜 행사가 진행될 예정입니다. 사전에 예약금을 지불하신 인원들께서는 정해진 타임에 맞춰 아래 사진에 있는 중앙광장 내 D반 재학생 자리로 도착하셔서 즐겨주시면 감사하겠습니다.\n\n========================================\n[📋 노션(Notion) 캘린더 일정 기록 & 회의 메모]\n[연세대학교 상경9반(경제9반 에버나인) X 고려대학교 자전D반 합동 일일호프]\n📅 일시: 2026년 4월 3일(금) 18:00~\n📍 장소: 신촌 바플라이 3호점 단밤 ([합석가능] [미팅 테이블] 운영)\n🎰 3호점만의 SPECIAL EVENT:\n1. 오늘의 내 행운은~? 테이블 로또 번호 추첨!\n2. 게임 한 판 하실래요? 테이블 간 칩을 건 게임!\n3. 요즘 즐겨듣는 노래는.. 신청곡 즉석 반영!\n\n[만우절 중짜(중앙광장 짜장면 데이) 안내]\n• 일시: 2026.04.01.(수) 12:00 타임(15명) / 13:00 타임(9명)\n• 장소: 고려대학교 중앙광장 잔디밭 (신입생 공지용 약도와 재학생 공지용 약도 구역을 다르게 표시한 만우절 깜짝 이벤트!)",
+      "noticeText": "[📢 카카오톡 단체방 공식 공지]\n• 발신: 학생회장 원준혁 (2026.04.01 오전 8:27)\n----------------------------------------\n[중짜 자리 및 진행 안내]\n\n안녕하세요, 학생회장입니다.\n금일 중짜 행사가 진행될 예정입니다. 사전에 예약금을 지불하신 인원들께서는 정해진 타임에 맞춰 아래 사진에 있는 중앙광장 내 D반 재학생 자리로 도착하셔서 즐겨주시면 감사하겠습니다.\n\n| 문의: 학생회장 원준혁",
       "thought": "• 일일호프는 1년 학생회 예산 수입의 약 1/3(약 800,000원)을 차지하는 핵심 재원 확보 행사이자 교류반 최대 행사입니다. 중간고사 2주 전 금요일(4/3)로 일정을 잡고 3월 19일에 미리 D반 스태프 8명을 선착순 모집해 타임테이블을 짰습니다.\n• 만우절 '중짜'는 수업 시간표를 고려해 12시 타임과 13시 타임으로 나누어 신청을 받았고, 신입생용 약도와 재학생용 약도의 표시 위치를 살짝 다르게 주는 유쾌한 만우절 트릭으로 좋은 반응을 얻었습니다."
     },
     {
@@ -3890,14 +3857,17 @@ window.DUET_DEFAULT_DATA = {
       "summary": "4/1 중앙광장 짜장면 데이(신입생·재학생 약도 트릭) / 4/3 신촌 바플라이 3호점 합동 일일호프 성료(수익금 약 80만 원 예산 반영)",
       "images": [
         "assets/images/promo/ilhope_main_1.jpg",
-        "assets/images/promo/ilhope_main_2.png",
-        "assets/images/promo/jungjja_freshman.png",
-        "assets/images/promo/jungjja_senior.png",
-        "assets/images/monthly/m04_1.png",
-        "assets/images/monthly/m04_2.png"
+        "assets/images/promo/ilhope_main_2.png"
       ],
-      "noticeText": "[교류반 일일호프 스태프 모집 공고]\n\n안녕하세요, 자유전공학부 D반 제17대 학생회 도약:跳跃 기획국입니다.\n\nD반의 교류반 🦅연세대학교 에버나인🦅 과 함께 진행하는 🍻일일호프에 함께할 스태프를 모집합니다!\n\n일일호프에서 교류반과 함께하며 친분을 쌓는 동시에, 다양한 경험을 통해 색다르고 즐거운 추억을 만들 특별한 기회입니다.\n\n✨막강 D반과 에버나인✨이 합심하여 함께 운영하는 일일호프에서, 다시 없을 대학생활의 낭만을 즐겨보시길 바랍니다!\n\n많은 관심 부탁드립니다.\n\n 📎 일자: 4/4 (금)\n 📎 시간: 17:00 ~ 익일 2:00 (이후 뒷풀이가 예정되어 있습니다.)\n 📎 인원: 8명 (선착순으로 모집)\n 📎 신청폼: https://forms.gle/M3uY6r8DGsRtSvpbA\n\n 📌 가능한 한 모든 시간대에 참여 가능하신 분만 신청해주시기 바랍니다.\n 📌 선착순 8명 모집 후 마감됩니다.\n\n\n| 문의: D반 학생회장 정가현",
-      "thought": "• 일일호프는 1년 학생회 예산 수입의 약 1/3(약 800,000원)을 차지하는 핵심 재원 확보 행사이자 교류반 최대 행사입니다. 중간고사 2주 전 금요일(4/3)로 일정을 잡고 3월 19일에 미리 D반 스태프 8명을 선착순 모집해 타임테이블을 짰습니다.\n• 만우절 '중짜'는 수업 시간표를 고려해 12시 타임과 13시 타임으로 나누어 신청을 받았고, 신입생용 약도와 재학생용 약도의 표시 위치를 살짝 다르게 주는 유쾌한 만우절 트릭으로 좋은 반응을 얻었습니다."
+      "noticeText": "[📢 카카오톡 단체방 공식 공지]\n• 발신: 학생회장 원준혁 (2026.03.30 오후 7:05)\n----------------------------------------\n[교류반 일일호프 스태프 재모집 공고]\n\n부득이한 사유로 일일호프 날짜가 변경되어 D반의 교류반 🦅연세대학교 에버나인🦅 과 함께 진행하는 🍻일일호프에 함께할 스태프를 다시 모집합니다!\n\n일일호프에서 교류반과 함께하며 친분을 쌓는 동시에, 다양한 경험을 통해 색다르고 즐거운 추억을 만들 특별한 기회입니다.\n\n✨막강 D반과 에버나인✨이 합심하여 함께 운영하는 일일호프에서, 다시 없을 대학생활의 낭만을 즐겨보시길 바랍니다!\n\n📎 일자: 4/3 (금)\n📎 시간: 16:00 ~ 익일 2:00 (이후 뒤풀이가 예정되어 있습니다.)\n📎 인원: 5명 (선착순으로 모집)\n\n| 문의: D반 학생회장 원준혁",
+      "thought": "• 일일호프는 1년 학생회 예산 수입의 약 1/3(약 800,000원)을 차지하는 핵심 재원 확보 행사이자 교류반 최대 행사입니다. 중간고사 2주 전 금요일(4/3)로 일정을 잡고 3월 19일에 미리 D반 스태프 8명을 선착순 모집해 타임테이블을 짰습니다.\n• 만우절 '중짜'는 수업 시간표를 고려해 12시 타임과 13시 타임으로 나누어 신청을 받았고, 신입생용 약도와 재학생용 약도의 표시 위치를 살짝 다르게 주는 유쾌한 만우절 트릭으로 좋은 반응을 얻었습니다.",
+      "forms": [
+        {
+          "title": "26-1 교류반 일일호프 스태프 모집",
+          "formUrl": "https://docs.google.com/forms/d/1uNSWiLHC6rma0XMMZxGWKWZz3SG-ffqo1VJ8j_WbbVI/edit",
+          "responseUrl": null
+        }
+      ]
     },
     {
       "id": "notion_33a1d74fc6df802f858dc444f723f506",
@@ -3955,7 +3925,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026 막강 D반 총MT 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1WUD9jnD6kFyy07oP4sudwm7fwY2Jq8k2mYkQgSE3ayY/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1WUD9jnD6kFyy07oP4sudwm7fwY2Jq8k2mYkQgSE3ayY/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1pdDhAW4paQSkxftytFhe_Ht1vDGqR74r/edit"
         }
       ]
@@ -4164,7 +4134,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026 막강 D반 총MT 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1WUD9jnD6kFyy07oP4sudwm7fwY2Jq8k2mYkQgSE3ayY/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1WUD9jnD6kFyy07oP4sudwm7fwY2Jq8k2mYkQgSE3ayY/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1pdDhAW4paQSkxftytFhe_Ht1vDGqR74r/edit"
         }
       ]
@@ -4334,20 +4304,14 @@ window.DUET_DEFAULT_DATA = {
       "title": "D반 총MT",
       "summary": "대성리 뜨락펜션 총MT(커스텀 주루마블 제작) / 객관식+QR코드 만족도 조사 개편 및 추첨상품 예산안 철회 / 5/15 학생회 LT / 5/23 상반기 확운위",
       "images": [
-        "assets/images/promo/mt_poster.jpg",
-        "assets/images/promo/feedback_snack.png",
-        "assets/images/promo/feedback_swd.png",
-        "assets/images/gov/resign_notice.jpg",
-        "assets/images/gov/hwak_26_1_call.jpg",
-        "assets/images/gov/hwak_26_1_res.jpg",
-        "assets/images/monthly/m05_1.png"
+        "assets/images/promo/mt_poster.jpg"
       ],
       "noticeText": "[2026 D반 총MT 안내]\n• 일시: 2026.05.08.(금) ~ 05.09.(토) (1박 2일)\n• 장소: 대성리 뜨락펜션 (경기도 남양주시 화도읍 모꼬지로17번길 37-34, 60명 규모)\n• 참가비: 40,000원 (홍보국 커스텀 주루마블 및 기획국 레크리에이션 진행)\n\n[26-1 중간고사 간식행사 & 스터디윗D 만족도 조사]\n• 기간: 2026.05.07.(목) ~ 05.20.(수)\n• 참여 방법: 반실 부착 및 카드뉴스 내 QR코드 스캔 (객관식 위주, 소요 시간 1~2분)",
       "thought": "• [피드백 추첨 상품 철회의 교훈] 피드백 참여율을 높이려고 커피 기프티콘 추첨 예산안을 제18-7차 반운위에 올렸는데, 우상준 부학생회장이 '익명 설문이면 응답자가 학생회비 납부자인지 확인할 수 없어 회비를 쓸 정당성이 없다'는 핵심 포인트를 짚어냈습니다. 이후 홍보국과 논의한 끝에 '실명을 받으면 솔직한 피드백이라는 본질이 훼손된다'고 결론 내리고, 예산안은 제18-8차 반운위에서 정식 철회한 뒤 '완전 익명 + 객관식 1분 컷 + 반실 QR 상시 부착' 방식으로 정착시켰습니다.\n• 또한 상반기 확운위(5/23) 이틀 전인 5/21 00시에 전임 기획국장이 일신상의 사유로 사퇴하여, 당일 밤 긴급 반운위(18-9차)를 소집해 장여백 기획국원을 신임 국장으로 사전 인준함으로써 확운위 인준에 차질이 없도록 대처했습니다.",
       "forms": [
         {
           "title": "2026 막강 D반 총MT 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1WUD9jnD6kFyy07oP4sudwm7fwY2Jq8k2mYkQgSE3ayY/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1WUD9jnD6kFyy07oP4sudwm7fwY2Jq8k2mYkQgSE3ayY/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1pdDhAW4paQSkxftytFhe_Ht1vDGqR74r/edit"
         }
       ]
@@ -4390,7 +4354,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 D반 입실렌티 뒤풀이 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1lgtyq4FBOSCocTVFIjm8LdGk6v3kGRj1rhm7AZ98sp4/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1lgtyq4FBOSCocTVFIjm8LdGk6v3kGRj1rhm7AZ98sp4/edit",
           "responseUrl": null
         }
       ]
@@ -4541,7 +4505,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-1학기 D반 입실렌티 뒤풀이 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1lgtyq4FBOSCocTVFIjm8LdGk6v3kGRj1rhm7AZ98sp4/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1lgtyq4FBOSCocTVFIjm8LdGk6v3kGRj1rhm7AZ98sp4/edit",
           "responseUrl": null
         }
       ]
@@ -4640,14 +4604,17 @@ window.DUET_DEFAULT_DATA = {
       "summary": "사전 수요조사 기반 기말 간식행사(육회바른연어·이삭토스트·봉구스밥버거) / Summer 스터디윗D(CGV·배민·투썸 + 달성자 전원 증정) / 친해져도Dㅐ? 종결",
       "images": [
         "assets/images/promo/snack_26_1_final_1.jpg",
-        "assets/images/promo/snack_26_1_final_2.jpg",
-        "assets/images/promo/swd_26_1_final_1.png",
-        "assets/images/promo/swd_26_1_final_2.png",
-        "assets/images/promo/swd_26_1_final_3.png",
-        "assets/images/monthly/m06_1.png"
+        "assets/images/promo/snack_26_1_final_2.jpg"
       ],
-      "noticeText": "[📢 카카오톡 단체방 공식 공지]\n• 발신: 복지국장 김동운 (2026.06.04 오후 3:54)\n----------------------------------------\n[2026학년도 1학기 D반 기말고사 간식행사]\n\n안녕하세요, 제18대 D반 학생회 Duet 복지국입니다.\n\n학우 여러분의 1학기 기말고사 응원을 위해 [D반 기말고사 간식행사]를 진행합니다! 많은 참여 부탁드립니다.\n\n학우분들을 대상으로 한 간식 수요조사 결과 육회비빔밥, 이삭토스트, 밥버거+컵라면이 간식으로 선정되었습니다. 수요조사에 대한 많은 관심 감사드립니다.\n\n간식행사 신청 구글폼: https://forms.gle/RzRqphmxbZXHSbvX6\n\n🎁참여 방식 : 사전 신청 기간에 구글폼 선착순 신청 후, 반실에서 대면 수령\n🎁사전 신청 시간 : 26. 06. 08. (월) 17시~ (선착순 32명 마감)\n*17시 이전에 구글폼 제출 시 무효 처리되니, 꼭 17시 이후에 제출하시기 바랍니다.\n🎁실제 수령 시간 : 26. 06. 11. (목) 18시 ~ 18시 40분\n🎁실제 수령 장소 : 구법학관 D반 반실\n🎁메뉴 :  육바연 육연덮밥+제로콜라 (10개) // 이삭토스트 햄치즈 토스트, 포테이토팝+애사비소다 (10개) // 봉구스밥버거 김치제육밥버거+진짬뽕 컵라면+제로사이다 (12개)\n\n❗학생회비 납부자만 신청 가능합니다.\n❗대면으로 본인이 수령함이 원칙입니다.\n❗명단 확정자(사전 신청자 가운데 선착순 32명)에 한하여 나눔합니다.\n❗메뉴 선택은 행사 당일 선착순으로  진행합니다.\n\n문의: 복지국장 김동운\n제작: 홍보국장 이윤주\n\n========================================\n[📋 노션(Notion) 캘린더 일정 기록 & 회의 메모]\n[2026-1학기 D반 기말고사 간식행사 안내]\n• 사전 수요조사: 5/27(수) ~ 5/29(금)\n• 신청 일시: 6월 8일(월) 17:00~ (공지방 구글폼 링크, 학생회비 납부자 한정)\n• 배부 일시: 6월 11일(목) 18:00 ~ 18:40 (D반 반실)\n• 간식 메뉴 (3종):\n  1. 육회바른연어 — 육연덮밥 + 제로콜라\n  2. 이삭토스트 — 햄치즈 토스트, 포테이토팝 + 애사비소다\n  3. 봉구스밥버거 — 김치제육밥버거 + 진짬뽕(컵라면) + 제로사이다\n\n[기말고사 스터디윗D : Summer 안내]\n• 일시: 6/8(월) ~ 6/17(수) (10일간)\n• 방법: 열품타 D반 그룹 가입 (닉네임: 이름+학번 뒤 세 자리, 예: 김채은116), 10일 중 6일 이상 출석 & 총 25시간 이상 공부 (일 최대 집중시간 5시간 초과 제외)\n• 혜택: 기준 달성 시 전원 소정의 상품 증정 + Best 경품 추첨 (CGV 영화 티켓 1명, 배민 1만원권 2명, 투썸 아이스박스 3명)",
-      "thought": "• 1학기 중간고사에 이어 기말고사에서도 '사전 메뉴 수요조사(5/27~29)'를 거쳐 학우들이 가장 원했던 메뉴(육연덮밥, 이삭토스트, 봉구스밥버거+컵라면)로 구성해 호응이 매우 좋았습니다.\n• '2026 친해져도 Dㅐ?' 역시 3월 10일부터 6월 7일까지 약 3개월간의 장기 레이스를 마치고 6월 11일에 최종 채점 결과 발표와 우수조 상품 지급(예산 158,000원)까지 깔끔하게 마무리했습니다."
+      "noticeText": "[📢 카카오톡 단체방 공식 공지]\n• 발신: 복지국장 김동운 (2026.06.04 오후 3:54)\n----------------------------------------\n[2026학년도 1학기 D반 기말고사 간식행사]\n\n안녕하세요, 제18대 D반 학생회 Duet 복지국입니다.\n학우 여러분의 1학기 기말고사 응원을 위해 [D반 기말고사 간식행사]를 진행합니다! 많은 참여 부탁드립니다.\n\n학우분들을 대상으로 한 간식 수요조사 결과 육회비빔밥, 이삭토스트, 밥버거+컵라면이 간식으로 선정되었습니다. 수요조사에 대한 많은 관심 감사드립니다.\n\n간식행사 신청 구글폼: https://docs.google.com/forms/d/1BHX3-ZXbuQef58d03Ou8e83m3DYPSAJqxuOcmTL2BuU/edit\n\n🎁참여 방식 : 사전 신청 기간에 구글폼 선착순 신청 후, 반실에서 대면 수령\n🎁사전 신청 시간 : 26. 06. 08. (월) 17시~ (선착순 32명 마감)\n*17시 이전에 구글폼 제출 시 무효 처리되니, 꼭 17시 이후에 제출하시기 바랍니다.\n🎁실제 수령 시간 : 26. 06. 11. (목) 18시 ~ 18시 40분\n🎁실제 수령 장소 : 구법학관 D반 반실\n🎁메뉴 :  육바연 육연덮밥+제로콜라 (10개) // 이삭토스트 햄치즈 토스트, 포테이토팝+애사비소다 (10개) // 봉구스밥버거 김치제육밥버거+진짬뽕 컵라면+제로사이다 (12개)\n\n❗학생회비 납부자만 신청 가능합니다.\n❗대면으로 본인이 수령함이 원칙입니다.\n❗명단 확정자(사전 신청자 가운데 선착순 32명)에 한하여 나눔합니다.\n❗메뉴 선택은 행사 당일 선착순으로 진행합니다.\n\n문의: 복지국장 김동운\n제작: 홍보국장 이윤주",
+      "thought": "• 1학기 중간고사에 이어 기말고사에서도 '사전 메뉴 수요조사(5/27~29)'를 거쳐 학우들이 가장 원했던 메뉴(육연덮밥, 이삭토스트, 봉구스밥버거+컵라면)로 구성해 호응이 매우 좋았습니다.\n• '2026 친해져도 Dㅐ?' 역시 3월 10일부터 6월 7일까지 약 3개월간의 장기 레이스를 마치고 6월 11일에 최종 채점 결과 발표와 우수조 상품 지급(예산 158,000원)까지 깔끔하게 마무리했습니다.",
+      "forms": [
+        {
+          "title": "2026-1학기 D반 기말고사 간식행사 신청",
+          "formUrl": "https://docs.google.com/forms/d/1BHX3-ZXbuQef58d03Ou8e83m3DYPSAJqxuOcmTL2BuU/edit",
+          "responseUrl": "https://docs.google.com/spreadsheets/d/19lSznkIR-zEDJ2rM6AWu4Ea3v16goQ02DlC300-grTI/edit"
+        }
+      ]
     },
     {
       "id": "notion_3751d74fc6df80138ecfd340dd021a32",
@@ -4715,17 +4682,14 @@ window.DUET_DEFAULT_DATA = {
       "category": "plan",
       "deptLabel": "기획국 (완료)",
       "status": "완료",
-      "title": "26-1 중간고사 스윗디 공지",
+      "title": "26-1 기말고사 스터디윗D 공지",
       "summary": "사전 수요조사 기반 기말 간식행사(육회바른연어·이삭토스트·봉구스밥버거) / Summer 스터디윗D(CGV·배민·투썸 + 달성자 전원 증정) / 친해져도Dㅐ? 종결",
       "images": [
-        "assets/images/promo/snack_26_1_final_1.jpg",
-        "assets/images/promo/snack_26_1_final_2.jpg",
         "assets/images/promo/swd_26_1_final_1.png",
         "assets/images/promo/swd_26_1_final_2.png",
-        "assets/images/promo/swd_26_1_final_3.png",
-        "assets/images/monthly/m06_1.png"
+        "assets/images/promo/swd_26_1_final_3.png"
       ],
-      "noticeText": "[📢 카카오톡 단체방 공식 공지]\n• 발신: 기획/홍보국장 장여백 (2026.06.06 오전 11:40)\n----------------------------------------\n[2026-1학기 기말고사 스터디윗D]\n\n안녕하세요, Duet 기획국입니다. 어김없이 찾아온 기말고사와 함께 2026학년도 1학기 기말고사 스터디윗D가 시작됩니다. 학우 여러분이 함께 공부하며 좋은 학점과 푸짐한 경품까지 모두 얻을 수 있는 기회인 만큼 많은 관심과 참여 부탁드립니다! 이번 스터디윗D 역시 중간고사 때와 마찬가지로 참여한 모든 학우분들께 소정의 상품을 제공할 예정이니, 스터디윗D와 함께 1학기의 마지막을 알차게 마무리해 보시면 좋겠습니다:)\n\n📍열품타 초대링크  https://link.yeolpumta.com/P3R5cGU9Z3JvdXBJbnZpdGUmaWQ9NTgzNTE0OA==\n(비밀번호 : 2009)\n\n✅ 참여 방식\n1. 공유된 링크를 통해 '열품타' 앱 접속 후 닉네임을 이름+학번 뒤 3자리로 설정해주세요. (ex. 원준혁 088)\n2. 매일 공부를 시작할 때 타이머를 재생해주시고, 끝낼 때 타이머를 멈춰서 공부 시간을 체크해 주시면 됩니다.\n* 타이머를 실수로 끄지 않은 경우를 배제하기 위해 최대 집중 시간이 5시간을 초과한 날은 집계에서 제외합니다.\n** 이번 스터디윗D부터는 기존의 출석 인증 미션이 사라집니다.\n\n✅참여 인정 기준\n총 10일의 기간 동안 '6일 이상 출석'하고 '총 공부시간 25시간 이상' 인 학우만 행사 참여를 한 것으로 인정합니다.\n\n🔥경품 추첨\n경품 추첨은 참여 인정 기준을 달성한 학우분들에 한하여 진행합니다.\n*** 단, 참여 인정 기준을 달성한  학우 전원에게 소정의 상품을 증정합니다.\n\n✅경품 목록\n-cgv 영화 티켓 1매 (1명)\n-배달의민족 1만원권 (2명) \n-투썸플레이스 떠먹는 아이스박스 (3명)\n\n| 제작 : 홍보국원 김선희\n| 문의 : 기획국장 장여백, 학생회장 원준혁\n\n========================================\n[📋 노션(Notion) 캘린더 일정 기록 & 회의 메모]\n[2026-1학기 D반 기말고사 간식행사 안내]\n• 사전 수요조사: 5/27(수) ~ 5/29(금)\n• 신청 일시: 6월 8일(월) 17:00~ (공지방 구글폼 링크, 학생회비 납부자 한정)\n• 배부 일시: 6월 11일(목) 18:00 ~ 18:40 (D반 반실)\n• 간식 메뉴 (3종):\n  1. 육회바른연어 — 육연덮밥 + 제로콜라\n  2. 이삭토스트 — 햄치즈 토스트, 포테이토팝 + 애사비소다\n  3. 봉구스밥버거 — 김치제육밥버거 + 진짬뽕(컵라면) + 제로사이다\n\n[기말고사 스터디윗D : Summer 안내]\n• 일시: 6/8(월) ~ 6/17(수) (10일간)\n• 방법: 열품타 D반 그룹 가입 (닉네임: 이름+학번 뒤 세 자리, 예: 김채은116), 10일 중 6일 이상 출석 & 총 25시간 이상 공부 (일 최대 집중시간 5시간 초과 제외)\n• 혜택: 기준 달성 시 전원 소정의 상품 증정 + Best 경품 추첨 (CGV 영화 티켓 1명, 배민 1만원권 2명, 투썸 아이스박스 3명)",
+      "noticeText": "[📢 카카오톡 단체방 공식 공지]\n• 발신: 기획국장 장여백 (2026.06.06)\n----------------------------------------\n[2026-1학기 기말고사 스터디윗D]\n\n안녕하세요, Duet 기획국입니다. 어김없이 찾아온 기말고사와 함께 2026학년도 1학기 기말고사 스터디윗D가 시작됩니다. 학우 여러분이 함께 공부하며 좋은 학점과 푸짐한 경품까지 모두 얻을 수 있는 기회인 만큼 많은 관심과 참여 부탁드립니다! 이번 스터디윗D 역시 중간고사 때와 마찬가지로 참여한 모든 학우분들께 소정의 상품을 제공할 예정이니, 스터디윗D와 함께 1학기의 마지막을 알차게 마무리해 보시면 좋겠습니다:)\n\n📍열품타 초대링크  https://link.yeolpumta.com/P3R5cGU9Z3JvdXBJbnZpdGUmaWQ9NTgzNTE0OA==\n(비밀번호 : 2009)\n\n✅ 참여 방식\n1. 공유된 링크를 통해 '열품타' 앱 접속 후 닉네임을 이름+학번 뒤 3자리로 설정해주세요. (ex. 원준혁 088)\n2. 매일 공부를 시작할 때 타이머를 재생해주시고, 끝낼 때 타이머를 멈춰서 공부 시간을 체크해 주시면 됩니다.\n* 타이머를 실수로 끄지 않은 경우를 배제하기 위해 최대 집중 시간이 5시간을 초과한 날은 집계에서 제외합니다.\n** 이번 스터디윗D부터는 기존의 출석 인증 미션이 사라집니다.\n\n✅참여 인정 기준\n총 10일의 기간 동안 '6일 이상 출석'하고 '총 공부시간 25시간 이상' 인 학우만 행사 참여를 한 것으로 인정합니다.\n\n🔥경품 추첨\n경품 추첨은 참여 인정 기준을 달성한 학우분들에 한하여 진행합니다.\n*** 단, 참여 인정 기준을 달성한 학우 전원에게 소정의 상품을 증정합니다.\n\n✅경품 목록\n-cgv 영화 티켓 1매 (1명)\n-배달의민족 1만원권 (2명) \n-투썸플레이스 떠먹는 아이스박스 (3명)\n\n| 제작 : 홍보국원 김선희\n| 문의 : 기획국장 장여백, 학생회장 원준혁",
       "thought": "• 1학기 중간고사에 이어 기말고사에서도 '사전 메뉴 수요조사(5/27~29)'를 거쳐 학우들이 가장 원했던 메뉴(육연덮밥, 이삭토스트, 봉구스밥버거+컵라면)로 구성해 호응이 매우 좋았습니다.\n• '2026 친해져도 Dㅐ?' 역시 3월 10일부터 6월 7일까지 약 3개월간의 장기 레이스를 마치고 6월 11일에 최종 채점 결과 발표와 우수조 상품 지급(예산 158,000원)까지 깔끔하게 마무리했습니다."
     },
     {
@@ -4779,14 +4743,11 @@ window.DUET_DEFAULT_DATA = {
       "title": "26-1 기말고사 스터디윗디",
       "summary": "사전 수요조사 기반 기말 간식행사(육회바른연어·이삭토스트·봉구스밥버거) / Summer 스터디윗D(CGV·배민·투썸 + 달성자 전원 증정) / 친해져도Dㅐ? 종결",
       "images": [
-        "assets/images/promo/snack_26_1_final_1.jpg",
-        "assets/images/promo/snack_26_1_final_2.jpg",
         "assets/images/promo/swd_26_1_final_1.png",
         "assets/images/promo/swd_26_1_final_2.png",
-        "assets/images/promo/swd_26_1_final_3.png",
-        "assets/images/monthly/m06_1.png"
+        "assets/images/promo/swd_26_1_final_3.png"
       ],
-      "noticeText": "[2026-1학기 D반 기말고사 간식행사 안내]\n• 사전 수요조사: 5/27(수) ~ 5/29(금)\n• 신청 일시: 6월 8일(월) 17:00~ (공지방 구글폼 링크, 학생회비 납부자 한정)\n• 배부 일시: 6월 11일(목) 18:00 ~ 18:40 (D반 반실)\n• 간식 메뉴 (3종):\n  1. 육회바른연어 — 육연덮밥 + 제로콜라\n  2. 이삭토스트 — 햄치즈 토스트, 포테이토팝 + 애사비소다\n  3. 봉구스밥버거 — 김치제육밥버거 + 진짬뽕(컵라면) + 제로사이다\n\n[기말고사 스터디윗D : Summer 안내]\n• 일시: 6/8(월) ~ 6/17(수) (10일간)\n• 방법: 열품타 D반 그룹 가입 (닉네임: 이름+학번 뒤 세 자리, 예: 김채은116), 10일 중 6일 이상 출석 & 총 25시간 이상 공부 (일 최대 집중시간 5시간 초과 제외)\n• 혜택: 기준 달성 시 전원 소정의 상품 증정 + Best 경품 추첨 (CGV 영화 티켓 1명, 배민 1만원권 2명, 투썸 아이스박스 3명)",
+      "noticeText": "",
       "thought": "• 1학기 중간고사에 이어 기말고사에서도 '사전 메뉴 수요조사(5/27~29)'를 거쳐 학우들이 가장 원했던 메뉴(육연덮밥, 이삭토스트, 봉구스밥버거+컵라면)로 구성해 호응이 매우 좋았습니다.\n• '2026 친해져도 Dㅐ?' 역시 3월 10일부터 6월 7일까지 약 3개월간의 장기 레이스를 마치고 6월 11일에 최종 채점 결과 발표와 우수조 상품 지급(예산 158,000원)까지 깔끔하게 마무리했습니다."
     },
     {
@@ -5337,7 +5298,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-2학기 D반 개강파티 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1CM0Z6uqTbM1EO9h_X8lBL9Jze0GgtSjkX1S-f9lHjn4/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1CM0Z6uqTbM1EO9h_X8lBL9Jze0GgtSjkX1S-f9lHjn4/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1HEX3__EUa6kZQbiQ9V9XVB1QGjfIp9ZQwaRU3KhceIo/edit"
         }
       ]
@@ -5398,7 +5359,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-2학기 응원OT 및 뒷풀이 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1pC08gET0emv69faFr-XDxRxGP9nkaDL3Rl1HGtxwz3k/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1pC08gET0emv69faFr-XDxRxGP9nkaDL3Rl1HGtxwz3k/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1uQjnJq9Zido53jkEhS-36tkPauZUe96QUjBQlSZQ_wA/edit"
         }
       ]
@@ -5441,7 +5402,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-2학기 D반 개강파티 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1CM0Z6uqTbM1EO9h_X8lBL9Jze0GgtSjkX1S-f9lHjn4/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1CM0Z6uqTbM1EO9h_X8lBL9Jze0GgtSjkX1S-f9lHjn4/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1HEX3__EUa6kZQbiQ9V9XVB1QGjfIp9ZQwaRU3KhceIo/edit"
         }
       ]
@@ -5610,7 +5571,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-2학기 응원OT 및 뒷풀이 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1pC08gET0emv69faFr-XDxRxGP9nkaDL3Rl1HGtxwz3k/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1pC08gET0emv69faFr-XDxRxGP9nkaDL3Rl1HGtxwz3k/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1uQjnJq9Zido53jkEhS-36tkPauZUe96QUjBQlSZQ_wA/edit"
         }
       ]
@@ -5635,7 +5596,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-2학기 합동응원전 및 뒤풀이 실수요조사🐯",
-          "formUrl": "https://docs.google.com/forms/d/1Ocv0zShmW6O1rQyhdKGJv3h0HNNcu6o1pKV8HA8XIrg/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1Ocv0zShmW6O1rQyhdKGJv3h0HNNcu6o1pKV8HA8XIrg/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1xs_ZENESyYcIEdMuUAS7VJfAc1LxcBIyMR9x3rGQjoY/edit"
         }
       ]
@@ -5660,7 +5621,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026-2학기 응원OT 및 뒷풀이 실수요조사",
-          "formUrl": "https://docs.google.com/forms/d/1pC08gET0emv69faFr-XDxRxGP9nkaDL3Rl1HGtxwz3k/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1pC08gET0emv69faFr-XDxRxGP9nkaDL3Rl1HGtxwz3k/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1uQjnJq9Zido53jkEhS-36tkPauZUe96QUjBQlSZQ_wA/edit"
         }
       ]
@@ -5703,7 +5664,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026년 정기고연전 뒤풀이 및 기차놀이 수요조사🚂",
-          "formUrl": "https://docs.google.com/forms/d/1xGlqGeG49gpfIX84sRwFlEH--fOo6t1dfUjlo1fxm7U/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1xGlqGeG49gpfIX84sRwFlEH--fOo6t1dfUjlo1fxm7U/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1jtKRaT3AL-nBQXBhpJ-1tr2xslX8Du4RciBiuW9LkqQ/edit"
         }
       ]
@@ -5728,7 +5689,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "2026 정기 고연전 야구 경기 단체석 신청",
-          "formUrl": "https://docs.google.com/forms/d/1a0a6xbWxGUe8k2UdQmnQ-XCltngZ7g_HmSD3R4ze3-U/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1a0a6xbWxGUe8k2UdQmnQ-XCltngZ7g_HmSD3R4ze3-U/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/19sw7GAh6d0c7HLOfydW2OkB82zrt5TCXu7dd53xOgG8/edit"
         }
       ]
@@ -5753,7 +5714,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "[2026학년도 2학기 D반 중간고사 간식행사 간식 수요조사]",
-          "formUrl": "https://docs.google.com/forms/d/1kBVI-IRO5byBvHC3uQrUkhXWWS4uRNVHFtXLtOopCjI/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1kBVI-IRO5byBvHC3uQrUkhXWWS4uRNVHFtXLtOopCjI/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1HZTYNvJLVo5SH5_m-H5lGnFluB1Kd_xDFOcaBDt984U/edit"
         }
       ]
@@ -5904,7 +5865,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "[2026학년도 2학기 D반 중간고사 간식 행사]",
-          "formUrl": "https://docs.google.com/forms/d/1Jw-GwVYyUHC8j_iAPiqAdpxtzhK22rxRk24tgsC2sVE/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1Jw-GwVYyUHC8j_iAPiqAdpxtzhK22rxRk24tgsC2sVE/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1LZ28WRlSPI_Tgq8dfaiTmt6N9eJmIrqp9C70fU0g3ms/edit"
         }
       ]
@@ -6001,7 +5962,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "[2026학년도 2학기 D반 중간고사 간식 행사]",
-          "formUrl": "https://docs.google.com/forms/d/1Jw-GwVYyUHC8j_iAPiqAdpxtzhK22rxRk24tgsC2sVE/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1Jw-GwVYyUHC8j_iAPiqAdpxtzhK22rxRk24tgsC2sVE/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1LZ28WRlSPI_Tgq8dfaiTmt6N9eJmIrqp9C70fU0g3ms/edit"
         }
       ]
@@ -6026,7 +5987,7 @@ window.DUET_DEFAULT_DATA = {
       "forms": [
         {
           "title": "[2026학년도 2학기 D반 중간고사 간식 행사]",
-          "formUrl": "https://docs.google.com/forms/d/1Jw-GwVYyUHC8j_iAPiqAdpxtzhK22rxRk24tgsC2sVE/viewform",
+          "formUrl": "https://docs.google.com/forms/d/1Jw-GwVYyUHC8j_iAPiqAdpxtzhK22rxRk24tgsC2sVE/edit",
           "responseUrl": "https://docs.google.com/spreadsheets/d/1LZ28WRlSPI_Tgq8dfaiTmt6N9eJmIrqp9C70fU0g3ms/edit"
         }
       ]
@@ -6192,6 +6153,31 @@ window.DUET_DEFAULT_DATA = {
       "images": [],
       "noticeText": "",
       "thought": "• 노션(Notion) 캘린더 데이터베이스에서 동기화된 제18대 학생회 Duet 공식 일정입니다. 관리자 모드에서 [✏️ 코멘트/공지 편집]을 켜면 이 일정에 대한 세부 코멘트를 자유롭게 추가하실 수 있습니다."
+    },
+    {
+      "id": "custom_exec_intro_20260405",
+      "year": 2026,
+      "month": 4,
+      "day": 5,
+      "endDay": 5,
+      "monthKey": "2026-04",
+      "date": "2026.04.05",
+      "category": "pr",
+      "deptLabel": "홍보국 (완료)",
+      "status": "완료",
+      "title": "제18대 학생회 집행부 구성원 소개",
+      "images": [
+        "assets/images/promo/exec_intro_1.png",
+        "assets/images/promo/exec_intro_2.png",
+        "assets/images/promo/exec_intro_3.png",
+        "assets/images/promo/exec_intro_4.png",
+        "assets/images/promo/exec_intro_5.png",
+        "assets/images/promo/exec_intro_6.png",
+        "assets/images/promo/exec_intro_7.png",
+        "assets/images/promo/exec_intro_8.png"
+      ],
+      "noticeText": "[제18대 D반 학생회 Duet 집행부 구성원 소개]\n안녕하세요, 자유전공학부 D반 제18대 학생회 Duet 홍보국입니다!\n2026학년도를 이끌어갈 Duet 집행부의 국별 구성원 및 담당 역할을 소개합니다.\n\n• 회장단: 학생회장 원준혁(25), 부학생회장 우상준(25)\n• 기획국: 국장 김채은(25), 국원 김동준(26), 문아림(26)\n• 복지국: 국장 김동운(25), 국원 안희서(25), 김찬우(25), 방죠세핀(26), 정유나(26)\n• 홍보국: 국장 이윤주(25), 국원 박준원(25), 김선희(26)\n\nD반 학우 여러분들의 즐겁고 뜻깊은 대학생활을 위해 올 한 해 최선을 다해 발로 뛰겠습니다. 많은 응원과 관심 부탁드립니다!",
+      "forms": []
     }
   ],
   "customEdits": {
