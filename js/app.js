@@ -691,12 +691,16 @@
         <p class="hero-desc">
           제17대 인수인계서의 기본 업무 매뉴얼을 넘어, <strong>제18대 임기(2025.11.30 ~ 2026.11) 동안 왜 사업을 개편했는지, 당시 학생회장단과 국장단이 어떤 고민과 시행착오를 거쳤는지, 실제 공지글과 홍보물·월간보고는 어떻게 발행되었는지</strong> 모든 맥락을 담은 차기 학생회장단·국장단 전용 웹 포털입니다.
         </p>
-        <div class="hero-meta-row">
-          <span class="hero-chip">학생회장: ${esc(meta.president)}</span>
-          <span class="hero-chip">부학생회장: ${esc(meta.vicePresident)}</span>
-          <span class="hero-chip">기획: ${esc(meta.departments.planning)}</span>
-          <span class="hero-chip">복지: ${esc(meta.departments.welfare)}</span>
-          <span class="hero-chip">홍보: ${esc(meta.departments.pr)}</span>
+        <div class="hero-masthead">
+          <span class="hero-masthead-item"><span class="hero-masthead-label">학생회장</span> <span class="hero-masthead-value">${esc(meta.president)}</span></span>
+          <span class="hero-masthead-sep">/</span>
+          <span class="hero-masthead-item"><span class="hero-masthead-label">부학생회장</span> <span class="hero-masthead-value">${esc(meta.vicePresident)}</span></span>
+          <span class="hero-masthead-sep">|</span>
+          <span class="hero-masthead-item"><span class="hero-masthead-label">기획국</span> <span class="hero-masthead-value">${esc(meta.departments.planning)}</span></span>
+          <span class="hero-masthead-sep">|</span>
+          <span class="hero-masthead-item"><span class="hero-masthead-label">복지국</span> <span class="hero-masthead-value">${esc(meta.departments.welfare)}</span></span>
+          <span class="hero-masthead-sep">|</span>
+          <span class="hero-masthead-item"><span class="hero-masthead-label">홍보국</span> <span class="hero-masthead-value">${esc(meta.departments.pr)}</span></span>
         </div>
           </div>
         </div>
@@ -1844,11 +1848,24 @@ function toggleCollapsibleElement(secEl, forceState) {
       if (header._collapsibleBound) return;
       header._collapsibleBound = true;
 
+      if (!header.hasAttribute("role")) header.setAttribute("role", "button");
+      if (!header.hasAttribute("tabindex")) header.setAttribute("tabindex", "0");
+
       header.addEventListener("click", (e) => {
         if (e.target.closest("a, input, select, textarea, button:not(.section-toggle-btn), .btn:not(.section-toggle-btn)")) return;
         const secId = header.getAttribute("data-toggle-doc-section");
         const secEl = (secId ? document.getElementById(secId) : null) || header.closest(".collapsible, .doc-section");
         toggleCollapsibleElement(secEl);
+      });
+
+      header.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          if (e.target.closest("a, input, select, textarea, button:not(.section-toggle-btn), .btn:not(.section-toggle-btn)")) return;
+          e.preventDefault();
+          const secId = header.getAttribute("data-toggle-doc-section");
+          const secEl = (secId ? document.getElementById(secId) : null) || header.closest(".collapsible, .doc-section");
+          toggleCollapsibleElement(secEl);
+        }
       });
     });
   }
@@ -2834,7 +2851,33 @@ function toggleCollapsibleElement(secEl, forceState) {
   // =========================================================================
   // INITIALIZATION
   // =========================================================================
+function initBackToTopBtn() {
+    let btn = document.getElementById('backToTopBtn');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'backToTopBtn';
+      btn.className = 'back-to-top-btn';
+      btn.title = '페이지 맨 위로 이동';
+      btn.setAttribute('aria-label', '페이지 맨 위로 이동');
+      btn.innerHTML = '&#9650;';
+      document.body.appendChild(btn);
+
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      }, { passive: true });
+    }
+  }
+
   function init() {
+    initBackToTopBtn();
     loadState();
     initTheme();
 
