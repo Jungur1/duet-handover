@@ -503,6 +503,17 @@
         const targetId = el.getAttribute("data-scroll-to");
         const targetEl = document.getElementById(targetId);
         if (targetEl) {
+          if (targetEl.classList.contains("collapsed")) {
+            targetEl.classList.remove("collapsed");
+            const btn = targetEl.querySelector(".section-toggle-btn");
+            if (btn) {
+              btn.setAttribute("aria-expanded", "true");
+              const tSpan = btn.querySelector(".toggle-text");
+              const iSpan = btn.querySelector(".toggle-icon");
+              if (tSpan) tSpan.textContent = "접기";
+              if (iSpan) iSpan.textContent = "▲";
+            }
+          }
           const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
           window.scrollTo({ top: y, behavior: "smooth" });
         }
@@ -1633,13 +1644,17 @@
     const sectionsHtml = sections
       .map(
         (sec) => `
-        <section class="doc-section" id="${esc(sec.id)}">
-          <div class="section-header">
-            <div>
+        <section class="doc-section collapsible" id="${esc(sec.id)}">
+          <div class="section-header" data-toggle-doc-section="${esc(sec.id)}" title="클릭하여 내용 접기 / 펼치기">
+            <div class="section-header-text">
               <span class="section-tag">${esc(sec.tag)}</span>
               <h2 class="section-title">${esc(sec.title)}</h2>
               <p class="section-subtitle">${esc(sec.subtitle)}</p>
             </div>
+            <button class="section-toggle-btn" type="button" aria-expanded="true" title="세부 목차 내용 접기/펼치기">
+              <span class="toggle-text">접기</span>
+              <span class="toggle-icon">▲</span>
+            </button>
           </div>
           <div class="section-body">
             ${sec.contentHtml}
@@ -1657,15 +1672,20 @@
       );
       if (relEvents.length > 0) {
         relatedEventsHtml = `
-          <section class="doc-section">
-            <div class="section-header">
-              <div>
+          <section class="doc-section collapsible" id="rel_promos_${tabId}">
+            <div class="section-header" data-toggle-doc-section="rel_promos_${tabId}" title="클릭하여 내용 접기 / 펼치기">
+              <div class="section-header-text">
                 <span class="section-tag">RELATED PROMOS & NOTICES</span>
                 <h2 class="section-title">이 부서의 실제 홍보물 · 카드뉴스 · 공지글 바로 보기 (${relEvents.length}건)</h2>
                 <p class="section-subtitle">클릭하면 월별 캘린더의 해당 행사 상세 화면(전체 카드뉴스 슬라이드 + 실제 공지글 전문)으로 연결됩니다.</p>
               </div>
+              <button class="section-toggle-btn" type="button" aria-expanded="true" title="세부 목차 내용 접기/펼치기">
+                <span class="toggle-text">접기</span>
+                <span class="toggle-icon">▲</span>
+              </button>
             </div>
-            <div class="promo-gallery-grid">
+            <div class="section-body">
+              <div class="promo-gallery-grid">
               ${relEvents
                 .map((ev) => {
                   const catMeta = CATEGORY_META[ev.category] || CATEGORY_META.pres;
@@ -1686,6 +1706,7 @@
                   `;
                 })
                 .join("")}
+              </div>
             </div>
           </section>
         `;
@@ -1697,8 +1718,14 @@
         <span class="section-tag">${esc(headerMeta.badge)}</span>
         <h1 style="font-size:24px;font-weight:800;color:var(--text);margin-bottom:6px;">${esc(headerMeta.title)}</h1>
         <p style="font-size:14px;color:var(--text-secondary);margin-bottom:14px;">${esc(headerMeta.desc)}</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
-          ${tocPills}
+        <div class="doc-toc-toolbar">
+          <div class="doc-toc-pills" style="display:flex;flex-wrap:wrap;gap:6px;flex:1;">
+            ${tocPills}
+          </div>
+          <div class="doc-batch-controls">
+            <button class="btn btn-sm" id="collapseAllDocSectionsBtn" title="모든 세부 목차 접기">전체 접기</button>
+            <button class="btn btn-sm" id="expandAllDocSectionsBtn" title="모든 세부 목차 펼치기">전체 펼치기</button>
+          </div>
         </div>
       </div>
 
@@ -1708,6 +1735,48 @@
   }
 
   function bindDocSectionEvents() {
+    function toggleDocSectionEl(secEl, forceState) {
+      if (!secEl) return;
+      const isCurrentlyCollapsed = secEl.classList.contains("collapsed");
+      const shouldCollapse = forceState !== undefined ? forceState : !isCurrentlyCollapsed;
+
+      if (shouldCollapse) {
+        secEl.classList.add("collapsed");
+      } else {
+        secEl.classList.remove("collapsed");
+      }
+
+      const btn = secEl.querySelector(".section-toggle-btn");
+      if (btn) {
+        btn.setAttribute("aria-expanded", String(!shouldCollapse));
+        const tSpan = btn.querySelector(".toggle-text");
+        const iSpan = btn.querySelector(".toggle-icon");
+        if (tSpan) tSpan.textContent = shouldCollapse ? "펼치기" : "접기";
+        if (iSpan) iSpan.textContent = shouldCollapse ? "▼" : "▲";
+      }
+    }
+
+    document.querySelectorAll("[data-toggle-doc-section]").forEach((header) => {
+      header.addEventListener("click", (e) => {
+        if (e.target.closest("a, input, select, textarea, .btn")) return;
+        const secId = header.getAttribute("data-toggle-doc-section");
+        const secEl = document.getElementById(secId) || header.closest(".doc-section");
+        toggleDocSectionEl(secEl);
+      });
+    });
+
+    document.getElementById("collapseAllDocSectionsBtn")?.addEventListener("click", () => {
+      document.querySelectorAll(".doc-section.collapsible").forEach((secEl) => {
+        toggleDocSectionEl(secEl, true);
+      });
+    });
+
+    document.getElementById("expandAllDocSectionsBtn")?.addEventListener("click", () => {
+      document.querySelectorAll(".doc-section.collapsible").forEach((secEl) => {
+        toggleDocSectionEl(secEl, false);
+      });
+    });
+
     document.querySelectorAll("[data-open-drive-modal]").forEach((btn) => {
       btn.addEventListener("click", () => {
         openDriveModal(btn.getAttribute("data-open-drive-modal"));
@@ -1719,6 +1788,9 @@
         const id = btn.getAttribute("data-doc-jump");
         const el = document.getElementById(id);
         if (el) {
+          if (el.classList.contains("collapsed")) {
+            toggleDocSectionEl(el, false);
+          }
           const y = el.getBoundingClientRect().top + window.scrollY - 80;
           window.scrollTo({ top: y, behavior: "smooth" });
         }
