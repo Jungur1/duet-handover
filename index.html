@@ -12,7 +12,7 @@
   <meta property="og:image" content="assets/images/promo/mt_poster.jpg">
   <link rel="icon" type="image/jpeg" href="assets/images/brand/duet_logo.jpg">
   <link rel="apple-touch-icon" href="assets/images/brand/duet_logo.jpg">
-  <link rel="stylesheet" href="css/style.css?v=20">
+  <link rel="stylesheet" href="css/style.css?v=21">
   <style>
     body:not(.admin-mode) .admin-only { display: none !important; }
   </style>
@@ -207,7 +207,7 @@
         <button class="btn" id="lightboxNextBtn">다음 장</button>
         <button class="btn btn-crimson" data-close-modal="lightboxModal">✕ 닫기 (ESC)</button>
       </div>
-      <img src="" alt="확대 이미지" class="lightbox-img" id="lightboxImg">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="확대 이미지" class="lightbox-img" id="lightboxImg">
     </div>
   </div>
 
@@ -418,10 +418,14 @@
   <!-- Toast Notification -->
   <div class="toast-msg" id="toastMsg"></div>
 
-  <!-- Scripts (config.local.js is git-ignored and only exists on Admin PC) -->
-  <script src="js/config.local.js"></script>
-  <script src="js/data.js?v=14"></script>
-  <script src="js/sections_data.js?v=14"></script>
-  <script src="js/app.js?v=20"></script>
+  <!-- Scripts (config.local.js is git-ignored: conditionally loaded in local/dev environments only) -->
+  <script>
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:") {
+      document.write('<script src="js/config.local.js" onerror="this.remove()"><\/script>');
+    }
+  </script>
+  <script src="js/data.js?v=21"></script>
+  <script src="js/sections_data.js?v=21"></script>
+  <script src="js/app.js?v=21"></script>
 </body>
 </html>

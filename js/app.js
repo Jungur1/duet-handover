@@ -589,7 +589,9 @@
 
     state.currentTab = tabId;
     if (!skipHash) {
-      history.replaceState(null, "", `#${tabId}`);
+      if (window.location.hash.replace("#", "") !== tabId) {
+        history.pushState(null, "", `#${tabId}`);
+      }
     }
     renderSidebar();
     renderMainContent();
@@ -3023,6 +3025,16 @@ function initBackToTopBtn() {
     if (["overview", "calendar", "presidency", "planning", "welfare", "pr", "templates"].includes(hash)) {
       state.currentTab = hash;
     }
+
+    // Support browser back / forward navigation
+    window.addEventListener("hashchange", () => {
+      const h = window.location.hash.replace("#", "").trim();
+      const VALID_TABS = ["overview", "calendar", "presidency", "planning", "welfare", "pr", "templates"];
+      const targetTab = VALID_TABS.includes(h) ? h : (h === "" ? "overview" : null);
+      if (targetTab && state.currentTab !== targetTab) {
+        switchTab(targetTab, true);
+      }
+    });
 
     // RBAC Session Authentication Check
     let sessionRole = null;
