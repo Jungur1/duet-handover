@@ -604,6 +604,7 @@
     applyEditModeAttributes();
     applySavedCheckboxes();
     syncDynamicDriveLinks(main);
+    bindCollapsibleClickListeners(main);
   }
 
   function syncDynamicDriveLinks(container) {
@@ -713,72 +714,103 @@
 
 
 
+      <!-- Overview Sections Batch Toolbar -->
+      <div class="doc-toc-toolbar" style="margin-bottom:18px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text-secondary);">인수인계 포털 홈 주요 섹션</div>
+        <div class="doc-batch-controls">
+          <button class="btn btn-sm" id="collapseAllOverviewBtn" title="모든 섹션 접기">전체 접기</button>
+          <button class="btn btn-sm" id="expandAllOverviewBtn" title="모든 섹션 펼치기">전체 펼치기</button>
+        </div>
+      </div>
+
       <!-- Drive Links Hub -->
-      <div class="doc-section">
-        <div class="section-header">
-          <div>
+      <div class="doc-section collapsible" id="ov_drive_hub">
+        <div class="section-header" data-toggle-doc-section="ov_drive_hub" title="클릭하여 내용 접기 / 펼치기">
+          <div class="section-header-text">
             <span class="section-tag">GOOGLE DRIVE & ARCHIVE HUB</span>
             <h2 class="section-title">구글폼 모음 드라이브 & 전체 인수인계 자료실 링크</h2>
             <p class="section-subtitle">
               구글폼 사본(수요조사·신청폼·투표폼·만족도조사) 드라이브와 원본 자료실 드라이브 아카이브 링크입니다.
             </p>
           </div>
-          <button class="btn admin-only" id="overviewEditDriveBtn">링크 일괄 설정</button>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button class="btn admin-only" id="overviewEditDriveBtn">링크 일괄 설정</button>
+            <button class="section-toggle-btn" type="button" aria-expanded="true" title="세부 내용 접기 / 펼치기">
+              <span class="toggle-text">접기</span>
+              <span class="toggle-icon">▲</span>
+            </button>
+          </div>
         </div>
-        <div class="drive-hub-grid" style="margin-bottom:0;">
-          ${driveCardsHtml}
+        <div class="section-body">
+          <div class="drive-hub-grid" style="margin-bottom:0;">
+            ${driveCardsHtml}
+          </div>
         </div>
       </div>
 
       <!-- Greeting & Philosophy -->
-      <div class="doc-section">
-        <div class="section-header">
-          <div>
+      <div class="doc-section collapsible" id="ov_greeting">
+        <div class="section-header" data-toggle-doc-section="ov_greeting" title="클릭하여 내용 접기 / 펼치기">
+          <div class="section-header-text">
             <span class="section-tag">MESSAGE FROM 18TH DUET</span>
             <h2 class="section-title">${esc(ov.greeting.title)}</h2>
             <p class="section-subtitle">${esc(ov.greeting.author)}</p>
           </div>
-          <button class="btn btn-crimson" data-jump-tab="calendar">월별 캘린더 & 홍보물 보러가기 →</button>
-        </div>
-        <div class="callout callout-thought" style="margin-top:0;">
-          <div class="callout-header">
-            <span>18대 학생회장 원준혁의 인사말 & 인수인계 사이트 제작 배경</span>
-            <span class="admin-only" style="font-size:12px;opacity:0.8;">(편집 모드에서 직접 수정 가능)</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button class="btn btn-crimson" data-jump-tab="calendar">월별 캘린더 & 홍보물 보러가기 →</button>
+            <button class="section-toggle-btn" type="button" aria-expanded="true" title="세부 내용 접기 / 펼치기">
+              <span class="toggle-text">접기</span>
+              <span class="toggle-icon">▲</span>
+            </button>
           </div>
-          <div class="callout-body" data-editable="true" data-edit-key="overview_greeting">${esc(greetingBody)}</div>
         </div>
+        <div class="section-body">
+          <div class="callout callout-thought" style="margin-top:0;">
+            <div class="callout-header">
+              <span>18대 학생회장 원준혁의 인사말 & 인수인계 사이트 제작 배경</span>
+              <span class="admin-only" style="font-size:12px;opacity:0.8;">(편집 모드에서 직접 수정 가능)</span>
+            </div>
+            <div class="callout-body" data-editable="true" data-edit-key="overview_greeting">${esc(greetingBody)}</div>
+          </div>
 
-        <h3 class="sub-heading" style="margin-top:24px;">차기 학생회장단 · 국장단을 위한 사이트 활용 팁</h3>
-        <div class="stats-grid" style="margin-bottom:0;">
-          <div class="stat-card" style="cursor:pointer;" data-jump-tab="presidency">
-            <div style="font-size:18px;font-weight:800;color:var(--crimson);margin-bottom:4px;">학생회장단 인수인계서</div>
-            <p style="font-size:13px;color:var(--text-secondary);">반운위/확운위/학생총회 진행 스크립트, 선거 소명 자료, 예결산 3대 장부, 과잠·돕바 공구, 연세대 교류반·일일호프 총괄 노하우</p>
-          </div>
-          <div class="stat-card" style="cursor:pointer;" data-jump-tab="planning">
-            <div style="font-size:18px;font-weight:800;color:#2563EB;margin-bottom:4px;">기획국 인수인계서</div>
-            <p style="font-size:13px;color:var(--text-secondary);">스터디윗D 달성+추첨 하이브리드 개편, 친해져도 Dㅐ? 2+2 매칭, 대성리 총MT 답사·예산, 합동응원전·릴스 고연전 실무</p>
-          </div>
-          <div class="stat-card" style="cursor:pointer;" data-jump-tab="welfare">
-            <div style="font-size:18px;font-weight:800;color:#059669;margin-bottom:4px;">복지국 인수인계서</div>
-            <p style="font-size:13px;color:var(--text-secondary);">복지국 전면 개편, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여, 간식 사전 수요조사</p>
-          </div>
-          <div class="stat-card" style="cursor:pointer;" data-jump-tab="pr">
-            <div style="font-size:18px;font-weight:800;color:#9333EA;margin-bottom:4px;">홍보국 인수인계서</div>
-            <p style="font-size:13px;color:var(--text-secondary);">음악 플레이어 컨셉 월간보고 정례화, 미리캔버스 구독 지원, 반실 QR 피드백 개편과 익명성 vs 회비 딜레마 교훈</p>
+          <h3 class="sub-heading" style="margin-top:24px;">차기 학생회장단 · 국장단을 위한 사이트 활용 팁</h3>
+          <div class="stats-grid" style="margin-bottom:0;">
+            <div class="stat-card" style="cursor:pointer;" data-jump-tab="presidency">
+              <div style="font-size:18px;font-weight:800;color:var(--crimson);margin-bottom:4px;">학생회장단 인수인계서</div>
+              <p style="font-size:13px;color:var(--text-secondary);">반운위/확운위/학생총회 진행 스크립트, 선거 소명 자료, 예결산 3대 장부, 과잠·돕바 공구, 연세대 교류반·일일호프 총괄 노하우</p>
+            </div>
+            <div class="stat-card" style="cursor:pointer;" data-jump-tab="planning">
+              <div style="font-size:18px;font-weight:800;color:#2563EB;margin-bottom:4px;">기획국 인수인계서</div>
+              <p style="font-size:13px;color:var(--text-secondary);">스터디윗D 달성+추첨 하이브리드 개편, 친해져도 Dㅐ? 2+2 매칭, 대성리 총MT 답사·예산, 합동응원전·릴스 고연전 실무</p>
+            </div>
+            <div class="stat-card" style="cursor:pointer;" data-jump-tab="welfare">
+              <div style="font-size:18px;font-weight:800;color:#059669;margin-bottom:4px;">복지국 인수인계서</div>
+              <p style="font-size:13px;color:var(--text-secondary);">복지국 전면 개편, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여, 간식 사전 수요조사</p>
+            </div>
+            <div class="stat-card" style="cursor:pointer;" data-jump-tab="pr">
+              <div style="font-size:18px;font-weight:800;color:#9333EA;margin-bottom:4px;">홍보국 인수인계서</div>
+              <p style="font-size:13px;color:var(--text-secondary);">음악 플레이어 컨셉 월간보고 정례화, 미리캔버스 구독 지원, 반실 QR 피드백 개편과 익명성 vs 회비 딜레마 교훈</p>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- 17th vs 18th Key Changes -->
-      <div class="doc-section">
-        <div class="section-header">
-          <div>
+      <div class="doc-section collapsible" id="ov_key_changes">
+        <div class="section-header" data-toggle-doc-section="ov_key_changes" title="클릭하여 내용 접기 / 펼치기">
+          <div class="section-header-text">
             <span class="section-tag">17대(도약) → 18대(Duet) 핵심 변화 요약</span>
             <h2 class="section-title">제18대 Duet에서 새롭게 개편·신설된 핵심 사항 한눈에 보기</h2>
             <p class="section-subtitle">전대(17대) 인수인계서와 비교했을 때 18대에서 왜, 어떻게 달라졌는지 국서별로 요약했습니다.</p>
           </div>
+          <button class="section-toggle-btn" type="button" aria-expanded="true" title="세부 내용 접기 / 펼치기">
+            <span class="toggle-text">접기</span>
+            <span class="toggle-icon">▲</span>
+          </button>
         </div>
-        ${keyChangesHtml}
+        <div class="section-body">
+          ${keyChangesHtml}
+        </div>
       </div>
     `;
   }
@@ -798,6 +830,18 @@
 
     document.getElementById("overviewEditDriveBtn")?.addEventListener("click", () => {
       openDriveModal();
+    });
+
+    document.getElementById("collapseAllOverviewBtn")?.addEventListener("click", () => {
+      document.querySelectorAll("#mainContent .collapsible").forEach((secEl) => {
+        toggleCollapsibleElement(secEl, true);
+      });
+    });
+
+    document.getElementById("expandAllOverviewBtn")?.addEventListener("click", () => {
+      document.querySelectorAll("#mainContent .collapsible").forEach((secEl) => {
+        toggleCollapsibleElement(secEl, false);
+      });
     });
   }
 
@@ -845,22 +889,29 @@
     }
 
     return `
-      <div class="doc-section" style="padding:20px 24px;margin-bottom:18px;">
-        <div class="section-header" style="margin-bottom:14px;padding-bottom:12px;">
-          <div>
+      <div class="doc-section collapsible" id="cal_controls_section" style="padding:20px 24px;margin-bottom:18px;">
+        <div class="section-header" data-toggle-doc-section="cal_controls_section" title="클릭하여 필터 접기 / 펼치기" style="margin-bottom:14px;padding-bottom:12px;">
+          <div class="section-header-text">
             <span class="section-tag">INTERACTIVE ARCHIVE · 2025.11 ~ 2026.11 · 노션 일정 ${appData.calendarEvents.length}건</span>
             <h2 class="section-title">월별 캘린더 · 홍보물 카드뉴스 · 실제 공지글 · 월간보고 아카이브</h2>
             <p class="section-subtitle">
               달력의 각 행사를 클릭하면 우측 패널에서 <strong>당시 제작한 홍보물/카드뉴스 원본 이미지</strong>와 <strong>카카오톡 공지방에 실제로 올린 공지글 전문(복사 가능)</strong>, 그리고 <strong>당시 18대의 생각/고려사항</strong>을 함께 확인할 수 있습니다.
             </p>
           </div>
-          <div class="view-mode-tabs">
-            <button class="btn ${state.calSubView === "calendar" ? "btn-crimson" : ""}" data-subview="calendar">월별 캘린더 & 공지글</button>
-            <button class="btn ${state.calSubView === "monthly" ? "btn-crimson" : ""}" data-subview="monthly">월간보고 슬라이드(${appData.monthlyReports.length}호)</button>
-            <button class="btn ${state.calSubView === "gallery" ? "btn-crimson" : ""}" data-subview="gallery">홍보물 갤러리(전체)</button>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="view-mode-tabs" style="margin:0;">
+              <button class="btn ${state.calSubView === "calendar" ? "btn-crimson" : ""}" data-subview="calendar">월별 캘린더 & 공지글</button>
+              <button class="btn ${state.calSubView === "monthly" ? "btn-crimson" : ""}" data-subview="monthly">월간보고 슬라이드(${appData.monthlyReports.length}호)</button>
+              <button class="btn ${state.calSubView === "gallery" ? "btn-crimson" : ""}" data-subview="gallery">홍보물 갤러리(전체)</button>
+            </div>
+            <button class="section-toggle-btn" type="button" aria-expanded="true" title="필터 접기 / 펼치기">
+              <span class="toggle-text">접기</span>
+              <span class="toggle-icon">▲</span>
+            </button>
           </div>
         </div>
 
+        <div class="section-body">
         ${
           state.calSubView === "calendar"
             ? `
@@ -880,6 +931,7 @@
         `
             : ""
         }
+        </div>
       </div>
 
       ${bodyHtml}
@@ -1032,15 +1084,23 @@
 
         <!-- 3. Full Month Timeline + Monthly Report -->
         <div class="calendar-below-stack">
-          <div class="calendar-grid-card">
-            <div class="timeline-header" id="calTimeline" style="margin-top:0;padding-top:0;border-top:none;">
-              <h3 class="sub-heading" style="margin:0;font-size:15px;">
+          <div class="calendar-grid-card collapsible" id="cal_timeline_section">
+            <div class="timeline-header" data-toggle-doc-section="cal_timeline_section" title="클릭하여 타임라인 접기 / 펼치기" style="margin-top:0;padding-top:0;border-top:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+              <h3 class="sub-heading" style="margin:0;font-size:15px;flex:1;">
                 ${state.selectedDay ? `${monthObj.month}월 ${state.selectedDay}일 일정` : `${esc(monthObj.label)} 전체 일정 타임라인`} (${timelineEvents.length}건)
               </h3>
-              ${state.selectedDay ? `<button class="btn" id="clearDayFilterBtn">✕ 이번 달 전체 보기</button>` : ""}
+              <div style="display:flex;align-items:center;gap:6px;">
+                ${state.selectedDay ? `<button class="btn btn-sm" id="clearDayFilterBtn">✕ 이번 달 전체 보기</button>` : ""}
+                <button class="section-toggle-btn" type="button" aria-expanded="true" title="타임라인 접기 / 펼치기">
+                  <span class="toggle-text">접기</span>
+                  <span class="toggle-icon">▲</span>
+                </button>
+              </div>
             </div>
-            <div class="timeline-list">
-              ${listHtml || `<p class="body-text">해당 필터에 맞는 일정이 없습니다.</p>`}
+            <div class="section-body">
+              <div class="timeline-list">
+                ${listHtml || `<p class="body-text">해당 필터에 맞는 일정이 없습니다.</p>`}
+              </div>
             </div>
           </div>
 
@@ -1283,26 +1343,34 @@
     const countBadge = imgs.length > 0 ? ` (${imgs.length}장)` : " (카드뉴스 제작 중)";
 
     return `
-      <div class="monthly-report-box" data-report-card="${esc(rep.id)}">
-        <div class="section-header" style="margin-bottom:14px;padding-bottom:10px;">
-          <div>
+      <div class="monthly-report-box collapsible" id="mreport_${esc(rep.id)}" data-report-card="${esc(rep.id)}">
+        <div class="section-header" data-toggle-doc-section="mreport_${esc(rep.id)}" title="클릭하여 월간보고 접기 / 펼치기" style="margin-bottom:14px;padding-bottom:10px;cursor:pointer;">
+          <div class="section-header-text">
             <span class="section-tag">${tagText}</span>
             <h3 class="section-title" style="font-size:18px;">${esc(rep.title)}${countBadge}</h3>
           </div>
-          ${imgs.length > 0 ? `<button class="btn" data-zoom-report="${esc(rep.id)}" data-zoom-idx="${safeIdx}">슬라이드 확대</button>` : `<span class="badge" style="background:var(--surface-alt);border:1px solid var(--border);font-size:11.5px;padding:4px 8px;border-radius:6px;color:var(--text-muted);">업로드 대기 중</span>`}
+          <div style="display:flex;align-items:center;gap:6px;">
+            ${imgs.length > 0 ? `<button class="btn btn-sm" data-zoom-report="${esc(rep.id)}" data-zoom-idx="${safeIdx}">슬라이드 확대</button>` : `<span class="badge" style="background:var(--surface-alt);border:1px solid var(--border);font-size:11.5px;padding:4px 8px;border-radius:6px;color:var(--text-muted);">업로드 대기 중</span>`}
+            <button class="section-toggle-btn" type="button" aria-expanded="true" title="월간보고 접기 / 펼치기">
+              <span class="toggle-text">접기</span>
+              <span class="toggle-icon">▲</span>
+            </button>
+          </div>
         </div>
 
-        ${carouselHtml}
+        <div class="section-body">
+          ${carouselHtml}
 
-        <div class="table-wrap" style="margin-top:12px;">
-          <table class="doc-table">
-            <tbody>
-              <tr><th style="width:130px;">회장단·의결기구</th><td style="white-space:pre-line;">${esc(rep.summary.pres)}</td></tr>
-              <tr><th>기획국</th><td style="white-space:pre-line;">${esc(rep.summary.plan)}</td></tr>
-              <tr><th>복지국</th><td style="white-space:pre-line;">${esc(rep.summary.welf)}</td></tr>
-              <tr><th>홍보국</th><td style="white-space:pre-line;">${esc(rep.summary.pr)}</td></tr>
-            </tbody>
-          </table>
+          <div class="table-wrap" style="margin-top:12px;">
+            <table class="doc-table">
+              <tbody>
+                <tr><th style="width:130px;">회장단·의결기구</th><td style="white-space:pre-line;">${esc(rep.summary.pres)}</td></tr>
+                <tr><th>기획국</th><td style="white-space:pre-line;">${esc(rep.summary.plan)}</td></tr>
+                <tr><th>복지국</th><td style="white-space:pre-line;">${esc(rep.summary.welf)}</td></tr>
+                <tr><th>홍보국</th><td style="white-space:pre-line;">${esc(rep.summary.pr)}</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     `;
@@ -1311,6 +1379,15 @@
   function buildMonthlyReportsArchiveHtml() {
     return `
       <div>
+        <div class="doc-toc-toolbar" style="margin-bottom:16px;">
+          <div style="font-size:14px;font-weight:700;color:var(--text-secondary);">
+            제18대 월간보고 발행 아카이브 (총 ${appData.monthlyReports.length}호)
+          </div>
+          <div class="doc-batch-controls">
+            <button class="btn btn-sm" id="collapseAllMonthlyReportsBtn">전체 접기</button>
+            <button class="btn btn-sm" id="expandAllMonthlyReportsBtn">전체 펼치기</button>
+          </div>
+        </div>
         ${appData.monthlyReports.map((rep) => buildSingleMonthlyReportCardHtml(rep)).join("")}
       </div>
     `;
@@ -1556,6 +1633,18 @@
     document.getElementById("addCustomEventBtn")?.addEventListener("click", () => {
       openAddEventModal();
     });
+
+    document.getElementById("collapseAllMonthlyReportsBtn")?.addEventListener("click", () => {
+      document.querySelectorAll(".monthly-report-box.collapsible").forEach((secEl) => {
+        toggleCollapsibleElement(secEl, true);
+      });
+    });
+
+    document.getElementById("expandAllMonthlyReportsBtn")?.addEventListener("click", () => {
+      document.querySelectorAll(".monthly-report-box.collapsible").forEach((secEl) => {
+        toggleCollapsibleElement(secEl, false);
+      });
+    });
   }
 
   function refreshEventDetailPanel() {
@@ -1732,6 +1821,42 @@
       ${sectionsHtml}
       ${relatedEventsHtml}
     `;
+  }
+
+function toggleCollapsibleElement(secEl, forceState) {
+    if (!secEl) return;
+    const isCurrentlyCollapsed = secEl.classList.contains("collapsed");
+    const shouldCollapse = forceState !== undefined ? forceState : !isCurrentlyCollapsed;
+
+    if (shouldCollapse) {
+      secEl.classList.add("collapsed");
+    } else {
+      secEl.classList.remove("collapsed");
+    }
+
+    const btn = secEl.querySelector(".section-toggle-btn");
+    if (btn) {
+      btn.setAttribute("aria-expanded", String(!shouldCollapse));
+      const tSpan = btn.querySelector(".toggle-text");
+      const iSpan = btn.querySelector(".toggle-icon");
+      if (tSpan) tSpan.textContent = shouldCollapse ? "펼치기" : "접기";
+      if (iSpan) iSpan.textContent = shouldCollapse ? "▼" : "▲";
+    }
+  }
+
+  function bindCollapsibleClickListeners(container) {
+    const root = container || document;
+    root.querySelectorAll("[data-toggle-doc-section]").forEach((header) => {
+      if (header._collapsibleBound) return;
+      header._collapsibleBound = true;
+
+      header.addEventListener("click", (e) => {
+        if (e.target.closest("a, input, select, textarea, .btn:not(.section-toggle-btn)")) return;
+        const secId = header.getAttribute("data-toggle-doc-section");
+        const secEl = (secId ? document.getElementById(secId) : null) || header.closest(".collapsible");
+        toggleCollapsibleElement(secEl);
+      });
+    });
   }
 
   function bindDocSectionEvents() {

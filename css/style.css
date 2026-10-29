@@ -715,8 +715,9 @@ body.sidebar-collapsed .main-area {
   box-shadow: var(--shadow-sm);
 }
 
-/* Collapsible Doc Sections */
-.doc-section.collapsible .section-header {
+/* Collapsible Doc Sections & Cards */
+.doc-section.collapsible .section-header,
+.monthly-report-box.collapsible .section-header {
   cursor: pointer;
   user-select: none;
   transition: background-color 0.15s ease, margin-bottom 0.2s ease;
@@ -724,7 +725,17 @@ body.sidebar-collapsed .main-area {
   padding: 8px 10px;
   margin: -8px -10px 18px -10px;
 }
-.doc-section.collapsible .section-header:hover {
+.calendar-grid-card.collapsible .timeline-header {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease, margin-bottom 0.2s ease;
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  margin: -6px -8px 12px -8px;
+}
+.doc-section.collapsible .section-header:hover,
+.monthly-report-box.collapsible .section-header:hover,
+.calendar-grid-card.collapsible .timeline-header:hover {
   background: var(--surface-alt);
 }
 .section-header-text {
@@ -751,15 +762,27 @@ body.sidebar-collapsed .main-area {
   color: var(--crimson);
   background: var(--crimson-soft);
 }
-.doc-section.collapsed {
+.doc-section.collapsed,
+.monthly-report-box.collapsed {
   padding-bottom: 20px;
 }
-.doc-section.collapsed .section-header {
+.calendar-grid-card.collapsed {
+  padding-bottom: 14px;
+}
+.doc-section.collapsed .section-header,
+.monthly-report-box.collapsed .section-header {
   border-bottom: none;
   margin-bottom: 0;
   padding-bottom: 8px;
 }
-.doc-section.collapsed .section-body {
+.calendar-grid-card.collapsed .timeline-header {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.doc-section.collapsed .section-body,
+.monthly-report-box.collapsed .section-body,
+.calendar-grid-card.collapsed .section-body {
   display: none;
 }
 
