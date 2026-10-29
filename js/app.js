@@ -332,6 +332,76 @@
     }, 2600);
   }
 
+  // Clipboard copy helper with dual fallback (Navigator API + execCommand)
+  function copyTextToClipboard(text) {
+    if (!text) return Promise.reject(new Error("No text to copy"));
+    return new Promise((resolve, reject) => {
+      // 1. Try modern navigator.clipboard if in secure context
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        navigator.clipboard.writeText(text).then(resolve).catch(() => {
+          fallbackCopyText(text).then(resolve).catch(reject);
+        });
+        return;
+      }
+      // 2. Fallback to execCommand
+      fallbackCopyText(text).then(resolve).catch(reject);
+    });
+  }
+
+  function fallbackCopyText(text) {
+    return new Promise((resolve, reject) => {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      ta.style.top = "-9999px";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      ta.setSelectionRange(0, 999999);
+      try {
+        const success = document.execCommand("copy");
+        document.body.removeChild(ta);
+        // Note: In headless browsers or strict sandboxes, execCommand can return false even on success, so we treat no exception as success
+        resolve();
+      } catch (err) {
+        document.body.removeChild(ta);
+        reject(err);
+      }
+    });
+  }
+
+  function bindCopyNoticeButton(container) {
+    const root = container || document;
+    const copyBtn = root.querySelector("#copyNoticeBtn");
+    if (!copyBtn) return;
+    copyBtn.onclick = (e) => {
+      e.stopPropagation();
+      const noticeEl = document.getElementById("activeEventNoticeText");
+      if (!noticeEl) return;
+      const textToCopy = noticeEl.innerText.trim();
+      if (!textToCopy) {
+        showToast("복사할 공지글 내용이 없습니다.");
+        return;
+      }
+      copyTextToClipboard(textToCopy).then(() => {
+        const originalText = copyBtn.textContent;
+        const originalBg = copyBtn.style.background;
+        copyBtn.textContent = "복사 완료!";
+        copyBtn.style.background = "#059669";
+        setTimeout(() => {
+          copyBtn.textContent = originalText;
+          copyBtn.style.background = originalBg;
+        }, 2000);
+        showToast("공지글 전문이 클립보드에 복사되었습니다!");
+      }).catch((err) => {
+        console.error("Copy failed:", err);
+        showToast("클립보드 복사에 실패했습니다. 수동으로 복사해주세요.");
+      });
+    };
+  }
+
   // Escape HTML helper
   function esc(str) {
     if (str === null || str === undefined) return "";
@@ -551,6 +621,8 @@
   // =========================================================================
   function buildOverviewHtml() {
     const ov = window.DUET_SECTIONS.overview;
+    const totalEvents = appData.calendarEvents.length;
+    const totalImages = appData.calendarEvents.reduce((acc, ev) => acc + (Array.isArray(ev.images) ? ev.images.length : 0), 0);
     const meta = appData.meta;
     const greetingBody = customStore.textEdits["overview_greeting"] || ov.greeting.body;
 
@@ -628,8 +700,8 @@
           <div class="stat-sub">신입생 대표 임기 회칙개정 만장일치 가결 →</div>
         </div>
         <div class="stat-card" style="cursor:pointer;" data-jump-tab="calendar">
-          <div class="stat-num">102장 / 300건</div>
-          <div class="stat-label">노션 캘린더 300건 · 홍보물 · 월간보고 · 공지글</div>
+          <div class="stat-num">${totalImages}장 / ${totalEvents}건</div>
+          <div class="stat-label">노션 캘린더 ${totalEvents}건 · 홍보물 · 월간보고 · 공지글</div>
           <div class="stat-sub">캘린더에서 노션 일정+카드뉴스+공지글 바로 보기 →</div>
         </div>
         <div class="stat-card" style="cursor:pointer;" data-jump-tab="planning">
@@ -1051,7 +1123,7 @@
         <div class="callout callout-notice admin-only" style="margin-top:12px;">
           <div class="callout-header">
             <span>공지글 / 회의 메모 원문 (편집 모드에서 수정 가능)</span>
-            <button class="btn" id="copyNoticeBtn" style="padding:3px 10px;font-size:11.5px;">복사</button>
+            <button class="btn btn-crimson" id="copyNoticeBtn" style="padding:4px 12px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;" title="공지글 전문을 클립보드에 바로 복사">공지글 복사</button>
           </div>
           <div class="callout-body" id="activeEventNoticeText" data-event-edit-field="noticeText" data-event-id="${esc(ev.id)}">${esc(rawNotice)}</div>
         </div>
@@ -1061,7 +1133,7 @@
         <div class="callout callout-notice" style="margin-top:14px;">
           <div class="callout-header">
             <span>당시 실제 공지글 / 안건 요약</span>
-            ${rawNotice ? `<button class="btn" id="copyNoticeBtn" style="padding:3px 10px;font-size:11.5px;">공지글 복사</button>` : ""}
+            ${rawNotice ? `<button class="btn btn-crimson" id="copyNoticeBtn" style="padding:4px 12px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;" title="공지글 전문을 클립보드에 바로 복사">공지글 복사</button>` : ""}
           </div>
           <div class="callout-body" id="activeEventNoticeText" data-event-edit-field="noticeText" data-event-id="${esc(ev.id)}">${esc(rawNotice)}</div>
         </div>
@@ -1091,8 +1163,8 @@
           ? `<a href="${esc(item.responseUrl)}" target="_blank" rel="noopener" class="btn" style="padding:5px 12px;font-size:12px;background:#059669;color:#ffffff;border-radius:6px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;">응답 결과 시트 ↗</a>`
           : "";
         return `
-          <div style="display:flex;align-items:center;justify-content:space-between;background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;gap:12px;flex-wrap:wrap;">
-            <div style="font-size:13px;font-weight:600;color:#1e293b;flex:1;min-width:180px;">${esc(itemTitle)}</div>
+          <div class="callout-forms-item">
+            <div class="callout-forms-item-title">${esc(itemTitle)}</div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
               ${formBtn}
               ${respBtn}
@@ -1102,10 +1174,10 @@
       }).join("");
 
       formsSectionHtml = `
-        <div class="callout callout-forms" style="margin-top:14px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:14px 16px;">
-          <div style="font-weight:700;font-size:13.5px;color:#1e293b;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+        <div class="callout callout-forms">
+          <div class="callout-forms-header">
             <span>구글 폼 및 설문 응답 결과</span>
-            <span style="font-size:11.5px;font-weight:500;color:#64748b;">Google Drive 연동</span>
+            <span class="callout-forms-header-tag">Google Drive 연동</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:8px;">
             ${itemsHtml}
@@ -1370,13 +1442,7 @@
     }
 
     // Copy notice text button
-    document.getElementById("copyNoticeBtn")?.addEventListener("click", () => {
-      const noticeEl = document.getElementById("activeEventNoticeText");
-      if (noticeEl) {
-        navigator.clipboard?.writeText(noticeEl.innerText.trim());
-        showToast("공지글 전문이 클립보드에 복사되었습니다!");
-      }
-    });
+    bindCopyNoticeButton();
 
     // Monthly report carousels
     document.querySelectorAll("[data-rep-prev]").forEach((btn) => {
@@ -1466,13 +1532,7 @@
         openLightbox(activeEv.images, Number(zoomTrigger.getAttribute("data-zoom-ev-img") || 0));
       });
     });
-    document.getElementById("copyNoticeBtn")?.addEventListener("click", () => {
-      const noticeEl = document.getElementById("activeEventNoticeText");
-      if (noticeEl) {
-        navigator.clipboard?.writeText(noticeEl.innerText.trim());
-        showToast("공지글 전문이 클립보드에 복사되었습니다!");
-      }
-    });
+    bindCopyNoticeButton(panel);
   }
 
   // =========================================================================
