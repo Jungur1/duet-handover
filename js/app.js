@@ -700,29 +700,7 @@
         </div>
       </div>
 
-      <!-- Quick Stats -->
-      <div class="stats-grid">
-        <div class="stat-card" style="cursor:pointer;" data-jump-tab="presidency">
-          <div class="stat-num">12회 + 4회</div>
-          <div class="stat-label">반운위 12회 · 확운위 3회 · 총회 1회</div>
-          <div class="stat-sub">신입생 대표 임기 회칙개정 만장일치 가결 →</div>
-        </div>
-        <div class="stat-card" style="cursor:pointer;" data-jump-tab="calendar">
-          <div class="stat-num">${totalImages}장 / ${totalEvents}건</div>
-          <div class="stat-label">노션 캘린더 ${totalEvents}건 · 홍보물 · 월간보고 · 공지글</div>
-          <div class="stat-sub">캘린더에서 노션 일정+카드뉴스+공지글 바로 보기 →</div>
-        </div>
-        <div class="stat-card" style="cursor:pointer;" data-jump-tab="planning">
-          <div class="stat-num">기획국 6대 사업</div>
-          <div class="stat-label">친해져도Dㅐ(2+2) · 스터디윗D · 총MT · 일일호프</div>
-          <div class="stat-sub">연세대 에버나인 합동 일일호프 668,754원 흑자 →</div>
-        </div>
-        <div class="stat-card" style="cursor:pointer;" data-jump-tab="welfare">
-          <div class="stat-num">복지국 & 홍보국</div>
-          <div class="stat-label">복지국 전면 개편 · 반실 리뉴얼 · 월간보고</div>
-          <div class="stat-sub">무보증금 대여사업 · 사전 수요조사 간식행사 →</div>
-        </div>
-      </div>
+
 
       <!-- Drive Links Hub -->
       <div class="doc-section">
