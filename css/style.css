@@ -40,16 +40,16 @@
   --crimson-light: #FB7185;
   --crimson-soft: rgba(225, 29, 72, 0.15);
   --crimson-border: rgba(225, 29, 72, 0.38);
-  --navy: #181113;
-  --bg: #120D0E;
-  --surface: #1C1517;
-  --surface-alt: #261D20;
-  --surface-hover: #35292D;
-  --text: #F7F4F2;
-  --text-secondary: #D4CBC7;
-  --text-muted: #9E918C;
-  --border: #2E2327;
-  --border-strong: #45353B;
+  --navy: #09090B;
+  --bg: #09090B;
+  --surface: #121215;
+  --surface-alt: #18181C;
+  --surface-hover: #222228;
+  --text: #F4F4F6;
+  --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
+  --border: #222226;
+  --border-strong: #33333A;
   --thought-bg: rgba(245, 158, 11, 0.12);
   --thought-border: #F59E0B;
   --thought-text: #FDE68A;
@@ -62,9 +62,14 @@
   --tip-bg: rgba(16, 185, 129, 0.12);
   --tip-border: #34D399;
   --tip-text: #A7F3D0;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="dark"] .hero-card {
+  background: linear-gradient(135deg, #4A0015 0%, #6B001F 50%, #09090B 100%);
+  border: 1px solid var(--border-strong);
 }
 
 * {
