@@ -1500,6 +1500,25 @@ table.doc-table tr:hover td {
   overflow-y: auto;
 }
 
+@keyframes pulseHighlight {
+  0% {
+    box-shadow: 0 0 0 4px var(--crimson-soft);
+    border-color: var(--crimson);
+  }
+  50% {
+    box-shadow: 0 0 0 6px var(--crimson-soft);
+    border-color: var(--crimson);
+  }
+  100% {
+    box-shadow: var(--shadow-md);
+    border-color: var(--border);
+  }
+}
+
+.event-detail-panel.is-focus-highlight {
+  animation: pulseHighlight 1.6s ease-out;
+}
+
 /* Carousel inside Detail Panel / Section */
 .media-carousel {
   background: var(--surface-alt);

@@ -234,6 +234,7 @@
     selectedEventId: "notion_3171d74fc6df80a7980ddf6cfd1da19c",
     eventImgIdx: 0,
     monthlySlideIdx: {},
+    collapsedCards: {},
     lightboxImages: [],
     lightboxIdx: 0
   };
@@ -886,33 +887,43 @@
       bodyHtml = buildPromoGalleryHtml();
     }
 
-    return `
-      <div class="doc-section collapsible" id="cal_controls_section" style="padding:20px 24px;margin-bottom:18px;">
-        <div class="section-header" data-toggle-doc-section="cal_controls_section" title="클릭하여 필터 접기 / 펼치기" style="margin-bottom:14px;padding-bottom:12px;">
-          <div class="section-header-text">
-            <span class="section-tag">2025.11 – 2026.11 연간 일정 (${appData.calendarEvents.length}건)</span>
-            <h2 class="section-title">월별 캘린더 · 홍보물 카드뉴스 · 실제 공지글 · 월간보고 아카이브</h2>
-            <p class="section-subtitle">
-              달력의 각 행사를 클릭하면 우측 패널에서 <strong>당시 제작한 홍보물/카드뉴스 원본 이미지</strong>와 <strong>카카오톡 공지방에 실제로 올린 공지글 전문(복사 가능)</strong>, 그리고 <strong>당시 18대의 생각/고려사항</strong>을 함께 확인할 수 있습니다.
-            </p>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div class="view-mode-tabs" style="margin:0;">
-              <button class="btn ${state.calSubView === "calendar" ? "btn-crimson" : ""}" data-subview="calendar">월별 캘린더 & 공지글</button>
-              <button class="btn ${state.calSubView === "monthly" ? "btn-crimson" : ""}" data-subview="monthly">월간보고 슬라이드(${appData.monthlyReports.length}호)</button>
-              <button class="btn ${state.calSubView === "gallery" ? "btn-crimson" : ""}" data-subview="gallery">홍보물 갤러리(전체)</button>
-            </div>
-            <button class="section-toggle-btn" type="button" aria-expanded="true" title="필터 접기 / 펼치기">
-              <span class="toggle-text">접기</span>
-              <span class="toggle-icon">▲</span>
-            </button>
-          </div>
-        </div>
+    // Dynamic contextual header text for the portal
+    let portalTag = `2025.11 – 2026.11 연간 일정 (${appData.calendarEvents.length}건)`;
+    let portalTitle = "월별 캘린더 및 실제 행사 공지글";
+    let portalSubtitle = "달력의 행사를 클릭하면 우측 상세 패널에서 <strong>당시 제작한 카드뉴스/포스터 원본</strong>, <strong>카카오톡 공지글 전문(복사 가능)</strong>, <strong>18대 집행위원회 코멘트</strong>를 확인하실 수 있습니다.";
 
+    if (state.calSubView === "monthly") {
+      portalTag = `2025.12 – 2026.10 매월 정기 발행 (총 ${appData.monthlyReports.length}호)`;
+      portalTitle = "집행위원회 정기 월간보고 슬라이드 아카이브";
+      portalSubtitle = "매월 말 전체 학생에게 카드뉴스와 노션으로 발행한 집행위원회 활동 실적 및 회계 보고서입니다. 슬라이드를 넘기거나 확대를 통해 열람할 수 있습니다.";
+    } else if (state.calSubView === "gallery") {
+      const seenFirstImg = new Set();
+      const eventsWithImages = appData.calendarEvents.filter((ev) => {
+        if (!ev.images || ev.images.length === 0) return false;
+        const key = ev.images.join("|");
+        if (seenFirstImg.has(key)) return false;
+        seenFirstImg.add(key);
+        return true;
+      });
+      portalTag = `제18대 Duet 비주얼 아카이브 (총 ${eventsWithImages.length}개 행사)`;
+      portalTitle = "홍보물 및 카드뉴스 전체 갤러리";
+      portalSubtitle = "제18대에서 제작·배포한 전체 홍보물과 카드뉴스를 한눈에 열람할 수 있으며, 카드를 클릭하면 캘린더 상세 뷰로 즉시 이동합니다.";
+    }
+
+    const isFilterCollapsed = state.collapsedCards && state.collapsedCards["cal_filter_card"] === true;
+
+    const filterCardHtml = state.calSubView === "calendar" ? `
+      <div class="doc-section collapsible ${isFilterCollapsed ? "collapsed" : ""}" id="cal_filter_card" style="padding:16px 20px;margin-bottom:18px;">
+        <div class="section-header" data-toggle-doc-section="cal_filter_card" title="클릭하여 필터 접기 / 펼치기" style="margin-bottom:10px;padding-bottom:8px;cursor:pointer;">
+          <div class="section-header-text">
+            <span style="font-size:13px;font-weight:700;color:var(--text-secondary);">일정 검색 및 월 / 부서별 필터</span>
+          </div>
+          <button class="section-toggle-btn" type="button" aria-expanded="${isFilterCollapsed ? "false" : "true"}" title="필터 접기 / 펼치기">
+            <span class="toggle-text">${isFilterCollapsed ? "펼치기" : "접기"}</span>
+            <span class="toggle-icon">${isFilterCollapsed ? "▼" : "▲"}</span>
+          </button>
+        </div>
         <div class="section-body">
-        ${
-          state.calSubView === "calendar"
-            ? `
           <div style="display:flex;flex-direction:column;gap:10px;">
             <div class="filter-row">
               <span class="filter-label">월 선택:</span>
@@ -926,11 +937,27 @@
               <button class="btn admin-only" id="addCustomEventBtn" title="새로운 행사나 공지글을 캘린더에 추가합니다">새 행사/공지 추가</button>
             </div>
           </div>
-        `
-            : ""
-        }
         </div>
       </div>
+    ` : "";
+
+    return `
+      <div class="doc-section" style="padding:20px 24px;margin-bottom:18px;">
+        <div class="section-header" style="margin-bottom:0;padding-bottom:0;border-bottom:none;">
+          <div class="section-header-text">
+            <span class="section-tag">${portalTag}</span>
+            <h2 class="section-title">${portalTitle}</h2>
+            <p class="section-subtitle">${portalSubtitle}</p>
+          </div>
+          <div class="view-mode-tabs" style="margin:0;flex-shrink:0;">
+            <button class="btn ${state.calSubView === "calendar" ? "btn-crimson" : ""}" data-subview="calendar">월별 캘린더 & 공지글</button>
+            <button class="btn ${state.calSubView === "monthly" ? "btn-crimson" : ""}" data-subview="monthly">월간보고 슬라이드 (${appData.monthlyReports.length}호)</button>
+            <button class="btn ${state.calSubView === "gallery" ? "btn-crimson" : ""}" data-subview="gallery">홍보물 갤러리 (전체)</button>
+          </div>
+        </div>
+      </div>
+
+      ${filterCardHtml}
 
       ${bodyHtml}
     `;
@@ -1337,11 +1364,13 @@
     }
 
     const hasUpload = !rep.uploadDate.includes("제작 중") && !rep.uploadDate.includes("발행 예정");
-    const tagText = hasUpload ? `MONTHLY REPORT · ${esc(rep.uploadDate)} 업로드` : `MONTHLY REPORT · ${esc(rep.uploadDate)}`;
+    const tagText = hasUpload ? `제18대 집행위원회 월간보고 · ${esc(rep.uploadDate)} 발행` : `제18대 집행위원회 월간보고 · ${esc(rep.uploadDate)}`;
     const countBadge = imgs.length > 0 ? ` (${imgs.length}장)` : " (카드뉴스 제작 중)";
 
+    const isCollapsed = state.collapsedCards && state.collapsedCards[`mreport_${rep.id}`] === true;
+
     return `
-      <div class="monthly-report-box collapsible" id="mreport_${esc(rep.id)}" data-report-card="${esc(rep.id)}">
+      <div class="monthly-report-box collapsible ${isCollapsed ? "collapsed" : ""}" id="mreport_${esc(rep.id)}" data-report-card="${esc(rep.id)}">
         <div class="section-header" data-toggle-doc-section="mreport_${esc(rep.id)}" title="클릭하여 월간보고 접기 / 펼치기" style="margin-bottom:14px;padding-bottom:10px;cursor:pointer;">
           <div class="section-header-text">
             <span class="section-tag">${tagText}</span>
@@ -1349,9 +1378,9 @@
           </div>
           <div style="display:flex;align-items:center;gap:6px;">
             ${imgs.length > 0 ? `<button class="btn btn-sm" data-zoom-report="${esc(rep.id)}" data-zoom-idx="${safeIdx}">슬라이드 확대</button>` : `<span class="badge" style="background:var(--surface-alt);border:1px solid var(--border);font-size:11.5px;padding:4px 8px;border-radius:6px;color:var(--text-muted);">업로드 대기 중</span>`}
-            <button class="section-toggle-btn" type="button" aria-expanded="true" title="월간보고 접기 / 펼치기">
-              <span class="toggle-text">접기</span>
-              <span class="toggle-icon">▲</span>
+            <button class="section-toggle-btn" type="button" aria-expanded="${isCollapsed ? "false" : "true"}" title="월간보고 접기 / 펼치기">
+              <span class="toggle-text">${isCollapsed ? "펼치기" : "접기"}</span>
+              <span class="toggle-icon">${isCollapsed ? "▼" : "▲"}</span>
             </button>
           </div>
         </div>
@@ -1426,11 +1455,11 @@
 
     return `
       <div class="doc-section">
-        <div class="section-header">
+        <div class="section-header" style="margin-bottom:14px;padding-bottom:10px;">
           <div>
-            <span class="section-tag">홍보물 및 카드뉴스 갤러리</span>
-            <h2 class="section-title">제18대 Duet 홍보물 · 카드뉴스 · 공고문 전체 갤러리 (${eventsWithImages.length}개 행사)</h2>
-            <p class="section-subtitle">카드를 클릭하면 해당 월의 캘린더 상세 뷰(전체 슬라이드 + 실제 공지글 + 당시 생각)로 이동합니다.</p>
+            <span class="section-tag">전체 홍보물 비주얼 모음</span>
+            <h3 class="section-title" style="font-size:18px;">카드뉴스 및 포스터 갤러리 (${eventsWithImages.length}개 행사)</h3>
+            <p class="section-subtitle">카드를 클릭하면 해당 월의 캘린더 상세 패널(전체 슬라이드 + 실제 공지글 + 당시 생각)로 즉시 이동합니다.</p>
           </div>
         </div>
         <div class="promo-gallery-grid">
@@ -1504,8 +1533,9 @@
         }
         renderMainContent();
         setTimeout(() => {
-          const tl = document.getElementById("calTimeline");
+          const tl = document.getElementById("cal_timeline_section");
           if (tl) {
+            toggleCollapsibleElement(tl, false);
             const y = tl.getBoundingClientRect().top + window.scrollY - 80;
             window.scrollTo({ top: y, behavior: "smooth" });
           }
@@ -1572,33 +1602,56 @@
       if (activeEv) openNoticeEditModal(activeEv.id);
     });
 
-    // Monthly report carousels
+    // Monthly report local carousel update function without page re-render
+    function updateMonthlySlide(repId, targetIdx) {
+      const rep = appData.monthlyReports.find((r) => r.id === repId);
+      if (!rep || !rep.images || rep.images.length === 0) return;
+      const len = rep.images.length;
+      const safeIdx = ((targetIdx % len) + len) % len;
+      state.monthlySlideIdx[repId] = safeIdx;
+
+      const card = document.querySelector(`[data-report-card="${repId}"]`);
+      if (!card) return;
+
+      const imgEl = card.querySelector(".carousel-stage img");
+      if (imgEl) {
+        imgEl.src = rep.images[safeIdx];
+        imgEl.setAttribute("data-zoom-idx", safeIdx);
+      }
+
+      card.querySelectorAll(`[data-zoom-report="${repId}"]`).forEach((btn) => {
+        btn.setAttribute("data-zoom-idx", safeIdx);
+      });
+
+      card.querySelectorAll("[data-rep-thumb]").forEach((thumb) => {
+        const idx = Number(thumb.getAttribute("data-rep-idx"));
+        thumb.classList.toggle("active", idx === safeIdx);
+      });
+    }
+
+    // Monthly report carousels - local DOM updates without page re-render
     document.querySelectorAll("[data-rep-prev]").forEach((btn) => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
         const repId = btn.getAttribute("data-rep-prev");
-        const rep = appData.monthlyReports.find((r) => r.id === repId);
-        if (!rep) return;
         const cur = state.monthlySlideIdx[repId] || 0;
-        state.monthlySlideIdx[repId] = (cur - 1 + rep.images.length) % rep.images.length;
-        renderMainContent();
+        updateMonthlySlide(repId, cur - 1);
       });
     });
     document.querySelectorAll("[data-rep-next]").forEach((btn) => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
         const repId = btn.getAttribute("data-rep-next");
-        const rep = appData.monthlyReports.find((r) => r.id === repId);
-        if (!rep) return;
         const cur = state.monthlySlideIdx[repId] || 0;
-        state.monthlySlideIdx[repId] = (cur + 1) % rep.images.length;
-        renderMainContent();
+        updateMonthlySlide(repId, cur + 1);
       });
     });
     document.querySelectorAll("[data-rep-thumb]").forEach((thumb) => {
-      thumb.addEventListener("click", () => {
+      thumb.addEventListener("click", (e) => {
+        e.stopPropagation();
         const repId = thumb.getAttribute("data-rep-thumb");
         const idx = Number(thumb.getAttribute("data-rep-idx"));
-        state.monthlySlideIdx[repId] = idx;
-        renderMainContent();
+        updateMonthlySlide(repId, idx);
       });
     });
     document.querySelectorAll("[data-zoom-report]").forEach((el) => {
@@ -1610,7 +1663,7 @@
       });
     });
 
-    // Gallery card click -> open in calendar view
+    // Gallery card click -> open in calendar view with responsive smooth scroll & highlight
     document.querySelectorAll("[data-gallery-open-ev]").forEach((card) => {
       card.addEventListener("click", () => {
         const evId = card.getAttribute("data-gallery-open-ev");
@@ -1622,7 +1675,26 @@
           state.selectedEventId = ev.id;
           state.eventImgIdx = 0;
           renderMainContent();
-          window.scrollTo({ top: 0, behavior: "smooth" });
+
+          setTimeout(() => {
+            const detailEl = document.getElementById("eventDetailPanel");
+            if (detailEl) {
+              detailEl.classList.remove("is-focus-highlight");
+              void detailEl.offsetWidth; // trigger reflow
+              detailEl.classList.add("is-focus-highlight");
+
+              if (window.innerWidth <= 1520) {
+                const y = detailEl.getBoundingClientRect().top + window.scrollY - 76;
+                window.scrollTo({ top: y, behavior: "smooth" });
+              } else {
+                const gridCard = document.querySelector(".calendar-workspace");
+                if (gridCard) {
+                  const y = gridCard.getBoundingClientRect().top + window.scrollY - 76;
+                  window.scrollTo({ top: y, behavior: "smooth" });
+                }
+              }
+            }
+          }, 40);
         }
       });
     });
@@ -1635,12 +1707,18 @@
     document.getElementById("collapseAllMonthlyReportsBtn")?.addEventListener("click", () => {
       document.querySelectorAll(".monthly-report-box.collapsible").forEach((secEl) => {
         toggleCollapsibleElement(secEl, true);
+        if (secEl.id) {
+          state.collapsedCards[secEl.id] = true;
+        }
       });
     });
 
     document.getElementById("expandAllMonthlyReportsBtn")?.addEventListener("click", () => {
       document.querySelectorAll(".monthly-report-box.collapsible").forEach((secEl) => {
         toggleCollapsibleElement(secEl, false);
+        if (secEl.id) {
+          state.collapsedCards[secEl.id] = false;
+        }
       });
     });
   }
@@ -1830,6 +1908,11 @@ function toggleCollapsibleElement(secEl, forceState) {
       secEl.classList.add("collapsed");
     } else {
       secEl.classList.remove("collapsed");
+    }
+
+    if (secEl.id) {
+      state.collapsedCards = state.collapsedCards || {};
+      state.collapsedCards[secEl.id] = shouldCollapse;
     }
 
     const btn = secEl.querySelector(".section-toggle-btn");
