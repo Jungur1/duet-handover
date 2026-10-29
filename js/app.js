@@ -686,7 +686,7 @@
             <img src="assets/images/brand/duet_logo.jpg" alt="제18대 학생회 Duet 심볼" class="hero-brand-logo">
           </div>
           <div class="hero-main-content">
-            <div class="hero-eyebrow">고려대학교 자유전공학부 D반 · 제18대 학생회 인수인계 포털</div>
+            <div class="hero-eyebrow">고려대학교 자유전공학부 D반 제18대 학생회 인수인계 포털</div>
         <h1 class="hero-title">제18대 학생회 &lt;Duet&gt; 학생회장단 · 국장단 통합 인수인계서</h1>
         <p class="hero-desc">
           제17대 인수인계서의 기본 업무 매뉴얼을 넘어, <strong>제18대 임기(2025.11.30 ~ 2026.11) 동안 왜 사업을 개편했는지, 당시 학생회장단과 국장단이 어떤 고민과 시행착오를 거쳤는지, 실제 공지글과 홍보물·월간보고는 어떻게 발행되었는지</strong> 모든 맥락을 담은 차기 학생회장단·국장단 전용 웹 포털입니다.
@@ -706,7 +706,7 @@
 
       <!-- Overview Sections Batch Toolbar -->
       <div class="doc-toc-toolbar" style="margin-bottom:18px;">
-        <div style="font-size:14px;font-weight:700;color:var(--text-secondary);">인수인계 포털 홈 주요 섹션</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text-secondary);">주요 섹션 모음</div>
         <div class="doc-batch-controls">
           <button class="btn btn-sm" id="collapseAllOverviewBtn" title="모든 섹션 접기">전체 접기</button>
           <button class="btn btn-sm" id="expandAllOverviewBtn" title="모든 섹션 펼치기">전체 펼치기</button>
@@ -717,7 +717,7 @@
       <div class="doc-section collapsible" id="ov_drive_hub">
         <div class="section-header" data-toggle-doc-section="ov_drive_hub" title="클릭하여 내용 접기 / 펼치기">
           <div class="section-header-text">
-            <span class="section-tag">GOOGLE DRIVE & ARCHIVE HUB</span>
+            <span class="section-tag">자료실 및 원본 드라이브</span>
             <h2 class="section-title">구글폼 모음 드라이브 & 전체 인수인계 자료실 링크</h2>
             <p class="section-subtitle">
               구글폼 사본(수요조사·신청폼·투표폼·만족도조사) 드라이브와 원본 자료실 드라이브 아카이브 링크입니다.
@@ -742,12 +742,12 @@
       <div class="doc-section collapsible" id="ov_greeting">
         <div class="section-header" data-toggle-doc-section="ov_greeting" title="클릭하여 내용 접기 / 펼치기">
           <div class="section-header-text">
-            <span class="section-tag">MESSAGE FROM 18TH DUET</span>
+            <span class="section-tag">18대 학생회장의 말</span>
             <h2 class="section-title">${esc(ov.greeting.title)}</h2>
             <p class="section-subtitle">${esc(ov.greeting.author)}</p>
           </div>
           <div style="display:flex;align-items:center;gap:8px;">
-            <button class="btn btn-crimson" data-jump-tab="calendar">월별 캘린더 & 홍보물 보러가기 →</button>
+            <button class="btn btn-crimson" data-jump-tab="calendar">월별 캘린더 및 홍보물 보기</button>
             <button class="section-toggle-btn" type="button" aria-expanded="true" title="세부 내용 접기 / 펼치기">
               <span class="toggle-text">접기</span>
               <span class="toggle-icon">▲</span>
@@ -763,23 +763,27 @@
             <div class="callout-body" data-editable="true" data-edit-key="overview_greeting">${esc(greetingBody)}</div>
           </div>
 
-          <h3 class="sub-heading" style="margin-top:24px;">차기 학생회장단 · 국장단을 위한 사이트 활용 팁</h3>
-          <div class="stats-grid" style="margin-bottom:0;">
-            <div class="stat-card" style="cursor:pointer;" data-jump-tab="presidency">
-              <div style="font-size:18px;font-weight:800;color:var(--crimson);margin-bottom:4px;">학생회장단 인수인계서</div>
-              <p style="font-size:13px;color:var(--text-secondary);">반운위/확운위/학생총회 진행 스크립트, 선거 소명 자료, 예결산 3대 장부, 과잠·돕바 공구, 연세대 교류반·일일호프 총괄 노하우</p>
+          <h3 class="sub-heading" style="margin-top:24px;">국서별 핵심 실무 인수인계서 안내</h3>
+          <div class="dept-guide-grid" style="margin-bottom:0;">
+            <div class="dept-guide-card" data-jump-tab="presidency" tabindex="0" role="button">
+              <div class="dept-badge dept-badge-pres">회장단 실무</div>
+              <h4 class="dept-card-title">학생회장단 인수인계서</h4>
+              <p class="dept-card-desc">반운위/확운위/학생총회 진행 스크립트, 선거 소명 자료, 예결산 3대 장부, 과잠·돕바 공구, 연세대 교류반·일일호프 총괄 노하우</p>
             </div>
-            <div class="stat-card" style="cursor:pointer;" data-jump-tab="planning">
-              <div style="font-size:18px;font-weight:800;color:#2563EB;margin-bottom:4px;">기획국 인수인계서</div>
-              <p style="font-size:13px;color:var(--text-secondary);">스터디윗D 달성+추첨 하이브리드 개편, 친해져도 Dㅐ? 2+2 매칭, 대성리 총MT 답사·예산, 합동응원전·릴스 고연전 실무</p>
+            <div class="dept-guide-card" data-jump-tab="planning" tabindex="0" role="button">
+              <div class="dept-badge">기획국 실무</div>
+              <h4 class="dept-card-title">기획국 인수인계서</h4>
+              <p class="dept-card-desc">스터디윗D 달성+추첨 하이브리드 개편, 친해져도 Dㅐ? 2+2 매칭, 대성리 총MT 답사·예산, 합동응원전·릴스 고연전 실무</p>
             </div>
-            <div class="stat-card" style="cursor:pointer;" data-jump-tab="welfare">
-              <div style="font-size:18px;font-weight:800;color:#059669;margin-bottom:4px;">복지국 인수인계서</div>
-              <p style="font-size:13px;color:var(--text-secondary);">복지국 전면 개편, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여, 간식 사전 수요조사</p>
+            <div class="dept-guide-card" data-jump-tab="welfare" tabindex="0" role="button">
+              <div class="dept-badge">복지국 실무</div>
+              <h4 class="dept-card-title">복지국 인수인계서</h4>
+              <p class="dept-card-desc">복지국 전면 개편, 반실 가구 재배치 및 17만 원 비품 확충, 우산·보조배터리 무보증금 대여, 간식 사전 수요조사</p>
             </div>
-            <div class="stat-card" style="cursor:pointer;" data-jump-tab="pr">
-              <div style="font-size:18px;font-weight:800;color:#9333EA;margin-bottom:4px;">홍보국 인수인계서</div>
-              <p style="font-size:13px;color:var(--text-secondary);">음악 플레이어 컨셉 월간보고 정례화, 미리캔버스 구독 지원, 반실 QR 피드백 개편과 익명성 vs 회비 딜레마 교훈</p>
+            <div class="dept-guide-card" data-jump-tab="pr" tabindex="0" role="button">
+              <div class="dept-badge">홍보국 실무</div>
+              <h4 class="dept-card-title">홍보국 인수인계서</h4>
+              <p class="dept-card-desc">음악 플레이어 컨셉 월간보고 정례화, 미리캔버스 구독 지원, 반실 QR 피드백 개편과 익명성 vs 회비 딜레마 교훈</p>
             </div>
           </div>
         </div>
@@ -789,7 +793,7 @@
       <div class="doc-section collapsible" id="ov_key_changes">
         <div class="section-header" data-toggle-doc-section="ov_key_changes" title="클릭하여 내용 접기 / 펼치기">
           <div class="section-header-text">
-            <span class="section-tag">17대(도약) → 18대(Duet) 핵심 변화 요약</span>
+            <span class="section-tag">17대 대비 주요 변화</span>
             <h2 class="section-title">제18대 Duet에서 새롭게 개편·신설된 핵심 사항 한눈에 보기</h2>
             <p class="section-subtitle">전대(17대) 인수인계서와 비교했을 때 18대에서 왜, 어떻게 달라졌는지 국서별로 요약했습니다.</p>
           </div>
@@ -882,7 +886,7 @@
       <div class="doc-section collapsible" id="cal_controls_section" style="padding:20px 24px;margin-bottom:18px;">
         <div class="section-header" data-toggle-doc-section="cal_controls_section" title="클릭하여 필터 접기 / 펼치기" style="margin-bottom:14px;padding-bottom:12px;">
           <div class="section-header-text">
-            <span class="section-tag">INTERACTIVE ARCHIVE · 2025.11 ~ 2026.11 · 노션 일정 ${appData.calendarEvents.length}건</span>
+            <span class="section-tag">2025.11 – 2026.11 연간 일정 (${appData.calendarEvents.length}건)</span>
             <h2 class="section-title">월별 캘린더 · 홍보물 카드뉴스 · 실제 공지글 · 월간보고 아카이브</h2>
             <p class="section-subtitle">
               달력의 각 행사를 클릭하면 우측 패널에서 <strong>당시 제작한 홍보물/카드뉴스 원본 이미지</strong>와 <strong>카카오톡 공지방에 실제로 올린 공지글 전문(복사 가능)</strong>, 그리고 <strong>당시 18대의 생각/고려사항</strong>을 함께 확인할 수 있습니다.
@@ -1420,7 +1424,7 @@
       <div class="doc-section">
         <div class="section-header">
           <div>
-            <span class="section-tag">PROMO & NOTICE GALLERY</span>
+            <span class="section-tag">홍보물 및 카드뉴스 갤러리</span>
             <h2 class="section-title">제18대 Duet 홍보물 · 카드뉴스 · 공고문 전체 갤러리 (${eventsWithImages.length}개 행사)</h2>
             <p class="section-subtitle">카드를 클릭하면 해당 월의 캘린더 상세 뷰(전체 슬라이드 + 실제 공지글 + 당시 생각)로 이동합니다.</p>
           </div>
@@ -1754,7 +1758,7 @@
           <section class="doc-section collapsible" id="rel_promos_${tabId}">
             <div class="section-header" data-toggle-doc-section="rel_promos_${tabId}" title="클릭하여 내용 접기 / 펼치기">
               <div class="section-header-text">
-                <span class="section-tag">RELATED PROMOS & NOTICES</span>
+                <span class="section-tag">관련 홍보물 및 공지글</span>
                 <h2 class="section-title">이 부서의 실제 홍보물 · 카드뉴스 · 공지글 바로 보기 (${relEvents.length}건)</h2>
                 <p class="section-subtitle">클릭하면 월별 캘린더의 해당 행사 상세 화면(전체 카드뉴스 슬라이드 + 실제 공지글 전문)으로 연결됩니다.</p>
               </div>

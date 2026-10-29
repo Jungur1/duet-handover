@@ -819,6 +819,7 @@ body.sidebar-collapsed .main-area {
   border-radius: 6px;
   background: var(--crimson-soft);
   color: var(--crimson);
+  letter-spacing: -0.01em;
   margin-bottom: 6px;
 }
 .section-title {
@@ -928,6 +929,70 @@ body.edit-mode [data-editable="true"] {
 body.edit-mode [data-editable="true"]:focus {
   outline: 2px solid var(--crimson);
   background: var(--surface);
+}
+
+/* Department Guide Cards (Overview) - Distinctive Editorial Style */
+.dept-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 10px;
+}
+@media (max-width: 768px) {
+  .dept-guide-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.dept-guide-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  user-select: none;
+}
+.dept-guide-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--crimson);
+  box-shadow: var(--shadow-sm);
+}
+.dept-guide-card:focus-visible {
+  outline: 2px solid var(--crimson);
+  outline-offset: 2px;
+}
+.dept-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2.5px 8px;
+  border-radius: 4px;
+  letter-spacing: -0.01em;
+  background: var(--surface-alt);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+.dept-badge-pres {
+  background: var(--crimson-soft);
+  color: var(--crimson);
+  border-color: rgba(155, 17, 39, 0.25);
+}
+.dept-card-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.dept-card-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
 }
 
 /* Stats & Org Grid */
