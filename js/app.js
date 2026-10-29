@@ -512,6 +512,23 @@
       });
     });
 
+    // Bind calendar sub-mode clicks in sidebar
+    navContainer.querySelectorAll("[data-cal-mode]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const mode = el.getAttribute("data-cal-mode");
+        state.calSubView = mode;
+        if (state.currentTab !== "calendar") {
+          switchTab("calendar");
+        } else {
+          renderSidebar();
+          renderMainContent();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+        document.getElementById("sidebar")?.classList.remove("open");
+      });
+    });
+
     // Bind sub-nav fold/unfold toggle
     navContainer.querySelectorAll("[data-toggle-subnav]").forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -529,14 +546,24 @@
       ${state.subNavCollapsed ? "▸ 세부 목차 펼치기" : "▾ 세부 목차 접기"}
     </button>`;
 
+    if (tabId === "calendar") {
+      const repCount = (appData && Array.isArray(appData.monthlyReports)) ? appData.monthlyReports.length : 9;
+      return `${toggleBtnHtml}<ul class="sub-nav-list ${collapsedClass}">
+        <li class="sub-nav-item ${state.calSubView === "calendar" ? "active" : ""}" data-cal-mode="calendar">월별 캘린더 & 공지글 뷰</li>
+        <li class="sub-nav-item ${state.calSubView === "monthly" ? "active" : ""}" data-cal-mode="monthly">월간보고 슬라이드 (${repCount}호)</li>
+        <li class="sub-nav-item ${state.calSubView === "gallery" ? "active" : ""}" data-cal-mode="gallery">홍보물·카드뉴스 전체 갤러리</li>
+      </ul>`;
+    }
+
+    if (tabId === "overview") {
+      return `${toggleBtnHtml}<ul class="sub-nav-list ${collapsedClass}">
+        <li class="sub-nav-item" data-scroll-to="ov_drive_hub">구글폼 & 인수인계 자료실 드라이브</li>
+        <li class="sub-nav-item" data-scroll-to="ov_greeting">18대 학생회장 인사말 & 국서별 안내</li>
+        <li class="sub-nav-item" data-scroll-to="ov_key_changes">17대 대비 주요 변화 요약</li>
+      </ul>`;
+    }
+
     if (!Array.isArray(sections) || sections.length === 0) {
-      if (tabId === "calendar") {
-        return `${toggleBtnHtml}<ul class="sub-nav-list ${collapsedClass}">
-          <li class="sub-nav-item" data-cal-mode="calendar">월별 캘린더 & 공지글 뷰</li>
-          <li class="sub-nav-item" data-cal-mode="monthly">월간보고 슬라이드 (1~8월 · 7호)</li>
-          <li class="sub-nav-item" data-cal-mode="gallery">홍보물·카드뉴스 전체 갤러리</li>
-        </ul>`;
-      }
       return "";
     }
     let subHtml = `${toggleBtnHtml}<ul class="sub-nav-list ${collapsedClass}">`;
@@ -564,15 +591,6 @@
     renderSidebar();
     renderMainContent();
     window.scrollTo({ top: 0, behavior: "smooth" });
-
-    // Bind calendar sub-mode clicks in sidebar if on calendar tab
-    document.querySelectorAll("[data-cal-mode]").forEach((el) => {
-      el.addEventListener("click", (e) => {
-        e.stopPropagation();
-        state.calSubView = el.getAttribute("data-cal-mode");
-        renderMainContent();
-      });
-    });
   }
 
   // Main Content Router
@@ -1474,6 +1492,7 @@
     document.querySelectorAll("[data-subview]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.calSubView = btn.getAttribute("data-subview");
+        renderSidebar();
         renderMainContent();
       });
     });
@@ -1674,6 +1693,7 @@
           state.selectedCat = "all";
           state.selectedEventId = ev.id;
           state.eventImgIdx = 0;
+          renderSidebar();
           renderMainContent();
 
           setTimeout(() => {

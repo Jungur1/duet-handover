@@ -498,6 +498,11 @@ body.sidebar-collapsed .mobile-menu-btn {
   color: var(--crimson);
   background: var(--surface-alt);
 }
+.sub-nav-item.active {
+  color: var(--crimson);
+  font-weight: 700;
+  background: var(--crimson-soft);
+}
 
 .sidebar-brand-avatar {
   width: 34px;
