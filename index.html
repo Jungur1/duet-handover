@@ -12,7 +12,7 @@
   <meta property="og:image" content="assets/images/promo/mt_poster.jpg">
   <link rel="icon" type="image/jpeg" href="assets/images/brand/duet_logo.jpg">
   <link rel="apple-touch-icon" href="assets/images/brand/duet_logo.jpg">
-  <link rel="stylesheet" href="css/style.css?v=21">
+  <link rel="stylesheet" href="css/style.css?v=22">
   <style>
     body:not(.admin-mode) .admin-only { display: none !important; }
   </style>
@@ -33,25 +33,26 @@
 
     <div class="header-actions">
       <button class="search-trigger" id="openSearchBtn" title="전체 인수인계 문서 및 공지글 검색 (Ctrl+K)">
-        <span>사업·회칙·공지글 통합 검색...</span>
-        <kbd>Ctrl K</kbd>
+        <span class="search-icon-symbol">🔍</span>
+        <span class="search-text">사업·회칙·공지글 통합 검색...</span>
+        <kbd class="hide-mobile">Ctrl K</kbd>
       </button>
-      <button class="btn admin-only" id="openNotionSyncBtn" title="노션(Notion) 데이터베이스 일정을 월별 캘린더로 불러와 병합합니다">
+      <button class="btn admin-only hide-mobile" id="openNotionSyncBtn" title="노션(Notion) 데이터베이스 일정을 월별 캘린더로 불러와 병합합니다">
         노션 동기화
       </button>
-      <button class="btn admin-only" id="openDriveConfigBtn" title="구글폼 모음 드라이브 및 전체 자료실 링크 설정">
+      <button class="btn admin-only hide-mobile" id="openDriveConfigBtn" title="구글폼 모음 드라이브 및 전체 자료실 링크 설정">
         드라이브 링크 설정
       </button>
-      <button class="btn admin-only" id="editModeToggleBtn" title="당시 내 생각·고려사항·공지글을 웹에서 직접 수정합니다">
+      <button class="btn admin-only hide-mobile" id="editModeToggleBtn" title="당시 내 생각·고려사항·공지글을 웹에서 직접 수정합니다">
         코멘트/공지 편집
       </button>
-      <button class="btn btn-crimson admin-only" id="exportDataJsBtn" title="웹에서 수정한 링크와 코멘트를 data.js 파일로 저장합니다">
+      <button class="btn btn-crimson admin-only hide-mobile" id="exportDataJsBtn" title="웹에서 수정한 링크와 코멘트를 data.js 파일로 저장합니다">
         수정본 data.js 저장
       </button>
-      <div class="role-status-badge" id="roleStatusBadge" title="현재 인증된 직위">
+      <div class="role-status-badge" id="roleStatusBadge" title="현재 인증된 직위 (클릭 시 직위 변경)">
         <span class="role-name" id="roleName">직위 미선택</span>
       </div>
-      <button class="btn" id="roleChangeBtn" title="직위를 변경하거나 다른 계정으로 로그인합니다">
+      <button class="btn hide-mobile" id="roleChangeBtn" title="직위를 변경하거나 다른 계정으로 로그인합니다">
         직위 변경
       </button>
       <button class="btn" id="themeToggleBtn" title="다크 모드 / 라이트 모드 전환">
@@ -221,10 +222,13 @@
       <p class="body-text" style="font-size:13px;">
         방문자 모드에서는 모든 문서·캘린더·공지글 열람만 가능하며 수정이 잠겨 있습니다. 링크 설정이나 코멘트/공지글 수정을 위해 관리자 비밀번호를 입력해 주세요.
       </p>
-      <div class="form-group">
-        <label>관리자 비밀번호</label>
-        <input type="password" id="adminPasswordInput" placeholder="비밀번호를 입력하세요">
-      </div>
+      <form onsubmit="return false;">
+        <input type="text" name="username" autocomplete="username" style="display:none;" tabindex="-1" aria-hidden="true">
+        <div class="form-group">
+          <label for="adminPasswordInput">관리자 비밀번호</label>
+          <input type="password" id="adminPasswordInput" placeholder="비밀번호를 입력하세요" autocomplete="current-password">
+        </div>
+      </form>
       <div style="margin-top:10px;padding:10px 12px;border-radius:8px;background:var(--surface-alt);border:1px solid var(--border);font-size:12px;color:var(--text-secondary);">
         <strong>내 PC 설정 파일 연동 (선택):</strong> 로컬의 <code>js/config.local.js</code> 파일을 한 번 선택하면 이 브라우저에만 기억되어(GitHub 미업로드) 노션 API 키·비밀번호가 자동 연동됩니다.
         <div style="margin-top:6px;">
@@ -248,14 +252,17 @@
       <p class="body-text" style="font-size:13px;">
         노션 API 통합 토큰(Integration Token)과 캘린더 데이터베이스 링크(또는 ID)를 입력하면, 노션의 모든 일정을 불러와 <strong>기존 홍보물 이미지·공지글·18대 코멘트와 자동으로 병합</strong>합니다. 병합 후 상단 <strong>[수정본 data.js 저장]</strong>을 누르면 방문자에게도 영구 반영됩니다.
       </p>
-      <div class="form-group">
-        <label>노션 API 토큰 (Internal Integration Secret)</label>
-        <input type="password" id="notionTokenInput" placeholder="ntn_... 또는 secret_...">
-      </div>
-      <div class="form-group">
-        <label>노션 캘린더 데이터베이스 링크 또는 32자리 ID</label>
-        <input type="text" id="notionDbIdInput" placeholder="https://www.notion.so/... 또는 32자리 데이터베이스 ID">
-      </div>
+      <form onsubmit="return false;">
+        <input type="text" name="username" autocomplete="username" style="display:none;" tabindex="-1" aria-hidden="true">
+        <div class="form-group">
+          <label for="notionTokenInput">노션 API 토큰 (Internal Integration Secret)</label>
+          <input type="password" id="notionTokenInput" placeholder="ntn_... 또는 secret_..." autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="notionDbIdInput">노션 캘린더 데이터베이스 링크 또는 32자리 ID</label>
+          <input type="text" id="notionDbIdInput" placeholder="https://www.notion.so/... 또는 32자리 데이터베이스 ID">
+        </div>
+      </form>
       <div id="notionSyncStatus" style="font-size:13px;color:var(--text-secondary);margin:10px 0;"></div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;">
         <button class="btn" data-close-modal="notionSyncModal">닫기</button>
@@ -313,6 +320,7 @@
 
       <!-- Password Input Form -->
       <form class="auth-gate-form" id="authGateForm" onsubmit="return false;">
+        <input type="text" name="username" autocomplete="username" style="display:none;" tabindex="-1" aria-hidden="true">
         <div class="form-group">
           <label for="authPasswordInput" id="authPasswordLabel">선택한 직위의 접속 비밀번호</label>
           <div class="password-input-wrap">
@@ -424,8 +432,8 @@
       document.write('<script src="js/config.local.js" onerror="this.remove()"><\/script>');
     }
   </script>
-  <script src="js/data.js?v=21"></script>
-  <script src="js/sections_data.js?v=21"></script>
-  <script src="js/app.js?v=21"></script>
+  <script src="js/data.js?v=22"></script>
+  <script src="js/sections_data.js?v=22"></script>
+  <script src="js/app.js?v=22"></script>
 </body>
 </html>
