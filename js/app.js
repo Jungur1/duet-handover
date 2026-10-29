@@ -988,6 +988,7 @@
 
     // Check if there is a monthly report corresponding to this month
     const monthReportMap = {
+      "2025-12": "m12",
       "2026-01": "m01",
       "2026-02": "m02",
       "2026-03": "m03",
@@ -995,7 +996,8 @@
       "2026-05": "m05",
       "2026-06": "m06",
       "2026-07": "m0708",
-      "2026-08": "m0708"
+      "2026-08": "m0708",
+      "2026-10": "m10"
     };
     const reportId = monthReportMap[monthObj.key];
     const reportObj = reportId ? appData.monthlyReports.find((r) => r.id === reportId) : null;
@@ -1249,21 +1251,14 @@
     const imgs = rep.images || [];
     const safeIdx = Math.min(Math.max(0, curIdx), Math.max(0, imgs.length - 1));
 
-    return `
-      <div class="monthly-report-box" data-report-card="${esc(rep.id)}">
-        <div class="section-header" style="margin-bottom:14px;padding-bottom:10px;">
-          <div>
-            <span class="section-tag">MONTHLY REPORT · ${esc(rep.uploadDate)} 업로드</span>
-            <h3 class="section-title" style="font-size:18px;">${esc(rep.title)} (${imgs.length}장)</h3>
-          </div>
-          <button class="btn" data-zoom-report="${esc(rep.id)}" data-zoom-idx="${safeIdx}">슬라이드 확대</button>
-        </div>
-
+    let carouselHtml = "";
+    if (imgs.length > 0) {
+      carouselHtml = `
         <div class="media-carousel">
           <div class="carousel-stage">
-            <button class="carousel-nav-btn prev" data-rep-prev="${esc(rep.id)}">❮</button>
+            ${imgs.length > 1 ? `<button class="carousel-nav-btn prev" data-rep-prev="${esc(rep.id)}">❮</button>` : ""}
             <img src="${esc(imgs[safeIdx])}" alt="${esc(rep.title)}" data-zoom-report="${esc(rep.id)}" data-zoom-idx="${safeIdx}">
-            <button class="carousel-nav-btn next" data-rep-next="${esc(rep.id)}">❯</button>
+            ${imgs.length > 1 ? `<button class="carousel-nav-btn next" data-rep-next="${esc(rep.id)}">❯</button>` : ""}
           </div>
           <div class="carousel-thumbs">
             ${imgs
@@ -1274,6 +1269,34 @@
               .join("")}
           </div>
         </div>
+      `;
+    } else {
+      carouselHtml = `
+        <div style="padding:28px 20px;background:var(--surface-alt);border:1px dashed var(--border-strong);border-radius:10px;text-align:center;margin:12px 0;">
+          <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;">카드뉴스 제작 진행 중</div>
+          <p style="font-size:12.5px;color:var(--text-muted);margin:0;line-height:1.6;">
+            10월 집행위원회 월간보고 카드뉴스는 현재 홍보국에서 제작 중입니다.<br>
+            완성되는 대로 캘린더 행사 상세 패널의 [카드뉴스 관리]를 통해 즉시 등록하실 수 있습니다.
+          </p>
+        </div>
+      `;
+    }
+
+    const hasUpload = !rep.uploadDate.includes("제작 중") && !rep.uploadDate.includes("발행 예정");
+    const tagText = hasUpload ? `MONTHLY REPORT · ${esc(rep.uploadDate)} 업로드` : `MONTHLY REPORT · ${esc(rep.uploadDate)}`;
+    const countBadge = imgs.length > 0 ? ` (${imgs.length}장)` : " (카드뉴스 제작 중)";
+
+    return `
+      <div class="monthly-report-box" data-report-card="${esc(rep.id)}">
+        <div class="section-header" style="margin-bottom:14px;padding-bottom:10px;">
+          <div>
+            <span class="section-tag">${tagText}</span>
+            <h3 class="section-title" style="font-size:18px;">${esc(rep.title)}${countBadge}</h3>
+          </div>
+          ${imgs.length > 0 ? `<button class="btn" data-zoom-report="${esc(rep.id)}" data-zoom-idx="${safeIdx}">슬라이드 확대</button>` : `<span class="badge" style="background:var(--surface-alt);border:1px solid var(--border);font-size:11.5px;padding:4px 8px;border-radius:6px;color:var(--text-muted);">업로드 대기 중</span>`}
+        </div>
+
+        ${carouselHtml}
 
         <div class="table-wrap" style="margin-top:12px;">
           <table class="doc-table">
@@ -1512,7 +1535,7 @@
         const repId = el.getAttribute("data-zoom-report");
         const idx = Number(el.getAttribute("data-zoom-idx") || 0);
         const rep = appData.monthlyReports.find((r) => r.id === repId);
-        if (rep) openLightbox(rep.images, idx);
+        if (rep && rep.images && rep.images.length > 0) openLightbox(rep.images, idx);
       });
     });
 
