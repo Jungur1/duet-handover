@@ -10,7 +10,9 @@
   <meta property="og:title" content="고려대학교 자유전공학부 D반 제18대 학생회 Duet 인수인계 포털">
   <meta property="og:description" content="제18대 Duet 학생회장단·국장단 통합 인수인계 아카이브 (캘린더·공지글·홍보물·의결기구·실무매뉴얼)">
   <meta property="og:image" content="assets/images/promo/mt_poster.jpg">
-  <link rel="stylesheet" href="css/style.css?v=9">
+  <link rel="icon" type="image/jpeg" href="assets/images/brand/duet_logo.jpg">
+  <link rel="apple-touch-icon" href="assets/images/brand/duet_logo.jpg">
+  <link rel="stylesheet" href="css/style.css?v=10">
   <style>
     body:not(.admin-mode) .admin-only { display: none !important; }
   </style>
@@ -21,8 +23,9 @@
   <header class="top-header">
     <div class="brand-area">
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="목차 사이드바 열기 / 닫기" aria-expanded="true" title="목차 사이드바 접기 / 펼치기">목차</button>
-      <a href="#overview" style="text-decoration:none;display:flex;align-items:center;gap:10px;">
-        <span class="brand-badge">KU 자유전공학부 D반</span>
+      <a href="#overview" class="brand-header-link" style="text-decoration:none;display:flex;align-items:center;gap:10px;">
+        <img src="assets/images/brand/duet_logo.jpg" alt="Duet 로고" class="brand-logo-img">
+        <span class="brand-badge">자유전공학부 D반</span>
         <span class="brand-title">제18대 학생회 &lt;Duet&gt; 인수인계 포털</span>
       </a>
       <span class="brand-sub">차기 학생회장단 · 국장단(기획·복지·홍보) 통합 매뉴얼</span>
@@ -68,7 +71,13 @@
       <div id="sidebarNav" style="display:flex;flex-direction:column;gap:16px;"></div>
 
       <div class="sidebar-footer">
-        <div style="font-weight:700;color:var(--text);margin-bottom:4px;">제18대 학생회 &lt;Duet&gt;</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <img src="assets/images/brand/duet_logo.jpg" alt="Duet 로고" class="sidebar-brand-avatar">
+          <div>
+            <div style="font-weight:700;color:var(--text);font-size:13.5px;line-height:1.2;">제18대 학생회 &lt;Duet&gt;</div>
+            <div style="font-size:11.5px;color:var(--text-muted);margin-top:2px;">자유전공학부 D반</div>
+          </div>
+        </div>
         <div>임기: 2025.11.30 ~ 2026.11</div>
         <div>학생회장: 원준혁 (010-3516-3561)</div>
         <div>부학생회장: 우상준</div>
@@ -259,6 +268,9 @@
   <div class="modal-backdrop auth-gate-backdrop" id="authGateModal">
     <div class="modal-card auth-gate-card">
       <div class="auth-gate-header">
+        <div style="display:flex;justify-content:center;margin-bottom:14px;">
+          <img src="assets/images/brand/duet_logo.jpg" alt="Duet 엠블럼" class="auth-brand-logo">
+        </div>
         <div class="auth-gate-badge">고려대학교 자유전공학부 D반 제18대 학생회 &lt;Duet&gt;</div>
         <h2 class="auth-gate-title">인수인계 포털 열람 권한 확인</h2>
         <p class="auth-gate-subtitle">보안 및 개인정보 보호를 위해 본인의 <strong>직위</strong>를 선택하고 부여받은 <strong>접속 비밀번호</strong>를 입력해 주세요.</p>

@@ -35,7 +35,7 @@
       group: "포털 홈 & 아카이브",
       items: [
         { id: "overview", icon: "", label: "인수인계 홈 & 드라이브", badge: "필독" },
-        { id: "calendar", icon: "", label: "월별 캘린더 · 홍보물 · 월간보고", badge: "300건" }
+        { id: "calendar", icon: "", label: "월별 캘린더 · 홍보물 · 월간보고" }
       ]
     },
     {
@@ -47,9 +47,9 @@
     {
       group: "집행위원회 국장단 인수인계",
       items: [
-        { id: "planning", icon: "", label: "기획국 인수인계서", badge: "6대 사업" },
-        { id: "welfare", icon: "", label: "복지국 인수인계서", badge: "5대 사업" },
-        { id: "pr", icon: "", label: "홍보국 인수인계서", badge: "4대 영역" }
+        { id: "planning", icon: "", label: "기획국 인수인계서" },
+        { id: "welfare", icon: "", label: "복지국 인수인계서" },
+        { id: "pr", icon: "", label: "홍보국 인수인계서" }
       ]
     },
     {
@@ -679,7 +679,12 @@
     return `
       <!-- Hero Banner -->
       <div class="hero-card">
-        <div class="hero-eyebrow">고려대학교 자유전공학부 D반 · 제18대 학생회 인수인계 포털</div>
+        <div class="hero-header-layout">
+          <div class="hero-logo-container">
+            <img src="assets/images/brand/duet_logo.jpg" alt="제18대 학생회 Duet 심볼" class="hero-brand-logo">
+          </div>
+          <div class="hero-main-content">
+            <div class="hero-eyebrow">고려대학교 자유전공학부 D반 · 제18대 학생회 인수인계 포털</div>
         <h1 class="hero-title">제18대 학생회 &lt;Duet&gt; 학생회장단 · 국장단 통합 인수인계서</h1>
         <p class="hero-desc">
           제17대 인수인계서의 기본 업무 매뉴얼을 넘어, <strong>제18대 임기(2025.11.30 ~ 2026.11) 동안 왜 사업을 개편했는지, 당시 학생회장단과 국장단이 어떤 고민과 시행착오를 거쳤는지, 실제 공지글과 홍보물·월간보고는 어떻게 발행되었는지</strong> 모든 맥락을 담은 차기 학생회장단·국장단 전용 웹 포털입니다.
@@ -690,6 +695,8 @@
           <span class="hero-chip">기획: ${esc(meta.departments.planning)}</span>
           <span class="hero-chip">복지: ${esc(meta.departments.welfare)}</span>
           <span class="hero-chip">홍보: ${esc(meta.departments.pr)}</span>
+        </div>
+          </div>
         </div>
       </div>
 
