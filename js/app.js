@@ -503,17 +503,7 @@
         const targetId = el.getAttribute("data-scroll-to");
         const targetEl = document.getElementById(targetId);
         if (targetEl) {
-          if (targetEl.classList.contains("collapsed")) {
-            targetEl.classList.remove("collapsed");
-            const btn = targetEl.querySelector(".section-toggle-btn");
-            if (btn) {
-              btn.setAttribute("aria-expanded", "true");
-              const tSpan = btn.querySelector(".toggle-text");
-              const iSpan = btn.querySelector(".toggle-icon");
-              if (tSpan) tSpan.textContent = "접기";
-              if (iSpan) iSpan.textContent = "▲";
-            }
-          }
+          toggleCollapsibleElement(targetEl, false);
           const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
           window.scrollTo({ top: y, behavior: "smooth" });
         }
@@ -1851,54 +1841,24 @@ function toggleCollapsibleElement(secEl, forceState) {
       header._collapsibleBound = true;
 
       header.addEventListener("click", (e) => {
-        if (e.target.closest("a, input, select, textarea, .btn:not(.section-toggle-btn)")) return;
+        if (e.target.closest("a, input, select, textarea, button:not(.section-toggle-btn), .btn:not(.section-toggle-btn)")) return;
         const secId = header.getAttribute("data-toggle-doc-section");
-        const secEl = (secId ? document.getElementById(secId) : null) || header.closest(".collapsible");
+        const secEl = (secId ? document.getElementById(secId) : null) || header.closest(".collapsible, .doc-section");
         toggleCollapsibleElement(secEl);
       });
     });
   }
 
   function bindDocSectionEvents() {
-    function toggleDocSectionEl(secEl, forceState) {
-      if (!secEl) return;
-      const isCurrentlyCollapsed = secEl.classList.contains("collapsed");
-      const shouldCollapse = forceState !== undefined ? forceState : !isCurrentlyCollapsed;
-
-      if (shouldCollapse) {
-        secEl.classList.add("collapsed");
-      } else {
-        secEl.classList.remove("collapsed");
-      }
-
-      const btn = secEl.querySelector(".section-toggle-btn");
-      if (btn) {
-        btn.setAttribute("aria-expanded", String(!shouldCollapse));
-        const tSpan = btn.querySelector(".toggle-text");
-        const iSpan = btn.querySelector(".toggle-icon");
-        if (tSpan) tSpan.textContent = shouldCollapse ? "펼치기" : "접기";
-        if (iSpan) iSpan.textContent = shouldCollapse ? "▼" : "▲";
-      }
-    }
-
-    document.querySelectorAll("[data-toggle-doc-section]").forEach((header) => {
-      header.addEventListener("click", (e) => {
-        if (e.target.closest("a, input, select, textarea, .btn")) return;
-        const secId = header.getAttribute("data-toggle-doc-section");
-        const secEl = document.getElementById(secId) || header.closest(".doc-section");
-        toggleDocSectionEl(secEl);
-      });
-    });
-
     document.getElementById("collapseAllDocSectionsBtn")?.addEventListener("click", () => {
       document.querySelectorAll(".doc-section.collapsible").forEach((secEl) => {
-        toggleDocSectionEl(secEl, true);
+        toggleCollapsibleElement(secEl, true);
       });
     });
 
     document.getElementById("expandAllDocSectionsBtn")?.addEventListener("click", () => {
       document.querySelectorAll(".doc-section.collapsible").forEach((secEl) => {
-        toggleDocSectionEl(secEl, false);
+        toggleCollapsibleElement(secEl, false);
       });
     });
 
@@ -1913,9 +1873,7 @@ function toggleCollapsibleElement(secEl, forceState) {
         const id = btn.getAttribute("data-doc-jump");
         const el = document.getElementById(id);
         if (el) {
-          if (el.classList.contains("collapsed")) {
-            toggleDocSectionEl(el, false);
-          }
+          toggleCollapsibleElement(el, false);
           const y = el.getBoundingClientRect().top + window.scrollY - 80;
           window.scrollTo({ top: y, behavior: "smooth" });
         }
