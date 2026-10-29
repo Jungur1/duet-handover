@@ -505,6 +505,9 @@
         const targetEl = document.getElementById(targetId);
         if (targetEl) {
           toggleCollapsibleElement(targetEl, false);
+          targetEl.classList.remove("is-focus-highlight");
+          void targetEl.offsetWidth;
+          targetEl.classList.add("is-focus-highlight");
           const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
           window.scrollTo({ top: y, behavior: "smooth" });
         }
@@ -687,9 +690,9 @@
     let keyChangesHtml = "";
     ov.keyChanges.forEach((kc, idx) => {
       keyChangesHtml += `
-        <div class="doc-section" style="padding:20px 24px;margin-bottom:14px;">
-          <div class="section-tag">${esc(kc.dept)}</div>
-          <h3 style="font-size:17px;font-weight:800;margin-bottom:10px;color:var(--text);">${esc(kc.title)}</h3>
+        <div class="keychange-card">
+          <div class="section-tag" style="margin-bottom:6px;">${esc(kc.dept)}</div>
+          <h3 style="font-size:16px;font-weight:800;margin-bottom:10px;color:var(--text);line-height:1.4;">${esc(kc.title)}</h3>
           <ul class="doc-list" data-editable="true" data-edit-key="overview_kc_${idx}">
             ${kc.items.map((item) => `<li>${esc(item)}</li>`).join("")}
           </ul>
@@ -697,8 +700,12 @@
       `;
     });
 
+    const isDriveCollapsed = state.collapsedCards && state.collapsedCards["ov_drive_hub"] === true;
+    const isGreetingCollapsed = state.collapsedCards && state.collapsedCards["ov_greeting"] === true;
+    const isKeyChangesCollapsed = state.collapsedCards && state.collapsedCards["ov_key_changes"] === true;
+
     return `
-      <!-- Hero Banner -->
+      <!-- Hero Banner with Unified Integrated TOC Toolbar -->
       <div class="hero-card">
         <div class="hero-header-layout">
           <div class="hero-logo-container">
@@ -706,38 +713,40 @@
           </div>
           <div class="hero-main-content">
             <div class="hero-eyebrow">고려대학교 자유전공학부 D반 제18대 학생회 인수인계 포털</div>
-        <h1 class="hero-title">제18대 학생회 &lt;Duet&gt; 학생회장단 · 국장단 통합 인수인계서</h1>
-        <p class="hero-desc">
-          제17대 인수인계서의 기본 업무 매뉴얼을 넘어, <strong>제18대 임기(2025.11.30 ~ 2026.11) 동안 왜 사업을 개편했는지, 당시 학생회장단과 국장단이 어떤 고민과 시행착오를 거쳤는지, 실제 공지글과 홍보물·월간보고는 어떻게 발행되었는지</strong> 모든 맥락을 담은 차기 학생회장단·국장단 전용 웹 포털입니다.
-        </p>
-        <div class="hero-masthead">
-          <span class="hero-masthead-item"><span class="hero-masthead-label">학생회장</span> <span class="hero-masthead-value">${esc(meta.president)}</span></span>
-          <span class="hero-masthead-sep">/</span>
-          <span class="hero-masthead-item"><span class="hero-masthead-label">부학생회장</span> <span class="hero-masthead-value">${esc(meta.vicePresident)}</span></span>
-          <span class="hero-masthead-sep">|</span>
-          <span class="hero-masthead-item"><span class="hero-masthead-label">기획국</span> <span class="hero-masthead-value">${esc(meta.departments.planning)}</span></span>
-          <span class="hero-masthead-sep">|</span>
-          <span class="hero-masthead-item"><span class="hero-masthead-label">복지국</span> <span class="hero-masthead-value">${esc(meta.departments.welfare)}</span></span>
-          <span class="hero-masthead-sep">|</span>
-          <span class="hero-masthead-item"><span class="hero-masthead-label">홍보국</span> <span class="hero-masthead-value">${esc(meta.departments.pr)}</span></span>
+            <h1 class="hero-title">제18대 학생회 &lt;Duet&gt; 학생회장단 · 국장단 통합 인수인계서</h1>
+            <p class="hero-desc">
+              제17대 인수인계서의 기본 업무 매뉴얼을 넘어, <strong>제18대 임기(2025.11.30 ~ 2026.11) 동안 왜 사업을 개편했는지, 당시 학생회장단과 국장단이 어떤 고민과 시행착오를 거쳤는지, 실제 공지글과 홍보물·월간보고는 어떻게 발행되었는지</strong> 모든 맥락을 담은 차기 학생회장단·국장단 전용 웹 포털입니다.
+            </p>
+            <div class="hero-masthead">
+              <span class="hero-masthead-item"><span class="hero-masthead-label">학생회장</span> <span class="hero-masthead-value">${esc(meta.president)}</span></span>
+              <span class="hero-masthead-sep">/</span>
+              <span class="hero-masthead-item"><span class="hero-masthead-label">부학생회장</span> <span class="hero-masthead-value">${esc(meta.vicePresident)}</span></span>
+              <span class="hero-masthead-sep">|</span>
+              <span class="hero-masthead-item"><span class="hero-masthead-label">기획국</span> <span class="hero-masthead-value">${esc(meta.departments.planning)}</span></span>
+              <span class="hero-masthead-sep">|</span>
+              <span class="hero-masthead-item"><span class="hero-masthead-label">복지국</span> <span class="hero-masthead-value">${esc(meta.departments.welfare)}</span></span>
+              <span class="hero-masthead-sep">|</span>
+              <span class="hero-masthead-item"><span class="hero-masthead-label">홍보국</span> <span class="hero-masthead-value">${esc(meta.departments.pr)}</span></span>
+            </div>
+          </div>
         </div>
+
+        <!-- Integrated Unified TOC Toolbar -->
+        <div class="doc-toc-toolbar" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
+          <div class="doc-toc-pills" style="display:flex;flex-wrap:wrap;gap:6px;flex:1;">
+            <button class="month-tab" data-doc-jump="ov_drive_hub">구글폼 & 인수인계 자료실 드라이브</button>
+            <button class="month-tab" data-doc-jump="ov_greeting">18대 학생회장의 말 & 국서별 안내</button>
+            <button class="month-tab" data-doc-jump="ov_key_changes">17대 대비 주요 변화 한눈에 보기</button>
+          </div>
+          <div class="doc-batch-controls">
+            <button class="btn btn-sm" id="collapseAllOverviewBtn" title="모든 섹션 접기">전체 접기</button>
+            <button class="btn btn-sm" id="expandAllOverviewBtn" title="모든 섹션 펼치기">전체 펼치기</button>
           </div>
         </div>
       </div>
 
-
-
-      <!-- Overview Sections Batch Toolbar -->
-      <div class="doc-toc-toolbar" style="margin-bottom:18px;">
-        <div style="font-size:14px;font-weight:700;color:var(--text-secondary);">주요 섹션 모음</div>
-        <div class="doc-batch-controls">
-          <button class="btn btn-sm" id="collapseAllOverviewBtn" title="모든 섹션 접기">전체 접기</button>
-          <button class="btn btn-sm" id="expandAllOverviewBtn" title="모든 섹션 펼치기">전체 펼치기</button>
-        </div>
-      </div>
-
       <!-- Drive Links Hub -->
-      <div class="doc-section collapsible" id="ov_drive_hub">
+      <div class="doc-section collapsible ${isDriveCollapsed ? "collapsed" : ""}" id="ov_drive_hub">
         <div class="section-header" data-toggle-doc-section="ov_drive_hub" title="클릭하여 내용 접기 / 펼치기">
           <div class="section-header-text">
             <span class="section-tag">자료실 및 원본 드라이브</span>
@@ -746,15 +755,15 @@
               구글폼 사본(수요조사·신청폼·투표폼·만족도조사) 드라이브와 원본 자료실 드라이브 아카이브 링크입니다.
             </p>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <button class="btn admin-only" id="overviewEditDriveBtn">링크 일괄 설정</button>
-            <button class="section-toggle-btn" type="button" aria-expanded="true" title="세부 내용 접기 / 펼치기">
-              <span class="toggle-text">접기</span>
-              <span class="toggle-icon">▲</span>
-            </button>
-          </div>
+          <button class="section-toggle-btn" type="button" aria-expanded="${isDriveCollapsed ? "false" : "true"}" title="세부 내용 접기 / 펼치기">
+            <span class="toggle-text">${isDriveCollapsed ? "펼치기" : "접기"}</span>
+            <span class="toggle-icon">${isDriveCollapsed ? "▼" : "▲"}</span>
+          </button>
         </div>
         <div class="section-body">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+            <button class="btn btn-sm admin-only" id="overviewEditDriveBtn">링크 일괄 설정</button>
+          </div>
           <div class="drive-hub-grid" style="margin-bottom:0;">
             ${driveCardsHtml}
           </div>
@@ -762,20 +771,17 @@
       </div>
 
       <!-- Greeting & Philosophy -->
-      <div class="doc-section collapsible" id="ov_greeting">
+      <div class="doc-section collapsible ${isGreetingCollapsed ? "collapsed" : ""}" id="ov_greeting">
         <div class="section-header" data-toggle-doc-section="ov_greeting" title="클릭하여 내용 접기 / 펼치기">
           <div class="section-header-text">
             <span class="section-tag">18대 학생회장의 말</span>
             <h2 class="section-title">${esc(ov.greeting.title)}</h2>
             <p class="section-subtitle">${esc(ov.greeting.author)}</p>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <button class="btn btn-crimson" data-jump-tab="calendar">월별 캘린더 및 홍보물 보기</button>
-            <button class="section-toggle-btn" type="button" aria-expanded="true" title="세부 내용 접기 / 펼치기">
-              <span class="toggle-text">접기</span>
-              <span class="toggle-icon">▲</span>
-            </button>
-          </div>
+          <button class="section-toggle-btn" type="button" aria-expanded="${isGreetingCollapsed ? "false" : "true"}" title="세부 내용 접기 / 펼치기">
+            <span class="toggle-text">${isGreetingCollapsed ? "펼치기" : "접기"}</span>
+            <span class="toggle-icon">${isGreetingCollapsed ? "▼" : "▲"}</span>
+          </button>
         </div>
         <div class="section-body">
           <div class="callout callout-thought" style="margin-top:0;">
@@ -784,6 +790,9 @@
               <span class="admin-only" style="font-size:12px;opacity:0.8;">(편집 모드에서 직접 수정 가능)</span>
             </div>
             <div class="callout-body" data-editable="true" data-edit-key="overview_greeting">${esc(greetingBody)}</div>
+            <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);display:flex;justify-content:flex-end;">
+              <button class="btn btn-crimson btn-sm" data-jump-tab="calendar">월별 캘린더 및 홍보물 보기 →</button>
+            </div>
           </div>
 
           <h3 class="sub-heading" style="margin-top:24px;">국서별 핵심 실무 인수인계서 안내</h3>
@@ -813,16 +822,16 @@
       </div>
 
       <!-- 17th vs 18th Key Changes -->
-      <div class="doc-section collapsible" id="ov_key_changes">
+      <div class="doc-section collapsible ${isKeyChangesCollapsed ? "collapsed" : ""}" id="ov_key_changes">
         <div class="section-header" data-toggle-doc-section="ov_key_changes" title="클릭하여 내용 접기 / 펼치기">
           <div class="section-header-text">
             <span class="section-tag">17대 대비 주요 변화</span>
             <h2 class="section-title">제18대 Duet에서 새롭게 개편·신설된 핵심 사항 한눈에 보기</h2>
             <p class="section-subtitle">전대(17대) 인수인계서와 비교했을 때 18대에서 왜, 어떻게 달라졌는지 국서별로 요약했습니다.</p>
           </div>
-          <button class="section-toggle-btn" type="button" aria-expanded="true" title="세부 내용 접기 / 펼치기">
-            <span class="toggle-text">접기</span>
-            <span class="toggle-icon">▲</span>
+          <button class="section-toggle-btn" type="button" aria-expanded="${isKeyChangesCollapsed ? "false" : "true"}" title="세부 내용 접기 / 펼치기">
+            <span class="toggle-text">${isKeyChangesCollapsed ? "펼치기" : "접기"}</span>
+            <span class="toggle-icon">${isKeyChangesCollapsed ? "▼" : "▲"}</span>
           </button>
         </div>
         <div class="section-body">
@@ -849,15 +858,37 @@
       openDriveModal();
     });
 
+    // Jump pills binding (identical to doc sections!)
+    document.querySelectorAll("#mainContent [data-doc-jump]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-doc-jump");
+        const el = document.getElementById(id);
+        if (el) {
+          toggleCollapsibleElement(el, false);
+          el.classList.remove("is-focus-highlight");
+          void el.offsetWidth;
+          el.classList.add("is-focus-highlight");
+          const y = el.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      });
+    });
+
     document.getElementById("collapseAllOverviewBtn")?.addEventListener("click", () => {
       document.querySelectorAll("#mainContent .collapsible").forEach((secEl) => {
         toggleCollapsibleElement(secEl, true);
+        if (secEl.id) {
+          state.collapsedCards[secEl.id] = true;
+        }
       });
     });
 
     document.getElementById("expandAllOverviewBtn")?.addEventListener("click", () => {
       document.querySelectorAll("#mainContent .collapsible").forEach((secEl) => {
         toggleCollapsibleElement(secEl, false);
+        if (secEl.id) {
+          state.collapsedCards[secEl.id] = false;
+        }
       });
     });
   }
@@ -1998,6 +2029,9 @@ function toggleCollapsibleElement(secEl, forceState) {
         const el = document.getElementById(id);
         if (el) {
           toggleCollapsibleElement(el, false);
+          el.classList.remove("is-focus-highlight");
+          void el.offsetWidth;
+          el.classList.add("is-focus-highlight");
           const y = el.getBoundingClientRect().top + window.scrollY - 80;
           window.scrollTo({ top: y, behavior: "smooth" });
         }

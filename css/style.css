@@ -1520,7 +1520,8 @@ table.doc-table tr:hover td {
   }
 }
 
-.event-detail-panel.is-focus-highlight {
+.event-detail-panel.is-focus-highlight,
+.doc-section.is-focus-highlight {
   animation: pulseHighlight 1.6s ease-out;
 }
 
@@ -2526,4 +2527,17 @@ p.body-text,
 .doc-section > .section-body > .doc-list {
   max-width: 860px;
   line-height: 1.75;
+}
+
+/* Overview Keychange Card */
+.keychange-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.keychange-card:hover {
+  border-color: var(--border-strong);
 }
