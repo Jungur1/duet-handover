@@ -290,6 +290,7 @@
         if (edit.date !== undefined) ev.date = edit.date;
         if (edit.noticeText !== undefined) ev.noticeText = edit.noticeText;
         if (edit.thought !== undefined) ev.thought = edit.thought;
+        if (edit.images !== undefined) ev.images = edit.images;
       }
     });
 
@@ -1056,6 +1057,7 @@
     const imgs = Array.isArray(ev.images) ? ev.images : [];
     const idx = Math.min(Math.max(0, state.eventImgIdx), Math.max(0, imgs.length - 1));
 
+    const canEdit = Boolean(state.adminMode && state.editMode);
     let carouselHtml = "";
     if (imgs.length > 0) {
       const currentImg = imgs[idx];
@@ -1075,7 +1077,10 @@
         <div class="media-carousel">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:12.5px;font-weight:700;color:var(--text-secondary);">
             <span>홍보물 · 카드뉴스 · 공고문 (${idx + 1} / ${imgs.length}장)</span>
-            <button class="btn" style="padding:3px 9px;font-size:11.5px;" data-zoom-ev-img="${idx}">크게 보기</button>
+            <div style="display:flex;gap:6px;align-items:center;">
+              ${canEdit ? `<button class="btn btn-crimson" id="manageCardNewsBtn" style="padding:3px 10px;font-size:11.5px;font-weight:600;" title="카드뉴스 순서 변경, 삭제 및 새 이미지 추가">카드뉴스 관리</button>` : ""}
+              <button class="btn" style="padding:3px 9px;font-size:11.5px;" data-zoom-ev-img="${idx}">크게 보기</button>
+            </div>
           </div>
           <div class="carousel-stage">
             ${imgs.length > 1 ? `<button class="carousel-nav-btn prev" id="evPrevImgBtn" title="이전 이미지">❮</button>` : ""}
@@ -1086,7 +1091,14 @@
         </div>
       `;
     } else {
-      carouselHtml = `
+      carouselHtml = canEdit
+        ? `
+        <div style="padding:14px 16px;background:var(--surface-alt);border:1px dashed var(--border-strong);border-radius:8px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0;">
+          <div style="font-size:12.5px;color:var(--text-secondary);">이 일정은 현재 등록된 카드뉴스 이미지가 없습니다.</div>
+          <button class="btn btn-crimson" id="manageCardNewsBtn" style="padding:4px 12px;font-size:12px;font-weight:600;">카드뉴스 추가/관리</button>
+        </div>
+      `
+        : `
         <div style="padding:12px 14px;background:var(--surface-alt);border-radius:8px;font-size:12.5px;color:var(--text-muted);margin:10px 0;">
           이 일정은 별도 카드뉴스 이미지 없이 카카오톡 공지글 또는 회의록으로 진행된 일정입니다.
         </div>
@@ -1102,14 +1114,27 @@
 
     const cleanDept = stripStatus(ev.deptLabel) || catMeta.label;
     let noticeSectionHtml = "";
-    if (!rawNotice && !state.editMode) {
+    if (canEdit) {
+      noticeSectionHtml = `
+        <div class="callout callout-notice" style="margin-top:14px;">
+          <div class="callout-header">
+            <span>당시 실제 공지글 / 안건 요약</span>
+            <div style="display:flex;gap:6px;align-items:center;">
+              <button class="btn btn-crimson" id="editNoticeBtn" style="padding:4px 12px;font-size:12px;font-weight:600;" title="공지글을 모달 창에서 편안하게 수정 및 저장">공지글 편집</button>
+              ${rawNotice ? `<button class="btn btn-crimson" id="copyNoticeBtn" style="padding:4px 12px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;" title="공지글 전문을 클립보드에 바로 복사">공지글 복사</button>` : ""}
+            </div>
+          </div>
+          <div class="callout-body" id="activeEventNoticeText" data-event-edit-field="noticeText" data-event-id="${esc(ev.id)}" style="min-height:48px;">${esc(rawNotice)}</div>
+        </div>
+      `;
+    } else if (!rawNotice) {
       noticeSectionHtml = `
         <div class="callout" style="margin-top:14px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px;padding:14px 16px;color:#64748b;font-size:13px;line-height:1.6;">
           <div style="font-weight:700;color:#334155;margin-bottom:4px;font-size:13.5px;">공지 안내</div>
           이 일정은 카카오톡 전체 공지글 없이 진행된 내부 실무 · 준비 · 자치 회의 일정입니다.
         </div>
       `;
-    } else if (isAutoNotionRecord && !state.editMode) {
+    } else if (isAutoNotionRecord) {
       const urlMatch = rawNotice.match(/(?:🔗\s*)?관련 문서 링크:\s*(\S+)/);
       const extUrl = urlMatch ? urlMatch[1] : "";
       noticeSectionHtml = `
@@ -1444,6 +1469,15 @@
     // Copy notice text button
     bindCopyNoticeButton();
 
+    document.getElementById("manageCardNewsBtn")?.addEventListener("click", () => {
+      const activeEv = appData.calendarEvents.find((e) => e.id === state.selectedEventId);
+      if (activeEv) openCardNewsEditModal(activeEv.id);
+    });
+    document.getElementById("editNoticeBtn")?.addEventListener("click", () => {
+      const activeEv = appData.calendarEvents.find((e) => e.id === state.selectedEventId);
+      if (activeEv) openNoticeEditModal(activeEv.id);
+    });
+
     // Monthly report carousels
     document.querySelectorAll("[data-rep-prev]").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -1533,6 +1567,14 @@
       });
     });
     bindCopyNoticeButton(panel);
+
+    // Card News & Notice modal triggers
+    document.getElementById("manageCardNewsBtn")?.addEventListener("click", () => {
+      openCardNewsEditModal(activeEv.id);
+    });
+    document.getElementById("editNoticeBtn")?.addEventListener("click", () => {
+      openNoticeEditModal(activeEv.id);
+    });
   }
 
   // =========================================================================
@@ -1890,9 +1932,13 @@
       btn.classList.toggle("btn-edit-active", state.editMode);
       btn.innerHTML = state.editMode ? "편집 중 (자동저장)" : "코멘트/공지 편집";
     }
-    applyEditModeAttributes();
+    if (state.currentTab === "calendar") {
+      refreshEventDetailPanel();
+    } else {
+      applyEditModeAttributes();
+    }
     if (state.editMode) {
-      showToast("편집 모드가 켜졌습니다. 노란색 점선 박스(내 생각/공지글)를 클릭해 자유롭게 수정하세요!");
+      showToast("편집 모드가 켜졌습니다. 노란색 점선 박스(내 생각/공지글)를 클릭하거나 [공지글/카드뉴스 편집]을 누르세요!");
     } else {
       showToast("편집 내용이 브라우저에 저장되었습니다.");
     }
@@ -2109,6 +2155,212 @@
     document.getElementById("addEventModal")?.classList.remove("open");
     renderMainContent();
     showToast("새 행사가 캘린더에 추가되었습니다!");
+  }
+
+  // =========================================================================
+  // Notice & Card News Modals (18th President Admin Mode)
+  // =========================================================================
+  let editingNoticeEventId = null;
+  let editingCardNewsEventId = null;
+  let editingCardNewsList = [];
+
+  function openNoticeEditModal(evId) {
+    if (!state.adminMode) return;
+    const ev = appData.calendarEvents.find((e) => e.id === evId);
+    if (!ev) return;
+    editingNoticeEventId = evId;
+
+    const modal = document.getElementById("noticeEditModal");
+    if (!modal) return;
+
+    const titleEl = document.getElementById("noticeEditModalTitle");
+    const subEl = document.getElementById("noticeEditModalSubtitle");
+    const ta = document.getElementById("noticeEditTextarea");
+
+    if (titleEl) titleEl.textContent = `실제 공지글 / 안건 요약 수정 - [${ev.title}]`;
+    if (subEl) subEl.textContent = `${ev.date} | ${stripStatus(ev.deptLabel) || ev.category}`;
+    if (ta) ta.value = ev.noticeText || "";
+
+    modal.classList.add("open");
+  }
+
+  function saveNoticeEditModal() {
+    if (!editingNoticeEventId) return;
+    const ev = appData.calendarEvents.find((e) => e.id === editingNoticeEventId);
+    if (!ev) return;
+
+    const ta = document.getElementById("noticeEditTextarea");
+    const val = ta ? ta.value.trim() : "";
+
+    if (!customStore.eventEdits[editingNoticeEventId]) {
+      customStore.eventEdits[editingNoticeEventId] = {};
+    }
+    customStore.eventEdits[editingNoticeEventId].noticeText = val;
+    ev.noticeText = val;
+
+    applyCustomToAppData();
+    saveCustomStore();
+
+    refreshEventDetailPanel();
+    document.getElementById("noticeEditModal")?.classList.remove("open");
+    showToast("공지글이 성공적으로 저장되었습니다!");
+  }
+
+  function compressImageFile(file, maxWidth = 1200, quality = 0.85) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          let { width, height } = img;
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL("image/jpeg", quality);
+          resolve(dataUrl);
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function openCardNewsEditModal(evId) {
+    if (!state.adminMode) return;
+    const ev = appData.calendarEvents.find((e) => e.id === evId);
+    if (!ev) return;
+    editingCardNewsEventId = evId;
+    editingCardNewsList = Array.isArray(ev.images) ? [...ev.images] : [];
+
+    const modal = document.getElementById("cardNewsEditModal");
+    if (!modal) return;
+
+    const titleEl = document.getElementById("cardNewsModalTitle");
+    if (titleEl) titleEl.textContent = `카드뉴스 및 홍보물 이미지 관리 - [${ev.title}]`;
+    const urlInp = document.getElementById("cardNewsUrlInput");
+    if (urlInp) urlInp.value = "";
+    const fileInp = document.getElementById("cardNewsFileInput");
+    if (fileInp) fileInp.value = "";
+
+    renderCardNewsModalItems();
+    modal.classList.add("open");
+  }
+
+  function renderCardNewsModalItems() {
+    const listEl = document.getElementById("cardNewsEditList");
+    const subEl = document.getElementById("cardNewsModalSubtitle");
+    if (subEl) subEl.textContent = `총 ${editingCardNewsList.length}장의 이미지가 등록되어 있습니다.`;
+    if (!listEl) return;
+
+    listEl.innerHTML = editingCardNewsList.map((src, i) => {
+      const isFirst = i === 0;
+      const isLast = i === editingCardNewsList.length - 1;
+      const isDataUrl = src.startsWith("data:");
+      const displaySrc = isDataUrl ? `[로컬 업로드 이미지 ${i + 1}] (${Math.round(src.length / 1024)} KB)` : src;
+      return `
+        <div class="cardnews-edit-item" data-img-idx="${i}">
+          <img src="${esc(src)}" class="cardnews-thumb-preview" alt="slide ${i + 1}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\'><rect width=\'100%\' height=\'100%\' fill=\'%23eee\'/><text x=\'50%\' y=\'50%\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-size=\'10\'>이미지</text></svg>'">
+          <div class="cardnews-item-info">
+            <div class="cardnews-item-title">슬라이드 ${i + 1} / ${editingCardNewsList.length} 장</div>
+            <div class="cardnews-item-src" title="${esc(src)}">${esc(displaySrc)}</div>
+          </div>
+          <div class="cardnews-item-actions">
+            <button type="button" class="btn" data-cardnews-up="${i}" ${isFirst ? "disabled" : ""} title="위로 이동">▲</button>
+            <button type="button" class="btn" data-cardnews-down="${i}" ${isLast ? "disabled" : ""} title="아래로 이동">▼</button>
+            <button type="button" class="btn" data-cardnews-del="${i}" style="color:var(--danger, #ef4444);" title="삭제">삭제</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    listEl.querySelectorAll("[data-cardnews-up]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = Number(btn.getAttribute("data-cardnews-up"));
+        if (idx > 0) {
+          const item = editingCardNewsList.splice(idx, 1)[0];
+          editingCardNewsList.splice(idx - 1, 0, item);
+          renderCardNewsModalItems();
+        }
+      });
+    });
+
+    listEl.querySelectorAll("[data-cardnews-down]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = Number(btn.getAttribute("data-cardnews-down"));
+        if (idx < editingCardNewsList.length - 1) {
+          const item = editingCardNewsList.splice(idx, 1)[0];
+          editingCardNewsList.splice(idx + 1, 0, item);
+          renderCardNewsModalItems();
+        }
+      });
+    });
+
+    listEl.querySelectorAll("[data-cardnews-del]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = Number(btn.getAttribute("data-cardnews-del"));
+        editingCardNewsList.splice(idx, 1);
+        renderCardNewsModalItems();
+      });
+    });
+  }
+
+  function saveCardNewsEditModal() {
+    if (!editingCardNewsEventId) return;
+    const ev = appData.calendarEvents.find((e) => e.id === editingCardNewsEventId);
+    if (!ev) return;
+
+    if (!customStore.eventEdits[editingCardNewsEventId]) {
+      customStore.eventEdits[editingCardNewsEventId] = {};
+    }
+    customStore.eventEdits[editingCardNewsEventId].images = [...editingCardNewsList];
+    ev.images = [...editingCardNewsList];
+
+    applyCustomToAppData();
+    saveCustomStore();
+
+    state.eventImgIdx = 0;
+    refreshEventDetailPanel();
+
+    document.getElementById("cardNewsEditModal")?.classList.remove("open");
+    showToast(`카드뉴스 (${editingCardNewsList.length}장) 변경사항이 성공적으로 저장되었습니다!`);
+  }
+
+  async function handleCardNewsFileSelect(e) {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+    showToast(`이미지 ${files.length}장 최적화 처리 중...`);
+    for (const f of files) {
+      try {
+        const dataUrl = await compressImageFile(f);
+        editingCardNewsList.push(dataUrl);
+      } catch (err) {
+        console.error("Image file read failed:", err);
+      }
+    }
+    renderCardNewsModalItems();
+    e.target.value = "";
+    showToast("새 이미지가 슬라이드 목록에 추가되었습니다.");
+  }
+
+  function handleAddCardNewsUrl() {
+    const inp = document.getElementById("cardNewsUrlInput");
+    const val = inp ? inp.value.trim() : "";
+    if (!val) {
+      alert("이미지 경로 또는 웹 링크(URL)를 입력해주세요.");
+      return;
+    }
+    editingCardNewsList.push(val);
+    inp.value = "";
+    renderCardNewsModalItems();
+    showToast("이미지 경로가 슬라이드 목록에 추가되었습니다.");
   }
 
   // Notion API Calendar Sync
@@ -2565,6 +2817,18 @@
     document.getElementById("saveDriveModalBtn")?.addEventListener("click", saveDriveModal);
     // Save new event modal
     document.getElementById("saveNewEventBtn")?.addEventListener("click", saveNewEventModal);
+
+    // Save notice edit modal
+    document.getElementById("saveNoticeEditBtn")?.addEventListener("click", saveNoticeEditModal);
+    document.getElementById("clearNoticeBtn")?.addEventListener("click", () => {
+      const ta = document.getElementById("noticeEditTextarea");
+      if (ta) ta.value = "";
+    });
+
+    // Card news edit modal listeners
+    document.getElementById("saveCardNewsModalBtn")?.addEventListener("click", saveCardNewsEditModal);
+    document.getElementById("addCardNewsUrlBtn")?.addEventListener("click", handleAddCardNewsUrl);
+    document.getElementById("cardNewsFileInput")?.addEventListener("change", handleCardNewsFileSelect);
 
     // Search input listener
     document.getElementById("globalSearchInput")?.addEventListener("input", (e) => {
