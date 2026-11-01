@@ -499,6 +499,37 @@ window.DUET_SECTIONS = {
           <li><strong>신규 성사 사업 '릴스 고연전' (10월)</strong>: 정기 고연전 직전 학우들이 1~4인 팀을 구성해 릴스 영상을 촬영·업로드하고 조회수로 승부를 겨루는 사업을 실행했습니다. (※ 앞서 학생회장단 파트에서 강조했듯, <strong>타교생에게 우리 학생회비가 지출되지 않도록 고려대 D반 내부 팀 시상[약 5만 원, 엽떡 상품권]과 양교 연합팀 특별상을 반드시 분리</strong>해 운영하세요!)</li>
         </ul>
       `
+    },
+    {
+      id: "plan_message",
+      tag: "기획국장단의 당부",
+      title: "5. 제18대 기획국장단이 후기 기획국장단에게 전하는 메시지",
+      subtitle: "김채은·장여백 국장이 차기 기획국장단과 집행위원에게 남기는 조언과 응원 (가안)",
+      contentHtml: `
+        <div class="director-letter-card">
+          <div class="letter-header">
+            <span class="letter-badge">MESSAGE FROM 18TH PLANNING DIRECTORS</span>
+            <h3 class="letter-title">"기획은 완벽한 계획보다, 학우들의 웃는 얼굴을 상상하며 유연하게 대처하는 과정입니다."</h3>
+            <p class="letter-meta">제18대 집행위원회 기획국장 김채은(전반기) · 장여백(하반기)</p>
+          </div>
+          <div class="letter-body">
+            <p class="body-text">
+              안녕하세요, 차기 기획국장단 및 국원 여러분! 제18대 학생회 &lt;Duet&gt; 기획국을 이끌었던 김채은, 장여백입니다.<br>
+              한 해 동안 D반 학우들의 친목과 활기를 책임지는 자리에 서신 여러분의 새로운 시작을 진심으로 축하하고 응원합니다.
+            </p>
+            <p class="body-text">
+              기획국은 시험기간의 '스터디윗D'부터 봄의 '대성리 총MT', 1년간 이어지는 '친해져도 Dㅐ?', 그리고 가을의 '교류반 합동 사업'까지 D반 학우들이 대학 생활에서 가장 즐거운 추억을 남길 수 있도록 판을 짜는 부서입니다.
+            </p>
+            <div class="letter-placeholder-note">
+              <strong>안내</strong>: 세부 메시지 및 당부 말씀 본문은 제18대 기획국장단이 직접 작성하여 추후 업데이트될 예정입니다. 사업 기획 및 현장 진행 과정에서 고민되는 점이 있다면 언제든 편하게 18대 선배들에게 연락해 주세요!
+            </div>
+          </div>
+          <div class="letter-sign">
+            <span>고려대학교 자유전공학부 D반 제18대 학생회 &lt;Duet&gt;</span>
+            <strong>기획국장 김채은 · 장여백 드림</strong>
+          </div>
+        </div>
+      `
     }
   ],
 
@@ -678,6 +709,37 @@ window.DUET_SECTIONS = {
           </table>
         </div>
       `
+    },
+    {
+      id: "welf_message",
+      tag: "복지국장단의 당부",
+      title: "5. 제18대 복지국장단이 후기 복지국장단에게 전하는 메시지",
+      subtitle: "김동운 국장이 차기 복지국장단과 집행위원에게 남기는 조언과 응원 (가안)",
+      contentHtml: `
+        <div class="director-letter-card">
+          <div class="letter-header">
+            <span class="letter-badge">MESSAGE FROM 18TH WELFARE DIRECTOR</span>
+            <h3 class="letter-title">"보이지 않는 곳에서의 세심한 헌신이 D반의 가장 따뜻한 일상을 만듭니다."</h3>
+            <p class="letter-meta">제18대 집행위원회 복지국장 김동운</p>
+          </div>
+          <div class="letter-body">
+            <p class="body-text">
+              안녕하세요, 차기 복지국을 이끌어가실 국장단 및 국원 여러분! 제18대 학생회 &lt;Duet&gt; 복지국장 김동운입니다.<br>
+              D반 학우들의 일상 복지와 쉼터를 책임지기 위해 첫걸음을 내딛으신 여러분을 진심으로 환영합니다.
+            </p>
+            <p class="body-text">
+              제18대 학생회는 출범과 동시에 기존의 틀을 깨고 <strong>복지국을 전면 개편</strong>하여 반실을 새롭게 리뉴얼하고 대여 사업과 정기 청소 체계를 확립했습니다. 화려하게 조명받는 일보다, 묵묵히 반실을 점검하고 간식 수요조사를 취합하며 학우들의 편의를 챙기는 일이 많기에 때로는 수고스러울 수도 있지만 그만큼 큰 보람이 있는 부서입니다.
+            </p>
+            <div class="letter-placeholder-note">
+              <strong>안내</strong>: 세부 메시지 및 당부 말씀 본문은 제18대 복지국장단이 직접 작성하여 추후 업데이트될 예정입니다. 반실 운영, 비품 구매, 간식행사 진행 등 궁금한 점은 언제든 18대 선배들에게 편하게 물어봐 주세요!
+            </div>
+          </div>
+          <div class="letter-sign">
+            <span>고려대학교 자유전공학부 D반 제18대 학생회 &lt;Duet&gt;</span>
+            <strong>복지국장 김동운 드림</strong>
+          </div>
+        </div>
+      `
     }
   ],
 
@@ -752,6 +814,37 @@ window.DUET_SECTIONS = {
           <li><strong>3단계 (제18-7·8차 반운위 — '추첨 기프티콘 예산안' 상정과 철회의 교훈)</strong>: 참여율을 더 끌어올리기 위해 피드백 응답자 중 추첨으로 빽다방 아메리카노를 주는 예산 승인을 제18-7차 반운위에 상정했습니다. 그러나 <strong>"익명 설문이면 응답자가 학생회비 납부자인지 확인할 수 없어 학생회비 지출 정당성이 없고, 반대로 납부 여부 확인을 위해 학번·이름을 받으면 익명성이 깨져 솔직한 비판과 피드백을 받을 수 없다"</strong>는 딜레마가 드러났습니다.</li>
           <li><strong>최종 결론</strong>: 홍보국 내부 회의 끝에 <strong>"피드백 사업의 본질은 경품이 아니라 익명성이 보장된 솔직한 의견 수렴"</strong>이라고 결론짓고, 제18-8차 반운위에서 예산안을 정식 철회한 뒤 <strong>'완전 익명 + 객관식 1분 컷 + 반실 QR코드 상시 비치'</strong> 모델로 완성했습니다.</li>
         </ol>
+      `
+    },
+    {
+      id: "pr_message",
+      tag: "홍보국장단의 당부",
+      title: "4. 제18대 홍보국장단이 후기 홍보국장단에게 전하는 메시지",
+      subtitle: "이윤주 국장이 차기 홍보국장단과 집행위원에게 남기는 조언과 응원 (가안)",
+      contentHtml: `
+        <div class="director-letter-card">
+          <div class="letter-header">
+            <span class="letter-badge">MESSAGE FROM 18TH PR DIRECTOR</span>
+            <h3 class="letter-title">"홍보국은 학생회의 첫인상이자, 학우들과 학생회를 이어주는 신뢰의 다리입니다."</h3>
+            <p class="letter-meta">제18대 집행위원회 홍보국장 이윤주</p>
+          </div>
+          <div class="letter-body">
+            <p class="body-text">
+              안녕하세요, 차기 홍보국장단 및 국원 여러분! 제18대 학생회 &lt;Duet&gt; 홍보국장 이윤주입니다.<br>
+              학생회의 목소리와 비주얼을 세상에 알리는 가장 감각적이고 역동적인 부서에 오신 것을 진심으로 환영합니다.
+            </p>
+            <p class="body-text">
+              홍보국은 각 국서에서 넘어오는 수많은 행사 공지와 카드뉴스, 그리고 매월 발행하는 정기 월간보고까지 마감과 퀄리티를 동시에 지켜내야 하는 부서입니다. 여러분이 정성껏 만든 카드뉴스가 카카오톡 공지방과 인스타그램에 올라가고, 학우들이 이를 통해 행사에 참여할 때의 뿌듯함은 그 무엇과도 바꿀 수 없습니다.
+            </p>
+            <div class="letter-placeholder-note">
+              <strong>안내</strong>: 세부 메시지 및 당부 말씀 본문은 제18대 홍보국장단이 직접 작성하여 추후 업데이트될 예정입니다. 미리캔버스 디자인 템플릿, 월간보고 발행 노하우 등 도움이 필요한 부분은 언제든 편하게 상의해 주세요!
+            </div>
+          </div>
+          <div class="letter-sign">
+            <span>고려대학교 자유전공학부 D반 제18대 학생회 &lt;Duet&gt;</span>
+            <strong>홍보국장 이윤주 드림</strong>
+          </div>
+        </div>
       `
     }
   ],
