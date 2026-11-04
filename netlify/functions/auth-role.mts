@@ -96,7 +96,7 @@ export default async (req: Request, context: Context) => {
     if (body.googleIdToken) {
       const decoded = await adminAuth.verifyIdToken(body.googleIdToken);
       const email = (decoded.email || "").toLowerCase().trim();
-      const allowedRaw = getEnv("ADMIN_ALLOWED_EMAILS") || "";
+      const allowedRaw = getEnv("ADMIN_ALLOWED_EMAILS") || "won050203@gmail.com";
       const allowedEmails = allowedRaw
         .split(",")
         .map((e) => e.trim().toLowerCase())
