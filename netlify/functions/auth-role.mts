@@ -102,11 +102,22 @@ export default async (req: Request, context: Context) => {
         .map((e) => e.trim().toLowerCase())
         .filter(Boolean);
 
+      if (allowedEmails.length === 0) {
+        return new Response(
+          JSON.stringify({
+            ok: false,
+            error:
+              "서버에 관리자 구글 이메일 환경변수(ADMIN_ALLOWED_EMAILS)가 설정되지 않았습니다. 관리자에게 Netlify 환경변수 등록을 요청해 주세요.",
+          }),
+          { status: 403, headers: JSON_SECURITY_HEADERS }
+        );
+      }
+
       if (!email || !allowedEmails.includes(email)) {
         return new Response(
           JSON.stringify({
             ok: false,
-            error: "허용된 제18대 학생회장단(관리자) 구글 계정이 아닙니다.",
+            error: `현재 선택한 Google 계정(${email || "이메일 정보 없음"})은 등록된 제18대 학생회장단 관리자 이메일이 아닙니다. 등록된 회장단 계정으로 다시 시도해 주세요.`,
           }),
           { status: 403, headers: JSON_SECURITY_HEADERS }
         );

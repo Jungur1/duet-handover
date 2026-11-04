@@ -2418,26 +2418,58 @@ function toggleCollapsibleElement(secEl, forceState) {
       const errCode = err ? (err.code || "") : "";
       const errMsg = err ? (err.message || "") : "";
 
-      // [과제 2] 사용자가 팝업을 닫았거나 취소한 경우 에러 박스 미표시 (조용히 무시)
+      // 사용자가 팝업을 닫았거나 브라우저 보안 환경(서드파티 쿠키 차단/COOP 제한)으로 인해 팝업 통신이 중단된 경우
       if (
         errCode === "auth/popup-closed-by-user" ||
         errCode === "auth/cancelled-popup-request" ||
         errMsg.includes("popup-closed-by-user") ||
         errMsg.includes("cancelled-popup-request")
       ) {
-        console.log("[Auth] Google 인증 팝업이 사용자에 의해 닫혔거나 취소되었습니다.");
+        console.warn("[Auth] Google 인증 팝업이 닫혔거나 통신이 중단되었습니다:", err);
         if (errEl) {
-          errEl.style.display = "none";
-          errEl.textContent = "";
+          errEl.innerHTML = `
+            <strong>Google 팝업 인증 중단 안내:</strong><br>
+            Google 로그인 창이 완료 전에 닫혔거나 브라우저 보안 설정(서드파티 쿠키 제한/팝업 통신 차단)으로 인해 팝업 인증이 중단되었습니다.<br><br>
+            <button type="button" class="btn btn-sm btn-crimson" id="googleRedirectRetryBtn" style="width:100%;justify-content:center;padding:9px 12px;font-weight:600;margin-bottom:6px;">
+              🚀 페이지 이동 방식(Redirect)으로 Google 로그인 재시도
+            </button>
+            <div style="font-size:12px;color:var(--text-muted, #666);line-height:1.4;">
+              * 팝업 통신이 차단되는 환경에서는 위 [페이지 이동 방식]을 누르시거나, 상단에서 <strong>[18대 학생회장단]</strong> 직위를 선택 후 비밀번호로 입장하실 수 있습니다.
+            </div>
+          `;
+          errEl.style.display = "block";
+          const retryBtn = document.getElementById("googleRedirectRetryBtn");
+          if (retryBtn) {
+            retryBtn.onclick = (e) => {
+              e.preventDefault();
+              signInWithGoogleRedirect();
+            };
+          }
         }
         return;
       }
 
-      // [과제 2] 브라우저 또는 광고 차단 프로그램에 의한 팝업 차단
+      // 브라우저 또는 광고 차단 프로그램에 의한 팝업 차단
       if (errCode === "auth/popup-blocked" || errMsg.includes("popup-blocked")) {
         if (errEl) {
-          errEl.innerHTML = `<strong>팝업 차단 안내:</strong><br>브라우저 또는 광고 차단 프로그램이 Google 로그인 팝업을 차단했습니다.<br>주소창 우측 상단의 팝업 차단을 해제하거나 시크릿 모드에서 시도해 주세요. 또는 위쪽의 <strong>[직위별 비밀번호 인증]</strong>으로 입장하실 수 있습니다.`;
+          errEl.innerHTML = `
+            <strong>팝업 차단 안내:</strong><br>
+            브라우저 또는 광고 차단 프로그램이 Google 로그인 팝업을 차단했습니다.<br><br>
+            <button type="button" class="btn btn-sm btn-crimson" id="googleRedirectBlockedRetryBtn" style="width:100%;justify-content:center;padding:9px 12px;font-weight:600;margin-bottom:6px;">
+              🚀 페이지 이동 방식(Redirect)으로 Google 로그인
+            </button>
+            <div style="font-size:12px;color:var(--text-muted, #666);line-height:1.4;">
+              * 주소창 우측 상단의 팝업 차단을 해제하시거나 위쪽의 <strong>[직위별 비밀번호 인증]</strong>으로 입장해 주세요.
+            </div>
+          `;
           errEl.style.display = "block";
+          const retryBtn = document.getElementById("googleRedirectBlockedRetryBtn");
+          if (retryBtn) {
+            retryBtn.onclick = (e) => {
+              e.preventDefault();
+              signInWithGoogleRedirect();
+            };
+          }
         }
         return;
       }
@@ -2452,7 +2484,7 @@ function toggleCollapsibleElement(secEl, forceState) {
         return;
       }
 
-      // 일반 오류 메시지 출력
+      // 일반 오류 메시지 출력 (허용되지 않은 관리자 이메일, 서버 에러 등)
       if (errEl) {
         errEl.textContent = err instanceof Error ? err.message : "Google 관리자 인증 중 오류가 발생했습니다.";
         errEl.style.display = "block";
@@ -2462,6 +2494,30 @@ function toggleCollapsibleElement(secEl, forceState) {
       if (googleBtn) {
         googleBtn.disabled = false;
         googleBtn.innerHTML = origGoogleBtnHtml;
+      }
+    }
+  }
+
+  // Google OAuth Redirect 방식 로그인 (팝업 차단/서드파티 쿠키 차단 브라우저 대응)
+  async function signInWithGoogleRedirect() {
+    const errEl = document.getElementById("authGateError");
+    if (!initFirebaseClient() || !fbAuth) {
+      if (errEl) {
+        errEl.textContent = "Firebase Web SDK 설정(js/firebase-config.js)이 아직 구성되지 않았습니다.";
+        errEl.style.display = "block";
+      }
+      return;
+    }
+    try {
+      showToast("Google 로그인 페이지로 이동합니다...");
+      const provider = new window.firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+      await fbAuth.signInWithRedirect(provider);
+    } catch (err) {
+      console.error("[Auth] signInWithRedirect error:", err);
+      if (errEl) {
+        errEl.textContent = "Google 이동 인증 시작 중 오류 발생: " + (err ? err.message : err);
+        errEl.style.display = "block";
       }
     }
   }
@@ -3246,6 +3302,60 @@ function initBackToTopBtn() {
     renderMainContent();
 
     if (initFirebaseClient() && fbAuth) {
+      // 1. Google OAuth Redirect 결과 확인 및 Custom Token 교환 (모바일 / 팝업 제한 환경)
+      fbAuth
+        .getRedirectResult()
+        .then(async (cred) => {
+          if (cred && cred.user) {
+            showToast("Google 인증 완료 확인 중...");
+            try {
+              const googleIdToken = await cred.user.getIdToken();
+              const res = await fetch("/api/auth-role", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ googleIdToken }),
+              });
+              const data = await res.json();
+              if (!res.ok || !data.ok || !data.customToken) {
+                await fbAuth.signOut();
+                const errEl = document.getElementById("authGateError");
+                if (errEl) {
+                  errEl.textContent = data.error || "허용된 제18대 학생회장단(관리자) 구글 계정이 아닙니다.";
+                  errEl.style.display = "block";
+                }
+                return;
+              }
+              await fbAuth.signInWithCustomToken(data.customToken);
+              await loadAuthorizedDataFromFirestore("duet_pres");
+              applyAuthenticatedRole("duet_pres");
+              closeAuthGateModal();
+              showToast("[18대 학생회장단 (관리자)] Google 계정으로 정상 인증되었습니다!");
+            } catch (err) {
+              console.error("[Auth] Redirect token verification error:", err);
+              await fbAuth.signOut();
+              const errEl = document.getElementById("authGateError");
+              if (errEl) {
+                errEl.textContent =
+                  err instanceof Error ? err.message : "Google 리다이렉트 인증 처리 중 오류가 발생했습니다.";
+                errEl.style.display = "block";
+              }
+            }
+          }
+        })
+        .catch((err) => {
+          console.warn("[Auth] getRedirectResult error:", err);
+          const errCode = err ? err.code || "" : "";
+          const errMsg = err ? err.message || "" : "";
+          if (errCode === "auth/unauthorized-domain" || errMsg.includes("unauthorized-domain")) {
+            const errEl = document.getElementById("authGateError");
+            if (errEl) {
+              errEl.innerHTML = `<strong>도메인 미승인 안내:</strong><br>현재 접속 도메인(<code>${esc(window.location.hostname)}</code>)이 Firebase 승인 도메인에 등록되어 있지 않습니다.`;
+              errEl.style.display = "block";
+            }
+          }
+        });
+
+      // 2. Firebase Custom Token 세션 유지 확인
       fbAuth.onAuthStateChanged(async (user) => {
         if (!user) return;
         try {
