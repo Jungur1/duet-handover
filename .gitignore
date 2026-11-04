@@ -21,6 +21,7 @@
 *.xls
 *.xlsx
 *.pdf
+!D반 학생회칙.pdf
 *.mp4
 *.m4a
 *.zip
