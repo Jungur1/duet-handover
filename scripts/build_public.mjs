@@ -57,6 +57,7 @@ function buildPublic() {
   copyRecursiveSync(path.join(rootDir, "css", "style.css"), path.join(publicDir, "css", "style.css"));
   copyRecursiveSync(path.join(rootDir, "js", "app.js"), path.join(publicDir, "js", "app.js"));
   copyRecursiveSync(path.join(rootDir, "assets"), path.join(publicDir, "assets"));
+  copyRecursiveSync(path.join(rootDir, "D반 학생회칙.pdf"), path.join(publicDir, "D반 학생회칙.pdf"));
 
   // 4. Firebase Web SDK 설정 생성 (환경변수 FIREBASE_WEB_* 우선 적용, 없으면 js/firebase-config.js 복사)
   const webConfigFromEnv = {
