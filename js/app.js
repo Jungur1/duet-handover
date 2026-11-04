@@ -2188,11 +2188,16 @@ function toggleCollapsibleElement(secEl, forceState) {
   // 4. RBAC AUTHENTICATION & ACCESS CONTROL (NETLIFY FUNCTIONS + FIREBASE)
   // =========================================================================
   let selectedGateRole = "duet_pres";
+  let isGoogleAuthInFlight = false;
+  let isPasswordAuthInFlight = false;
 
   function openAuthGateModal(allowClose = false) {
     const modal = document.getElementById("authGateModal");
     const pwdInput = document.getElementById("authPasswordInput");
     const errEl = document.getElementById("authGateError");
+    const banner = document.getElementById("authGateStatusBanner");
+    const closeBtn = document.getElementById("authGateCloseBtn");
+    const resetSessionBtn = document.getElementById("resetAuthSessionBtn");
     if (!modal) return;
 
     if (errEl) {
@@ -2203,11 +2208,40 @@ function toggleCollapsibleElement(secEl, forceState) {
       pwdInput.value = "";
     }
 
-    const targetRole = state.currentRole || "duet_pres";
-    selectGateRole(targetRole);
+    const currentRole = state.currentRole;
+    const hasRole = Boolean(currentRole && ROLE_CONFIG[currentRole]);
+    const canClose = Boolean(allowClose && hasRole);
 
     modal.classList.add("open");
-    modal.dataset.allowClose = allowClose ? "1" : "0";
+    modal.dataset.allowClose = canClose ? "1" : "0";
+
+    if (closeBtn) {
+      closeBtn.style.display = canClose ? "inline-flex" : "none";
+    }
+
+    if (hasRole) {
+      const curCfg = ROLE_CONFIG[currentRole];
+      if (banner) {
+        banner.className = "auth-gate-status-banner verified";
+        banner.innerHTML = `✅ 현재 인증된 직위: <strong>${esc(curCfg.name)}</strong> · 직위를 변경하려면 다른 직위를 선택하고 비밀번호를 입력해 주세요.`;
+      }
+      if (resetSessionBtn) {
+        resetSessionBtn.style.display = "inline-flex";
+        resetSessionBtn.innerHTML = `🔓 [${esc(curCfg.name)}] 인증 세션 로그아웃 (초기화)`;
+      }
+      selectGateRole(currentRole);
+    } else {
+      if (banner) {
+        banner.className = "auth-gate-status-banner locked";
+        banner.innerHTML = `🔒 <strong>미인증 상태</strong> · 열람할 직위를 선택하고 비밀번호(또는 Google 계정)로 인증해 주세요.`;
+      }
+      if (resetSessionBtn) {
+        resetSessionBtn.style.display = "inline-flex";
+        resetSessionBtn.innerHTML = `🔓 브라우저 인증 세션 로그아웃 (초기화)`;
+      }
+      selectGateRole(selectedGateRole || "duet_pres");
+    }
+
     setTimeout(() => {
       if (pwdInput) pwdInput.focus();
     }, 100);
@@ -2253,6 +2287,8 @@ function toggleCollapsibleElement(secEl, forceState) {
   }
 
   async function submitAuthGate() {
+    if (isPasswordAuthInFlight) return;
+
     const pwdInput = document.getElementById("authPasswordInput");
     const errEl = document.getElementById("authGateError");
     const submitBtn = document.getElementById("submitAuthGateBtn");
@@ -2269,9 +2305,14 @@ function toggleCollapsibleElement(secEl, forceState) {
     }
 
     const roleId = selectedGateRole || "duet_pres";
+    isPasswordAuthInFlight = true;
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.textContent = "보안 서버 인증 확인 중...";
+    }
+    if (errEl) {
+      errEl.style.display = "none";
+      errEl.textContent = "";
     }
 
     try {
@@ -2303,6 +2344,7 @@ function toggleCollapsibleElement(secEl, forceState) {
       }
       pwdInput.focus();
     } finally {
+      isPasswordAuthInFlight = false;
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = "인수인계 포털 입장하기";
@@ -2311,7 +2353,25 @@ function toggleCollapsibleElement(secEl, forceState) {
   }
 
   async function signInWithGoogleAdmin() {
+    if (isGoogleAuthInFlight) return;
+
     const errEl = document.getElementById("authGateError");
+    const googleBtn = document.getElementById("googleAdminAuthBtn");
+    const origGoogleBtnHtml = googleBtn ? googleBtn.innerHTML : "";
+
+    // [과제 1] 로컬 127.0.0.1 주소 방어 및 자동 전환
+    if (window.location.hostname === "127.0.0.1") {
+      const newUrl = window.location.href.replace("//127.0.0.1", "//localhost");
+      if (errEl) {
+        errEl.innerHTML = `<strong>로컬 접속 주소 안내:</strong><br><code>127.0.0.1</code>은 Firebase 기본 승인 도메인이 아닙니다. Google OAuth 인증을 위해 <strong>localhost</strong>로 자동 전환합니다...`;
+        errEl.style.display = "block";
+      }
+      setTimeout(() => {
+        window.location.replace(newUrl);
+      }, 600);
+      return;
+    }
+
     if (!initFirebaseClient() || !fbAuth) {
       if (errEl) {
         errEl.textContent = "Firebase Web SDK 설정(js/firebase-config.js)이 아직 구성되지 않았습니다.";
@@ -2320,8 +2380,20 @@ function toggleCollapsibleElement(secEl, forceState) {
       return;
     }
 
+    // [과제 2] in-flight lock 설정 및 버튼 비활성화/로딩 상태
+    isGoogleAuthInFlight = true;
+    if (googleBtn) {
+      googleBtn.disabled = true;
+      googleBtn.textContent = "Google 인증 창 확인 중...";
+    }
+    if (errEl) {
+      errEl.style.display = "none";
+      errEl.textContent = "";
+    }
+
     try {
       const provider = new window.firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
       const cred = await fbAuth.signInWithPopup(provider);
       const googleIdToken = await cred.user.getIdToken();
 
@@ -2343,11 +2415,79 @@ function toggleCollapsibleElement(secEl, forceState) {
       closeAuthGateModal();
       showToast("[18대 학생회장단 (관리자)] Google 계정으로 인증되었습니다!");
     } catch (err) {
+      const errCode = err ? (err.code || "") : "";
+      const errMsg = err ? (err.message || "") : "";
+
+      // [과제 2] 사용자가 팝업을 닫았거나 취소한 경우 에러 박스 미표시 (조용히 무시)
+      if (
+        errCode === "auth/popup-closed-by-user" ||
+        errCode === "auth/cancelled-popup-request" ||
+        errMsg.includes("popup-closed-by-user") ||
+        errMsg.includes("cancelled-popup-request")
+      ) {
+        console.log("[Auth] Google 인증 팝업이 사용자에 의해 닫혔거나 취소되었습니다.");
+        if (errEl) {
+          errEl.style.display = "none";
+          errEl.textContent = "";
+        }
+        return;
+      }
+
+      // [과제 2] 브라우저 또는 광고 차단 프로그램에 의한 팝업 차단
+      if (errCode === "auth/popup-blocked" || errMsg.includes("popup-blocked")) {
+        if (errEl) {
+          errEl.innerHTML = `<strong>팝업 차단 안내:</strong><br>브라우저 또는 광고 차단 프로그램이 Google 로그인 팝업을 차단했습니다.<br>주소창 우측 상단의 팝업 차단을 해제하거나 시크릿 모드에서 시도해 주세요. 또는 위쪽의 <strong>[직위별 비밀번호 인증]</strong>으로 입장하실 수 있습니다.`;
+          errEl.style.display = "block";
+        }
+        return;
+      }
+
+      // [과제 1] 도메인 미승인 에러 (`auth/unauthorized-domain`)
+      if (errCode === "auth/unauthorized-domain" || errMsg.includes("unauthorized-domain")) {
+        const currentHost = window.location.hostname || "현재 도메인";
+        if (errEl) {
+          errEl.innerHTML = `<strong>도메인 미승인 안내:</strong><br>현재 접속 도메인(<code>${esc(currentHost)}</code>)이 Firebase 승인된 도메인(Authorized domains)에 등록되어 있지 않습니다.<br><br>Firebase Console &gt; Authentication &gt; Settings &gt; Authorized domains에 도메인을 추가하거나, 위쪽의 <strong>[직위별 비밀번호 인증]</strong>으로 입장해 주세요.`;
+          errEl.style.display = "block";
+        }
+        return;
+      }
+
+      // 일반 오류 메시지 출력
       if (errEl) {
         errEl.textContent = err instanceof Error ? err.message : "Google 관리자 인증 중 오류가 발생했습니다.";
         errEl.style.display = "block";
       }
+    } finally {
+      isGoogleAuthInFlight = false;
+      if (googleBtn) {
+        googleBtn.disabled = false;
+        googleBtn.innerHTML = origGoogleBtnHtml;
+      }
     }
+  }
+
+  // [과제 3] 브라우저 인증 세션 완전 초기화 및 초기 잠금 상태 복귀
+  async function signOutSession() {
+    try {
+      if (initFirebaseClient() && fbAuth) {
+        await fbAuth.signOut();
+      }
+    } catch (e) {
+      console.warn("Firebase signOut error:", e);
+    }
+    state.currentRole = null;
+    state.adminMode = false;
+    state.editMode = false;
+    document.body.classList.remove("admin-mode", "edit-mode");
+
+    const logoutBtn = document.getElementById("authLogoutBtn");
+    if (logoutBtn) logoutBtn.style.display = "none";
+
+    updateRoleBadgeUI();
+    renderSidebar();
+    renderMainContent();
+    openAuthGateModal(false);
+    showToast("인증 세션이 완전히 로그아웃(초기화)되었습니다. 직위를 다시 선택해 주세요.");
   }
 
   function applyAuthenticatedRole(roleId) {
@@ -2361,6 +2501,11 @@ function toggleCollapsibleElement(secEl, forceState) {
     if (!state.adminMode) {
       state.editMode = false;
       document.body.classList.remove("edit-mode");
+    }
+
+    const logoutBtn = document.getElementById("authLogoutBtn");
+    if (logoutBtn) {
+      logoutBtn.style.display = "inline-flex";
     }
 
     updateRoleBadgeUI();
@@ -2378,6 +2523,7 @@ function toggleCollapsibleElement(secEl, forceState) {
     const badgeEl = document.getElementById("roleStatusBadge");
     const iconEl = document.getElementById("roleIcon");
     const nameEl = document.getElementById("roleName");
+    const logoutBtn = document.getElementById("authLogoutBtn");
     if (!badgeEl) return;
 
     const currentRole = state.currentRole;
@@ -2389,9 +2535,12 @@ function toggleCollapsibleElement(secEl, forceState) {
       if (iconEl) iconEl.textContent = "";
       if (nameEl) nameEl.textContent = cfg.badgeText;
       badgeEl.title = `현재 직위: ${cfg.name} (클릭하여 직위 변경)`;
+      if (logoutBtn) logoutBtn.style.display = "inline-flex";
     } else {
       if (iconEl) iconEl.textContent = "";
       if (nameEl) nameEl.textContent = "직위 미선택";
+      badgeEl.title = "직위 미선택 (클릭하여 직위 인증)";
+      if (logoutBtn) logoutBtn.style.display = "none";
     }
   }
 
@@ -3063,6 +3212,14 @@ function initBackToTopBtn() {
   }
 
   function init() {
+    // [과제 1] 로컬 127.0.0.1 접속 시 Firebase Auth 승인 도메인(localhost)으로 자동 전환
+    if (window.location.hostname === "127.0.0.1") {
+      const newUrl = window.location.href.replace("//127.0.0.1", "//localhost");
+      console.warn("[Firebase Auth] 127.0.0.1 접속 감지: Firebase 승인 도메인인 localhost로 자동 전환합니다.");
+      window.location.replace(newUrl);
+      return;
+    }
+
     initBackToTopBtn();
     loadState();
     initTheme();
@@ -3098,6 +3255,8 @@ function initBackToTopBtn() {
             await loadAuthorizedDataFromFirestore(claimedRole);
             applyAuthenticatedRole(claimedRole);
             closeAuthGateModal();
+            const roleCfg = ROLE_CONFIG[claimedRole];
+            showToast(`이전 인증 세션이 유지되어 [${roleCfg.name}] 권한으로 자동 입장되었습니다.`);
           }
         } catch (err) {
           console.warn("Firebase 세션 토큰 확인 실패:", err);
@@ -3134,6 +3293,8 @@ function initBackToTopBtn() {
 
     document.getElementById("roleChangeBtn")?.addEventListener("click", changeRole);
     document.getElementById("roleStatusBadge")?.addEventListener("click", changeRole);
+    document.getElementById("authLogoutBtn")?.addEventListener("click", signOutSession);
+    document.getElementById("resetAuthSessionBtn")?.addEventListener("click", signOutSession);
 
     // Header actions
     document.getElementById("themeToggleBtn")?.addEventListener("click", toggleTheme);
@@ -3179,7 +3340,11 @@ function initBackToTopBtn() {
     document.querySelectorAll("[data-close-modal]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const target = btn.getAttribute("data-close-modal");
-        document.getElementById(target)?.classList.remove("open");
+        const targetModal = document.getElementById(target);
+        if (targetModal && targetModal.id === "authGateModal" && targetModal.dataset.allowClose !== "1") {
+          return;
+        }
+        targetModal?.classList.remove("open");
       });
     });
 

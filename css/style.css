@@ -2158,6 +2158,8 @@ table.doc-table tr:hover td {
   font-weight: 600;
   color: var(--text);
   white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 .role-status-badge .role-icon {
   font-size: 14px;
@@ -2192,6 +2194,7 @@ table.doc-table tr:hover td {
   overflow-y: auto;
 }
 .auth-gate-card {
+  position: relative;
   max-width: 680px;
   width: 100%;
   margin: auto;
@@ -2205,6 +2208,31 @@ table.doc-table tr:hover td {
 @keyframes authGatePop {
   0% { transform: scale(0.98); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
+}
+
+.auth-gate-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 700;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  z-index: 5;
+}
+.auth-gate-close-btn:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+  border-color: var(--border-strong);
 }
 
 .auth-gate-header {
@@ -2227,6 +2255,31 @@ table.doc-table tr:hover td {
   font-weight: 800;
   color: var(--text);
   margin-bottom: 8px;
+}
+.auth-gate-status-banner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  margin: 6px auto 12px;
+  max-width: 92%;
+  text-align: center;
+  line-height: 1.45;
+  transition: all 0.2s ease;
+}
+.auth-gate-status-banner.locked {
+  background: var(--crimson-soft);
+  color: var(--crimson);
+  border: 1px solid rgba(155, 17, 30, 0.25);
+}
+.auth-gate-status-banner.verified {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 .auth-gate-subtitle {
   font-size: 13.5px;
@@ -2338,8 +2391,24 @@ table.doc-table tr:hover td {
   border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
+  line-height: 1.5;
   margin-bottom: 14px;
   animation: shake 0.3s ease;
+}
+.auth-gate-error code {
+  background: rgba(0, 0, 0, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+}
+[data-theme="dark"] .auth-gate-error {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: #f87171;
+  color: #fca5a5;
+}
+[data-theme="dark"] .auth-gate-error code {
+  background: rgba(255, 255, 255, 0.15);
 }
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
@@ -2357,6 +2426,31 @@ table.doc-table tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 8px;
+}
+
+.auth-session-footer {
+  text-align: center;
+  margin-top: 6px;
+  margin-bottom: 14px;
+}
+.btn-reset-session {
+  background: transparent;
+  border: 1px dashed var(--border-strong);
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 7px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-reset-session:hover {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: var(--crimson);
+  color: var(--crimson);
 }
 
 .auth-gate-notice {
