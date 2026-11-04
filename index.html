@@ -2,6 +2,12 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <script>
+    // GitHub Pages 접속 시 새 공식 Netlify 주소로 즉시 자동 리다이렉트
+    if (window.location.hostname.includes("github.io")) {
+      window.location.replace("https://duet-handover.netlify.app" + window.location.search + window.location.hash);
+    }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>고려대학교 자유전공학부 D반 제18대 학생회 Duet 인수인계 포털</title>
   <meta name="description" content="고려대학교 자유전공학부 D반 제18대 학생회 Duet(학생회장 원준혁, 부학생회장 우상준)이 차기 제19대 학생회장단 및 국장단(기획국·복지국·홍보국)을 위해 제작한 통합 인수인계 아카이브 포털">
