@@ -28,8 +28,13 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BACKUP_DIR = os.path.join(ROOT_DIR, "backup_local")
 
 def load_credentials():
-    # 1. serviceAccountKey.json 파일 우선 탐색
-    for candidate in ["serviceAccountKey.json", "firebase-adminsdk.json"]:
+    # 1. serviceAccountKey.json 또는 다운로드된 서비스 계정 json 파일 자동 탐색
+    import glob
+    candidates = ["serviceAccountKey.json", "firebase-adminsdk.json"]
+    candidates += [os.path.basename(p) for p in glob.glob(os.path.join(ROOT_DIR, "*adminsdk*.json"))]
+    candidates += [os.path.basename(p) for p in glob.glob(os.path.join(ROOT_DIR, "*serviceAccount*.json"))]
+    
+    for candidate in candidates:
         path = os.path.join(ROOT_DIR, candidate)
         if os.path.exists(path):
             print(f"🔑 서비스 계정 키 파일 감지: {candidate}")
