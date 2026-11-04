@@ -61,11 +61,8 @@
   ];
 
   // =========================================================================
-  // RBAC CONFIGURATION & PASSWORD HASHES (SALTED SHA-256)
+  // RBAC CONFIGURATION (SERVER-VERIFIED VIA NETLIFY FUNCTIONS + FIREBASE AUTH)
   // =========================================================================
-  const RBAC_SALT = "duet_rbac_salt_2026_";
-  const SESSION_ROLE_KEY = "duet_handover_role_session";
-
   const ROLE_CONFIG = {
     duet_pres: {
       id: "duet_pres",
@@ -73,10 +70,6 @@
       name: "18대 학생회장단",
       badgeClass: "duet_pres",
       badgeText: "제18대 학생회장단 (관리자)",
-      hashes: [
-        "9d9999c3c2532bd42a5d89eeec6c2182ef8ea2a575b474934388237e3afba2d3", // 3561
-        "ad06082b3595f076cd4dc4ee782e7e85727d73553b9669ae429183b14926cccc"  // duet18pres!
-      ],
       allowedTabs: ["overview", "calendar", "presidency", "planning", "welfare", "pr", "templates"],
       defaultTab: "overview",
       canEdit: true,
@@ -89,10 +82,6 @@
       name: "18대 국장단",
       badgeClass: "duet_head",
       badgeText: "제18대 국장단",
-      hashes: [
-        
-        "8a8aa4f40a44262535e651aefab73ae5311d9e293924f6a0616705654c0bc10d","940f6894aa7ef92319d571e21b3f63ae90fe6cbed6de188c7ea2f406de418ade"  // duet18head!
-      ],
       allowedTabs: ["overview", "calendar", "planning", "welfare", "pr", "templates"],
       defaultTab: "planning",
       canEdit: false,
@@ -105,10 +94,6 @@
       name: "19대 학생회장단",
       badgeClass: "next_pres",
       badgeText: "제19대 학생회장단",
-      hashes: [
-        
-        "b4ece8a5f8db5f67faf8eff714eae4216d4c13bc43a4206bc7b76e722a1f07c1","fd8b9c4274500cf858c3cbb5f37421eed08bcbb5ec0ec0de58103a14627a6909"  // duet19pres!
-      ],
       allowedTabs: ["overview", "calendar", "presidency", "planning", "welfare", "pr", "templates"],
       defaultTab: "overview",
       canEdit: false,
@@ -121,10 +106,6 @@
       name: "19대 국장단",
       badgeClass: "next_head",
       badgeText: "제19대 국장단",
-      hashes: [
-        
-        "983c38840e183dfcd4a5509b068f1b573539866357c752894663d6c672bc695a","d225aaddc31e49a24aeb1788e8f18908d6ae487456e7da0fbe42bddca590ab5c"  // duet19head!
-      ],
       allowedTabs: ["planning", "welfare", "pr", "templates"],
       defaultTab: "planning",
       canEdit: false,
@@ -133,85 +114,37 @@
     }
   };
 
-  // Pure JS SHA-256 Implementation (sync fallback for any environment)
-  function sha256Sync(ascii) {
-    function rightRotate(value, amount) {
-      return (value >>> amount) | (value << (32 - amount));
+  // XSS Sanitizer wrapper (uses DOMPurify loaded in index.html)
+  function sanitizeHtml(dirtyHtml) {
+    if (!dirtyHtml) return "";
+    if (window.DOMPurify && typeof window.DOMPurify.sanitize === "function") {
+      return window.DOMPurify.sanitize(String(dirtyHtml), {
+        ADD_ATTR: ["target", "rel", "data-editable", "data-edit-key", "data-check-id", "data-dynamic-drive", "data-open-drive-modal", "data-jump-tab", "data-doc-jump"]
+      });
     }
-    const mathPow = Math.pow;
-    const maxWord = mathPow(2, 32);
-    let i, j;
-    const result = [];
-    const words = [];
-    const asciiBitLength = ascii.length * 8;
-    const hash = [];
-    const k = [];
-    let primeCounter = 0;
-    const isComposite = {};
-    for (let candidate = 2; primeCounter < 64; candidate++) {
-      if (!isComposite[candidate]) {
-        for (i = candidate * candidate; i < 312; i += candidate) isComposite[i] = true;
-        if (primeCounter < 8) hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
-        k[primeCounter] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
-        primeCounter++;
-      }
-    }
-    ascii += "\x80";
-    while ((ascii.length % 64) - 56) ascii += "\x00";
-    for (i = 0; i < ascii.length; i++) {
-      j = ascii.charCodeAt(i);
-      words[i >> 2] |= j << ((3 - (i % 4)) * 8);
-    }
-    words[words.length] = (asciiBitLength / maxWord) | 0;
-    words[words.length] = asciiBitLength | 0;
-    for (j = 0; j < words.length; ) {
-      const w = words.slice(j, (j += 16));
-      const oldHash = hash.slice(0);
-      for (i = 0; i < 64; i++) {
-        const w15 = w[i - 15], w2 = w[i - 2];
-        const s0 = rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3);
-        const s1 = rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10);
-        const ch = (hash[4] & hash[5]) ^ (~hash[4] & hash[6]);
-        const maj = (hash[0] & hash[1]) ^ (hash[0] & hash[2]) ^ (hash[1] & hash[2]);
-        const temp1 =
-          (hash[7] +
-            (rightRotate(hash[4], 6) ^ rightRotate(hash[4], 11) ^ rightRotate(hash[4], 25)) +
-            ch +
-            k[i] +
-            (w[i] = i < 16 ? w[i] : (w[i - 16] + s0 + w[i - 7] + s1) | 0)) |
-          0;
-        const temp2 = ((rightRotate(hash[0], 2) ^ rightRotate(hash[0], 13) ^ rightRotate(hash[0], 22)) + maj) | 0;
-        hash[7] = hash[6];
-        hash[6] = hash[5];
-        hash[5] = hash[4];
-        hash[4] = (hash[3] + temp1) | 0;
-        hash[3] = hash[2];
-        hash[2] = hash[1];
-        hash[1] = hash[0];
-        hash[0] = (temp1 + temp2) | 0;
-      }
-      for (i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
-    }
-    for (i = 0; i < 8; i++) {
-      for (j = 3; j >= 0; j--) {
-        const b = (hash[i] >> (j * 8)) & 255;
-        result.push((b < 16 ? "0" : "") + b.toString(16));
-      }
-    }
-    return result.join("");
+    return String(dirtyHtml);
   }
 
-  async function computeSha256Hex(str) {
-    if (window.crypto && window.crypto.subtle) {
-      try {
-        const buf = new TextEncoder().encode(str);
-        const hashBuf = await window.crypto.subtle.digest("SHA-256", buf);
-        return Array.from(new Uint8Array(hashBuf))
-          .map((b) => b.toString(16).padStart(2, "0"))
-          .join("");
-      } catch (_) {}
+  // Firebase Client SDK instances
+  let fbApp = null;
+  let fbAuth = null;
+  let fbDb = null;
+
+  function initFirebaseClient() {
+    if (fbApp) return true;
+    const cfg = window.DUET_FIREBASE_CONFIG;
+    if (!window.firebase || !cfg || !cfg.apiKey || !cfg.projectId) {
+      return false;
     }
-    return sha256Sync(str);
+    try {
+      fbApp = window.firebase.apps.length ? window.firebase.app() : window.firebase.initializeApp(cfg);
+      fbAuth = window.firebase.auth();
+      fbDb = window.firebase.firestore();
+      return true;
+    } catch (err) {
+      console.error("Firebase 초기화 오류:", err);
+      return false;
+    }
   }
 
   // State
@@ -239,13 +172,44 @@
     lightboxIdx: 0
   };
 
-  // Load persisted data
-  function loadState() {
-    appData = JSON.parse(JSON.stringify(window.DUET_DEFAULT_DATA));
+  // Initialize empty default structures before authentication
+  function createEmptyAppData() {
+    return {
+      meta: {
+        title: "고려대학교 자유전공학부 D반 제18대 학생회 Duet 인수인계 포털",
+        term: "2025.11.30 ~ 2026.11 (제18대 Duet)",
+        president: "원준혁",
+        vicePresident: "우상준",
+        departments: {
+          planning: "기획국",
+          welfare: "복지국",
+          pr: "홍보국",
+          reps: "신입생·고학번 대표"
+        }
+      },
+      driveLinks: [],
+      calendarEvents: [],
+      monthlyReports: []
+    };
+  }
 
-    // Merge baked-in customEdits if exported previously into data.js
-    if (appData.customEdits) {
-      customStore = Object.assign(customStore, appData.customEdits);
+  function loadState() {
+    window.DUET_SECTIONS = window.DUET_SECTIONS || {
+      overview: { greeting: { title: "", author: "", body: "" }, keyChanges: [] },
+      presidency: [],
+      planning: [],
+      welfare: [],
+      pr: [],
+      templates: []
+    };
+
+    if (window.DUET_DEFAULT_DATA) {
+      appData = JSON.parse(JSON.stringify(window.DUET_DEFAULT_DATA));
+      if (appData.customEdits) {
+        customStore = Object.assign(customStore, appData.customEdits);
+      }
+    } else {
+      appData = createEmptyAppData();
     }
 
     try {
@@ -275,33 +239,124 @@
     applyCustomToAppData();
   }
 
+  // Fetch only role-authorized collections from Cloud Firestore after Custom Token sign-in
+  async function loadAuthorizedDataFromFirestore(roleId) {
+    if (!initFirebaseClient() || !fbDb) return;
+    const roleCfg = ROLE_CONFIG[roleId];
+    if (!roleCfg) return;
+
+    try {
+      // 1. Portal Meta & Custom Edits
+      const [metaSnap, customSnap] = await Promise.all([
+        fbDb.collection("portal_data").doc("meta").get().catch(() => null),
+        fbDb.collection("portal_data").doc("custom_edits").get().catch(() => null)
+      ]);
+
+      if (metaSnap && metaSnap.exists) {
+        const mData = metaSnap.data() || {};
+        if (mData.meta) appData.meta = mData.meta;
+        if (Array.isArray(mData.monthlyReports)) appData.monthlyReports = mData.monthlyReports;
+      }
+
+      if (customSnap && customSnap.exists) {
+        const cData = customSnap.data() || {};
+        if (cData.driveLinks) customStore.driveLinks = Object.assign({}, customStore.driveLinks, cData.driveLinks);
+        if (cData.textEdits) customStore.textEdits = Object.assign({}, customStore.textEdits, cData.textEdits);
+        if (cData.eventEdits) customStore.eventEdits = Object.assign({}, customStore.eventEdits, cData.eventEdits);
+        if (Array.isArray(cData.customEvents)) customStore.customEvents = cData.customEvents;
+      }
+
+      // 2. Role-authorized Drive Links (enforced by Firestore Security Rules)
+      const driveQuery =
+        roleId === "duet_pres"
+          ? fbDb.collection("drive_links")
+          : fbDb.collection("drive_links").where("roles", "array-contains", roleId);
+      const driveSnap = await driveQuery.get().catch(() => null);
+      if (driveSnap && !driveSnap.empty) {
+        const links = [];
+        driveSnap.forEach((doc) => links.push(doc.data()));
+        links.sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+        appData.driveLinks = links;
+      }
+
+      // 3. Allowed Handover Sections
+      const sectionTabs = roleCfg.allowedTabs.filter((t) =>
+        ["overview", "presidency", "planning", "welfare", "pr", "templates"].includes(t)
+      );
+      await Promise.all(
+        sectionTabs.map(async (tabId) => {
+          const secSnap = await fbDb.collection("sections").doc(tabId).get().catch(() => null);
+          if (secSnap && secSnap.exists) {
+            const sData = secSnap.data() || {};
+            window.DUET_SECTIONS[tabId] = sData.content !== undefined ? sData.content : sData;
+          }
+        })
+      );
+
+      // 4. Calendar Events (only if calendar is in allowedTabs)
+      if (roleCfg.allowedTabs.includes("calendar")) {
+        const calSnap = await fbDb.collection("calendar_events").get().catch(() => null);
+        if (calSnap && !calSnap.empty) {
+          const evs = [];
+          calSnap.forEach((doc) => evs.push(doc.data()));
+          evs.sort((a, b) => {
+            if (a.monthKey !== b.monthKey) return String(a.monthKey).localeCompare(String(b.monthKey));
+            return (Number(a.day) || 1) - (Number(b.day) || 1);
+          });
+          appData.calendarEvents = evs;
+        }
+      }
+
+      // 5. Role-scoped Checklists
+      const checkSnap = await fbDb.collection("checklists").doc(roleId).get().catch(() => null);
+      if (checkSnap && checkSnap.exists) {
+        checkStore = Object.assign({}, checkStore, checkSnap.data() || {});
+      }
+
+      // Update sidebar contact info now that user is authenticated
+      const presEl = document.getElementById("sidebarPresContact");
+      if (presEl && appData.meta && appData.meta.president) {
+        presEl.textContent = `학생회장: ${appData.meta.president}`;
+      }
+
+      applyCustomToAppData();
+    } catch (err) {
+      console.warn("Firestore 데이터 로드 중 일부 항목 제한됨:", err);
+    }
+  }
+
   function applyCustomToAppData() {
+    if (!appData) return;
     // Drive links
-    appData.driveLinks.forEach((dl) => {
-      if (customStore.driveLinks[dl.id] !== undefined) {
-        dl.url = customStore.driveLinks[dl.id];
-      }
-    });
-
-    // Event edits
-    appData.calendarEvents.forEach((ev) => {
-      const edit = customStore.eventEdits[ev.id];
-      if (edit) {
-        if (edit.title !== undefined) ev.title = edit.title;
-        if (edit.date !== undefined) ev.date = edit.date;
-        if (edit.noticeText !== undefined) ev.noticeText = edit.noticeText;
-        if (edit.thought !== undefined) ev.thought = edit.thought;
-        if (edit.images !== undefined) ev.images = edit.images;
-      }
-    });
-
-    // Custom added events
-    if (Array.isArray(customStore.customEvents)) {
-      customStore.customEvents.forEach((cev) => {
-        if (!appData.calendarEvents.some((x) => x.id === cev.id)) {
-          appData.calendarEvents.push(cev);
+    if (Array.isArray(appData.driveLinks)) {
+      appData.driveLinks.forEach((dl) => {
+        if (customStore.driveLinks[dl.id] !== undefined) {
+          dl.url = customStore.driveLinks[dl.id];
         }
       });
+    }
+
+    // Event edits
+    if (Array.isArray(appData.calendarEvents)) {
+      appData.calendarEvents.forEach((ev) => {
+        const edit = customStore.eventEdits[ev.id];
+        if (edit) {
+          if (edit.title !== undefined) ev.title = edit.title;
+          if (edit.date !== undefined) ev.date = edit.date;
+          if (edit.noticeText !== undefined) ev.noticeText = edit.noticeText;
+          if (edit.thought !== undefined) ev.thought = edit.thought;
+          if (edit.images !== undefined) ev.images = edit.images;
+        }
+      });
+
+      // Custom added events
+      if (Array.isArray(customStore.customEvents)) {
+        customStore.customEvents.forEach((cev) => {
+          if (!appData.calendarEvents.some((x) => x.id === cev.id)) {
+            appData.calendarEvents.push(cev);
+          }
+        });
+      }
     }
   }
 
@@ -311,6 +366,23 @@
     } catch (e) {
       console.warn("Failed to save custom store:", e);
     }
+    // Sync to Cloud Firestore if authenticated as Admin (duet_pres)
+    if (fbDb && state.adminMode && state.currentRole === "duet_pres") {
+      fbDb
+        .collection("portal_data")
+        .doc("custom_edits")
+        .set(
+          {
+            driveLinks: customStore.driveLinks || {},
+            textEdits: customStore.textEdits || {},
+            eventEdits: customStore.eventEdits || {},
+            customEvents: customStore.customEvents || [],
+            updatedAt: new Date().toISOString()
+          },
+          { merge: true }
+        )
+        .catch((err) => console.warn("Firestore custom_edits 저장 실패:", err));
+    }
   }
 
   function saveCheckStore() {
@@ -318,6 +390,13 @@
       localStorage.setItem(CHECK_STORAGE_KEY, JSON.stringify(checkStore));
     } catch (e) {
       console.warn("Failed to save check store:", e);
+    }
+    if (fbDb && state.currentRole) {
+      fbDb
+        .collection("checklists")
+        .doc(state.currentRole)
+        .set(checkStore, { merge: true })
+        .catch((err) => console.warn("Firestore 체크리스트 저장 실패:", err));
     }
   }
 
@@ -602,6 +681,20 @@
   function renderMainContent() {
     const main = document.getElementById("mainContent");
     if (!main) return;
+
+    // Never render handover contents prior to role authentication
+    if (!state.currentRole || !ROLE_CONFIG[state.currentRole]) {
+      main.innerHTML = `
+        <div class="doc-section" style="text-align:center;padding:64px 24px;margin-top:24px;">
+          <div style="font-size:15px;font-weight:700;color:var(--crimson);margin-bottom:8px;">보안 인증 대기 중</div>
+          <h2 style="font-size:20px;font-weight:800;color:var(--text);margin-bottom:10px;">직위 인증 후 열람 권한이 부여된 인수인계 문서가 로드됩니다.</h2>
+          <p class="body-text" style="max-width:520px;margin:0 auto;color:var(--text-muted);">
+            제18대 학생회 &lt;Duet&gt; 인수인계 포털의 모든 문서·공지글·드라이브 링크는 Netlify Serverless 및 Firebase Firestore 보안 규칙(RBAC)에 의해 보호됩니다.
+          </p>
+        </div>
+      `;
+      return;
+    }
 
     if (state.currentTab === "overview") {
       main.innerHTML = buildOverviewHtml();
@@ -1875,7 +1968,7 @@
             </button>
           </div>
           <div class="section-body">
-            ${sec.contentHtml}
+            ${sanitizeHtml(sec.contentHtml)}
           </div>
         </section>
       `
@@ -2057,24 +2150,8 @@ function toggleCollapsibleElement(secEl, forceState) {
   }
 
   // =========================================================================
-  // 4. RBAC AUTHENTICATION & ACCESS CONTROL
+  // 4. RBAC AUTHENTICATION & ACCESS CONTROL (NETLIFY FUNCTIONS + FIREBASE)
   // =========================================================================
-  const LOCAL_CONFIG_CACHE_KEY = "duet_local_config_cache_v1";
-
-  function getLocalConfig() {
-    if (window.DUET_LOCAL_CONFIG) {
-      try {
-        localStorage.setItem(LOCAL_CONFIG_CACHE_KEY, JSON.stringify(window.DUET_LOCAL_CONFIG));
-      } catch (_) {}
-      return window.DUET_LOCAL_CONFIG;
-    }
-    try {
-      const cached = localStorage.getItem(LOCAL_CONFIG_CACHE_KEY);
-      if (cached) return JSON.parse(cached);
-    } catch (_) {}
-    return null;
-  }
-
   let selectedGateRole = "duet_pres";
 
   function openAuthGateModal(allowClose = false) {
@@ -2091,7 +2168,6 @@ function toggleCollapsibleElement(secEl, forceState) {
       pwdInput.value = "";
     }
 
-    // Set selected role in modal UI
     const targetRole = state.currentRole || "duet_pres";
     selectGateRole(targetRole);
 
@@ -2124,6 +2200,11 @@ function toggleCollapsibleElement(secEl, forceState) {
       label.textContent = `${cfg.name} 접속 비밀번호`;
     }
 
+    const googleBtn = document.getElementById("googleAdminAuthBtn");
+    if (googleBtn) {
+      googleBtn.style.display = roleId === "duet_pres" ? "inline-flex" : "none";
+    }
+
     const errEl = document.getElementById("authGateError");
     if (errEl) {
       errEl.style.display = "none";
@@ -2136,31 +2217,10 @@ function toggleCollapsibleElement(secEl, forceState) {
     }
   }
 
-  async function checkRolePassword(roleId, inputPassword) {
-    if (!roleId || !inputPassword || !ROLE_CONFIG[roleId]) return false;
-    const cleanPwd = String(inputPassword).trim();
-    if (!cleanPwd) return false;
-
-    // 1. Check local config if present (e.g. from js/config.local.js)
-    const localCfg = getLocalConfig();
-    if (localCfg) {
-      if (localCfg.rolePasswords && localCfg.rolePasswords[roleId]) {
-        if (cleanPwd === String(localCfg.rolePasswords[roleId]).trim()) return true;
-      }
-      if (roleId === "duet_pres" && localCfg.adminPassword) {
-        if (cleanPwd === String(localCfg.adminPassword).trim()) return true;
-      }
-    }
-
-    // 2. Check salted SHA-256 hash
-    const inputHash = await computeSha256Hex(RBAC_SALT + cleanPwd);
-    const validHashes = ROLE_CONFIG[roleId].hashes || [];
-    return validHashes.includes(inputHash);
-  }
-
   async function submitAuthGate() {
     const pwdInput = document.getElementById("authPasswordInput");
     const errEl = document.getElementById("authGateError");
+    const submitBtn = document.getElementById("submitAuthGateBtn");
     if (!pwdInput) return;
 
     const val = pwdInput.value.trim();
@@ -2174,27 +2234,85 @@ function toggleCollapsibleElement(secEl, forceState) {
     }
 
     const roleId = selectedGateRole || "duet_pres";
-    const isValid = await checkRolePassword(roleId, val);
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "보안 서버 인증 확인 중...";
+    }
 
-    if (!isValid) {
+    try {
+      const res = await fetch("/api/auth-role", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ roleId, password: val })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.ok || !data.customToken) {
+        throw new Error(data.error || "비밀번호가 일치하지 않거나 인증에 실패했습니다.");
+      }
+
+      if (initFirebaseClient() && fbAuth) {
+        await fbAuth.signInWithCustomToken(data.customToken);
+      }
+
+      await loadAuthorizedDataFromFirestore(roleId);
+      applyAuthenticatedRole(roleId);
+      closeAuthGateModal();
+
+      const cfg = ROLE_CONFIG[roleId];
+      showToast(`[${cfg.name}] 권한으로 보안 인증되었습니다. 환영합니다!`);
+    } catch (err) {
       if (errEl) {
-        errEl.textContent = "비밀번호가 일치하지 않습니다. 다시 확인해주세요.";
+        errEl.textContent = err instanceof Error ? err.message : "인증 서버 연결에 실패했습니다.";
         errEl.style.display = "block";
       }
       pwdInput.focus();
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "인수인계 포털 입장하기";
+      }
+    }
+  }
+
+  async function signInWithGoogleAdmin() {
+    const errEl = document.getElementById("authGateError");
+    if (!initFirebaseClient() || !fbAuth) {
+      if (errEl) {
+        errEl.textContent = "Firebase Web SDK 설정(js/firebase-config.js)이 아직 구성되지 않았습니다.";
+        errEl.style.display = "block";
+      }
       return;
     }
 
-    // Success: save role to session
     try {
-      sessionStorage.setItem(SESSION_ROLE_KEY, roleId);
-    } catch (_) {}
+      const provider = new window.firebase.auth.GoogleAuthProvider();
+      const cred = await fbAuth.signInWithPopup(provider);
+      const googleIdToken = await cred.user.getIdToken();
 
-    applyAuthenticatedRole(roleId);
-    closeAuthGateModal();
+      const res = await fetch("/api/auth-role", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ googleIdToken })
+      });
 
-    const cfg = ROLE_CONFIG[roleId];
-    showToast(`[${cfg.name}] 권한으로 입장하셨습니다. 환영합니다!`);
+      const data = await res.json();
+      if (!res.ok || !data.ok || !data.customToken) {
+        await fbAuth.signOut();
+        throw new Error(data.error || "허용된 관리자 구글 계정이 아닙니다.");
+      }
+
+      await fbAuth.signInWithCustomToken(data.customToken);
+      await loadAuthorizedDataFromFirestore("duet_pres");
+      applyAuthenticatedRole("duet_pres");
+      closeAuthGateModal();
+      showToast("[18대 학생회장단 (관리자)] Google 계정으로 인증되었습니다!");
+    } catch (err) {
+      if (errEl) {
+        errEl.textContent = err instanceof Error ? err.message : "Google 관리자 인증 중 오류가 발생했습니다.";
+        errEl.style.display = "block";
+      }
+    }
   }
 
   function applyAuthenticatedRole(roleId) {
@@ -2272,7 +2390,7 @@ function toggleCollapsibleElement(secEl, forceState) {
       const key = el.getAttribute("data-edit-key");
       if (customStore.textEdits[key] !== undefined) {
         if (el.tagName === "UL" || el.tagName === "OL") {
-          el.innerHTML = customStore.textEdits[key];
+          el.innerHTML = sanitizeHtml(customStore.textEdits[key]);
         } else {
           el.textContent = customStore.textEdits[key];
         }
@@ -2686,183 +2804,77 @@ function toggleCollapsibleElement(secEl, forceState) {
     showToast("이미지 경로가 슬라이드 목록에 추가되었습니다.");
   }
 
-  // Notion API Calendar Sync
+  // Notion API Calendar Sync (via Netlify Serverless Function Proxy)
   function openNotionSyncModal() {
     if (!state.adminMode) return;
     const modal = document.getElementById("notionSyncModal");
     if (!modal) return;
-    const cfg = getLocalConfig();
-    const tokenInp = document.getElementById("notionTokenInput");
-    const dbInp = document.getElementById("notionDbIdInput");
-    if (cfg) {
-      if (tokenInp && !tokenInp.value && cfg.notionToken) tokenInp.value = cfg.notionToken;
-      if (dbInp && !dbInp.value && cfg.notionDatabaseId) dbInp.value = cfg.notionDatabaseId;
-    }
-    if (dbInp && !dbInp.value) {
-      dbInp.value = "2bc1d74f-c6df-81da-ab9b-d1a1aa4d363c";
-    }
     const syncedCount = appData.calendarEvents.filter((e) => e.notionPageId || String(e.id).startsWith("notion_")).length;
     const statusEl = document.getElementById("notionSyncStatus");
     if (statusEl) {
       statusEl.innerHTML = `
         <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-left:4px solid #16a34a;border-radius:8px;line-height:1.55;">
-          ✅ <strong>현재 노션 DB 전체 일정 ${syncedCount}건(2025.11 ~ 2026.11, 상세 본문 29건 포함)이 <code>js/data.js</code>에 100% 반영되어 있습니다.</strong><br>
-          <span style="font-size:12px;color:var(--text-muted);">• 로컬 PC에서 노션에 새 일정을 추가한 뒤 즉시 반영하려면 프로젝트 폴더의 <code>sync_notion.bat</code>을 실행하세요.</span>
+          ✅ <strong>현재 노션 DB 일정 ${syncedCount}건이 Cloud Firestore에 동기화되어 있습니다.</strong><br>
+          <span style="font-size:12px;color:var(--text-muted);">• [노션 데이터 서버 동기화 실행] 버튼을 누르면 브라우저에 API 키를 노출하지 않고 Netlify 서버리스 함수(<code>/api/notion-sync</code>)가 노션 DB와 Firestore를 직접 동기화합니다.</span>
         </div>
       `;
     }
     modal.classList.add("open");
   }
 
-  function extractNotionDbId(rawInput) {
-    const clean = (rawInput || "").trim();
-    const match = clean.match(/([a-fA-F0-9]{32})/);
-    if (match) return match[1].toLowerCase();
-    const dashed = clean.replace(/-/g, "").match(/([a-fA-F0-9]{32})/);
-    return dashed ? dashed[1].toLowerCase() : clean;
-  }
-
-  function inferCategoryFromNotionText(text) {
-    const t = (text || "").toLowerCase();
-    if (t.includes("기획") || t.includes("스터디") || t.includes("친해져도") || t.includes("mt") || t.includes("고연전")) return { cat: "plan", label: "기획국" };
-    if (t.includes("복지") || t.includes("생활") || t.includes("간식") || t.includes("반실") || t.includes("대여")) return { cat: "welf", label: "복지국" };
-    if (t.includes("홍보") || t.includes("월간보고") || t.includes("피드백") || t.includes("카드뉴스")) return { cat: "pr", label: "홍보국" };
-    if (t.includes("반운위") || t.includes("확운위") || t.includes("총회") || t.includes("선거") || t.includes("의결")) return { cat: "gov", label: "의결기구" };
-    return { cat: "pres", label: "학생회장단" };
-  }
-
   async function runNotionSync() {
     if (!state.adminMode) return;
-    const token = document.getElementById("notionTokenInput")?.value.trim();
-    const rawDb = document.getElementById("notionDbIdInput")?.value.trim();
     const statusEl = document.getElementById("notionSyncStatus");
+    const runBtn = document.getElementById("runNotionSyncBtn");
 
-    if (!token || !rawDb) {
-      alert("노션 API 토큰과 캘린더 데이터베이스 링크(또는 ID)를 모두 입력해주세요.");
+    if (!initFirebaseClient() || !fbAuth || !fbAuth.currentUser) {
+      if (statusEl) {
+        statusEl.innerHTML = `<div style="color:var(--danger, #ef4444);">관리자 Firebase 인증 세션이 필요합니다. 다시 로그인해 주세요.</div>`;
+      }
       return;
     }
 
-    // Save token & DB ID to local browser cache for convenience
-    try {
-      const prevCfg = getLocalConfig() || {};
-      const nextCfg = {
-        ...prevCfg,
-        notionToken: token,
-        notionDatabaseId: rawDb
-      };
-      localStorage.setItem(LOCAL_CONFIG_CACHE_KEY, JSON.stringify(nextCfg));
-      window.DUET_LOCAL_CONFIG = nextCfg;
-    } catch (_) {}
-
-    const dbId = extractNotionDbId(rawDb);
-    if (statusEl) statusEl.innerHTML = "⏳ 노션 데이터베이스 동기화 상태를 확인하는 중입니다...";
+    if (statusEl) statusEl.innerHTML = "⏳ Netlify 서버리스 함수를 통해 노션 데이터베이스와 Firestore를 동기화하는 중입니다...";
+    if (runBtn) runBtn.disabled = true;
 
     try {
-      const targetUrl = `https://api.notion.com/v1/databases/${dbId}/query`;
-      let pages = [];
-      let hasMore = true;
-      let startCursor = undefined;
-
-      while (hasMore) {
-        const bodyPayload = { page_size: 100 };
-        if (startCursor) bodyPayload.start_cursor = startCursor;
-
-        const res = await fetch(targetUrl, {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Notion-Version": "2022-06-28",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(bodyPayload)
-        });
-
-        if (!res.ok) {
-          const errText = await res.text();
-          throw new Error(`Notion API (${res.status}): ${errText.slice(0, 140)}`);
-        }
-
-        const data = await res.json();
-        pages = pages.concat(data.results || []);
-        hasMore = Boolean(data.has_more);
-        startCursor = data.next_cursor;
-      }
-
-      let addedCount = 0;
-
-      pages.forEach((page) => {
-        const props = page.properties || {};
-        let title = "";
-        let dateStr = "";
-        let tagText = "";
-        let descText = "";
-
-        Object.keys(props).forEach((key) => {
-          const p = props[key];
-          if (p.type === "title" && Array.isArray(p.title)) {
-            title = p.title.map((x) => x.plain_text).join("").trim();
-          } else if (p.type === "date" && p.date && p.date.start) {
-            dateStr = p.date.start.slice(0, 10);
-          } else if (p.type === "select" && p.select) {
-            tagText += " " + p.select.name;
-          } else if (p.type === "multi_select" && Array.isArray(p.multi_select)) {
-            tagText += " " + p.multi_select.map((x) => x.name).join(" ");
-          } else if (p.type === "rich_text" && Array.isArray(p.rich_text)) {
-            const rt = p.rich_text.map((x) => x.plain_text).join("").trim();
-            if (rt) descText += (descText ? "\n" : "") + rt;
-          }
-        });
-
-        if (!title || !dateStr) return;
-        if (dateStr >= "2026-12-01") return; // 18대 임기(2025.11.30 ~ 2026.11) 외 일정 제외
-        const monthKey = dateStr.slice(0, 7);
-        const day = Number(dateStr.slice(8, 10)) || 1;
-        const displayDate = dateStr.replace(/-/g, ".");
-        const inferred = inferCategoryFromNotionText(tagText + " " + title);
-        const notionEvId = "notion_" + page.id.replace(/-/g, "");
-
-        const existing = appData.calendarEvents.find(
-          (e) => e.notionPageId === page.id || e.id === notionEvId || (e.monthKey === monthKey && e.day === day && e.title === title)
-        );
-        if (!existing) {
-          const newEv = {
-            id: notionEvId,
-            notionPageId: page.id,
-            monthKey,
-            date: displayDate,
-            day,
-            category: inferred.cat,
-            deptLabel: tagText.trim() || inferred.label,
-            title,
-            images: [],
-            noticeText: descText || `[노션(Notion) 캘린더 일정 기록]\n• 일정명: ${title}\n• 일시: ${displayDate}\n• 담당 국서: ${tagText.trim() || inferred.label}`,
-            thought: "• 노션(Notion) 캘린더 데이터베이스에서 동기화된 제18대 학생회 Duet 공식 일정입니다. 관리자 모드에서 [✏️ 코멘트/공지 편집]을 켜면 이 일정에 대한 세부 코멘트를 자유롭게 추가하실 수 있습니다."
-          };
-          customStore.customEvents.push(newEv);
-          addedCount++;
+      const idToken = await fbAuth.currentUser.getIdToken();
+      const res = await fetch("/api/notion-sync", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${idToken}`
         }
       });
 
-      applyCustomToAppData();
-      saveCustomStore();
-      if (statusEl) {
-        statusEl.innerHTML = `총 <strong>${pages.length}개</strong>의 노션 항목을 확인하여 신규 일정 <strong>${addedCount}건</strong>을 캘린더에 병합했습니다! 상단 [수정본 data.js 저장]을 누르면 영구 반영됩니다.`;
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || `노션 서버 동기화 실패 (${res.status})`);
       }
+
+      await loadAuthorizedDataFromFirestore(state.currentRole || "duet_pres");
       renderMainContent();
-      showToast(`노션 일정 확인 완료 (신규 ${addedCount}건 병합)`);
-    } catch (_) {
-      const syncedCount = appData.calendarEvents.filter((e) => e.notionPageId || String(e.id).startsWith("notion_")).length;
+
       if (statusEl) {
         statusEl.innerHTML = `
           <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-left:4px solid #16a34a;border-radius:8px;line-height:1.6;">
-            <strong>노션 DB 전체 일정 ${syncedCount}건 동기화 확인 완료!</strong><br>
-            • 입력하신 노션 토큰과 DB ID(<code>${esc(rawDb)}</code>)가 이 브라우저에 안전하게 저장되었습니다.<br>
-            • 현재 노션 데이터베이스의 <strong>전체 ${syncedCount}건(2025.11 ~ 2026.11, 상세 회의록·공지 본문 29건 포함)</strong>이 이미 <code>js/data.js</code>에 모두 병합되어 있습니다.<br>
-            <span style="font-size:12px;color:var(--text-muted);">노션 공식 API는 웹 브라우저 직접 호출(CORS)을 차단하므로, 추후 노션에 신규 일정을 추가하셨을 때는 폴더 내 <strong><code>sync_notion.bat</code></strong>을 더블클릭하시면 즉시 최신 데이터가 병합됩니다.</span>
+            ✅ <strong>노션 DB 전체 ${data.totalNotionPages}건 서버 동기화 완료!</strong><br>
+            • 신규 추가: <strong>${data.addedCount}건</strong> / 기존 업데이트: <strong>${data.updatedCount}건</strong><br>
+            • 모든 변경사항이 Cloud Firestore에 즉시 반영되었습니다.
           </div>
         `;
       }
-      showToast(`노션 DB 전체 ${syncedCount}건이 이미 최신 상태로 반영되어 있습니다!`);
+      showToast(`노션 일정 동기화 완료 (신규 ${data.addedCount}건, 갱신 ${data.updatedCount}건)`);
+    } catch (err) {
+      if (statusEl) {
+        statusEl.innerHTML = `
+          <div style="padding:12px 14px;background:var(--surface-alt);border:1px solid var(--border);border-left:4px solid #ef4444;border-radius:8px;line-height:1.6;">
+            ❌ <strong>동기화 오류:</strong> ${esc(err instanceof Error ? err.message : String(err))}
+          </div>
+        `;
+      }
+    } finally {
+      if (runBtn) runBtn.disabled = false;
     }
   }
 
@@ -3036,19 +3048,26 @@ function initBackToTopBtn() {
       }
     });
 
-    // RBAC Session Authentication Check
-    let sessionRole = null;
-    try {
-      sessionRole = sessionStorage.getItem(SESSION_ROLE_KEY);
-    } catch (_) {}
+    // Firebase Auth Token / Custom Claim Verification (Replaces insecure sessionStorage check)
+    openAuthGateModal(false);
+    renderSidebar();
+    renderMainContent();
 
-    if (sessionRole && ROLE_CONFIG[sessionRole]) {
-      applyAuthenticatedRole(sessionRole);
-    } else {
-      // First visit: show gate modal before entering
-      openAuthGateModal(false);
-      renderSidebar();
-      renderMainContent();
+    if (initFirebaseClient() && fbAuth) {
+      fbAuth.onAuthStateChanged(async (user) => {
+        if (!user) return;
+        try {
+          const tokenResult = await user.getIdTokenResult();
+          const claimedRole = tokenResult && tokenResult.claims ? tokenResult.claims.role : null;
+          if (claimedRole && ROLE_CONFIG[claimedRole]) {
+            await loadAuthorizedDataFromFirestore(claimedRole);
+            applyAuthenticatedRole(claimedRole);
+            closeAuthGateModal();
+          }
+        } catch (err) {
+          console.warn("Firebase 세션 토큰 확인 실패:", err);
+        }
+      });
     }
 
     // Role Gatekeeper events
@@ -3060,6 +3079,7 @@ function initBackToTopBtn() {
     });
 
     document.getElementById("submitAuthGateBtn")?.addEventListener("click", submitAuthGate);
+    document.getElementById("googleAdminAuthBtn")?.addEventListener("click", signInWithGoogleAdmin);
     document.getElementById("authGateForm")?.addEventListener("submit", (e) => {
       e.preventDefault();
       submitAuthGate();
@@ -3082,30 +3102,6 @@ function initBackToTopBtn() {
 
     // Header actions
     document.getElementById("themeToggleBtn")?.addEventListener("click", toggleTheme);
-    document.getElementById("localConfigFileInput")?.addEventListener("change", (e) => {
-      const file = e.target.files && e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        try {
-          const text = String(reader.result || "");
-          const pwMatch = text.match(/adminPassword\s*:\s*["']([^"']+)["']/);
-          const tkMatch = text.match(/notionToken\s*:\s*["']([^"']+)["']/);
-          const dbMatch = text.match(/notionDatabaseId\s*:\s*["']([^"']+)["']/);
-          const parsedCfg = {
-            adminPassword: pwMatch ? pwMatch[1] : "",
-            notionToken: tkMatch ? tkMatch[1] : "",
-            notionDatabaseId: dbMatch ? dbMatch[1] : ""
-          };
-          localStorage.setItem(LOCAL_CONFIG_CACHE_KEY, JSON.stringify(parsedCfg));
-          window.DUET_LOCAL_CONFIG = parsedCfg;
-          showToast("config.local.js 설정이 이 브라우저에 등록되었습니다.");
-        } catch (_) {
-          alert("config.local.js 파일을 읽는 중 오류가 발생했습니다.");
-        }
-      };
-      reader.readAsText(file, "utf-8");
-    });
     document.getElementById("editModeToggleBtn")?.addEventListener("click", toggleEditMode);
     document.getElementById("openNotionSyncBtn")?.addEventListener("click", openNotionSyncModal);
     document.getElementById("runNotionSyncBtn")?.addEventListener("click", runNotionSync);

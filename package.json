@@ -1,0 +1,17 @@
+{
+  "name": "duet-18th-handover-portal",
+  "version": "2.0.0",
+  "description": "고려대학교 자유전공학부 D반 제18대 학생회 <Duet> 인수인계 포털 (Netlify + Firebase 보안 아키텍처)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build_public.mjs",
+    "migrate:firestore": "node scripts/migrate_to_firestore.mjs",
+    "verify:security": "node scripts/verify_security.mjs",
+    "dev": "npx netlify-cli dev"
+  },
+  "dependencies": {
+    "@netlify/functions": "^3.0.0",
+    "firebase-admin": "^13.0.0"
+  }
+}

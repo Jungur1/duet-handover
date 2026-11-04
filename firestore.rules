@@ -1,0 +1,355 @@
+rules_version = '2';
+
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// This security rules file assumes the following data structures for the
+// Korea University Division of Interdisciplinary Studies Class D 18th Student Council (<Duet>)
+// Handover Portal:
+//
+// Authentication & RBAC (Firebase Auth Custom Claims via netlify/functions/auth-role.mts):
+//   - request.auth.token.role: string (enum: 'duet_pres', 'duet_head', 'next_pres', 'next_head')
+//   - request.auth.token.canEdit: bool (true only when role == 'duet_pres')
+//
+// Collection: portal_data/{docId}
+// Document ID: string (e.g., 'meta', 'custom_edits', 'monthly_reports')
+// Fields:
+//   - title: string (optional, <= 500 chars) - portal title
+//   - term: string (optional, <= 200 chars) - council term description
+//   - president: string (optional, <= 200 chars) - president info
+//   - vicePresident: string (optional, <= 200 chars) - vice president info
+//   - departments: map (optional, <= 20 keys) - department summaries
+//   - driveLinks: map (optional, <= 100 keys) - custom drive link overrides
+//   - textEdits: map (optional, <= 500 keys) - custom text overrides
+//   - eventEdits: map (optional, <= 500 keys) - custom calendar event overrides
+//   - customEvents: list (optional, <= 500 items) - custom added calendar events
+//   - monthlyReports: list (optional, <= 50 items) - monthly report metadata
+//   - updatedAt: timestamp or string (optional, <= 100 chars) - last update time
+//
+// Collection: drive_links/{linkId}
+// Document ID: string (e.g., 'fullArchive', 'googleForms', 'planningDrive', 'welfareDrive', 'prDrive')
+// Fields:
+//   - id: string (required, 1..100 chars, immutable on update) - unique link identifier
+//   - title: string (required, 1..300 chars) - display title of the drive/resource
+//   - desc: string (required, 0..2000 chars) - description of the drive contents
+//   - url: string (required, 0..2048 chars, empty string or valid http/https URL) - target URL
+//   - category: string (required, 1..100 chars) - link category ('executive', 'department', 'community', etc.)
+//   - badge: string (required, 0..100 chars) - badge label ('대외비', '국서실무', etc.)
+//   - roles: list of strings (required, 1..10 items) - allowed role IDs that can read this link
+//   - icon: string (optional, 0..100 chars) - optional icon identifier
+//   - placeholder: string (optional, 0..300 chars) - input placeholder text
+//   - order: int (optional, 0..1000) - display sort order
+//   - updatedAt: timestamp or string (optional, <= 100 chars) - last modified timestamp
+//
+// Collection: sections/{tabId}
+// Document ID: string (enum: 'overview', 'presidency', 'planning', 'welfare', 'pr', 'templates')
+// Fields:
+//   - id: string (optional, 1..100 chars, immutable on update) - tab identifier
+//   - greeting: map (optional) - overview greeting object
+//   - keyChanges: list (optional, <= 50 items) - overview key changes list
+//   - items: list (optional, <= 200 items) - handover section cards/articles
+//   - data: map or list (optional) - structured section payload
+//   - contentHtml: string (optional, <= 500000 chars) - serialized section HTML
+//   - updatedAt: timestamp or string (optional, <= 100 chars) - last modified timestamp
+//
+// Collection: calendar_events/{eventId}
+// Document ID: string (e.g., 'notion_...')
+// Fields:
+//   - id: string (required, 1..150 chars, immutable on update) - event identifier
+//   - monthKey: string (required, 7..20 chars) - YYYY-MM month key
+//   - date: string (required, 1..50 chars) - formatted date string (e.g., '2026.03.20')
+//   - year: int (optional, 2000..2100) - event year
+//   - month: int (optional, 1..12) - event month
+//   - day: int (optional, 1..31) - start day of month
+//   - endDay: int (optional, 1..31) - end day of month
+//   - category: string (required, 1..50 chars) - department/event category ('pres', 'gov', 'plan', 'welf', 'pr')
+//   - deptLabel: string (optional, 0..100 chars) - human-readable department label
+//   - title: string (required, 1..500 chars) - event title
+//   - status: string (optional, 0..100 chars) - event status
+//   - summary: string (optional, 0..5000 chars) - brief event summary
+//   - images: list of strings (required, <= 50 items) - array of card news image paths/URLs
+//   - noticeText: string (required, 0..50000 chars) - KakaoTalk notice text
+//   - thought: string (required, 0..50000 chars) - internal deliberations and handover notes
+//   - notionPageId: string (optional, 0..100 chars) - Notion page UUID for synced events
+//   - updatedAt: timestamp or string (optional, <= 100 chars) - last modified timestamp
+//
+// Collection: checklists/{roleId}
+// Document ID: string (enum: 'duet_pres', 'duet_head', 'next_pres', 'next_head')
+// Fields:
+//   - Dynamic map of checklist item keys to boolean/string/map completion states (max 200 keys)
+//
+// Collection: auth_attempts/{ipHash}
+// Document ID: string (SHA-256 hash of client IP)
+// Fields:
+//   - Managed exclusively by Netlify Function via firebase-admin SDK (client access strictly forbidden)
+//
+// ===============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    // Check if the user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if the user is the owner of a user-scoped resource
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Check if the user owns the existing document based on its uid field
+    function isDocOwner() {
+      return isAuthenticated() && request.auth.uid == resource.data.uid;
+    }
+
+    // Verify UID hasn't been tampered with on create
+    function uidUnchanged() {
+      return !('uid' in request.resource.data) ||
+        request.resource.data.uid == request.auth.uid;
+    }
+
+    // Ensure uid field is not modified on update
+    function uidNotModified() {
+      return !('uid' in request.resource.data) ||
+        request.resource.data.uid == resource.data.uid;
+    }
+
+    // Validate required fields exist on the incoming document
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    // Validate that the document contains only the allowed fields
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    // Validate that immutable fields have not been changed during an update
+    function areImmutableFieldsUnchanged(fields) {
+      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(fields);
+    }
+
+    // Validate string length on request.resource.data
+    function validStringLength(field, minLen, maxLen) {
+      return request.resource.data[field] is string &&
+        request.resource.data[field].size() >= minLen &&
+        request.resource.data[field].size() <= maxLen;
+    }
+
+    // Validate optional string (if present, must be string and within length bounds)
+    function isValidOptionalString(field, minLen, maxLen) {
+      return !(field in request.resource.data) ||
+        (request.resource.data[field] is string &&
+         request.resource.data[field].size() >= minLen &&
+         request.resource.data[field].size() <= maxLen);
+    }
+
+    // Validate URL format (must be a bounded string starting with https:// or http://)
+    function isValidUrl(url) {
+      return url is string &&
+        url.size() >= 8 &&
+        url.size() <= 2048 &&
+        (url.matches("^https://.*") || url.matches("^http://.*"));
+    }
+
+    // Validate that a list is a list and enforces size limits
+    function isValidList(list, maxSize) {
+      return list is list && list.size() <= maxSize;
+    }
+
+    // ===============================================================
+    // Role-Based Access Control (RBAC) Helpers
+    // ===============================================================
+
+    // Check if the authenticated user holds one of the 4 valid portal roles
+    function hasValidRole() {
+      return isAuthenticated() &&
+        ('role' in request.auth.token) &&
+        request.auth.token.role in ['duet_pres', 'duet_head', 'next_pres', 'next_head'];
+    }
+
+    // Check if the authenticated user is the 18th Student Council Presidency (Admin)
+    function isAdmin() {
+      return isAuthenticated() &&
+        ('role' in request.auth.token) &&
+        request.auth.token.role == 'duet_pres';
+    }
+
+    // Check if the authenticated user holds a presidency role (18th or 19th Presidency)
+    function isPresidencyRole() {
+      return isAuthenticated() &&
+        ('role' in request.auth.token) &&
+        request.auth.token.role in ['duet_pres', 'next_pres'];
+    }
+
+    // Check if the authenticated user is allowed to view executive/overview/calendar archives
+    function isOverviewOrCalendarRole() {
+      return isAuthenticated() &&
+        ('role' in request.auth.token) &&
+        request.auth.token.role in ['duet_pres', 'duet_head', 'next_pres'];
+    }
+
+    // Check if the authenticated user matches a specific roleId (or is admin)
+    function isRoleOwnerOrAdmin(roleId) {
+      return isAdmin() ||
+        (hasValidRole() && request.auth.token.role == roleId);
+    }
+
+    // ===============================================================
+    // Domain Validators (Applied on BOTH create and update)
+    // ===============================================================
+
+    // Validate portal_data/{docId} payload
+    function isValidPortalData(data) {
+      return data.keys().size() <= 50 &&
+        isValidOptionalString('title', 1, 500) &&
+        isValidOptionalString('term', 1, 200) &&
+        isValidOptionalString('president', 1, 200) &&
+        isValidOptionalString('vicePresident', 1, 200) &&
+        (!('departments' in data) || (data.departments is map && data.departments.keys().size() <= 20)) &&
+        (!('driveLinks' in data) || (data.driveLinks is map && data.driveLinks.keys().size() <= 100)) &&
+        (!('textEdits' in data) || (data.textEdits is map && data.textEdits.keys().size() <= 500)) &&
+        (!('eventEdits' in data) || (data.eventEdits is map && data.eventEdits.keys().size() <= 500)) &&
+        (!('customEvents' in data) || isValidList(data.customEvents, 500)) &&
+        (!('monthlyReports' in data) || isValidList(data.monthlyReports, 50));
+    }
+
+    // Validate drive_links/{linkId} payload
+    function isValidDriveLink(data) {
+      return hasRequiredFields(['id', 'title', 'desc', 'url', 'category', 'badge', 'roles']) &&
+        hasOnlyAllowedFields(['id', 'title', 'desc', 'url', 'category', 'badge', 'roles', 'icon', 'placeholder', 'order', 'updatedAt']) &&
+        validStringLength('id', 1, 100) &&
+        validStringLength('title', 1, 300) &&
+        validStringLength('desc', 0, 2000) &&
+        validStringLength('url', 0, 2048) &&
+        (data.url == "" || isValidUrl(data.url)) &&
+        validStringLength('category', 1, 100) &&
+        validStringLength('badge', 0, 100) &&
+        isValidOptionalString('icon', 0, 100) &&
+        isValidOptionalString('placeholder', 0, 300) &&
+        (!('order' in data) || (data.order is int && data.order >= 0 && data.order <= 1000)) &&
+        data.roles is list &&
+        data.roles.size() >= 1 &&
+        data.roles.size() <= 10 &&
+        data.roles.hasOnly(['duet_pres', 'duet_head', 'next_pres', 'next_head']);
+    }
+
+    // Validate sections/{tabId} payload
+    function isValidSectionDoc(data, tabId) {
+      return tabId in ['overview', 'presidency', 'planning', 'welfare', 'pr', 'templates'] &&
+        data.keys().size() <= 50 &&
+        isValidOptionalString('id', 1, 100) &&
+        isValidOptionalString('contentHtml', 0, 500000) &&
+        (!('greeting' in data) || (data.greeting is map && data.greeting.keys().size() <= 20)) &&
+        (!('keyChanges' in data) || isValidList(data.keyChanges, 50)) &&
+        (!('items' in data) || isValidList(data.items, 200));
+    }
+
+    // Validate calendar_events/{eventId} payload
+    function isValidCalendarEvent(data) {
+      return hasRequiredFields(['id', 'monthKey', 'date', 'category', 'title', 'images', 'noticeText', 'thought']) &&
+        hasOnlyAllowedFields(['id', 'notionPageId', 'monthKey', 'date', 'year', 'month', 'day', 'endDay', 'category', 'deptLabel', 'title', 'status', 'summary', 'images', 'noticeText', 'thought', 'updatedAt']) &&
+        validStringLength('id', 1, 150) &&
+        validStringLength('monthKey', 7, 20) &&
+        validStringLength('date', 1, 50) &&
+        validStringLength('category', 1, 50) &&
+        validStringLength('title', 1, 500) &&
+        validStringLength('noticeText', 0, 50000) &&
+        validStringLength('thought', 0, 50000) &&
+        isValidOptionalString('deptLabel', 0, 100) &&
+        isValidOptionalString('notionPageId', 0, 100) &&
+        isValidOptionalString('status', 0, 100) &&
+        isValidOptionalString('summary', 0, 5000) &&
+        (!('year' in data) || (data.year is int && data.year >= 2000 && data.year <= 2100)) &&
+        (!('month' in data) || (data.month is int && data.month >= 1 && data.month <= 12)) &&
+        (!('day' in data) || (data.day is int && data.day >= 1 && data.day <= 31)) &&
+        (!('endDay' in data) || (data.endDay is int && data.endDay >= 1 && data.endDay <= 31)) &&
+        isValidList(data.images, 50);
+    }
+
+    // Validate checklists/{roleId} payload
+    function isValidChecklist(data, roleId) {
+      return roleId in ['duet_pres', 'duet_head', 'next_pres', 'next_head'] &&
+        data is map &&
+        data.keys().size() <= 200;
+    }
+
+    // ===============================================================
+    // Collection Security Rules
+    // ===============================================================
+
+    // 1. Portal Metadata & Custom Edits
+    match /portal_data/{docId} {
+      allow read: if hasValidRole();
+      allow create: if isAdmin() && isValidPortalData(request.resource.data);
+      allow update: if isAdmin() && isValidPortalData(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // 2. Google Drive & External Archive Links (Per-Document Role Filtering)
+    match /drive_links/{linkId} {
+      allow read: if isAdmin() ||
+        (hasValidRole() &&
+         resource.data.roles is list &&
+         request.auth.token.role in resource.data.roles);
+      allow create: if isAdmin() &&
+        isValidDriveLink(request.resource.data) &&
+        request.resource.data.id == linkId;
+      allow update: if isAdmin() &&
+        isValidDriveLink(request.resource.data) &&
+        areImmutableFieldsUnchanged(['id']);
+      allow delete: if isAdmin();
+    }
+
+    // 3. Handover Sections by Department / Tab
+    match /sections/{tabId} {
+      allow read: if (tabId == 'presidency' && isPresidencyRole()) ||
+        (tabId == 'overview' && isOverviewOrCalendarRole()) ||
+        (tabId in ['planning', 'welfare', 'pr', 'templates'] && hasValidRole());
+      allow create: if isAdmin() && isValidSectionDoc(request.resource.data, tabId);
+      allow update: if isAdmin() &&
+        isValidSectionDoc(request.resource.data, tabId) &&
+        areImmutableFieldsUnchanged(['id']);
+      allow delete: if isAdmin();
+    }
+
+    // 4. Monthly Calendar Events, Notices, Deliberations & Card News
+    match /calendar_events/{eventId} {
+      allow read: if isOverviewOrCalendarRole();
+      allow create: if isAdmin() &&
+        isValidCalendarEvent(request.resource.data) &&
+        request.resource.data.id == eventId;
+      allow update: if isAdmin() &&
+        isValidCalendarEvent(request.resource.data) &&
+        areImmutableFieldsUnchanged(['id']);
+      allow delete: if isAdmin();
+    }
+
+    // 5. Role-Scoped Handover Checklists
+    match /checklists/{roleId} {
+      allow read: if roleId in ['duet_pres', 'duet_head', 'next_pres', 'next_head'] &&
+        isRoleOwnerOrAdmin(roleId);
+      allow create: if isRoleOwnerOrAdmin(roleId) &&
+        isValidChecklist(request.resource.data, roleId);
+      allow update: if isRoleOwnerOrAdmin(roleId) &&
+        isValidChecklist(request.resource.data, roleId);
+      allow delete: if isAdmin();
+    }
+
+    // 6. Rate-Limiting / Brute-Force Lockout Tracking (Admin SDK Only)
+    match /auth_attempts/{ipHash} {
+      allow read, write: if false;
+    }
+
+    // 7. Default Deny for All Other Paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

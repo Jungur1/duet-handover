@@ -31,4 +31,12 @@
 __pycache__/
 .env*
 js/config.local.js
+js/data.js
+js/sections_data.js
+backup_local/
+node_modules/
+.netlify/
+public/
+*serviceAccount*.json
+*firebase-adminsdk*.json
 KakaoTalk*.txt

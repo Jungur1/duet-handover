@@ -80,8 +80,8 @@
           </div>
         </div>
         <div>임기: 2025.11.30 ~ 2026.11</div>
-        <div>학생회장: 원준혁 (010-3516-3561)</div>
-        <div>부학생회장: 우상준</div>
+        <div id="sidebarPresContact">학생회장: 원준혁</div>
+        <div id="sidebarViceContact">부학생회장: 우상준</div>
         <div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);font-size:11.5px;">
           기획국: 김채은 · 장여백 / 김동준 · 문아림<br>
           복지국: 김동운 / 안희서·김찬우·방죠세핀·정유나<br>
@@ -216,11 +216,11 @@
   <div class="modal-backdrop" id="adminLoginModal">
     <div class="modal-card" style="max-width:420px;">
       <div class="modal-header">
-        <div class="modal-title">관리자 모드 전환</div>
+        <div class="modal-title">관리자 권한 재확인</div>
         <button class="btn" data-close-modal="adminLoginModal">✕ 닫기</button>
       </div>
       <p class="body-text" style="font-size:13px;">
-        방문자 모드에서는 모든 문서·캘린더·공지글 열람만 가능하며 수정이 잠겨 있습니다. 링크 설정이나 코멘트/공지글 수정을 위해 관리자 비밀번호를 입력해 주세요.
+        링크 설정이나 코멘트/공지글 수정을 위해 18대 학생회장단(관리자) 비밀번호를 입력해 주세요. (서버에서 Firebase Custom Token으로 검증됩니다.)
       </p>
       <form onsubmit="return false;">
         <input type="text" name="username" autocomplete="username" style="display:none;" tabindex="-1" aria-hidden="true">
@@ -229,12 +229,6 @@
           <input type="password" id="adminPasswordInput" placeholder="비밀번호를 입력하세요" autocomplete="current-password">
         </div>
       </form>
-      <div style="margin-top:10px;padding:10px 12px;border-radius:8px;background:var(--surface-alt);border:1px solid var(--border);font-size:12px;color:var(--text-secondary);">
-        <strong>내 PC 설정 파일 연동 (선택):</strong> 로컬의 <code>js/config.local.js</code> 파일을 한 번 선택하면 이 브라우저에만 기억되어(GitHub 미업로드) 노션 API 키·비밀번호가 자동 연동됩니다.
-        <div style="margin-top:6px;">
-          <input type="file" id="localConfigFileInput" accept=".js,.json" style="font-size:11.5px;max-width:100%;">
-        </div>
-      </div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;">
         <button class="btn" data-close-modal="adminLoginModal">취소</button>
         <button class="btn btn-crimson" id="confirmAdminLoginBtn">관리자 모드 켜기</button>
@@ -242,31 +236,20 @@
     </div>
   </div>
 
-  <!-- 6. Notion Calendar Sync Modal -->
+  <!-- 6. Notion Calendar Sync Modal (Serverless Proxy) -->
   <div class="modal-backdrop" id="notionSyncModal">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="modal-title">노션(Notion) 월별 캘린더 연동 · 동기화</div>
+        <div class="modal-title">노션(Notion) 월별 캘린더 서버 동기화</div>
         <button class="btn" data-close-modal="notionSyncModal">✕ 닫기</button>
       </div>
       <p class="body-text" style="font-size:13px;">
-        노션 API 통합 토큰(Integration Token)과 캘린더 데이터베이스 링크(또는 ID)를 입력하면, 노션의 모든 일정을 불러와 <strong>기존 홍보물 이미지·공지글·18대 코멘트와 자동으로 병합</strong>합니다. 병합 후 상단 <strong>[수정본 data.js 저장]</strong>을 누르면 방문자에게도 영구 반영됩니다.
+        보안을 위해 노션 API 토큰(<code>NOTION_TOKEN</code>)과 데이터베이스 ID(<code>NOTION_DATABASE_ID</code>)는 브라우저에 저장하지 않고 <strong>Netlify 서버 환경변수</strong>에서 안전하게 관리됩니다. 아래 버튼을 누르면 서버리스 함수(<code>/api/notion-sync</code>)가 노션 최신 일정을 불러와 <strong>Cloud Firestore</strong>에 즉시 병합합니다.
       </p>
-      <form onsubmit="return false;">
-        <input type="text" name="username" autocomplete="username" style="display:none;" tabindex="-1" aria-hidden="true">
-        <div class="form-group">
-          <label for="notionTokenInput">노션 API 토큰 (Internal Integration Secret)</label>
-          <input type="password" id="notionTokenInput" placeholder="ntn_... 또는 secret_..." autocomplete="off">
-        </div>
-        <div class="form-group">
-          <label for="notionDbIdInput">노션 캘린더 데이터베이스 링크 또는 32자리 ID</label>
-          <input type="text" id="notionDbIdInput" placeholder="https://www.notion.so/... 또는 32자리 데이터베이스 ID">
-        </div>
-      </form>
       <div id="notionSyncStatus" style="font-size:13px;color:var(--text-secondary);margin:10px 0;"></div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;">
         <button class="btn" data-close-modal="notionSyncModal">닫기</button>
-        <button class="btn btn-crimson" id="runNotionSyncBtn">노션 데이터 불러오기 & 병합</button>
+        <button class="btn btn-crimson" id="runNotionSyncBtn">노션 데이터 서버 동기화 실행</button>
       </div>
     </div>
   </div>
@@ -329,16 +312,19 @@
           </div>
         </div>
         <div id="authGateError" class="auth-gate-error" style="display:none;"></div>
-        <div class="auth-gate-actions">
+        <div class="auth-gate-actions" style="display:flex;flex-direction:column;gap:8px;">
           <button type="submit" class="btn btn-crimson auth-submit-btn" id="submitAuthGateBtn">
             인수인계 포털 입장하기
+          </button>
+          <button type="button" class="btn" id="googleAdminAuthBtn" style="width:100%;justify-content:center;padding:10px 14px;font-weight:600;">
+            Google 계정으로 18대 회장단(관리자) 인증
           </button>
         </div>
       </form>
 
       <div class="auth-gate-notice">
-        비밀번호 분실 및 권한 문의: 제18대 학생회장 원준혁 (010-3516-3561)<br>
-        * 본 사이트의 모든 인수인계 문서 및 자료는 D반 학생회 내부 자산으로서 무단 유출을 엄금합니다.
+        비밀번호 분실 및 권한 문의: 제18대 학생회장단 공식 인수인계 채널 문의<br>
+        * 본 사이트는 Netlify Serverless &amp; Firebase RBAC 보안 규칙으로 보호되며, 무단 열람 시도는 자동 기록·차단됩니다.
       </div>
     </div>
   </div>
@@ -426,14 +412,12 @@
   <!-- Toast Notification -->
   <div class="toast-msg" id="toastMsg"></div>
 
-  <!-- Scripts (config.local.js is git-ignored: conditionally loaded in local/dev environments only) -->
-  <script>
-    if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:") {
-      document.write('<script src="js/config.local.js" onerror="this.remove()"><\/script>');
-    }
-  </script>
-  <script src="js/data.js?v=23"></script>
-  <script src="js/sections_data.js?v=23"></script>
-  <script src="js/app.js?v=23"></script>
+  <!-- Security & Cloud SDKs (DOMPurify + Firebase Auth & Firestore) -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js" crossorigin="anonymous"></script>
+  <script src="js/firebase-config.js?v=24"></script>
+  <script src="js/app.js?v=24"></script>
 </body>
 </html>
