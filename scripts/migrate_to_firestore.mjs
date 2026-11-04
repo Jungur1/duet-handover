@@ -59,24 +59,50 @@ function evaluateWindowScript(filePath, globalProp) {
 async function main() {
   loadDotEnvIfPresent();
 
-  const projectId = process.env.FIREBASE_PROJECT_ID;
-  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-  const rawPrivateKey = process.env.FIREBASE_PRIVATE_KEY;
-
-  if (!projectId || !clientEmail || !rawPrivateKey) {
-    console.error(
-      "[오류] 환경변수 FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY가 필요합니다 (.env 파일 확인)."
-    );
-    process.exit(1);
+  let credential = null;
+  const candidateSet = new Set(["serviceAccountKey.json", "firebase-adminsdk.json"]);
+  for (const entry of fs.readdirSync(rootDir)) {
+    if ((entry.includes("adminsdk") || entry.includes("serviceAccount")) && entry.endsWith(".json")) {
+      candidateSet.add(entry);
+    }
   }
 
-  const app = initializeApp({
-    credential: cert({
+  for (const candidate of candidateSet) {
+    const candidatePath = path.join(rootDir, candidate);
+    if (fs.existsSync(candidatePath)) {
+      try {
+        const sa = JSON.parse(fs.readFileSync(candidatePath, "utf8"));
+        if (sa.project_id && sa.private_key && sa.client_email) {
+          console.log(`🔑 Firebase 서비스 계정 키 파일 감지: ${candidate}`);
+          credential = cert(sa);
+          break;
+        }
+      } catch (e) {
+        // Continue checking other candidates
+      }
+    }
+  }
+
+  if (!credential) {
+    const projectId = process.env.FIREBASE_PROJECT_ID;
+    const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+    const rawPrivateKey = process.env.FIREBASE_PRIVATE_KEY;
+
+    if (!projectId || !clientEmail || !rawPrivateKey) {
+      console.error(
+        "[오류] Firebase 서비스 계정 JSON 파일이 없거나 환경변수(FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY)가 누락되었습니다 (.env 확인)."
+      );
+      process.exit(1);
+    }
+
+    credential = cert({
       projectId,
       clientEmail,
       privateKey: rawPrivateKey.replace(/\\n/g, "\n"),
-    }),
-  });
+    });
+  }
+
+  const app = initializeApp({ credential });
   const db = getFirestore(app);
 
   const dataJsPath = resolveSourceFile("js/data.js");

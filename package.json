@@ -7,6 +7,7 @@
   "scripts": {
     "build": "node scripts/build_public.mjs",
     "migrate:firestore": "node scripts/migrate_to_firestore.mjs",
+    "seed:firestore": "node scripts/migrate_to_firestore.mjs",
     "verify:security": "node scripts/verify_security.mjs",
     "dev": "npx netlify-cli dev"
   },
