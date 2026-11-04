@@ -29,7 +29,7 @@
   <meta name="twitter:image" content="https://duet-handover.netlify.app/assets/images/brand/duet_logo.jpg">
   <link rel="icon" type="image/jpeg" href="assets/images/brand/duet_logo.jpg">
   <link rel="apple-touch-icon" href="assets/images/brand/duet_logo.jpg">
-  <link rel="stylesheet" href="css/style.css?v=23">
+  <link rel="stylesheet" href="css/style.css?v=24">
   <style>
     body:not(.admin-mode) .admin-only { display: none !important; }
   </style>
@@ -106,6 +106,7 @@
         </div>
       </div>
     </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
 
     <!-- Right Content Area -->
     <div style="flex:1;display:flex;flex-direction:column;min-width:0;">
@@ -151,10 +152,10 @@
         <div class="modal-title">월별 캘린더에 새 행사 · 회의 · 공지글 추가</div>
         <button class="btn" data-close-modal="addEventModal">✕ 닫기</button>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+      <div class="form-grid-3">
         <div class="form-group">
           <label>해당 연월</label>
-          <select id="newEvMonth" style="width:100%;padding:9px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);">
+          <select id="newEvMonth" style="width:100%;padding:9px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);box-sizing:border-box;">
             <option value="2025-11">2025년 11월</option>
             <option value="2025-12">2025년 12월</option>
             <option value="2026-01">2026년 1월</option>
@@ -176,7 +177,7 @@
         </div>
         <div class="form-group">
           <label>담당 국서 / 분류</label>
-          <select id="newEvCat" style="width:100%;padding:9px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);">
+          <select id="newEvCat" style="width:100%;padding:9px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);box-sizing:border-box;">
             <option value="pres">학생회장단</option>
             <option value="gov">의결기구·선거</option>
             <option value="plan">기획국</option>
@@ -191,11 +192,11 @@
       </div>
       <div class="form-group">
         <label>당시 실제 공지글 전문</label>
-        <textarea id="newEvNotice" rows="5" style="width:100%;padding:10px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);font-family:inherit;" placeholder="카카오톡 공지방에 업로드한 공지글 전문을 붙여넣으세요."></textarea>
+        <textarea id="newEvNotice" rows="5" style="width:100%;padding:10px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);font-family:inherit;box-sizing:border-box;" placeholder="카카오톡 공지방에 업로드한 공지글 전문을 붙여넣으세요."></textarea>
       </div>
       <div class="form-group">
         <label>당시 내 생각 & 고려사항 (후대를 위한 코멘트)</label>
-        <textarea id="newEvThought" rows="4" style="width:100%;padding:10px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);font-family:inherit;" placeholder="이 행사를 준비하며 고민했던 점이나 차기 학생회에 전하고 싶은 팁을 적어주세요."></textarea>
+        <textarea id="newEvThought" rows="4" style="width:100%;padding:10px;border-radius:6px;border:1px solid var(--border-strong);background:var(--bg);color:var(--text);font-family:inherit;box-sizing:border-box;" placeholder="이 행사를 준비하며 고민했던 점이나 차기 학생회에 전하고 싶은 팁을 적어주세요."></textarea>
       </div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px;">
         <button class="btn" data-close-modal="addEventModal">취소</button>
@@ -219,7 +220,7 @@
   <!-- 4. Image Lightbox Modal -->
   <div class="modal-backdrop" id="lightboxModal" style="background:rgba(0,0,0,0.86);">
     <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;">
-      <div style="display:flex;align-items:center;gap:14px;color:#fff;font-weight:700;">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;justify-content:center;gap:14px;color:#fff;font-weight:700;padding:0 12px;">
         <button class="btn" id="lightboxPrevBtn">이전 장</button>
         <span id="lightboxCounter">1 / 1</span>
         <button class="btn" id="lightboxNextBtn">다음 장</button>

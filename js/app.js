@@ -533,6 +533,41 @@
     btn.innerHTML = isDark ? "라이트" : "다크";
   }
 
+  // Sidebar State & Mobile Drawer Helpers (Tablet & Mobile Breakpoint <= 1024px)
+  function updateSidebarAccessibility() {
+    const menuBtn = document.getElementById("mobileMenuBtn");
+    if (!menuBtn) return;
+    const isOpen =
+      window.innerWidth <= 1024
+        ? Boolean(document.getElementById("sidebar")?.classList.contains("open"))
+        : !document.body.classList.contains("sidebar-collapsed");
+    menuBtn.setAttribute("aria-expanded", String(isOpen));
+  }
+
+  function closeMobileSidebar() {
+    document.getElementById("sidebar")?.classList.remove("open");
+    document.getElementById("sidebarBackdrop")?.classList.remove("open");
+    updateSidebarAccessibility();
+  }
+
+  function toggleSidebar() {
+    if (window.innerWidth <= 1024) {
+      const sidebar = document.getElementById("sidebar");
+      const backdrop = document.getElementById("sidebarBackdrop");
+      const willOpen = !sidebar?.classList.contains("open");
+      if (willOpen) {
+        sidebar?.classList.add("open");
+        backdrop?.classList.add("open");
+      } else {
+        sidebar?.classList.remove("open");
+        backdrop?.classList.remove("open");
+      }
+    } else {
+      document.body.classList.toggle("sidebar-collapsed");
+    }
+    updateSidebarAccessibility();
+  }
+
   // Sidebar Navigation
   function renderSidebar() {
     const navContainer = document.getElementById("sidebarNav");
@@ -572,7 +607,7 @@
       el.addEventListener("click", () => {
         const tab = el.getAttribute("data-nav-tab");
         switchTab(tab);
-        document.getElementById("sidebar")?.classList.remove("open");
+        closeMobileSidebar();
       });
     });
 
@@ -590,7 +625,7 @@
           const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
           window.scrollTo({ top: y, behavior: "smooth" });
         }
-        document.getElementById("sidebar")?.classList.remove("open");
+        closeMobileSidebar();
       });
     });
 
@@ -607,7 +642,7 @@
           renderMainContent();
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
-        document.getElementById("sidebar")?.classList.remove("open");
+        closeMobileSidebar();
       });
     });
 
@@ -827,7 +862,7 @@
         </div>
 
         <!-- Integrated Unified TOC Toolbar -->
-        <div class="doc-toc-toolbar" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
+        <div class="doc-toc-toolbar" style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.16);">
           <div class="doc-toc-pills" style="display:flex;flex-wrap:wrap;gap:6px;flex:1;">
             <button class="month-tab" data-doc-jump="ov_drive_hub">구글폼 & 인수인계 자료실 드라이브</button>
             <button class="month-tab" data-doc-jump="ov_greeting">18대 학생회장의 말 & 국서별 안내</button>
@@ -1086,14 +1121,14 @@
     ` : "";
 
     return `
-      <div class="doc-section" style="padding:20px 24px;margin-bottom:18px;">
-        <div class="section-header" style="margin-bottom:0;padding-bottom:0;border-bottom:none;">
+      <div class="doc-section calendar-portal-hero" style="margin-bottom:18px;">
+        <div class="section-header" style="margin-bottom:0;padding-bottom:0;border-bottom:none;gap:12px;flex-wrap:wrap;">
           <div class="section-header-text">
             <span class="section-tag">${portalTag}</span>
             <h2 class="section-title">${portalTitle}</h2>
             <p class="section-subtitle">${portalSubtitle}</p>
           </div>
-          <div class="view-mode-tabs" style="margin:0;flex-shrink:0;">
+          <div class="view-mode-tabs" style="margin:0;">
             <button class="btn ${state.calSubView === "calendar" ? "btn-crimson" : ""}" data-subview="calendar">월별 캘린더 & 공지글</button>
             <button class="btn ${state.calSubView === "monthly" ? "btn-crimson" : ""}" data-subview="monthly">월간보고 슬라이드 (${appData.monthlyReports.length}호)</button>
             <button class="btn ${state.calSubView === "gallery" ? "btn-crimson" : ""}" data-subview="gallery">홍보물 갤러리 (전체)</button>
@@ -3119,34 +3154,26 @@ function initBackToTopBtn() {
       }
     });
 
-    // Sidebar collapse / reopen toggles (laptop & mobile)
-    function updateSidebarAccessibility() {
-      const menuBtn = document.getElementById("mobileMenuBtn");
-      if (!menuBtn) return;
-      const isOpen =
-        window.innerWidth <= 820
-          ? document.getElementById("sidebar")?.classList.contains("open")
-          : !document.body.classList.contains("sidebar-collapsed");
-      menuBtn.setAttribute("aria-expanded", String(Boolean(isOpen)));
-    }
-
-    function toggleSidebar() {
-      if (window.innerWidth <= 820) {
-        document.getElementById("sidebar")?.classList.toggle("open");
-      } else {
-        document.body.classList.toggle("sidebar-collapsed");
-      }
-      updateSidebarAccessibility();
-    }
+    // Sidebar collapse / reopen toggles (laptop, tablet & mobile)
     document.getElementById("mobileMenuBtn")?.addEventListener("click", toggleSidebar);
     document.getElementById("sidebarCollapseBtn")?.addEventListener("click", () => {
-      if (window.innerWidth <= 820) {
-        document.getElementById("sidebar")?.classList.remove("open");
+      if (window.innerWidth <= 1024) {
+        closeMobileSidebar();
       } else {
         document.body.classList.add("sidebar-collapsed");
+        updateSidebarAccessibility();
+      }
+    });
+    document.getElementById("sidebarBackdrop")?.addEventListener("click", closeMobileSidebar);
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 1024) {
+        document.getElementById("sidebar")?.classList.remove("open");
+        document.getElementById("sidebarBackdrop")?.classList.remove("open");
       }
       updateSidebarAccessibility();
     });
+    updateSidebarAccessibility();
 
     // Modal close buttons
     document.querySelectorAll("[data-close-modal]").forEach((btn) => {
@@ -3212,6 +3239,9 @@ function initBackToTopBtn() {
           if (m.id === "authGateModal" && m.dataset.allowClose !== "1") return;
           m.classList.remove("open");
         });
+        if (window.innerWidth <= 1024) {
+          closeMobileSidebar();
+        }
       } else if (document.getElementById("lightboxModal")?.classList.contains("open")) {
         if (e.key === "ArrowLeft") {
           state.lightboxIdx--;
